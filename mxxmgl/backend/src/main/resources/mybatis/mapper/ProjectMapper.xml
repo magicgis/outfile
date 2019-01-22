@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.backend.mapper.ProjectMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.naswork.backend.entity.Project">
+        <id column="id" property="id" />
+        <result column="project_name" property="projectName" />
+        <result column="project_desc" property="projectDesc" />
+        <result column="project_status" property="projectStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="plan_days" property="planDays" />
+        <result column="plan_finish_time" property="planFinishTime" />
+        <result column="real_finish_time" property="realFinishTime" />
+        <result column="create_user" property="createUser" />
+        <result column="project_progress" property="projectProgress"></result>
+    </resultMap>
+
+    <resultMap id="ProjectVoMap" type="com.naswork.backend.entity.Vo.ProjectVo">
+        <result column="id" property="projectId"></result>
+        <result column="project_name" property="projectName" />
+        <result column="project_desc" property="projectDesc" />
+        <result column="project_status" property="projectStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="plan_days" property="planDays" />
+        <result column="plan_finish_time" property="planFinishTime" />
+        <result column="real_finish_time" property="realFinishTime" />
+        <result column="create_user" property="createUser" />
+        <result column="nick_name" property="userNickName"></result>
+        <result column="project_progress" property="projectProgress"></result>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, project_name AS projectName, project_desc AS projectDesc, project_status AS projectStatus, create_time AS createTime, update_time AS updateTime, plan_days AS planDays, plan_finish_time AS planFinishTime, real_finish_time AS realFinishTime, create_user AS createUser
+    </sql>
+
+    <select id="getProjectListPage" resultMap="ProjectVoMap">
+        SELECT p.*,u.nick_name AS nick_name
+        FROM project p
+        LEFT JOIN user u ON u.id = p.create_user
+        WHERE 1 = 1
+        <if test="project.projectName != null and project.projectName != ''">
+           AND p.project_name LIKE '%${project.projectName}%'
+        </if>
+        <if test="project.projectCode != null and project.projectCode != ''">
+            AND  p. project_code Like '%${project.projectCode}%'
+        </if>
+        <if test="project.projectStatus != null and project.projectStatus != ''">
+            AND  p.project_status = #{project.projectStatus}
+        </if>
+        <if test="project.createUser != null and project.createUser != ''">
+            AND  p.create_user = #{project.createUser}
+        </if>
+    </select>
+
+    <delete id="deleteProjectById">
+        DELETE
+        FROM project
+        WHERE id = #{projectId}
+    </delete>
+
+    <!--服务器必须是全部group by-->
+    <select id="getUsers" resultMap="ProjectVoMap">
+        SELECT u.nick_name AS  nick_name,
+                p.create_user AS create_user
+        FROM project p
+        LEFT JOIN user u ON  u.id = p.create_user
+        where 1 = 1
+        GROUP BY u.nick_name,p.create_user
+    </select>
+</mapper>

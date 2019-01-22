@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.backend.mapper.FileMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.naswork.backend.entity.File">
+        <id column="id" property="id" />
+        <result column="file_name" property="fileName" />
+        <result column="file_size" property="fileSize" />
+        <result column="file_location" property="fileLocation" />
+        <result column="delete_status" property="deleteStatus" />
+        <result column="download_times" property="downloadTimes" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="project_id" property="projectId"></result>
+    </resultMap>
+
+    <resultMap id="FileVoMap" type="com.naswork.backend.entity.Vo.FileVo">
+        <result column="id" property="fileId" />
+        <result column="file_name" property="fileName" />
+        <result column="file_size" property="fileSize" />
+        <result column="file_location" property="fileLocation" />
+        <result column="delete_status" property="deleteStatus" />
+        <result column="download_times" property="downloadTimes" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="nick_name" property="userNickName"></result>
+        <result column="save_name" property="saveName"></result>
+        <result column="project_id" property="projectId"></result>
+        <result column="project_code" property="projectCode"></result>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, file_name AS fileName, file_size AS fileSize, file_location AS fileLocation, delete_status AS deleteStatus, download_times AS downloadTimes, create_user AS createUser, create_time AS createTime
+    </sql>
+
+    <select id="getFileListPage" resultMap="FileVoMap">
+        SELECT f.*,u.nick_name,p.project_code
+        FROM file f
+        LEFT JOIN user u ON u.id = f.create_user
+        LEFT JOIN project p ON p.id = f.project_id
+        WHERE 1 = 1
+        AND f.delete_status != 0
+        <if test="file.projectId != '' and file.projectId != null">
+            AND f.project_id = #{file.projectId}
+        </if>
+        <if test="file.fileName != '' and file.fileName != null">
+            AND f.file_name LIKE '%${file.fileName}%'
+        </if>
+        <if test="file.createUser != ''and file.createUser != null">
+            AND f.create_user = #{file.createUser}
+        </if>
+    </select>
+
+    <select id="getUsers" resultMap="FileVoMap">
+        SELECT f.create_user,
+        u.nick_name,
+        p.project_code
+        FROM file f
+        LEFT JOIN user u ON u.id = f.create_user
+        LEFT JOIN project p ON p.id = f.project_id
+        GROUP BY  f.create_user,u.nick_name,p.project_code
+    </select>
+
+    <update id="updateTimes">
+        UPDATE file
+        SET download_times = download_times+1
+        WHERE
+        id in (
+        <foreach collection="ids" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </update>
+
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.backend.mapper.ProjectTaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.naswork.backend.entity.ProjectTask">
+        <id column="id" property="id" />
+        <result column="finish_time" property="finishTime" />
+        <result column="plan_id" property="planId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="task_outcome" property="taskOutcome" />
+        <result column="create_user" property="createUser" />
+        <result column="task_code" property="taskCode" />
+        <result column="finish_user" property="finishUser" />
+        <result column="finish_days" property="finishDays" />
+    </resultMap>
+
+    <resultMap id="projectTaskVoMap" type="com.naswork.backend.entity.Vo.ProjectTaskVo">
+        <result column="id" property="TaskId"></result>
+        <result column="finish_time" property="finishTime" />
+        <result column="plan_id" property="planId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="task_outcome" property="taskOutcome" />
+        <result column="create_user" property="createUser" />
+        <result column="task_code" property="taskCode" />
+        <result column="finish_user" property="finishUser" />
+        <result column="finish_days" property="finishDays" />
+        <result column="create_user_nick_name" property="createUserNickName"></result>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, finish_time AS finishTime, plan_id AS planId, create_time AS createTime, update_time AS updateTime, task_outcome AS taskOutcome, create_user AS createUser, task_code AS taskCode, finish_user AS finishUser, finish_days AS finishDays
+    </sql>
+
+    <select id="getTaskListPage" resultMap="projectTaskVoMap">
+        SELECT
+        pt.*,
+        pl.plan_code AS plan_code,
+        u.nick_name AS create_user_nick_name
+        FROM project_task pt
+        LEFT JOIN project_plan pl ON pt.plan_id = pl.id
+        LEFT JOIN user u ON u.id = pt.create_user
+        WHERE 1=1
+        <if test="projectTask.taskCode != null and projectTask.taskCode != ''">
+            AND pt.task_code LIKE '%${projectTask.planCode}%'
+        </if>
+        <if test="projectTask.taskOutcome != null and projectTask.taskOutcome != ''">
+            AND  pt.taskOutcome Like '%${projectTask.taskOutcome}%'
+        </if>
+        <if test="projectTask.finishDays != null and projectTask.finishDays != ''">
+            AND  pt.finish_days = #{projectTask.finishDays}
+        </if>
+        <if test="projectTask.finishUser != null and projectTask.finishUser != ''">
+            AND  pt.finish_user = #{projectTask.finishUser}
+        </if>
+    </select>
+
+
+
+</mapper>

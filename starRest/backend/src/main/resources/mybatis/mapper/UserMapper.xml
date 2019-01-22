@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.backend.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.naswork.backend.entity.User">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="password" property="password" />
+        <result column="email" property="email" />
+        <result column="sex" property="sex" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime"></result>
+        <result column="nick_name" property="nickName"></result>
+        <result column="delete_status" property="deleteStatus"></result>
+    </resultMap>
+
+    <resultMap id="ResultMapVo" type="com.naswork.backend.entity.Vo.UserPermission">
+        <result column="user_name" property="userName"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="role_id" property="roleId"></result>
+        <result column="role_name" property="roleName"></result>
+    </resultMap>
+
+    <resultMap id="UserVo" type="com.naswork.backend.entity.Vo.UserVo">
+        <result column="user_name" property="userName"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="role_id" property="roleId"></result>
+        <result column="role_name" property="roleName"></result>
+        <result column="password" property="password" />
+        <result column="email" property="email" />
+        <result column="sex" property="sex" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime"></result>
+        <result column="nick_name" property="nickName"></result>
+        <result column="delete_status" property="deleteStatus"></result>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_name AS userName, password, email, sex, create_time AS createTime
+    </sql>
+
+    <select id="getUserRoleByUsername" resultMap="ResultMapVo">
+         SELECT u.id AS user_id,
+        u.user_name AS user_name,
+        r.id AS role_id,
+        r.role_name AS role_name
+        FROM `user` u
+        LEFT JOIN role_user ru ON ru.user_id = u.id
+        LEFT JOIN role r ON r.id = ru.role_id
+        WHERE u.user_name = #{username};
+    </select>
+
+    <select id="getUserListPage" resultType="com.naswork.backend.entity.Vo.UserVo">
+        SELECT
+        u.id AS user_id,
+        u.user_name AS user_name,
+        u.`password` AS `password`,
+        u.sex AS sex,
+        u.email AS email,
+        u.create_time AS create_time,
+        u.nick_name AS nick_name,
+        u.update_time AS update_time,
+        r.id AS role_id,
+        r.role_name AS role_name
+        FROM `user` u
+        LEFT JOIN role_user ru ON ru.user_id = u.id
+        LEFT JOIN role r ON r.id = ru.role_id
+        WHERE 1 = 1
+        AND  u.delete_status = "1"
+    </select>
+
+    <select id="getUserListByRoleId" resultMap="BaseResultMap">
+        SELECT u.*
+        FROM `user` u
+        LEFT JOIN role_user ru ON ru.user_id = u.id
+        LEFT JOIN role r ON r.id = ru.role_id
+        WHERE r.id = #{roleId};
+    </select>
+
+</mapper>

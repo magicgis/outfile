@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.backend.mapper.ProjectPlanMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.naswork.backend.entity.ProjectPlan">
+        <id column="id" property="id" />
+        <result column="project_id" property="projectId" />
+        <result column="create_time" property="createTime" />
+        <result column="plan_desc" property="planDesc" />
+        <result column="plan_type" property="planType" />
+        <result column="plan_days" property="planDays" />
+        <result column="plan_code" property="planCode" />
+        <result column="create_user" property="createUser" />
+        <result column="plan_status" property="planStatus" />
+    </resultMap>
+
+    <resultMap id="ProjectPlanVoMap" type="com.naswork.backend.entity.Vo.ProjectPlanVo">
+        <result column="id" property="planId"></result>
+        <result column="project_id" property="projectId" />
+        <result column="create_time" property="createTime" />
+        <result column="plan_desc" property="planDesc" />
+        <result column="plan_type" property="planType" />
+        <result column="plan_days" property="planDays" />
+        <result column="plan_code" property="planCode" />
+        <result column="project_code" property="projectCode" />
+        <result column="create_user" property="createUser" />
+        <result column="plan_status" property="planStatus" />
+        <result column="create_user_nick_name" property="createUserNickName"></result>
+        <result column="task_members" property="taskMembers"></result>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, project_id AS projectId, create_time AS createTime, plan_desc AS planDesc, plan_type AS planType, plan_days AS planDays, plan_code AS planCode, create_user AS createUser, plan_status AS planStatus
+    </sql>
+
+    <select id="getPlanListPage" resultMap="ProjectPlanVoMap">
+        SELECT
+        pl.*,
+        u.nick_name AS create_user_nick_name,
+        p.project_code AS project_code
+        FROM project_plan pl
+        LEFT JOIN `user` u ON u.id = pl.create_user
+        LEFT JOIN project p ON p.id = pl.project_id
+        WHERE 1 = 1
+        <if test="projectPlan.planCode != null and projectPlan.planCode != ''">
+            AND pl.plan_code LIKE '%${projectPlan.planCode}%'
+        </if>
+        <if test="projectPlan.planDesc != null and projectPlan.planDesc != ''">
+            AND  pl. plan_desc Like '%${projectPlan.planDesc}%'
+        </if>
+        <if test="projectPlan.planStatus != null and projectPlan.planStatus != ''">
+            AND  pl.plan_status = #{projectPlan.planStatus}
+        </if>
+        <if test="projectPlan.taskMembers != null and projectPlan.taskMembers != ''">
+            AND  pl.task_members = #{projectPlan.taskMembers}
+        </if>
+    </select>
+
+</mapper>
+
+
