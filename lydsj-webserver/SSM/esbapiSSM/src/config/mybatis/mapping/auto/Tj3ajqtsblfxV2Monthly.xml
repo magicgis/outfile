@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.Tj3ajqtsblfxV2MonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.Tj3ajqtsblfxV2Monthly" >
+   <result column="statsDate" property="statsdate" jdbcType="DATE" />
+    <result column="gtbl" property="gtbl" jdbcType="INTEGER" />
+    <result column="skbl" property="skbl" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap type="com.naswork.model.Tj3ajqtsblfxV2Monthly" id="tsbli">
+  <result column="statsDate" property="statsdate" />
+   <result column="gtbl" property="gtbl" />
+   <result column="skbl" property="skbl" />
+  </resultMap>
+  <!--获取团散比例 v2 -->	
+  <select id="getJqtsblfx3a" resultMap="tsbli">	
+	SELECT statsDate,ROUND(ROUND(SUM(gtrs)/SUM(jdsr),2)*100,0) as gtbl,ROUND(ROUND(SUM(skrs)/SUM(jdsr),2)*100,0) as skbl
+	FROM`jq_jdrs_monthly` 
+	WHERE
+	date_format(statsDate,'%Y')=#{year} 
+	GROUP BY statsDate
+  </select>	
+
+</mapper>

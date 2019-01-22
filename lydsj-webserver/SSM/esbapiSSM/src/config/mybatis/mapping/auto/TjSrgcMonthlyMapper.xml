@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.TjSrgcMonthlyMapper">
+	<resultMap id="BaseResultMap"
+		type="com.naswork.model.TjSrgcMonthly">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="recordYear" jdbcType="INTEGER"
+			property="recordYear" />
+		<result column="recordMonth" jdbcType="INTEGER"
+			property="recordMonth" />
+		<result column="income" jdbcType="REAL" property="income" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="level" jdbcType="INTEGER" property="level" />
+		<result column="insertTime" jdbcType="TIMESTAMP"
+			property="insertTime" />
+	</resultMap>
+	<select id="getOneCNYmlnYearly" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT t.id,t.recordYear,sum(t.income)
+		income,t.name,t.level,t.insertTime FROM tj_srgc_monthly t
+		<where>
+			<if test="year != null">
+				and recordYear=#{year}
+			</if>
+			<if test="level != null">
+				and level=#{level}
+			</if>
+		</where>
+		GROUP by name
+	</select>
+</mapper>

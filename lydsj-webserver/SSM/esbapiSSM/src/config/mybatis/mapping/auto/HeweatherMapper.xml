@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.HeweatherDao" >
+	
+	<insert id="insertWea" parameterType="com.naswork.model.HeweatherWea">
+		INSERT INTO heweather_wea (area_id,fl,tmp,cond_code,cond_txt,wind_deg,wind_dir,wind_sc,wind_spd,hum,pcpn,pres,vis,cloud,create_time) 
+		VALUES(#{area_id},#{fl},#{tmp},#{cond_code},#{cond_txt},#{wind_deg},#{wind_dir},#{wind_sc},#{wind_spd},#{hum},#{pcpn},#{pres},#{vis},#{cloud},NOW())
+	</insert>
+	
+	<insert id="insertAir" parameterType="com.naswork.model.HeweatherAir">
+		INSERT INTO heweather_air (area_id,aqi,main,qlty,pm10,pm25,no2,so2,co,o3,create_time) 
+		VALUES(#{area_id},#{aqi},#{main},#{qlty},#{pm10},#{pm25},#{no2},#{so2},#{co},#{o3},NOW())
+	</insert>
+	
+</mapper>

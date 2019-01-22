@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>form</short-name>
+	<uri>/form</uri>
+	<!-- 行标签 -->
+	<tag>
+		<name>row</name>
+		<tag-class>com.naswork.common.tag.RowTag</tag-class>
+		<body-content>scriptless</body-content>  
+		<attribute>
+			<name>sameWidth</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>columnNum</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cssName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<!-- 列标签 -->
+	<tag>
+		<name>column</name>
+		<tag-class>com.naswork.common.tag.ColumnTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>frozenLeft</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cssName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<!-- 列左边内容标签 -->
+	<tag>
+		<name>left</name>
+		<tag-class>com.naswork.common.tag.ColumnLeft</tag-class>
+		<body-content>scriptless</body-content>
+	</tag>
+	<!-- 列右边内容标签 -->
+	<tag>
+		<name>right</name>
+		<tag-class>com.naswork.common.tag.ColumnRight</tag-class>
+		<body-content>scriptless</body-content>
+	</tag>
+	
+</taglib>

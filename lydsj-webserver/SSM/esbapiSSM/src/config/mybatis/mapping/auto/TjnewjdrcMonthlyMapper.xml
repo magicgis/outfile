@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewjdrcMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewjdrcMonthly" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordYear" property="recordyear" jdbcType="INTEGER" />
+    <id column="recordMonth" property="recordmonth" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="districtName" property="districtName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!--根据year参数查询某年所有月接待人次-全市/本县区每月接待人次  -->
+  <select id="getTjnewjdrcMonthly" resultType="com.naswork.model.TjnewjdrcMonthly">
+   SELECT recordYear,recordMonth,subscriberCount as value 
+  from tj_new_jdrc_monthly 
+  WHERE recordYear=#{year} 
+  and recordMonth !=date_format(DATE_SUB(curdate(), INTERVAL 0 MONTH), '%m')
+  and id=#{id}  
+  </select>
+  <!--根据year参数和id参数查询本县区和景区某年所有月接待人次-本县区和景区每月接待人次 -->
+  <select id="getBxqjdrcMonthly"  resultType="com.naswork.model.TjnewjdrcMonthly">
+   SELECT recordYear,recordMonth,subscriberCount as value 
+   from tj_new_jdrc_monthly 
+   WHERE recordYear=#{year}
+   and recordMonth !=date_format(DATE_SUB(curdate(), INTERVAL 0 MONTH), '%m')
+   and id=#{id} 
+  </select>
+  
+  
+    <!--根据year参数和level参数查询所有3A景区某年所有月接待人次-全市3A景区每月接待人次 -->
+  <select id="getQs3ajdrcMonthly"  resultType="com.naswork.model.TjnewjdrcMonthly">
+   SELECT recordYear, recordMonth, SUM(subscriberCount) as value 
+   from tj_new_jdrc_monthly 
+   WHERE  recordYear=#{year} 
+   and recordMonth !=date_format(DATE_SUB(curdate(), INTERVAL 0 MONTH), '%m')
+   and level=#{level}
+	 GROUP BY recordMonth
+  </select>
+  
+      <!--根据year参数和month参数查询各县区月接待人次-各县区每月接待人次-->
+  <select id="getGxqjdrcMonthly"  resultType="com.naswork.model.TjnewjdrcMonthly">
+	SELECT j.districtName as name,t.subscriberCount as value
+	from tj_new_jdrc_monthly t,jqqd j
+	where 
+	t.id=j.districtId
+	and t.recordYear=#{year}
+	and t.recordMonth=#{month}
+	and t.recordMonth !=date_format(DATE_SUB(curdate(), INTERVAL 0 MONTH), '%m')
+	GROUP BY j.districtName,t.subscriberCount
+  </select>
+  <!-- 根据year和id参数查询县区景区接待人次年度排名 -->
+  <select id="getJqjdrcndpm" resultType="com.naswork.model.TjnewjdrcMonthly">
+	SELECT spotName as name, SUM(subscriberCount) value
+	from tj_new_jdrc_monthly t,jqqd j
+	where t.id=j.id
+	and recordYear=#{year}
+	and j.districtId=#{id}
+	GROUP BY spotName 
+	order by value  desc
+  </select>
+  <!-- 查询某县区所有3A景区接待人数之和，展示某年所有月 -->
+  	<select id="getMx3ajqjdrs" resultType="com.naswork.model.TjnewjdrcMonthly">
+  	select recordYear,recordMonth,SUM(subscriberCount) as value 
+	from tj_new_jdrc_monthly t,jqqd j
+	where t.id=j.id
+	and recordYear=#{year}
+	and j.districtId=#{id}
+	GROUP BY recordMonth,recordYear
+	ORDER BY recordMonth 
+  	</select>
+  
+    <!-- 根据year参数查询3a景区接待人次年度排名 -->
+  <select id="getJq3ajdrcndpm" resultType="com.naswork.model.TjnewjdrcMonthly">
+	SELECT spotName as name, districtName as districtName,SUM(subscriberCount) value
+	from tj_new_jdrc_monthly t,jqqd j
+	where t.id=j.id
+	and recordYear=#{year}
+	GROUP BY spotName,districtName
+	order by value  desc
+  </select>
+    <!-- 根据year、month、id参数查询本县某年某月景区接待人次年度排名 -->
+  <select id="getBxjdrcndpm" resultType="com.naswork.model.TjnewjdrcMonthly">
+	SELECT spotName as name,subscriberCount value
+	from tj_new_jdrc_monthly t,jqqd j
+	where t.id=j.id
+	and recordYear=#{year}
+	and recordMonth=#{month}
+	and j.districtId=#{id}
+	order by value  desc
+  </select>
+  <!-- 根据year、month、id参数查询3a景区接待人次月排名 -->
+  <select id="getJq3ajdrcypm" resultType="com.naswork.model.TjnewjdrcMonthly">
+	SELECT spotName as name,districtName, subscriberCount value
+	from tj_new_jdrc_monthly t,jqqd j
+	where t.id=j.id
+	and recordYear=#{year}
+	and recordMonth=#{month}
+	and t.`level`=#{level}
+	order by value  desc
+  </select>
+  
+</mapper>

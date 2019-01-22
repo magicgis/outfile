@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjKyddbfxMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjKyddbfxMonthly" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordYear" property="recordyear" jdbcType="INTEGER" />
+    <id column="recordMonth" property="recordmonth" jdbcType="INTEGER" />
+    <id column="sourceScope" property="sourcescope" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, recordYear, recordMonth, sourceScope, subscriberCount, level, recordIdentifier, 
+    insertTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjKyddbfxMonthlyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_kyddbfx_monthly
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjKyddbfxMonthlyKey" >
+    delete from tj_kyddbfx_monthly
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjKyddbfxMonthly" >
+    insert into tj_kyddbfx_monthly (id, recordYear, recordMonth, 
+      sourceScope, subscriberCount, level, 
+      recordIdentifier, insertTime)
+    values (#{id,jdbcType=INTEGER}, #{recordyear,jdbcType=INTEGER}, #{recordmonth,jdbcType=INTEGER}, 
+      #{sourcescope,jdbcType=INTEGER}, #{subscribercount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{recordidentifier,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjKyddbfxMonthly" >
+    insert into tj_kyddbfx_monthly
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recordyear != null" >
+        recordYear,
+      </if>
+      <if test="recordmonth != null" >
+        recordMonth,
+      </if>
+      <if test="sourcescope != null" >
+        sourceScope,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recordyear != null" >
+        #{recordyear,jdbcType=INTEGER},
+      </if>
+      <if test="recordmonth != null" >
+        #{recordmonth,jdbcType=INTEGER},
+      </if>
+      <if test="sourcescope != null" >
+        #{sourcescope,jdbcType=INTEGER},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjKyddbfxMonthly" >
+    update tj_kyddbfx_monthly
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjKyddbfxMonthly" >
+    update tj_kyddbfx_monthly
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getList4FromMonth" resultMap="BaseResultMap" >
+   select * from tj_kyddbfx_monthly 
+	where recordIdentifier = #{idStr} and sourceScope = 4 and id = #{id}
+  </select>
+  
+  <select id="getList3FromMonth" resultMap="BaseResultMap" >
+   select * from tj_kyddbfx_monthly 
+	where recordIdentifier = #{idStr} and sourceScope = 3 and id = #{id}
+  </select>
+  
+  <select id="getList2FromMonth" resultMap="BaseResultMap" >
+   select * from tj_kyddbfx_monthly 
+	where recordIdentifier = #{idStr} and sourceScope = 2 and id = #{id}
+  </select>
+  
+  <!--查询所有某年所有数据的月  -->
+  <select id="getMonths"  resultType="Integer">
+  SELECT recordMonth FROM tj_kyddbfx_monthly   where recordYear=#{year}
+  GROUP BY recordMonth
+  </select>
+  <!--获取某年 某月国际游客所占比  -->
+  <select id="getGuojiPercent" resultType="Double">
+	 SELECT ROUND((SUM(subscriberCount)/(SELECT SUM(subscriberCount) from tj_kyddbfx_monthly  where recordYear=#{year} and sourceScope IN(2,3,4)) )*100,1) as percent
+	FROM tj_kyddbfx_monthly
+	where recordYear=#{year} and sourceScope =4 
+  </select>
+    <!--获取某年某月国内游客所占比  -->
+  <select id="getGuogneiPercent" resultType="Double">
+	 SELECT ROUND((SUM(subscriberCount)/(SELECT SUM(subscriberCount) from tj_kyddbfx_monthly  where recordYear=#{year} and sourceScope IN(2,3,4)) )*100,1) as percent
+	FROM tj_kyddbfx_monthly
+	where recordYear=#{year} and sourceScope =3 
+  </select>
+      <!--获取某年某月省内游客所占比  -->
+  <select id="getShengneiPercent" resultType="Double">
+	 SELECT ROUND((SUM(subscriberCount)/(SELECT SUM(subscriberCount) from tj_kyddbfx_monthly  where recordYear=#{year}  and sourceScope IN(2,3,4)) )*100,1) as percent
+	FROM tj_kyddbfx_monthly
+	where recordYear=#{year} and sourceScope =2 
+  </select>
+  
+  
+</mapper>

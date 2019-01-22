@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewhslvMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewhslvMonthly" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordYear" property="recordyear" jdbcType="INTEGER" />
+    <id column="recordMonth" property="recordmonth" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+    <result column="sumofmonth" property="sumofmonth" jdbcType="INTEGER"></result>
+    <result column="sumofyear" property="sumofyear" jdbcType="INTEGER"></result>
+    <result column="sumofcountymonth" property="sumofcountymonth" jdbcType="INTEGER"></result>
+    <result column="spotName" property="spotName" jdbcType="VARCHAR"></result>
+    <result column="rankNum" property="rankNum" jdbcType="INTEGER"></result>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, recordYear, recordMonth, subscriberCount, level, insertTime, trend
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjnewhslvMonthlyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_new_hslv_monthly
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjnewhslvMonthlyKey" >
+    delete from tj_new_hslv_monthly
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjnewhslvMonthly" >
+    insert into tj_new_hslv_monthly (id, recordYear, recordMonth, 
+      subscriberCount, level, insertTime, 
+      trend)
+    values (#{id,jdbcType=INTEGER}, #{recordyear,jdbcType=INTEGER}, #{recordmonth,jdbcType=INTEGER}, 
+      #{subscribercount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{inserttime,jdbcType=TIMESTAMP}, 
+      #{trend,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjnewhslvMonthly" >
+    insert into tj_new_hslv_monthly
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recordyear != null" >
+        recordYear,
+      </if>
+      <if test="recordmonth != null" >
+        recordMonth,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+      <if test="trend != null" >
+        trend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recordyear != null" >
+        #{recordyear,jdbcType=INTEGER},
+      </if>
+      <if test="recordmonth != null" >
+        #{recordmonth,jdbcType=INTEGER},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trend != null" >
+        #{trend,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjnewhslvMonthly" >
+    update tj_new_hslv_monthly
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trend != null" >
+        trend = #{trend,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjnewhslvMonthly" >
+    update tj_new_hslv_monthly
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      trend = #{trend,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+  </update>
+
+  <!--景区每月接待人次-->
+  <select id="getSubscriberCountOfMonths" resultType="com.naswork.model.TjnewhslvMonthly">
+    SELECT recordMonth,subscriberCount AS sumofmonth
+    FROM tj_new_hslv_monthly
+	where recordYear=#{yearId}
+	and id = #{Id}
+	and level = #{typeId}
+  </select>
+
+  <!--景区每年接待人次-->
+  <select id="gethsjqmnjdrc" resultType="com.naswork.model.TjnewhslvMonthly">
+    SELECT recordYear,SUM(subscriberCount) as sumofyear
+    FROM tj_new_hslv_monthly
+    WHERE
+    LEVEL = #{typeId}
+    AND id=#{id}
+    group by recordYear
+  </select>
+
+  <!--各县区景区月接待人次-->
+  <select id="gethsgxqjqyjdrc" resultType="com.naswork.model.TjnewhslvMonthly">
+    SELECT id,subscriberCount AS sumofcountymonth
+    FROM tj_new_hslv_monthly
+    WHERE recordYear = #{yearId}
+    AND recordMonth = #{monthId}
+    AND id<![CDATA[>=]]> 1001
+    AND id<![CDATA[<=]]> 1008
+  </select>
+
+  <!--全市景区接待人次月排名-->
+  <select id="gethsjqjdrcypm" resultType="com.naswork.model.TjnewhslvMonthly">
+    SELECT (@i:=@i+1) as rankNum,t.subscriberCount,r.spotName as spotName
+    FROM tj_new_hslv_monthly as t,redtour as r,(Select @i:=0) B
+    WHERE t.recordYear = #{yearId}
+    and t.recordMonth= #{monthId}
+    and t.id = r.id
+    and t.id <![CDATA[>=]]> 201
+    and t.id <![CDATA[<=]]> 299
+    <if test="typeId == 2">
+      and t.id in (select id from redtour b where b.districtId = #{Id})
+    </if>
+    ORDER BY t.subscriberCount DESC
+  </select>
+
+  <!--全市景区接待人次年度排名-->
+  <select id="gethsjqjdrcndpm" resultType="com.naswork.model.TjnewhslvMonthly">
+    SELECT t.id,sum(t.subscriberCount) as sumofmonth,r.spotName
+    FROM tj_new_hslv_monthly as t,redtour as r
+    where t.recordYear = #{yearId}
+    and t.id <![CDATA[>=]]> 201
+    and t.id <![CDATA[<=]]> 299
+    and t.id = r.id
+    <if test="typeId == 2">
+      and t.id in (select id from redtour where districtId = #{id})
+    </if>
+    GROUP BY t.id
+    ORDER BY sumofmonth DESC
+  </select>
+
+  <!--景区月接待人次同比分析-->
+  <select id="gethsjqyjdrctbfx" resultType="com.naswork.model.TjnewhslvMonthly">
+    SELECT recordMonth,tb_trend AS trend
+    FROM tj_new_hslv_monthly
+    where recordYear = #{yearId}
+    and id = #{id}
+    and `level` = #{typeId}
+  </select>
+
+</mapper>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjJdrsRealtimeCurDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjJdrsRealtimeCur" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDateTime" property="recorddatetime" jdbcType="TIMESTAMP" />
+    <id column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, recordDateTime, recordIdentifier, subscriberCount, level, insertTime, trend
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjJdrsRealtimeCurKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_jdrs_realtime_cur
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjJdrsRealtimeCurKey" >
+    delete from tj_jdrs_realtime_cur
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjJdrsRealtimeCur" >
+    insert into tj_jdrs_realtime_cur (id, recordDateTime, recordIdentifier, 
+      subscriberCount, level, insertTime, 
+      trend)
+    values (#{id,jdbcType=INTEGER}, #{recorddatetime,jdbcType=TIMESTAMP}, #{recordidentifier,jdbcType=VARCHAR}, 
+      #{subscribercount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{inserttime,jdbcType=TIMESTAMP}, 
+      #{trend,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjJdrsRealtimeCur" >
+    insert into tj_jdrs_realtime_cur
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recorddatetime != null" >
+        recordDateTime,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+      <if test="trend != null" >
+        trend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recorddatetime != null" >
+        #{recorddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trend != null" >
+        #{trend,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjJdrsRealtimeCur" >
+    update tj_jdrs_realtime_cur
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trend != null" >
+        trend = #{trend,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjJdrsRealtimeCur" >
+    update tj_jdrs_realtime_cur
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      trend = #{trend,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectCur" resultMap="BaseResultMap">
+	select * from tj_jdrs_realtime_cur t
+	where t.id = #{id}
+</select>
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjKydfxDailyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjKydfxDaily" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDate" property="recorddate" jdbcType="DATE" />
+    <id column="sourceName" property="sourcename" jdbcType="VARCHAR" />
+    <id column="sourceScope" property="sourcescope" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="Map1" type="com.naswork.model.MyModel" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="totalNum" property="totalNum" jdbcType="INTEGER" />
+    <result column="spotName" property="spotName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+
+   <resultMap id="KydfxTop5Data" type="com.naswork.model.KydfxTop5Data" >
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+     </resultMap>
+
+  <resultMap id="Map2" type="map" >
+    <result column="province" property="province" />
+    <result column="city" property="city"/>
+    <result column="totalNum" property="totalNum" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, recordDate, sourceName, sourceScope, subscriberCount, level, recordIdentifier, 
+    insertTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjKydfxDailyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_kydfx_daily
+    where id = #{id,jdbcType=INTEGER}
+      and recordDate = #{recorddate,jdbcType=DATE}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjKydfxDailyKey" >
+    delete from tj_kydfx_daily
+    where id = #{id,jdbcType=INTEGER}
+      and recordDate = #{recorddate,jdbcType=DATE}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjKydfxDaily" >
+    insert into tj_kydfx_daily (id, recordDate, sourceName, 
+      sourceScope, subscriberCount, level, 
+      recordIdentifier, insertTime)
+    values (#{id,jdbcType=INTEGER}, #{recorddate,jdbcType=DATE}, #{sourcename,jdbcType=VARCHAR}, 
+      #{sourcescope,jdbcType=INTEGER}, #{subscribercount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{recordidentifier,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjKydfxDaily" >
+    insert into tj_kydfx_daily
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recorddate != null" >
+        recordDate,
+      </if>
+      <if test="sourcename != null" >
+        sourceName,
+      </if>
+      <if test="sourcescope != null" >
+        sourceScope,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recorddate != null" >
+        #{recorddate,jdbcType=DATE},
+      </if>
+      <if test="sourcename != null" >
+        #{sourcename,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcescope != null" >
+        #{sourcescope,jdbcType=INTEGER},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjKydfxDaily" >
+    update tj_kydfx_daily
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and recordDate = #{recorddate,jdbcType=DATE}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjKydfxDaily" >
+    update tj_kydfx_daily
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+      and recordDate = #{recorddate,jdbcType=DATE}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getMaxDate" resultType="java.sql.Date">
+  	select max(recordDate) 
+    from tj_kydfx_daily
+  </select>
+  
+  <select id="selectTop5ById1" resultMap="Map1">
+	select sum(t1.subscriberCount) as totalNum, t2.spotName 
+	from tj_kydfx_daily t1
+	join jqqd t2 on (t1.id = t2.id)
+	where t1.recordDate = #{maxDate} and t1.level = 3 and t1.sourceScope = #{areaRange}
+	group by t1.id
+	order by totalNum desc
+	
+  </select>
+  
+  <select id="selectTop5ById2" resultMap="Map1">
+	select sum(t1.subscriberCount) as totalNum, t2.spotName 
+	from tj_kydfx_daily t1
+	join jqqd t2 on (t1.id = t2.id)
+	where t1.recordDate = #{maxDate} and t1.level = 3 and t1.sourceScope = #{areaRange} and t2.districtId = #{id}
+	group by t1.id
+	order by totalNum desc
+	
+  </select>
+
+
+	<select id="selectByScope" resultMap="BaseResultMap">
+		select * from tj_kydfx_daily t
+		where t.sourceScope=#{scope} and t.recordIdentifier = #{idStr} and t.id = #{id}
+	</select>
+	<!--根据参数查询对应的客源地来梅人数，并进行排序 取前五名 ,sourceScope为null就查询所有-->
+	<select id="selectTop5" resultMap="KydfxTop5Data">
+	select t.sourceName as name,
+	sum(t.subscriberCount) as value from tj_kydfx_daily t
+	where 1=1
+		  <if test="scope != null">
+    	 and sourceScope = #{scope} 
+   		 </if>
+	  and t.recordIdentifier = #{idStr} and t.id = #{id}
+	group by t.sourceName
+	order by value desc
+	
+</select>
+
+  
+  <select id="selectZjykydDaily" resultType="int">
+  	SELECT IFNULL(t.totalNum,0) nums FROM 
+	(
+		SELECT record_time,count(t.plate) as totalNum FROM plate_analytic t
+		WHERE t.sourcescope = #{sourcescope} AND t.record_time &gt;= #{startTime} AND t.record_time &lt;= #{endTime}
+		AND area IN 
+		<foreach collection="areaIds" index="index" item="item" open="(" separator="," close=")">  
+        	#{item}  
+    	</foreach>
+		GROUP BY t.record_time
+	) t
+	RIGHT JOIN 
+	(
+		SELECT date_add(#{startTime},interval @i:=@i+1 day) as date 
+		FROM ( SELECT 1 FROM area limit 7) as tmp,(select @i:= -1) t
+	) d 
+	ON t.record_time = d.date
+	ORDER BY d.date
+  </select>
+  
+
+  <select id="getJqqdAreaIds" resultType="int">
+  	SELECT areaId FROM jqqd
+  </select>
+  
+  <select id="getJqqdAreaIdsById" resultType="int">
+  	SELECT areaId FROM jqqd WHERE id = #{id}
+  </select>
+  
+  <select id="getJqqdAreaIdsByDistrictId" resultType="int">
+  	SELECT areaId FROM jqqd WHERE districtId = #{districtId}
+  </select>
+  
+  <select id="selectZjykydTop5" resultMap="Map2">
+  	SELECT t.province,t.city, COUNT(t.plate) AS totalNum 
+	FROM plate_analytic t 
+	WHERE t.sourcescope = #{sourcescope}  AND t.record_time = #{date}
+	AND area IN 
+	<foreach collection="areaIds" index="index" item="item" open="(" separator="," close=")">  
+       	#{item}  
+   	</foreach>
+	GROUP BY t.province<if test="sourcescope == 2">,t.city</if>
+	ORDER BY totalNum DESC
+	
+  </select>
+  
+  
+
+</mapper>

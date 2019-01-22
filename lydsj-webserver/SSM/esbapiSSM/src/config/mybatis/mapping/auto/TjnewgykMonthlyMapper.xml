@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewgykMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewgykMonthly" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordYear" property="recordyear" jdbcType="INTEGER" />
+    <id column="recordMonth" property="recordmonth" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+  </resultMap>
+   <!--根据year参数某年所有月全市过夜游接待人数  -->
+  	<select id="getQsgyyjdrs" resultType="com.naswork.model.TjnewgykMonthly">
+  	SELECT recordMonth,subscriberCount 
+  	from tj_new_gyk_monthly 
+  	where recordYear=#{year} 
+  	and recordMonth !=date_format(DATE_SUB(curdate(), INTERVAL 0 MONTH), '%m')
+  	and id=1000
+  	</select>
+ 
+</mapper>

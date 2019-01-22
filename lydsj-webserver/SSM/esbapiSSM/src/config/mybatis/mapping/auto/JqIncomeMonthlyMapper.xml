@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.JqIncomeMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.JqIncomeMonthly" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="statsDate" property="statsdate" jdbcType="DATE" />
+    <result column="income" property="income" jdbcType="FLOAT" />
+    <result column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.naswork.model.JqIncomeMonthly" >
+    insert into jq_income_monthly (id, statsDate, income, 
+      recordIdentifier, insertTime)
+    values (#{id,jdbcType=INTEGER}, #{statsdate,jdbcType=DATE}, #{income,jdbcType=REAL}, 
+      #{recordidentifier,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.JqIncomeMonthly" >
+    insert into jq_income_monthly
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="statsdate != null" >
+        statsDate,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="statsdate != null" >
+        #{statsdate,jdbcType=DATE},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=REAL},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <!--根据景区id获取18年所有月份的收入  -->
+  <select id="getJqIncomeMonthly" resultType="com.naswork.model.JqIncomeMonthly">
+	  SELECT statsDate,income FROM`jq_income_monthly` 
+	WHERE statsDate>'2017-12-01' AND id=#{id}
+  </select>
+    <!--根据年份参数和景区id获取该年该景区所有月份的收入  -->
+  <select id="getJqIncomeMonthlyV2" resultType="com.naswork.model.JqIncomeMonthly">
+	  SELECT statsDate,ROUND((income),2)  as income FROM`jq_income_monthly`
+	WHERE date_format(statsDate,'%Y')=#{year} AND id=#{id}
+  </select>
+</mapper>

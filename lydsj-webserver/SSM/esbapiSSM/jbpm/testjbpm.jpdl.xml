@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process xmlns="http://jbpm.org/4.4/jpdl" key="test" name="testjbpm">  
+  <start g="88,121,48,48" name="start1"> 
+    <transition g="-18,-25" name="开始" to="节点一"/> 
+  </start>  
+  <task g="535,47,92,52" name="节点二" form="/task/testjbpm/jde"> 
+    <transition g="-10,-28" name="完成" to="join1"/> 
+  </task>  
+  <task g="537,184,92,52" name="节点三" form="/task/testjbpm/jds"> 
+    <transition g="-13,10" name="完成" to="join1"/> 
+  </task>  
+  <fork g="428,122,48,48" name="fork1" form="/task/testjbpm/fork1"> 
+    <transition to="节点二"/>  
+    <transition to="节点三"/> 
+  </fork>  
+  <join g="709,126,48,48" name="join1" form="/task/testjbpm/join1"> 
+    <transition to="结束节点"/> 
+  </join>  
+  <task g="226,117,92,52" name="节点一" form="/task/testjbpm/jdy"> 
+    <transition g="-28,-21" name="完成" to="fork1"/> 
+  </task>  
+  <task g="878,125,92,52" name="结束节点" form="/task/testjbpm/jsjd"> 
+    <transition g="-14,-25" name="结束" to="end1"/> 
+  </task>  
+  <end g="1069,130,48,48" name="end1"/> 
+</process>

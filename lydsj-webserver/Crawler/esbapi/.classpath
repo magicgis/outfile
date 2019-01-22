@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-cache-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/mysql-connector-java-5.1.39-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/json-lib-2.1-jdk15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/httpcore-4.3.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/httpclient-cache-4.3.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/httpclient-4.3.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/commons-httpclient-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PanXin/Desktop/esbapi/lib/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

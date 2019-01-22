@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.EdrawwsReportDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.EdrawwsReport" >
+    <id column="title" property="title" jdbcType="VARCHAR" />
+    <id column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    title, publish_time, id, author, content, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.EdrawwsReportKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ed_raw_ws_report
+    where title = #{title,jdbcType=VARCHAR}
+      and publish_time = #{publishTime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.EdrawwsReportKey" >
+    delete from ed_raw_ws_report
+    where title = #{title,jdbcType=VARCHAR}
+      and publish_time = #{publishTime,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.EdrawwsReport" >
+    insert into ed_raw_ws_report (title, publish_time, id, 
+      author, content, insert_time
+      )
+    values (#{title,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, #{id,jdbcType=INTEGER}, 
+      #{author,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.EdrawwsReport" >
+    insert into ed_raw_ws_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.EdrawwsReport" >
+    update ed_raw_ws_report
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where title = #{title,jdbcType=VARCHAR}
+      and publish_time = #{publishTime,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.EdrawwsReport" >
+    update ed_raw_ws_report
+    set id = #{id,jdbcType=INTEGER},
+      author = #{author,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where title = #{title,jdbcType=VARCHAR}
+      and publish_time = #{publishTime,jdbcType=TIMESTAMP}
+  </update>
+  <!--查询最近3天的警情信息并倒叙排列  -->
+  <select id="getPoliceWarning" resultType="com.naswork.model.EdrawwsReport">
+	select publish_time as publishTime, content
+	from ed_raw_ws_report 
+	order by publish_time desc
+	limit 3
+  </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewykrcMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewykrcMonthly" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordYear" property="recordyear" jdbcType="INTEGER" />
+    <id column="recordMonth" property="recordmonth" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+  </resultMap>
+  
+  <!-- 根据月份参数 和区域id查询所有月份和每月来梅旅游人数-->
+  <select id="getLyrsMonthly" resultType="com.naswork.model.TjnewykrcMonthly">
+  SELECT recordMonth,subscriberCount from tj_new_ykrs_monthly where recordYear=#{year} and id=#{id}
+  </select>
+</mapper>

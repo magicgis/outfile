@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjKydfxRealtimeCurDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjKydfxRealtimeCur" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDateTime" property="recorddatetime" jdbcType="TIMESTAMP" />
+    <id column="sourceName" property="sourcename" jdbcType="VARCHAR" />
+    <id column="sourceScope" property="sourcescope" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+   <resultMap id="KydfxTop5Data" type="com.naswork.model.KydfxTop5Data" >
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, recordDateTime, sourceName, sourceScope, subscriberCount, level, recordIdentifier, 
+    insertTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjKydfxRealtimeCurKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_kydfx_realtime_cur
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjKydfxRealtimeCurKey" >
+    delete from tj_kydfx_realtime_cur
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjKydfxRealtimeCur" >
+    insert into tj_kydfx_realtime_cur (id, recordDateTime, sourceName, 
+      sourceScope, subscriberCount, level, 
+      recordIdentifier, insertTime)
+    values (#{id,jdbcType=INTEGER}, #{recorddatetime,jdbcType=TIMESTAMP}, #{sourcename,jdbcType=VARCHAR}, 
+      #{sourcescope,jdbcType=INTEGER}, #{subscribercount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{recordidentifier,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjKydfxRealtimeCur" >
+    insert into tj_kydfx_realtime_cur
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recorddatetime != null" >
+        recordDateTime,
+      </if>
+      <if test="sourcename != null" >
+        sourceName,
+      </if>
+      <if test="sourcescope != null" >
+        sourceScope,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recorddatetime != null" >
+        #{recorddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourcename != null" >
+        #{sourcename,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcescope != null" >
+        #{sourcescope,jdbcType=INTEGER},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjKydfxRealtimeCur" >
+    update tj_kydfx_realtime_cur
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjKydfxRealtimeCur" >
+    update tj_kydfx_realtime_cur
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </update>
+
+	<select id="selectByLevel" resultMap="BaseResultMap">
+		select * from
+		tj_kydfx_realtime_cur t
+		where t.id = #{id} and t.sourceScope = #{scope}
+	</select>
+<!--根据参数查询对应实时的客源地来梅人数，并进行排序 取前五名 ,sourceScope为null就查询所有-->
+	<select id="selectTop5" resultMap="KydfxTop5Data">
+	select t.sourceName as 'name',
+	sum(t.subscriberCount) as 'value' from
+	tj_kydfx_realtime_cur t
+	where 1=1
+		  <if test="scope != null">
+    	 and sourceScope = #{scope} 
+   		 </if>
+	  and t.id = #{id}
+	group by t.sourceName
+	order by
+	value desc
+	
+</select>
+  
+</mapper>

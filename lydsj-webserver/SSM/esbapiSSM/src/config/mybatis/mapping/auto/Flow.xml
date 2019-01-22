@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.FlowDao">
+	<resultMap type="java.util.Map" id="user">
+		<result property="userId" column="USER_ID" jdbcType="VARCHAR" />
+		<result property="userName" column="USER_NAME" jdbcType="VARCHAR" />
+		<result property="roleId" column="ROLE_ID" jdbcType="VARCHAR" />
+		<result property="roleName" column="ROLE_NAME" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 根据业务主键反查记录 -->
+	<select id="findObjectMapByBusinessKey" parameterType="pd" resultType="hashmap">
+		select * from ${tableName} where ${PkColumn}=#{id}
+	</select>
+
+	<select id="findUserByRoleid" parameterType="pd" resultMap="user">
+		SELECT U.USER_ID,U.USER_NAME,R.ROLE_ID,R.ROLE_NAME FROM T_USER U 
+		LEFT JOIN R_ROLE_USER RRU ON RRU.USER_ID = U.USER_ID
+		LEFT JOIN T_ROLE R ON R.ROLE_ID = RRU.ROLE_ID
+		WHERE 1=1  
+   	 	<if test="roleidList != null" >
+			AND RRU.ROLE_ID IN 
+			<foreach collection="roleidList" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+		 	</foreach> 
+	 	</if>
+	</select>
+	
+</mapper>

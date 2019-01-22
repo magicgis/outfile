@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.GyExcelDao">
+	<resultMap type="com.naswork.model.gy.GyExcel" id="GyExcel">
+		<result property="excelFileId" column="EXCEL_FILE_ID" jdbcType="VARCHAR" />
+		<result property="ywId" column="YW_ID" jdbcType="VARCHAR" />
+		<result property="ywTableName" column="YW_TABLE_NAME" jdbcType="VARCHAR" />
+		<result property="ywTablePkName" column="YW_TABLE_PK_NAME" jdbcType="VARCHAR" />
+		<result property="excelFileName" column="EXCEL_FILE_NAME" jdbcType="VARCHAR" />
+		<result property="excelFilePath" column="EXCEL_FILE_PATH" jdbcType="VARCHAR" />
+		<result property="excelTemplateName" column="EXCEL_TEMPLATE_NAME" jdbcType="VARCHAR" />
+		<result property="excelFileLength" column="EXCEL_FILE_LENGTH" jdbcType="INTEGER" />
+		<result property="userId" column="USER_ID" jdbcType="VARCHAR" />
+		<result property="lrsj" column="LRSJ" jdbcType="TIMESTAMP" />
+		<result property="xh" column="XH" jdbcType="INTEGER"/>
+		<result property="excelType" column="EXCEL_TYPE" jdbcType="VARCHAR" />		
+		<result property="userName" column="user_name" jdbcType="VARCHAR" />		
+	</resultMap>
+	<!-- 根据主键查询 -->
+	<select id="findById" resultType="String" resultMap="GyExcel">
+		SELECT * FROM T_GY_EXCEL
+		where EXCEL_FILE_ID = #{excelFileId}
+	</select>
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.naswork.model.gy.GyExcel">
+		<selectKey resultType="java.lang.String" order="AFTER" keyProperty="excelFileId">
+		SELECT LAST_INSERT_ID() AS excelFileId
+		</selectKey>
+	 insert into T_GY_EXCEL (
+	 	  	YW_ID,
+	 	  	YW_TABLE_NAME,
+	 	  	YW_TABLE_PK_NAME,
+	 	  	EXCEL_FILE_NAME,
+	 	  	EXCEL_FILE_PATH,
+	 	  	EXCEL_FILE_LENGTH,
+	 	  	EXCEL_TYPE,
+	 	  	XH,
+	 	  	EXCEL_TEMPLATE_NAME,
+	 	  	USER_ID,
+	 	    LRSJ
+	 ) 
+	 values (
+	 	  	#{ywId,jdbcType=VARCHAR},
+	 	  	#{ywTableName,jdbcType=VARCHAR},
+	 	  	#{ywTablePkName,jdbcType=VARCHAR},
+	 	  	#{excelFileName,jdbcType=VARCHAR},
+	 	  	#{excelFilePath,jdbcType=VARCHAR},
+	 	  	#{excelFileLength,jdbcType=INTEGER},
+	 	  	#{excelType,jdbcType=VARCHAR},
+	 	  	#{xh,jdbcType=INTEGER},
+	 	  	#{excelTemplateName,jdbcType=INTEGER},
+	 	  	#{userId,jdbcType=VARCHAR},
+	 	    #{lrsj,jdbcType=TIMESTAMP}
+	 )
+   </insert>
+   <!-- 更新 -->
+   <update id="update" parameterType="com.naswork.model.gy.GyExcel">
+	 update T_GY_EXCEL
+	 <set>
+	 	<if test="ywId != null ">
+	 	 YW_ID =  #{ywId},
+	 	 </if>
+	 	<if test="ywTableName != null ">
+	 	 YW_TABLE_NAME =  #{ywTableName},
+	 	 </if>
+	 	<if test="ywTablePkName != null ">
+	 	 YW_TABLE_PK_NAME =  #{ywTablePkName},
+	 	 </if>
+	 	<if test="excelFileName != null ">
+	 	 EXCEL_FILE_NAME =  #{excelFileName},
+	 	 </if>
+	 	<if test="excelFilePath != null ">
+	 	 EXCEL_FILE_PATH =  #{excelFilePath},
+	 	 </if>
+	 	<if test="excelFileLength != null ">
+	 	 EXCEL_FILE_LENGTH =  #{excelFileLength},
+	 	 </if>
+	 	<if test="excelType != null ">
+	 	 EXCEL_TYPE =  #{excelType},
+	 	 </if>
+	 	<if test="userId != null ">
+	 	 USER_ID =  #{userId},
+	 	 </if>
+	 	<if test="lrsj != null ">
+	 	 LRSJ =  #{lrsj},
+	 	 </if>
+	 	<if test="excelTemplateName != null ">
+	 	 EXCEL_TEMPLATE_NAME =  #{excelTemplateName},
+	 	 </if>
+	 	<if test="xh != null ">
+	 	 XH =  #{xh},
+	 	 </if>
+	 	 
+	 </set>
+	 where EXCEL_FILE_ID=#{excelFileId}
+   </update>
+
+   <!-- 删除 -->
+   <delete id="delete" parameterType="String">
+   		delete from T_GY_EXCEL where EXCEL_FILE_ID=#{excelFileId}
+   </delete>  
+
+    <!-- 分页查询 -->
+	<select id="findPage" parameterType="page" resultMap="GyExcel">
+		select e.*,u.user_name
+		FROM
+			T_GY_EXCEL e
+		INNER JOIN t_user u on u.user_id=e.USER_ID
+		where
+		1 = 1 AND u.user_id=#{userId}
+	 	<if test="ywId != null ">
+	 	 AND YW_ID =  #{ywId}
+	 	 </if>
+	 	<if test="ywTableName != null ">
+	 	 AND YW_TABLE_NAME =  #{ywTableName}
+	 	 </if>
+	 	<if test="ywTablePkName != null ">
+	 	 AND YW_TABLE_PK_NAME =  #{ywTablePkName}
+	 	 </if>
+			
+		<if test="orderby!=null">
+			${orderby}
+		</if>
+	</select>
+	<!-- 根据多个id查询集合 -->
+	<select id="findByIds" parameterType="String" resultMap="GyExcel">
+		select * from
+			T_GY_EXCEL
+			where EXCEL_FILE_ID in (${_parameter})
+	</select>
+
+	<!-- 查询最后一个-->
+	<select id="findLatestExcel" parameterType="page" resultMap="GyExcel">
+		select * from T_GY_EXCEL where EXCEL_FILE_ID=(
+		select max(EXCEL_FILE_ID) from
+			T_GY_EXCEL
+			where YW_ID=#{ywId} and YW_TABLE_NAME=#{ywTableName})
+	</select>
+
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.JqqdDao">
+  <resultMap id="BaseResultMap" type="com.naswork.model.Jqqd">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="areaId" jdbcType="INTEGER" property="areaid" />
+    <result column="spotName" jdbcType="VARCHAR" property="spotname" />
+    <result column="districtId" jdbcType="INTEGER" property="districtid" />
+    <result column="districtName" jdbcType="VARCHAR" property="districtname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, areaId, spotName, districtId, districtName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jqqd
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jqqd
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.Jqqd">
+    insert into jqqd (id, areaId, spotName, 
+      districtId, districtName)
+    values (#{id,jdbcType=INTEGER}, #{areaid,jdbcType=INTEGER}, #{spotname,jdbcType=VARCHAR}, 
+      #{districtid,jdbcType=INTEGER}, #{districtname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.Jqqd">
+    insert into jqqd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="areaid != null">
+        areaId,
+      </if>
+      <if test="spotname != null">
+        spotName,
+      </if>
+      <if test="districtid != null">
+        districtId,
+      </if>
+      <if test="districtname != null">
+        districtName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="areaid != null">
+        #{areaid,jdbcType=INTEGER},
+      </if>
+      <if test="spotname != null">
+        #{spotname,jdbcType=VARCHAR},
+      </if>
+      <if test="districtid != null">
+        #{districtid,jdbcType=INTEGER},
+      </if>
+      <if test="districtname != null">
+        #{districtname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.Jqqd">
+    update jqqd
+    <set>
+      <if test="areaid != null">
+        areaId = #{areaid,jdbcType=INTEGER},
+      </if>
+      <if test="spotname != null">
+        spotName = #{spotname,jdbcType=VARCHAR},
+      </if>
+      <if test="districtid != null">
+        districtId = #{districtid,jdbcType=INTEGER},
+      </if>
+      <if test="districtname != null">
+        districtName = #{districtname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.Jqqd">
+    update jqqd
+    set areaId = #{areaid,jdbcType=INTEGER},
+      spotName = #{spotname,jdbcType=VARCHAR},
+      districtId = #{districtid,jdbcType=INTEGER},
+      districtName = #{districtname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectAll"  resultMap="BaseResultMap">
+    select *
+    from jqqd
+  </select>
+</mapper>

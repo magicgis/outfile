@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjYkdlsjDailyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjYkdlsjDaily" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDate" property="recorddate" jdbcType="DATE" />
+    <id column="stayTimeSpan" property="staytimespan" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, recordDate, stayTimeSpan, subscriberCount, level, recordIdentifier, insertTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjYkdlsjDailyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_ykdlsj_daily
+    where id = #{id,jdbcType=INTEGER}
+      and recordDate = #{recorddate,jdbcType=DATE}
+      and stayTimeSpan = #{staytimespan,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjYkdlsjDailyKey" >
+    delete from tj_ykdlsj_daily
+    where id = #{id,jdbcType=INTEGER}
+      and recordDate = #{recorddate,jdbcType=DATE}
+      and stayTimeSpan = #{staytimespan,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjYkdlsjDaily" >
+    insert into tj_ykdlsj_daily (id, recordDate, stayTimeSpan, 
+      subscriberCount, level, recordIdentifier, 
+      insertTime)
+    values (#{id,jdbcType=INTEGER}, #{recorddate,jdbcType=DATE}, #{staytimespan,jdbcType=INTEGER}, 
+      #{subscribercount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{recordidentifier,jdbcType=VARCHAR}, 
+      #{inserttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjYkdlsjDaily" >
+    insert into tj_ykdlsj_daily
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recorddate != null" >
+        recordDate,
+      </if>
+      <if test="staytimespan != null" >
+        stayTimeSpan,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recorddate != null" >
+        #{recorddate,jdbcType=DATE},
+      </if>
+      <if test="staytimespan != null" >
+        #{staytimespan,jdbcType=INTEGER},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjYkdlsjDaily" >
+    update tj_ykdlsj_daily
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and recordDate = #{recorddate,jdbcType=DATE}
+      and stayTimeSpan = #{staytimespan,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjYkdlsjDaily" >
+    update tj_ykdlsj_daily
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+      and recordDate = #{recorddate,jdbcType=DATE}
+      and stayTimeSpan = #{staytimespan,jdbcType=INTEGER}
+  </update>
+  
+   <select id="getMaxTime" resultType="java.sql.Date">
+  	select max(recordDate) 
+    from tj_ykdlsj_daily
+  </select>
+  
+   <select id="getNum" resultType="java.lang.Integer">
+  	select subscriberCount
+    from tj_ykdlsj_daily
+    where id = #{id} and recordIdentifier = #{idStr} and stayTimeSpan = #{type}
+  </select>
+</mapper>

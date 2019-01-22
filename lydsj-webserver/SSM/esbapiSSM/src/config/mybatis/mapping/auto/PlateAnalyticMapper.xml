@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.PlateAnalyticDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.PlateAnalytic" >
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="record_time" property="recordTime" jdbcType="TIMESTAMP" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="plate" property="plate" jdbcType="VARCHAR" />
+    <result column="sourcescope" property="sourcescope" jdbcType="TINYINT" />
+  </resultMap>
+  
+   <resultMap id="Map1" type="com.naswork.model.Zjykydtop5" >
+    <result column="spotName" property="spotName" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="KydfxTop5Data" type="com.naswork.model.KydfxTop5Data" >
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.naswork.model.PlateAnalytic" >
+    insert into plate_analytic (area, record_time, province, 
+      city, plate, sourcescope
+      )
+    values (#{area,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{plate,jdbcType=VARCHAR}, #{sourcescope,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.PlateAnalytic" >
+    insert into plate_analytic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="recordTime != null" >
+        record_time,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="plate != null" >
+        plate,
+      </if>
+      <if test="sourcescope != null" >
+        sourcescope,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcescope != null" >
+        #{sourcescope,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+	<select id="selectAll1" resultMap="Map1">
+	select t2.spotName, count(t.area) as totalNum
+	from plate_analytic t join jqqd t2 on (t.area = t2.areaId)
+	where t.sourcescope = #{area} and t2.districtId = #{id} 
+	and t.record_time >= #{startTime} and t.record_time &lt; #{endTime}
+	group by t.area
+	order by totalNum desc
+	limit 5
+	</select>
+
+	<select id="selectAll2" resultMap="Map1">
+		select t2.spotName, count(t.area) as totalNum
+		from plate_analytic t join jqqd t2 on (t.area = t2.areaId)
+		where t.sourcescope = #{area} 
+		and t.record_time >= #{startTime} and t.record_time &lt; #{endTime}
+		group by t.area
+		order by totalNum desc
+		limit 5
+	</select>
+	
+	<select id="getSqLastMonth" resultType="java.lang.Integer">
+	select count(t.area) as totalNum
+	from plate_analytic t
+	where t.record_time >= #{startTime} and t.record_time &lt; #{endTime} and t.sourcescope = #{area}
+	</select>
+	
+	<select id="getXqLastMonth" resultType="java.lang.Integer">
+	select count(t.area) as totalNum
+	from plate_analytic t join jqqd t2 on (t.area = t2.areaId) 
+	where t.record_time >= #{startTime} and t.record_time &lt; #{endTime} and t.sourcescope = #{area} and 
+	t2.districtId = #{id}
+	</select>
+	
+	<select id="getJqLastMonth" resultType="java.lang.Integer">
+	select count(t.area) as totalNum
+	from plate_analytic t join jqqd t2 on (t.area = t2.areaId)
+	where t.record_time >= #{startTime} and t.record_time &lt; #{endTime} and t.sourcescope = #{area}
+	and t2.id= #{id}
+	</select>
+
+
+	<select id="selectTop5Jq" resultMap="KydfxTop5Data">
+	select t.province as name,
+	count(t.plate) as value
+	from plate_analytic t join jqqd t2 on (t.area = t2.areaId)
+	where t.sourcescope = 3 and t2.id = #{id} and t.record_time >= #{startTime}
+	and t.record_time &lt; #{endTime}
+	group by t.province
+	order by value DESC
+	
+</select>
+
+	<select id="selectTop5Xq" resultMap="KydfxTop5Data">
+		select t.province as name, count(t.plate) as value
+		from plate_analytic t join jqqd t2 on (t.area = t2.areaId)
+		where t.sourcescope = 3 and t2.districtId = #{id} and t.record_time >= #{startTime}
+		 and t.record_time &lt; #{endTime}
+		group by t.province
+		order by value DESC
+		
+	</select>
+	
+	<select id="selectTop5Sq" resultMap="KydfxTop5Data">
+	select t.province as name, count(t.plate) as value
+	from plate_analytic t
+	where t.sourcescope = 3 and t.record_time >= #{startTime}
+		 and t.record_time &lt; #{endTime}
+	group by t.province
+	order by value DESC
+	
+</select>
+
+
+
+
+<select id="selectTop5JqSn" resultMap="KydfxTop5Data">
+	select t.city as name ,count(t.plate) as value
+	from plate_analytic t join jqqd t2 on (t.area = t2.areaId)
+	where t.sourcescope = 2 and t2.id = #{id} and t.record_time >= #{startTime}
+	and t.record_time &lt; #{endTime}
+	group by t.city
+	order by value DESC
+	
+</select>
+
+	<select id="selectTop5XqSn" resultMap="KydfxTop5Data">
+	select t.city as name ,count(t.plate) as value
+	from plate_analytic t join jqqd t2 on (t.area = t2.areaId)
+	where t.sourcescope = 2 and t2.districtId=#{id} and t.record_time >= #{startTime}
+	and t.record_time &lt; #{endTime}
+	group by t.city
+	order by value DESC
+	
+</select>
+
+	<select id="selectTop5SqSn" resultMap="KydfxTop5Data">
+		select t.city as name ,count(t.plate) as value
+		from plate_analytic t
+		where t.sourcescope = 2 and t.record_time >= #{startTime}
+		and t.record_time &lt; #{endTime}
+		group by t.city
+		order by value DESC
+		
+	</select>
+  <!--查询所有某年所有数据的月  -->
+  <select id="getMonths"  resultType="Integer">
+	SELECT DATE_FORMAT(record_time,'%m') AS months FROM plate_analytic 
+	where DATE_FORMAT(record_time,'%Y')=#{year} 
+	GROUP BY months
+  </select>
+ <!--根据year参数、month参数查询国内 某年某月自驾游客源占比-->
+	<select id="getGuoneiPercent"  resultType="Double">
+	SELECT ROUND( COUNT(plate)/(SELECT COUNT(plate) FROM plate_analytic where sourceScope IN (1,2,3) and DATE_FORMAT(record_time,'%Y')=#{year} )*100,1) as percent
+   FROM plate_analytic where sourceScope=3 and DATE_FORMAT(record_time,'%Y')=#{year} 
+	</select>
+ <!--根据year参数、month参数查询省内 某年某月自驾游客源占比-->
+	<select id="getShengneiPercent"  resultType="Double">
+	SELECT ROUND( COUNT(plate)/(SELECT COUNT(plate) FROM plate_analytic where sourceScope IN (1,2,3) and DATE_FORMAT(record_time,'%Y')=#{year}  )*100,1) as percent
+   FROM plate_analytic where sourceScope=2 and DATE_FORMAT(record_time,'%Y')=#{year}  
+	</select>
+ <!--根据year参数、month参数查询本市 某年某月自驾游客源占比-->
+	<select id="getBenshiPercent"  resultType="Double">
+	SELECT ROUND( COUNT(plate)/(SELECT COUNT(plate) FROM plate_analytic where sourceScope IN (1,2,3) and DATE_FORMAT(record_time,'%Y')=#{year} )*100,1) as percent
+    FROM plate_analytic where sourceScope=1 and DATE_FORMAT(record_time,'%Y')=#{year} 
+	</select>
+	
+</mapper>

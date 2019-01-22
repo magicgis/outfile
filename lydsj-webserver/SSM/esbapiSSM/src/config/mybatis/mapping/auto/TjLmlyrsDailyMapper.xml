@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjLmlyrsDailyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjLmlyrsDaily" >
+    <id column="recordDate" property="recorddate" jdbcType="DATE" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+   <resultMap id="KydfxTop5Data" type="com.naswork.model.KydfxTop5Data" >
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    recordDate, id, recordIdentifier, subscriberCount, level, insertTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjLmlyrsDailyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_lmlyrs_daily
+    where recordDate = #{recorddate,jdbcType=DATE}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjLmlyrsDailyKey" >
+    delete from tj_lmlyrs_daily
+    where recordDate = #{recorddate,jdbcType=DATE}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjLmlyrsDaily" >
+    insert into tj_lmlyrs_daily (recordDate, id, recordIdentifier, 
+      subscriberCount, level, insertTime
+      )
+    values (#{recorddate,jdbcType=DATE}, #{id,jdbcType=INTEGER}, #{recordidentifier,jdbcType=VARCHAR}, 
+      #{subscribercount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{inserttime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjLmlyrsDaily" >
+    insert into tj_lmlyrs_daily
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recorddate != null" >
+        recordDate,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recorddate != null" >
+        #{recorddate,jdbcType=DATE},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjLmlyrsDaily" >
+    update tj_lmlyrs_daily
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where recordDate = #{recorddate,jdbcType=DATE}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjLmlyrsDaily" >
+    update tj_lmlyrs_daily
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP}
+    where recordDate = #{recorddate,jdbcType=DATE}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectByIdFromStartDay" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tj_lmlyrs_daily
+    where recordDate >= #{startDay}
+      and id = #{id,jdbcType=INTEGER}
+      order by recordIdentifier 
+  </select>
+  
+  <select id="LastDayNum" resultType="java.lang.Integer">
+    select subscriberCount
+    from tj_lmlyrs_daily
+    where id = #{id} and recordIdentifier = (SELECT MAX(recordIdentifier) FROM tj_lmlyrs_daily WHERE id = #{id})
+  </select>
+  
+   <select id="selectByLevel" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_lmlyrs_daily
+    where level = #{level} and recordIdentifier = #{idStr}
+  </select>
+  
+   <select id="lastDayTrend" resultType="java.math.BigDecimal">
+	select t.trend from
+	tj_lmlyrs_daily t
+	where t.id = #{id} and t.recordIdentifier = (SELECT MAX(recordIdentifier) FROM tj_lmlyrs_daily WHERE id = #{id})
+</select>
+
+<select id="selectTop5Jq" resultMap="KydfxTop5Data">
+	select t2.spotName as name,
+	t.subscriberCount as value from tj_lmlyrs_daily t
+	join jqqd t2 on (t.id = t2.id)
+	where t.`level` = 3 and t.recordIdentifier = #{idStr}
+	order by t.subscriberCount desc
+	
+</select>
+
+<select id="selectTop5Xq" resultMap="KydfxTop5Data">
+	select t2.spotName as name, sum(t.subscriberCount) as value  from tj_lmlyrs_daily t
+join jqqd t2 on (t.id = t2.id)
+where t.`level` = 3 and t.recordIdentifier = #{idStr} and t2.districtId = #{id}
+group by t2.spotName
+order by value desc
+
+</select>
+
+
+</mapper>

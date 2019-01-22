@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.HolidayDao" >
+
+	
+	
+ <resultMap id="BaseResultMap" type="com.naswork.model.Holiday" >
+   
+    <id column="hid" property="hid" jdbcType="INTEGER" />
+    <result column="holidayType" property="holidayType" jdbcType="INTEGER" />
+    <result column="holidayYear" property="holidayYear" jdbcType="INTEGER" />
+    <result column="holidayStartDate" property="holidayStartDate" jdbcType="DATE" />
+    <result column="holidayEndDate" property="holidayEndDate" jdbcType="DATE" />
+  </resultMap>
+	
+	
+	
+	
+	
+	
+	
+	
+	<resultMap id="dataRes" type="hashMap">
+		<result property="name" column="name"/>
+		<result property="years" column="years"/>
+		<result property="numbers" column="numbers"/>
+	</resultMap>
+	
+	<resultMap id="rankRes" type="hashMap">
+		<result property="rank" column="rank"/>
+		<result property="name" column="name"/>
+		<result property="number" column="number"/>
+	</resultMap>
+
+	<select id="selectjqjdrsTj" resultMap="dataRes">
+		SELECT t2.spotName as name,
+			GROUP_CONCAT(t.holiday_year) as years,
+			GROUP_CONCAT(t.subscriberCount)  as numbers
+		FROM ${table_name} t join jqqd t2 on (t.id = t2.id) 
+		WHERE t.level = 3
+		and t.holiday_type = #{holidayType} 
+		and t.id in 
+		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">  
+        	#{item}  
+    	</foreach>
+		group by t.id
+	</select>
+	
+	<select id="selectjqjdrsTop5" resultMap="rankRes">
+		SELECT (@i:=@i+1) AS rank,t.* FROM 
+		(
+		SELECT t2.spotName AS name,
+			SUM(t.subscriberCount) AS number 
+		FROM ${table_name} t JOIN jqqd t2 ON (t.id = t2.id) 
+		WHERE t.level = 3
+		AND t.holiday_type = #{holidayType}
+		GROUP BY t.id
+		ORDER BY number DESC
+		
+		) t,(SELECT   @i:=0)  t2
+	</select>
+	
+	<select id="selectjjrjdrszl" resultMap="dataRes">
+		SELECT "梅州市" AS NAME,
+			GROUP_CONCAT(t.holiday_year) AS years,
+			GROUP_CONCAT(t.subscriberCount)  AS numbers 
+		FROM ${table_name} t 
+		WHERE t.level = 1
+		AND t.holiday_type = #{holidayType} 
+		GROUP BY t.id
+		
+		UNION ALL
+		
+		SELECT t2.districtName AS NAME,
+			GROUP_CONCAT(t.holiday_year) AS years,
+			GROUP_CONCAT(t.subscriberCount)  AS numbers
+		FROM ${table_name} t JOIN (SELECT * FROM jqqd GROUP BY districtId) t2 ON (t.id = t2.districtId) 
+		WHERE t.level = 2
+		AND t.holiday_type = #{holidayType} 
+		GROUP BY t.id
+	</select>
+	
+	<select id="selectjjrkydtopn" resultMap="rankRes">
+	SELECT (@i:=@i+1) AS rank,t.* FROM
+	(
+		SELECT sourceName AS NAME,
+			SUM(subscriberCount) AS number
+		FROM tj_kydfx_holiday
+		WHERE holiday_type = #{holidayType} 
+		AND sourceScope = #{sourceScope}
+		GROUP BY sourceName
+		ORDER BY subscriberCount DESC
+		
+	) t , (SELECT @i:=0)  t2
+	</select>
+	<!--查询当前月节假日，返回一个对象  -->
+	<select id="selectCurMonthHoliday" resultType="com.naswork.model.Holiday">
+	select hid,holiday_type as holidayType,holiday_year holidayYear,holiday_start_date as holidayStartDate,holiday_end_date as holidayEndDate  from holiday 
+	where date_format(holiday_start_date, '%Y %m') = date_format(DATE_SUB(curdate(), INTERVAL 0 MONTH),'%Y %m')
+	</select>
+	
+	
+</mapper>

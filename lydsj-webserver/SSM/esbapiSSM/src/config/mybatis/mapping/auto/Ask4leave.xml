@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.Ask4leaveDao">
+	
+	<resultMap type="com.naswork.model.Ask4leave" id="Ask4leave">
+		<result property="id" column="id" jdbcType="INTEGER" />
+		<result property="qjrXm" column="qjr_xm" jdbcType="VARCHAR" />
+		<result property="qjrId" column="qjr_id" jdbcType="VARCHAR" />
+		<result property="ssbm" column="ssbm" jdbcType="VARCHAR" />
+		<result property="bmzw" column="bmzw" jdbcType="VARCHAR" />
+		<result property="qjlbDm" column="qjlb_dm" jdbcType="VARCHAR" />
+		<result property="qjlbMc" column="qjlb_mc" jdbcType="VARCHAR" />
+		<result property="qjly" column="qjly" jdbcType="VARCHAR" />
+		<result property="kssj" column="kssj" jdbcType="TIMESTAMP" />
+		<result property="jssj" column="jssj" jdbcType="TIMESTAMP" />
+		<result property="qjrqm" column="qjrqm" jdbcType="VARCHAR" />
+		<result property="glcyj" column="glcyj" jdbcType="VARCHAR" />
+		<result property="glcqm" column="glcqm" jdbcType="VARCHAR" />
+		<result property="sprId" column="spr_id" jdbcType="VARCHAR" />
+		<result property="cjsj" column="cjsj" jdbcType="TIMESTAMP" />
+		<result property="spzt" column="spzt" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 根据主键查询 -->
+	<select id="findById" parameterType="String" resultMap="Ask4leave">
+		SELECT * FROM ASK4LEAVE
+		where id = #{id}
+	</select>
+	
+	<!-- 查询分页 -->
+	<select id="findPage" parameterType="page" resultMap="Ask4leave">
+		SELECT * FROM ASK4LEAVE
+		<where>
+			${where}
+		</where>
+		<if test="orderby!=null">
+			${orderby}
+		</if>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.naswork.model.Ask4leave">
+	 insert into ASK4LEAVE (
+	 	  	qjr_xm,
+	 	  	qjr_id,
+	 	  	ssbm,
+	 	  	bmzw,
+	 	  	qjlb_dm,
+	 	  	qjly,
+	 	  	kssj,
+	 	  	jssj,
+	 	  	qjrqm,
+	 	  	glcyj,
+	 	  	glcqm,
+	 	    spr_id,
+	 	    cjsj,
+	 	    spzt
+	 ) 
+	 values (
+	 	  	#{qjrXm,jdbcType=VARCHAR},
+	 	  	#{qjrId,jdbcType=VARCHAR},
+	 	  	#{ssbm,jdbcType=VARCHAR},
+	 	  	#{bmzw,jdbcType=VARCHAR},
+	 	  	#{qjlbDm,jdbcType=VARCHAR},
+	 	  	#{qjly,jdbcType=VARCHAR},
+	 	  	#{kssj,jdbcType=TIMESTAMP},
+	 	  	#{jssj,jdbcType=TIMESTAMP},
+	 	  	#{qjrqm,jdbcType=VARCHAR},
+	 	  	#{glcyj,jdbcType=VARCHAR},
+	 	  	#{glcqm,jdbcType=VARCHAR},
+	 	    #{sprId,jdbcType=VARCHAR},
+	 	    #{cjsj,jdbcType=VARCHAR},
+	 	    #{spzt,jdbcType=VARCHAR}
+	 	    
+	 )
+   </insert>
+   
+   <!-- 更新 -->
+   <update id="update" parameterType="com.naswork.model.Ask4leave">
+	 update ASK4LEAVE
+	 <set>
+	 	<if test="qjrXm != null ">
+	 	 qjr_xm =  #{qjrXm},
+	 	 </if>
+	 	<if test="qjrId != null ">
+	 	 qjr_id =  #{qjrId},
+	 	 </if>
+	 	<if test="ssbm != null ">
+	 	 ssbm =  #{ssbm},
+	 	 </if>
+	 	<if test="bmzw != null ">
+	 	 bmzw =  #{bmzw},
+	 	 </if>
+	 	<if test="qjlbDm != null ">
+	 	 qjlb_dm =  #{qjlbDm},
+	 	 </if>
+	 	<if test="qjly != null ">
+	 	 qjly =  #{qjly},
+	 	 </if>
+	 	<if test="kssj != null ">
+	 	 kssj =  #{kssj},
+	 	 </if>
+	 	<if test="jssj != null ">
+	 	 jssj =  #{jssj},
+	 	 </if>
+	 	<if test="qjrqm != null ">
+	 	 qjrqm =  #{qjrqm},
+	 	 </if>
+	 	<if test="glcyj != null ">
+	 	 glcyj =  #{glcyj},
+	 	 </if>
+	 	<if test="glcqm != null ">
+	 	 glcqm =  #{glcqm},
+	 	 </if>
+	 	<if test="sprId != null ">
+	 	 spr_id =  #{sprId},
+	 	 </if>
+	 	<if test="sprId != null ">
+	 	 cjsj =  #{cjsj},
+	 	 </if>
+	 	<if test="spzt != null ">
+	 	 spzt =  #{spzt},
+	 	 </if>
+	 </set>
+	 where id=#{id}
+   </update>
+   
+   <!-- 删除 -->
+   <delete id="delete" parameterType="String">
+   		delete from ASK4LEAVE where id=#{id}
+   </delete>  
+   
+
+</mapper>

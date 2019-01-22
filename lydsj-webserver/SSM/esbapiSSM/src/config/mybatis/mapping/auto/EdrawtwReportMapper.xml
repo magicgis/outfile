@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.EdrawtwReportDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.EdrawtwReport" >
+    <id column="content" property="content" jdbcType="VARCHAR" />
+    <id column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    content, publish_time, id, title, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.EdrawtwReportKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ed_raw_tw_report
+    where content = #{content,jdbcType=VARCHAR}
+      and publish_time = #{publishTime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.EdrawtwReportKey" >
+    delete from ed_raw_tw_report
+    where content = #{content,jdbcType=VARCHAR}
+      and publish_time = #{publishTime,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.EdrawtwReport" >
+    insert into ed_raw_tw_report (content, publish_time, id, 
+      title, insert_time)
+    values (#{content,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, #{id,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.EdrawtwReport" >
+    insert into ed_raw_tw_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.EdrawtwReport" >
+    update ed_raw_tw_report
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where content = #{content,jdbcType=VARCHAR}
+      and publish_time = #{publishTime,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.EdrawtwReport" >
+    update ed_raw_tw_report
+    set id = #{id,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where content = #{content,jdbcType=VARCHAR}
+      and publish_time = #{publishTime,jdbcType=TIMESTAMP}
+  </update>
+  <!--获取最近3天的交通信息  -->
+  <select id="getCurtraffic" resultType="com.naswork.model.EdrawtwReport">
+   SELECT publish_time,content 
+   FROM ed_raw_tw_report e 
+   where DATE_SUB(CURDATE(), INTERVAL 2 DAY) &lt;= date(publish_time)
+   order by publish_time desc
+  </select>
+  <!--最近3天的交通信息不够3条继续往前找  -->
+  <select id="getThreeTraffic" resultType="com.naswork.model.EdrawtwReport">
+    SELECT publish_time as publishTime,content FROM ed_raw_tw_report 
+	order by publish_time desc
+	limit 3
+  </select>
+  
+  
+</mapper>

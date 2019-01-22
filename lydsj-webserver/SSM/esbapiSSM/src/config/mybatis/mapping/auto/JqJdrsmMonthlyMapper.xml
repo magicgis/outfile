@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.JqJdrsmMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.JqJdrsmMonthly" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="statsDate" property="statsdate" jdbcType="DATE" />
+    <result column="jdsr" property="jdsr" jdbcType="INTEGER" />
+    <result column="gtrs" property="gtrs" jdbcType="INTEGER" />
+    <result column="skrs" property="skrs" jdbcType="INTEGER" />
+    <result column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="gtbl" property="gtbl" jdbcType="INTEGER" />
+    <result column="skbl" property="skbl" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.naswork.model.JqJdrsmMonthly" >
+    insert into jq_jdrs_monthly (id, statsDate, jdsr, 
+      gtrs, skrs, recordIdentifier, 
+      insertTime)
+    values (#{id,jdbcType=INTEGER}, #{statsdate,jdbcType=DATE}, #{jdsr,jdbcType=INTEGER}, 
+      #{gtrs,jdbcType=INTEGER}, #{skrs,jdbcType=INTEGER}, #{recordidentifier,jdbcType=VARCHAR}, 
+      #{inserttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.JqJdrsmMonthly" >
+    insert into jq_jdrs_monthly
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="statsdate != null" >
+        statsDate,
+      </if>
+      <if test="jdsr != null" >
+        jdsr,
+      </if>
+      <if test="gtrs != null" >
+        gtrs,
+      </if>
+      <if test="skrs != null" >
+        skrs,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="statsdate != null" >
+        #{statsdate,jdbcType=DATE},
+      </if>
+      <if test="jdsr != null" >
+        #{jdsr,jdbcType=INTEGER},
+      </if>
+      <if test="gtrs != null" >
+        #{gtrs,jdbcType=INTEGER},
+      </if>
+      <if test="skrs != null" >
+        #{skrs,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap type="com.naswork.model.JqJdrsmMonthly" id="tsbli">
+   <result column="id" property="id" />
+    <result column="statsDate" property="statsdate" />
+   <result column="gtbl" property="gtbl" />
+   <result column="skbl" property="skbl" />
+  </resultMap>
+  
+  <!--获取团散比例  -->
+  <select id="getTsPercent" resultMap="tsbli">
+	SELECT statsDate,ROUND(ROUND(gtrs/jdsr,2)*100,0) as gtbl,ROUND(ROUND(skrs/jdsr,2)*100,0) as skbl
+	FROM`jq_jdrs_monthly` 
+	WHERE statsDate>'2017-9-01' AND id=#{id} 
+  </select>
+  <!--获取团散比例 v2 -->	
+  <select id="getTsPercentV2" resultMap="tsbli">	
+	SELECT statsDate,ROUND(ROUND(gtrs/jdsr,2)*100,0) as gtbl,ROUND(ROUND(skrs/jdsr,2)*100,0) as skbl
+	FROM`jq_jdrs_monthly` 
+	WHERE date_format(statsDate,'%Y')=#{year} AND id=#{id} 
+  </select>	
+
+</mapper>

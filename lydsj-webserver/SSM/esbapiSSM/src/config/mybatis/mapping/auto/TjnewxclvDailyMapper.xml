@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewxclvDailyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewxclvDaily" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDate" property="recorddate" jdbcType="DATE" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+    <result column="dayofmonth" property="dayofmonth" jdbcType="INTEGER"></result>
+  </resultMap>
+
+  <!--景区每日接待人次(全市，景区)-->
+  <select id="getxcjqmrjdrc" resultType="com.naswork.model.TjnewxclvDaily">
+      SELECT DATE_FORMAT(recordDate,'%D') as dayofmonth,subscriberCount
+      FROM tj_new_xclv_daily
+      WHERE DATE_FORMAT(recordDate,'%Y') = #{yearId}
+      AND DATE_FORMAT(recordDate,'%m')= #{monthId}
+      AND id=#{Id}
+      AND `level` = #{typeId}
+  </select>
+
+</mapper>

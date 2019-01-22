@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process key="Ask4leaveProcess" name="Ask4leaveProcess" xmlns="http://jbpm.org/4.4/jpdl">  
+  <start g="129,187,48,48" name="start1"> 
+    <transition g="-24,-24" name="提交审核" to="行政部门审核"/> 
+  </start>  
+  <task form="/task/Ask4leaveProcess/xzbmsh" g="307,189,150,52" name="行政部门审核"> 
+    <transition g="347,292:-46,-5" name="退回" to="请假人员重新提交申请"/>  
+    <transition g="-22,9" name="提交审批" to="管理层审批"/> 
+  </task>  
+  <task form="/task/Ask4leaveProcess/qjryzxtjsq" g="316,352,152,52" name="请假人员重新提交申请"> 
+    <transition g="425,293:9,-4" name="提交审核" to="行政部门审核"/> 
+  </task>  
+  <task form="/task/Ask4leaveProcess/glcsp" g="575,192,92,52" name="管理层审批"> 
+    <transition g="508,103:-13,-39" name="退回" to="行政部门审核"/>  
+    <transition g="-19,-32" name="同意" to="exclusive1"/>  
+    <transition g="-41,2" name="不同意" to="exclusive2"/> 
+  </task>  
+  <end g="1139,196,48,48" name="end1"/>  
+  <task form="/task/Ask4leaveProcess/qjryjsqjjg" g="858,199,182,52" name="请假人员接收请假结果"> 
+    <transition g="-13,-28" name="完成" to="end1"/> 
+  </task>  
+  <decision g="761,106,48,48" name="exclusive1"> 
+    <handler class="com.naswork.module.task.controller.ask4leave.TaskHandle" />  
+    <transition g="9,-20" name="接收" to="请假人员接收请假结果"/> 
+  </decision>  
+  <decision g="749,280,48,48" name="exclusive2"> 
+    <handler class="com.naswork.module.task.controller.ask4leave.TaskHandle" />  
+    <transition g="1,8" name="接收" to="请假人员接收请假结果"/> 
+  </decision> 
+</process>

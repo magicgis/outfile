@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.Jbpm4JbyjDao">
+	
+	<resultMap type="com.naswork.model.Jbpm4Jbyj" id="GyJbyj">
+		<result property="jbyjId" column="JBYJ_ID" jdbcType="VARCHAR" />
+		<result property="processinstanceId" column="PROCESSINSTANCE_ID" jdbcType="VARCHAR" />
+		<result property="taskId" column="TASK_ID" jdbcType="VARCHAR" />
+		<result property="businessKey" column="BUSINESS_KEY" jdbcType="VARCHAR" />
+		<result property="userId" column="USER_ID" jdbcType="VARCHAR" />
+		<result property="createTime" column="CREATE_TIME" jdbcType="DATE" />
+		<result property="outcome" column="OUTCOME" jdbcType="VARCHAR" />
+		<result property="jbyj" column="JBYJ" jdbcType="VARCHAR" />
+		<result property="userName" column="USER_NAME" jdbcType="VARCHAR" />
+		<result property="roleId" column="ROLE_ID" jdbcType="VARCHAR" />
+		<result property="roleName" column="ROLE_NAME" jdbcType="VARCHAR" />
+		<result property="taskName" column="TASK_NAME" jdbcType="VARCHAR" />
+		<result property="taskInfoUrl" column="TASK_INFO_URL" jdbcType="VARCHAR" />
+		<result property="taskSzmpy" column="TASK_SZMPY" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 根据主键查询 -->
+	<select id="findById" parameterType="String" resultMap="GyJbyj">
+		SELECT * FROM JBPM4_JBYJ
+		where JBYJ_ID = #{jbyjId}
+	</select>
+	
+	<!-- 查询分页 -->
+	<select id="findPage" parameterType="page" resultMap="GyJbyj">
+		SELECT * FROM JBPM4_JBYJ
+		<where>
+			${where}
+		</where>
+		<if test="orderby!=null">
+			${orderby}
+		</if>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.naswork.model.Jbpm4Jbyj">
+	 insert into JBPM4_JBYJ (
+	 	  	JBYJ_ID,
+	 	  	PROCESSINSTANCE_ID,
+	 	  	TASK_ID,
+	 	  	BUSINESS_KEY,
+	 	  	USER_ID,
+	 	  	CREATE_TIME,
+	 	  	OUTCOME,
+	 	  	JBYJ,
+	 	  	USER_NAME,
+	 	    ROLE_ID,
+	 	    ROLE_NAME,
+	 	    TASK_NAME,
+	 	    TASK_INFO_URL,
+	 	    TASK_SZMPY
+	 ) 
+	 values (
+	 	  	(select replace(uuid(),'-','') from dual),
+	 	  	#{processinstanceId,jdbcType=VARCHAR},
+	 	  	#{taskId,jdbcType=VARCHAR},
+	 	  	#{businessKey,jdbcType=VARCHAR},
+	 	  	#{userId,jdbcType=VARCHAR},
+	 	  	#{createTime,jdbcType=DATE},
+	 	  	#{outcome,jdbcType=VARCHAR},
+	 	  	#{jbyj,jdbcType=VARCHAR},
+	 	  	#{userName,jdbcType=VARCHAR},
+	 	    #{roleId,jdbcType=VARCHAR},
+	 	    #{roleName,jdbcType=VARCHAR},
+	 	    #{taskName,jdbcType=VARCHAR},
+	 	    #{taskInfoUrl,jdbcType=VARCHAR},
+	 	    #{taskSzmpy,jdbcType=VARCHAR}
+	 )
+   </insert>
+   
+   <!-- 更新 -->
+   <update id="update" parameterType="com.naswork.model.Jbpm4Jbyj">
+	 update JBPM4_JBYJ
+	 <set>
+	 	<if test="processinstanceId != null ">
+	 	 PROCESSINSTANCE_ID =  #{processinstanceId},
+	 	 </if>
+	 	<if test="taskId != null ">
+	 	 TASK_ID =  #{taskId},
+	 	 </if>
+	 	<if test="businessKey != null ">
+	 	 BUSINESS_KEY =  #{businessKey},
+	 	 </if>
+	 	<if test="userId != null ">
+	 	 USER_ID =  #{userId},
+	 	 </if>
+	 	<if test="createTime != null ">
+	 	 CREATE_TIME =  #{createTime},
+	 	 </if>
+	 	<if test="outcome != null ">
+	 	 OUTCOME =  #{outcome},
+	 	 </if>
+	 	<if test="jbyj != null ">
+	 	 JBYJ =  #{jbyj},
+	 	 </if>
+	 	<if test="userName != null ">
+	 	 USER_NAME =  #{userName},
+	 	 </if>
+	 	<if test="roleId != null ">
+	 	 ROLE_ID =  #{roleId},
+	 	 </if>
+	 	<if test="roleName != null ">
+	 	 ROLE_NAME =  #{roleName},
+	 	 </if>
+	 	<if test="taskName != null ">
+	 	 TASK_NAME =  #{taskName},
+	 	 </if>
+	 	<if test="taskInfoUrl != null ">
+	 	 TASK_INFO_URL =  #{taskInfoUrl},
+	 	 </if>
+	 	<if test="taskSzmpy != null ">
+	 	 TASK_SZMPY =  #{taskSzmpy},
+	 	 </if>
+	 </set>
+	 where JBYJ_ID=#{jbyjId}
+   </update>
+   
+   <!-- 删除 -->
+   <delete id="delete" parameterType="String">
+   		delete from JBPM4_JBYJ where JBYJ_ID=#{jbyjId}
+   </delete>  
+   
+	<!-- 根据业务主键查询经办意见 -->
+	<select id="findGyJbyjByBusinessKey" parameterType="String" resultMap="GyJbyj">
+		SELECT * FROM JBPM4_JBYJ T WHERE T.BUSINESS_KEY=#{businessKey} ORDER BY T.CREATE_TIME DESC
+	</select>
+	
+	<!-- 取得第一条经办意见 -->
+	<select id="findFirstJbyjByProcessInstanceId" parameterType="String" resultMap="GyJbyj">
+		SELECT T.* FROM (SELECT JBYJ.* FROM JBPM4_JBYJ JBYJ WHERE JBYJ.PROCESSINSTANCE_ID=#{processInstanceId} ORDER BY JBYJ.CREATE_TIME ASC) T LIMIT 0,1
+	</select>
+	
+	<!-- 取得第一条经办意见 -->
+	<select id="findFirstJbrByBusinessKey" parameterType="String" resultMap="GyJbyj">
+		SELECT T.* FROM (SELECT JBYJ.* FROM JBPM4_JBYJ JBYJ WHERE JBYJ.BUSINESS_KEY=#{businessKey} ORDER BY JBYJ.CREATE_TIME ASC) T LIMIT 0,1
+	</select>
+	
+	<!-- 根据任务ID查询经办记录 -->
+	<select id="findGyJbyjByTaskId" parameterType="String" resultMap="GyJbyj">
+		SELECT T.* FROM JBPM4_JBYJ T WHERE T.TASK_ID=#{taskId}
+	</select>
+	
+	<!-- 根据流程节点名称和businessKey获取经办意见 -->
+	<select id="findByTask" parameterType="pd" resultMap="GyJbyj">
+		SELECT T.* FROM (SELECT * FROM JBPM4_JBYJ JBYJ WHERE JBYJ.BUSINESS_KEY=#{businessKey} AND JBYJ.TASK_SZMPY=#{taskSzmpy}) T LIMIT 0,1
+	</select>
+	
+	<!-- 根据流程实例ID删除经办记录 -->
+	<delete id="deleteJbyjsByProcessInstance" parameterType="String">
+		DELETE FROM JBPM4_JBYJ JBYJ WHERE JBYJ.PROCESSINSTANCE_ID=#{processInstanceId}
+	</delete>
+</mapper>

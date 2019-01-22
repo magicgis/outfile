@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewjdrzMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewjdrzMonthly" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordYear" property="recordyear" jdbcType="INTEGER" />
+    <id column="recordMonth" property="recordmonth" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+    <result column="spotName" property="spotName" jdbcType="VARCHAR"></result>
+    <result column="valueofcount" property="valueofcount" jdbcType="INTEGER"></result>
+  </resultMap>
+
+  <!--全市住宿每月接待人数-->
+  <select id="getzsmyjdrs" resultType="com.naswork.model.TjnewjdrzMonthly">
+    SELECT recordMonth,subscriberCount
+    FROM tj_new_jdrz_monthly
+    WHERE recordYear = #{yearId}
+    and level = #{typeId}
+    and id = #{Id}
+  </select>
+
+  <!--住宿每年接待人数-->
+  <select id="getzsmnjdrs" resultType="com.naswork.model.TjnewjdrzMonthly">
+    SELECT recordYear,sum(subscriberCount) as subscriberCount
+    FROM tj_new_jdrz_monthly
+    WHERE id = #{Id}
+    and level = #{typeId}
+    group by subscriberCount
+  </select>
+
+  <!--各类别住宿月接待人数-->
+  <select id="getglbzsyjdrs" resultType="com.naswork.model.TjnewjdrzMonthly">
+    SELECT id,subscriberCount
+    FROM tj_new_jdrz_monthly
+    WHERE recordYear = #{yearId}
+    and recordMonth = #{monthId}
+    and id<![CDATA[>=]]>2001
+    and id<![CDATA[<=]]>2003
+  </select>
+
+  <!--全市住宿接待人数月排名-->
+  <select id="getzsjdrsypm" resultType="com.naswork.model.TjnewjdrzMonthly">
+    SELECT t.subscriberCount AS subscriberCount,h.spotName AS spotName
+    FROM tj_new_jdrz_monthly t,hotel h
+    WHERE t.recordYear = #{yearId}
+    AND t.recordMonth = #{monthId}
+    AND t.id = h.id
+    and t.id <![CDATA[>=]]> 301
+    and t.id <![CDATA[<=]]> 399
+    <if test="typeId == 2">
+      and t.id in (select id from hotel where categoryId = #{Id})
+    </if>
+    ORDER BY t.subscriberCount DESC
+  </select>
+
+  <!--住宿接待人数年度排名-->
+  <select id="getzsjdrsndpm" resultType="com.naswork.model.TjnewjdrzMonthly" >
+    SELECT sum(t.subscriberCount) as valueofcount,h.spotName
+    FROM tj_new_jdrz_monthly as t,hotel as h
+    where t.recordYear = #{yearId}
+    and t.id <![CDATA[>=]]> 301
+    and t.id <![CDATA[<=]]> 399
+    and t.id = h.id
+    <if test="typeId == 4">
+    and t.id in (select id from hotel where categoryId = #{Id})
+    </if>
+    GROUP BY t.id
+    ORDER BY valueofcount DESC
+  </select>
+
+  <!--各类别住宿年接待人数-->
+  <select id="getglbzsnjdrs" resultType="com.naswork.model.TjnewjdrzMonthly">
+    SELECT id,SUM(subscriberCount) as valueofcount
+    FROM tj_new_jdrz_monthly
+    WHERE recordYear = #{yearId}
+    and id <![CDATA[>=]]> 2001
+    and id <![CDATA[<=]]> 2003
+    GROUP BY id
+  </select>
+
+  <!--住宿月接待人数同比分析-->
+  <select id="getzsyjdrstbfx" resultType="com.naswork.model.TjnewjdrzMonthly">
+    SELECT recordMonth,tb_trend AS trend
+    FROM tj_new_jdrz_monthly
+    WHERE recordYear = #{yearId}
+    and id=#{Id}
+  </select>
+
+  <!--住宿年度接待人数环比分析-->
+  <select id="getzsndjdrshbfx" resultType="com.naswork.model.TjnewjdrzMonthly">
+    SELECT recordYear,sum(hb_trend) AS trend
+    FROM tj_new_jdrz_monthly
+    WHERE id=#{Id}
+    group by recordYear
+  </select>
+
+</mapper>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.BiOrgInfoDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.BiOrgInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="areaId" property="areaid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="realPosX" property="realposx" jdbcType="DECIMAL" />
+    <result column="realPosY" property="realposy" jdbcType="DECIMAL" />
+    <result column="zoom" property="zoom" jdbcType="INTEGER" />
+    <result column="disPosX" property="disposx" jdbcType="DECIMAL" />
+    <result column="disPosY" property="disposy" jdbcType="DECIMAL" />
+    <result column="indexCode" property="indexcode" jdbcType="VARCHAR" />
+    <result column="capacity" property="capacity" jdbcType="INTEGER" />
+    <result column="parentId" property="parentid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, areaId, name, level, realPosX, realPosY, zoom, disPosX, disPosY, indexCode, capacity, 
+    parentId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bi_org_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bi_org_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.BiOrgInfo" >
+    insert into bi_org_info (id, areaId, name, 
+      level, realPosX, realPosY, 
+      zoom, disPosX, disPosY, 
+      indexCode, capacity, parentId
+      )
+    values (#{id,jdbcType=INTEGER}, #{areaid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{realposx,jdbcType=DECIMAL}, #{realposy,jdbcType=DECIMAL}, 
+      #{zoom,jdbcType=INTEGER}, #{disposx,jdbcType=DECIMAL}, #{disposy,jdbcType=DECIMAL}, 
+      #{indexcode,jdbcType=VARCHAR}, #{capacity,jdbcType=INTEGER}, #{parentid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.BiOrgInfo" >
+    insert into bi_org_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="areaid != null" >
+        areaId,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="realposx != null" >
+        realPosX,
+      </if>
+      <if test="realposy != null" >
+        realPosY,
+      </if>
+      <if test="zoom != null" >
+        zoom,
+      </if>
+      <if test="disposx != null" >
+        disPosX,
+      </if>
+      <if test="disposy != null" >
+        disPosY,
+      </if>
+      <if test="indexcode != null" >
+        indexCode,
+      </if>
+      <if test="capacity != null" >
+        capacity,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="areaid != null" >
+        #{areaid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="realposx != null" >
+        #{realposx,jdbcType=DECIMAL},
+      </if>
+      <if test="realposy != null" >
+        #{realposy,jdbcType=DECIMAL},
+      </if>
+      <if test="zoom != null" >
+        #{zoom,jdbcType=INTEGER},
+      </if>
+      <if test="disposx != null" >
+        #{disposx,jdbcType=DECIMAL},
+      </if>
+      <if test="disposy != null" >
+        #{disposy,jdbcType=DECIMAL},
+      </if>
+      <if test="indexcode != null" >
+        #{indexcode,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null" >
+        #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.BiOrgInfo" >
+    update bi_org_info
+    <set >
+      <if test="areaid != null" >
+        areaId = #{areaid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="realposx != null" >
+        realPosX = #{realposx,jdbcType=DECIMAL},
+      </if>
+      <if test="realposy != null" >
+        realPosY = #{realposy,jdbcType=DECIMAL},
+      </if>
+      <if test="zoom != null" >
+        zoom = #{zoom,jdbcType=INTEGER},
+      </if>
+      <if test="disposx != null" >
+        disPosX = #{disposx,jdbcType=DECIMAL},
+      </if>
+      <if test="disposy != null" >
+        disPosY = #{disposy,jdbcType=DECIMAL},
+      </if>
+      <if test="indexcode != null" >
+        indexCode = #{indexcode,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null" >
+        capacity = #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.BiOrgInfo" >
+    update bi_org_info
+    set areaId = #{areaid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      realPosX = #{realposx,jdbcType=DECIMAL},
+      realPosY = #{realposy,jdbcType=DECIMAL},
+      zoom = #{zoom,jdbcType=INTEGER},
+      disPosX = #{disposx,jdbcType=DECIMAL},
+      disPosY = #{disposy,jdbcType=DECIMAL},
+      indexCode = #{indexcode,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=INTEGER},
+      parentId = #{parentid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+	<select id="selectByParentId" resultType="java.lang.Integer">
+		select t.id from bi_org_info t
+		where t.parentId = #{id}
+	</select>
+
+    <select id="getBiOrgInfoByParentId" resultType="com.naswork.model.BiOrgInfo">
+        SELECT *
+        FROM bi_org_info
+        WHERE parentId = #{parentId}
+    </select>
+
+    <select id="getBiOrgInfoByLevel" resultType="com.naswork.model.BiOrgInfo">
+        SELECT *
+        FROM bi_org_info
+        WHERE LEVEL = #{level}
+    </select>
+
+</mapper>

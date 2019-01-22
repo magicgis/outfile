@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewxclvMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewxclvMonthly" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordYear" property="recordyear" jdbcType="INTEGER" />
+    <id column="recordMonth" property="recordmonth" jdbcType="INTEGER" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+    <result column="spotName" property="spotName" jdbcType="VARCHAR"></result>
+    <result column="valueofcount" property="valueofcount" jdbcType="INTEGER"></result>
+  </resultMap>
+
+  <!--全市景区每月接待人次-->
+  <select id="getxcjqmyjdrc" resultType="com.naswork.model.TjnewxclvMonthly">
+    SELECT recordMonth,subscriberCount
+    from tj_new_xclv_monthly
+    WHERE recordYear = #{yearId}
+    and id = #{Id}
+    and level =#{typeId}
+  </select>
+
+  <!--景区每年接待人次(全市，县区，景区)-->
+  <select id="getxcjqmnjdrc" resultType="com.naswork.model.TjnewxclvMonthly">
+    SELECT recordYear,SUM(subscriberCount) as subscriberCount
+    FROM tj_new_xclv_monthly
+    WHERE id = #{Id}
+    AND `level` = #{typeId}
+    group by recordYear
+  </select>
+
+  <!--各县区景区月接待人次(全市页面)-->
+  <select id="getxcgxqjqyjdrc" resultType="com.naswork.model.TjnewxclvMonthly">
+    SELECT id,subscriberCount
+    FROM tj_new_xclv_monthly
+    WHERE recordYear = #{yearId}
+    and  recordMonth = #{monthId}
+    AND id<![CDATA[>=]]> 1001
+    AND id<![CDATA[<=]]> 1008
+  </select>
+
+  <!--景区接待人次月排名(全市，县区)-->
+  <select id="getxcjqjdrcypm" resultType="com.naswork.model.TjnewxclvMonthly">
+    SELECT t.subscriberCount,r.spotName as spotName
+    FROM tj_new_xclv_monthly as t,rural as r
+    WHERE t.recordYear = #{yearId}
+    and t.recordMonth = #{monthId}
+    and t.id = r.id
+    and t.id <![CDATA[>=]]>101
+    and t.id<![CDATA[<=]]> 199
+    <if test="typeId == 2">
+      and t.id in (select id from rural where districtId = #{Id})
+    </if>
+    ORDER BY t.subscriberCount DESC
+  </select>
+
+  <!--景区接待人次年度排名(全市，县区)-->
+  <select id="getxcjqjdrcndpm" resultType="com.naswork.model.TjnewxclvMonthly">
+    SELECT sum(t.subscriberCount) as valueofcount,r.spotName
+    FROM tj_new_xclv_monthly as t,rural as r
+    where t.recordYear = #{yearId}
+    and t.id <![CDATA[>=]]> 101
+    and t.id <![CDATA[<=]]> 199
+    and t.id = r.id
+    <if test="typeId == 2">
+      and t.id in (select id from rural where districtId = #{Id})
+    </if>
+    GROUP BY t.id
+    ORDER BY valueofcount DESC
+  </select>
+
+  <!--景区月接待人次同比分析-->
+  <select id="getxcjqyjdrctbfx" resultType="com.naswork.model.TjnewxclvMonthly">
+    SELECT recordMonth,tb_trend AS trend
+    FROM tj_new_xclv_monthly
+    where recordYear = #{yearId}
+    and id = #{Id}
+    and level = #{typeId}
+  </select>
+
+</mapper>
+
+
+
+

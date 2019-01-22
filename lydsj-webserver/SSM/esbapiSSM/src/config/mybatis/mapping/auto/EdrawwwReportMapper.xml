@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.EdrawwwReportDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.EdrawwwReport" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="country" property="country" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, country, content, publish_time, level, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.EdrawwwReportKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ed_raw_ww_report
+    where id = #{id,jdbcType=VARCHAR}
+      and country = #{country,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.EdrawwwReportKey" >
+    delete from ed_raw_ww_report
+    where id = #{id,jdbcType=VARCHAR}
+      and country = #{country,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.EdrawwwReport" >
+    insert into ed_raw_ww_report (id, country, content, 
+      publish_time, level, insert_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{publishTime,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.EdrawwwReport" >
+    insert into ed_raw_ww_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.EdrawwwReport" >
+    update ed_raw_ww_report
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and country = #{country,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.EdrawwwReport" >
+    update ed_raw_ww_report
+    set content = #{content,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+      and country = #{country,jdbcType=VARCHAR}
+  </update>
+  <!-- 查询天气预警信息，与梅州气象官网同步 -->
+  <select id="getWeatherWarning" resultType="com.naswork.model.EdrawwwReport">
+	select country,content,publish_time as publishTime,`level`
+	from ed_raw_ww_report 
+	where content !='' 
+	order by publish_time desc
+  </select>
+
+</mapper>

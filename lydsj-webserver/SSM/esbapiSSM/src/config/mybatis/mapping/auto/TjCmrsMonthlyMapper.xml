@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjCmrsMonthlyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjCmrsMonthly" >
+    <id column="recordYear" property="recordyear" jdbcType="INTEGER" />
+    <id column="recordMonth" property="recordmonth" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    recordYear, recordMonth, id, recordIdentifier, subscriberCount, level, insertTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjCmrsMonthlyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_cmrs_monthly
+    where recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjCmrsMonthlyKey" >
+    delete from tj_cmrs_monthly
+    where recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjCmrsMonthly" >
+    insert into tj_cmrs_monthly (recordYear, recordMonth, id, 
+      recordIdentifier, subscriberCount, level, 
+      insertTime)
+    values (#{recordyear,jdbcType=INTEGER}, #{recordmonth,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, 
+      #{recordidentifier,jdbcType=VARCHAR}, #{subscribercount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{inserttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjCmrsMonthly" >
+    insert into tj_cmrs_monthly
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordyear != null" >
+        recordYear,
+      </if>
+      <if test="recordmonth != null" >
+        recordMonth,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordyear != null" >
+        #{recordyear,jdbcType=INTEGER},
+      </if>
+      <if test="recordmonth != null" >
+        #{recordmonth,jdbcType=INTEGER},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjCmrsMonthly" >
+    update tj_cmrs_monthly
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjCmrsMonthly" >
+    update tj_cmrs_monthly
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP}
+    where recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectByIdFromMonth" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_cmrs_monthly
+    where id = #{id,jdbcType=INTEGER}
+      and recordIdentifier >= #{idStr}
+  </select>
+  
+  <select id="selectByIdAndIdstr" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_cmrs_monthly
+    where id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{idStr}
+  </select>
+
+	<select id="selectSomeMonths" resultMap="BaseResultMap">
+		select * from tj_cmrs_monthly t
+		where id = #{id}
+		order by recordIdentifier
+		limit #{maxNum}
+	</select>
+</mapper>

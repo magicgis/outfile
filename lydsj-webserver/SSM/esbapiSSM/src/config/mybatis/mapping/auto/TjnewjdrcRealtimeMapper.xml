@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewjdrcRealtimeDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewjdrcRealtime" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDateTime" property="recorddatetime" jdbcType="TIMESTAMP" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="latest" property="latest" jdbcType="CHAR" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+    <result column="second" property="second" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR"></result>
+  </resultMap>
+    <!-- 根据系统时间当前参数获得实时人数 -->
+ 	<select id="getNewjdrcRealTime" resultType="com.naswork.model.TjnewjdrcRealtime">
+	 	 SELECT TIME(t.recordDateTime) as second,ROUND(t.subscriberCount*j.rt_factor,0) as subscriberCount
+		 from tj_new_jdrc_realtime t,jqqd j
+		 WHERE 
+		 DATE(t.recordDateTime)=#{curDate}
+		 and t.recordDateTime &gt;=#{morning}
+		 and t.recordDateTime &lt;=#{night}
+		 and t.id=#{id}
+		 and t.id = j.id
+ 	</select>
+
+    <select id="getAllCount" resultType="integer">
+        SELECT round(SUM((t.subscriberCount)*(j.rt_factor))*#{num},0)
+		from tj_new_jdrc_realtime as t,jqqd as j
+		WHERE t.level = 3
+        <if test="startTime != null or endTime != null">
+            and t.recordDateTime = (
+            SELECT MAX(recordDateTime)
+            FROM tj_new_jdrc_realtime
+            WHERE TIME(recordDateTime) <![CDATA[ >= ]]> #{startTime}
+            AND TIME(recordDateTime) <![CDATA[ <= ]]> #{endTime}
+            )
+        </if>
+        <if test="startTime == null and endTime == null">
+            and t.latest = 'Y'
+        </if>
+		and t.id = j.id;
+    </select>
+
+    <select id="getAllCountByParentId" resultType="integer">
+        SELECT round(SUM((t.subscriberCount)*(j.rt_factor))*#{num},0)
+        FROM tj_new_jdrc_realtime as t,bi_org_info as b,jqqd as j
+        where t.id = b.id
+        and b.parentId = #{Id}
+        <if test="startTime != null or endTime != null">
+            and t.recordDateTime = (
+            SELECT MAX(recordDateTime)
+            FROM tj_new_jdrc_realtime
+            WHERE TIME(recordDateTime) <![CDATA[ >= ]]> #{startTime}
+            AND TIME(recordDateTime) <![CDATA[ <= ]]> #{endTime}
+            )
+        </if>
+        <if test="startTime == null and endTime == null">
+            and t.latest = 'Y'
+        </if>
+		and j.id = t.id
+    </select>
+
+    <select id="getCountById" resultType="integer">
+        SELECT round(t.subscriberCount*j.rt_factor,0)
+        FROM tj_new_jdrc_realtime as t,jqqd as j
+        WHERE t.id=#{Id}
+		and t.id = j.id
+        <if test="startTime != null or endTime != null">
+            and t.recordDateTime = (
+            SELECT MAX(recordDateTime)
+            FROM tj_new_jdrc_realtime
+            WHERE TIME(recordDateTime) <![CDATA[ >= ]]> #{startTime}
+            AND TIME(recordDateTime) <![CDATA[ <= ]]> #{endTime}
+            )
+        </if>
+        <if test="startTime == null and endTime == null">
+            and t.latest = 'Y'
+        </if>
+    </select>
+
+    <select id="getjqjdrcsspm" resultType="com.naswork.model.TjnewjdrcRealtime">
+        SELECT t.id,ROUND(t.subscriberCount*j.rt_factor,0) as subscriberCount,t.level,b.name as name
+        from tj_new_jdrc_realtime t,bi_org_info b,jqqd j
+        where 1=1
+        AND t.id = b.id
+        AND t.id = j.id
+        <if test="typeId==2">
+          and t.id in (select id from bi_org_info where parentId = #{Id})
+        </if>
+        <if test="typeId==3">
+            and t.id = #{Id}
+        </if>
+        <if test="startTime != null or endTime != null">
+            and t.recordDateTime = (
+            SELECT MAX(recordDateTime)
+            FROM tj_new_jdrc_realtime
+            WHERE TIME(recordDateTime) <![CDATA[ >= ]]> #{startTime}
+            AND TIME(recordDateTime) <![CDATA[ <= ]]> #{endTime}
+            )
+        </if>
+        <if test="startTime == null and endTime == null">
+            and t.latest = 'Y'
+        </if>
+        ORDER BY subscriberCount DESC
+    </select>
+
+</mapper>

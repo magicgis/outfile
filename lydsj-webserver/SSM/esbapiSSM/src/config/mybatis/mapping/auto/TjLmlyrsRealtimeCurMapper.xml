@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjLmlyrsRealtimeCurDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjLmlyrsRealtimeCur" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDateTime" property="recorddatetime" jdbcType="TIMESTAMP" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+  </resultMap>
+  
+   <resultMap id="KydfxTop5Data" type="com.naswork.model.KydfxTop5Data" >
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <resultMap id="KydfxTop5DataQB" type="com.naswork.model.KydfxTop5DataQB" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="yjRes" type="hashMap" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="alarm" property="alarm" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="yjResGroup" type="hashMap" >
+    <result column="alarm" property="alarm" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, recordDateTime, subscriberCount, level, recordIdentifier, insertTime, trend
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjLmlyrsRealtimeCurKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_lmlyrs_realtime_cur
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjLmlyrsRealtimeCurKey" >
+    delete from tj_lmlyrs_realtime_cur
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjLmlyrsRealtimeCur" >
+    insert into tj_lmlyrs_realtime_cur (id, recordDateTime, subscriberCount, 
+      level, recordIdentifier, insertTime, 
+      trend)
+    values (#{id,jdbcType=INTEGER}, #{recorddatetime,jdbcType=TIMESTAMP}, #{subscribercount,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{recordidentifier,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP}, 
+      #{trend,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjLmlyrsRealtimeCur" >
+    insert into tj_lmlyrs_realtime_cur
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recorddatetime != null" >
+        recordDateTime,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+      <if test="trend != null" >
+        trend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recorddatetime != null" >
+        #{recorddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trend != null" >
+        #{trend,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjLmlyrsRealtimeCur" >
+    update tj_lmlyrs_realtime_cur
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trend != null" >
+        trend = #{trend,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjLmlyrsRealtimeCur" >
+    update tj_lmlyrs_realtime_cur
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      trend = #{trend,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+  </update>
+  
+   <select id="selectByLevel" resultMap="BaseResultMap">
+	select *
+	from tj_lmlyrs_realtime_cur t
+	where t.`level` = #{level}
+</select>
+
+<select id="selectTop5Jq" resultMap="KydfxTop5Data">
+	select t2.spotName as name,
+	t.subscriberCount as value
+	from tj_lmlyrs_realtime_cur t join jqqd t2 on (t.id = t2.id)
+	where t.`level` = 3
+	order by value DESC
+	
+</select>
+
+	<select id="selectTop5Xq" resultMap="KydfxTop5Data">
+		select t2.spotName as name,
+		t.subscriberCount as value
+		from tj_lmlyrs_realtime_cur t join jqqd t2 on (t.id = t2.id)
+		where t.`level` = 3 and t2.districtId = #{id}
+		order by value DESC
+		
+	</select>
+	
+	
+	<select id="selectTop5XqQB" resultMap="KydfxTop5DataQB">
+		select t.id as id,
+		t2.spotName as name,
+		IFNULL(t.subscriberCount,0) as num,
+		t.level as level
+		from tj_jdrs_realtime_cur t join jqqd t2 on (t.id = t2.id)
+		where t.`level` = 3 and t2.districtId = #{id}
+		order by num DESC
+		
+	</select>
+	
+	
+<select id="selectTop5JqQB" resultMap="KydfxTop5DataQB">
+	select t.id as id,
+	t2.spotName as name,
+	t.subscriberCount as num,
+	t.level as level
+	from tj_jdrs_realtime_cur t join jqqd t2 on (t.id = t2.id)
+	where t.`level` = 3
+	order by num DESC
+	
+</select>
+
+<select id="selectYjData" resultMap="yjRes">
+	SELECT t.id,
+		t2.spotName as name,
+		t.alarm,
+		t.subscriberCount as number
+	from tj_jdrs_realtime_cur t join jqqd t2 on (t.id = t2.id)
+	WHERE t.id &lt; 1000 AND t.alarm > 0
+	order by t.alarm DESC,number DESC
+</select>
+
+<select id="selectYjDataGroup" resultMap="yjResGroup">
+select a.i as alarm,iFNULL(b.number,0) as number from (SELECT 1 AS i UNION ALL SELECT 2 AS i) a 
+	left join (
+		SELECT alarm,
+			COUNT(1) AS number 
+		FROM tj_jdrs_realtime_cur t 
+		WHERE t.id &lt; 1000 AND t.alarm > 0 
+		GROUP BY alarm
+	) b ON a.i = b.alarm
+</select>
+
+<select id="selectYjData_id" resultMap="yjRes">
+	SELECT t.id,
+		t2.spotName as name,
+		t.alarm,
+		t.subscriberCount as number
+	from tj_jdrs_realtime_cur t join jqqd t2 on (t.id = t2.id)
+	WHERE t.id = #{id} AND t.alarm > 0
+	order by t.alarm DESC,number DESC
+</select>
+
+<select id="selectYjDataGroup_id" resultMap="yjResGroup">
+	select a.i as alarm,iFNULL(b.number,0) as number from (SELECT 1 AS i UNION ALL SELECT 2 AS i) a 
+		left join (
+			SELECT alarm,
+				COUNT(1) AS number 
+			FROM tj_jdrs_realtime_cur t 
+			WHERE t.id = #{id} AND t.alarm > 0 
+			GROUP BY alarm
+	) b ON a.i = b.alarm
+</select>
+
+<select id="selectYjData_districtId" resultMap="yjRes">
+	SELECT t.id,
+		t2.spotName as name,
+		t.alarm,
+		t.subscriberCount as number
+	from tj_jdrs_realtime_cur t join jqqd t2 on (t.id = t2.id)
+	WHERE t2.districtId = #{districtId} AND t.alarm > 0
+	order by t.alarm DESC,number DESC
+</select>
+
+<select id="selectYjDataGroup_districtId" resultMap="yjResGroup">
+	select a.i as alarm,iFNULL(b.number,0) as number from (SELECT 1 AS i UNION ALL SELECT 2 AS i) a 
+	left join (
+			SELECT alarm,
+				COUNT(1) AS number 
+			FROM tj_jdrs_realtime_cur t join jqqd t2 on (t.id = t2.id)
+			WHERE t2.districtId = #{districtId} AND t.alarm > 0 
+			GROUP BY alarm
+		) b ON a.i = b.alarm
+</select>
+
+</mapper>

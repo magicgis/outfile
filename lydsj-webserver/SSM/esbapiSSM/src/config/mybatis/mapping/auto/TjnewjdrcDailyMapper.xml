@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewjdrcDailyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewjdrcDaily" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDate" property="recorddate" jdbcType="DATE" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+    <result column="day" property="day" jdbcType="INTEGER" />
+  </resultMap>
+    <!--根据year参数、month参数、id参数查询某年某月所有天接待人次-全市/景区每月接待人次  -->
+  <select id="getmrijdrcDaily" resultType="com.naswork.model.TjnewjdrcDaily">
+  select DATE_FORMAT(recordDate,'%m') as month, DATE_FORMAT(recordDate,'%d') as day, subscriberCount 
+  from tj_new_jdrc_daily
+  where 
+  DATE_FORMAT(recordDate,'%Y')= #{year}
+  and DATE_FORMAT(recordDate,'%m') =#{month} 
+  and id=#{id}
+  </select>
+   <!--根据year参数、month参数、id参数查询某年某月所有天接待人次-3a景区每月接待人次  -->
+    <select id="getQs3amrijdrcDaily" resultType="com.naswork.model.TjnewjdrcDaily">
+	select DATE_FORMAT(recordDate,'%m') as month, DATE_FORMAT(recordDate,'%d') as day, SUM(subscriberCount) as subscriberCount
+	from tj_new_jdrc_daily
+	where DATE_FORMAT(recordDate,'%Y')= #{year} 
+	and DATE_FORMAT(recordDate,'%m') =#{month}  
+	and level=#{level}
+    GROUP BY month,day
+  </select>
+  
+</mapper>

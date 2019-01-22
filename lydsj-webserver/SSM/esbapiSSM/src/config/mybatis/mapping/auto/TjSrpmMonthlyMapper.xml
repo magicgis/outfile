@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.TjSrpmMonthlyMapper">
+	<resultMap id="BaseResultMap"
+		type="com.naswork.model.TjSrpmMonthly">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="recordYear" jdbcType="INTEGER"
+			property="recordYear" />
+		<result column="recordMonth" jdbcType="INTEGER"
+			property="recordMonth" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="income" jdbcType="REAL" property="income" />
+		<result column="level" jdbcType="INTEGER" property="level" />
+		<result column="insertTime" jdbcType="TIMESTAMP"
+			property="insertTime" />
+	</resultMap>
+
+	<select id="getOneIncomeRankingMonthly" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT * FROM `tj_srpm_monthly`
+		<where>
+			<if test="year != null">
+				and recordYear=#{year}
+			</if>
+			<if test="month != null">
+				and recordMonth=#{month}
+			</if>
+			<if test="level != null">
+				and level=#{level}
+			</if>
+		</where>
+		order by income desc limit 0,
+		<if test="rank != null">
+			#{rank}
+		</if>
+		<if test="rank == null">
+			5
+		</if>
+	</select>
+
+	<select id="getOneSumIncomeRankingYearly" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT t.id,t.recordYear,t.recordMonth,t.code,t.name,sum(t.income)
+		income, t.level,t.insertTime FROM `tj_srpm_monthly` t
+		<where>
+			<if test="year != null">
+				and recordYear=#{year}
+			</if>
+			<if test="level != null">
+				and level=#{level}
+			</if>
+		</where>
+		group by t.code order by income desc limit 0,
+		<if test="rank != null">
+			#{rank}
+		</if>
+		<if test="rank == null">
+			5
+		</if>
+	</select>
+</mapper>

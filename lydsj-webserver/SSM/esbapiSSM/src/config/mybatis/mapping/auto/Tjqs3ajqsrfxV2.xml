@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.Tjqs3ajqsrfxV2Dao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.Tjqs3ajqsrfxV2" >
+    <result column="statsDate" property="statsdate" jdbcType="DATE" />
+    <result column="income" property="income" jdbcType="FLOAT" />
+  </resultMap>
+
+  <resultMap type="com.naswork.model.Tjqs3ajqsrfxV2" id="Qs3ajqsrfxV2">
+  <result column="statsDate" property="statsdate" />
+   <result column="income" property="income" />
+  </resultMap>
+    <!--根据年份参数获取3a景区该年所有月份的收入  -->
+  <select id="getQs3ajqsrfxV2" resultMap="Qs3ajqsrfxV2">
+	SELECT statsDate,ROUND(SUM(income),2)  as income
+	FROM jq_income_monthly 
+	WHERE
+	date_format(statsDate,'%Y')=#{year}
+	GROUP BY statsDate
+  </select>
+</mapper>

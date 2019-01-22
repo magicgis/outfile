@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.Jbpm4HistTaskDao">
+	<!--  -->
+	<resultMap type="com.naswork.model.Jbpm4HistTask" id="Jbpm4HistTask">
+		<result property="dbid" column="DBID_" jdbcType="NUMERIC" />
+		<result property="dbversion" column="DBVERSION_" jdbcType="NUMERIC" />
+		<result property="execution" column="EXECUTION_" jdbcType="VARCHAR" />
+		<result property="outcome" column="OUTCOME_" jdbcType="VARCHAR" />
+		<result property="assignee" column="ASSIGNEE_" jdbcType="VARCHAR" />
+		<result property="priority" column="PRIORITY_" jdbcType="NUMERIC" />
+		<result property="state" column="STATE_" jdbcType="VARCHAR" />
+		<result property="create" column="CREATE_" jdbcType="DATE" />
+		<result property="end" column="END_" jdbcType="TIMESTAMP" />
+		<result property="duration" column="DURATION_" jdbcType="NUMERIC" />
+		<result property="nextidx" column="NEXTIDX_" jdbcType="NUMERIC" />
+		<result property="supertask" column="SUPERTASK_" jdbcType="NUMERIC" />
+		<result property="activityName" column="ACTIVITY_NAME_" jdbcType="VARCHAR" />
+		<result property="procdefId" column="PROCDEFID_" jdbcType="VARCHAR" />
+		<result property="objName" column="OBJNAME_" jdbcType="VARCHAR" />
+		<result property="name" column="NAME_"  javaType = "java.lang.String" />
+	</resultMap>
+	
+	<!-- 查询已办任务 -->
+	<select id="findFinishData" resultType="String" resultMap="Jbpm4HistTask" >
+	  select  jht.DBID_,jht.DBVERSION_, jht.EXECUTION_,jht.OUTCOME_,  
+	  		  jht.ASSIGNEE_,jht.STATE_,jht.CREATE_, 
+	  		 jht.END_,jha.ACTIVITY_NAME_ ,jhp.PROCDEFID_,jdlp.OBJNAME_,jdnt.NAME_
+	   from JBPM4_HIST_TASK  jht 
+	   left  join  JBPM4_HIST_ACTINST jha on jha.HTASK_ = jht.DBID_  
+	   left join JBPM4_HIST_PROCINST jhp on jhp.dbid_ = jha.hproci_
+	   left join JBPM4_DEPLOYPROP jdlp on jdlp.stringval_ = jhp.procdefid_
+	   left join JBPM4_DEPLOYMENT jdnt on jdnt.dbid_ = jdlp.deployment_
+	   where jht.ASSIGNEE_ = #{assignee} and jht.state_='completed'
+	   <if test="startBefore != null and startBefore !=''">
+	   	 and to_char(jht.CREATE_,'yyyy-MM-dd')  &gt; = #{startBefore,jdbcType=VARCHAR}
+	   </if>
+	   <if test="startAfter != null and startAfter != ''">
+	   	 and to_char(jht.END_,'yyyy-MM-dd') &lt;=#{startAfter,jdbcType=VARCHAR}
+	   </if>
+	   <if test="deploymentName !=null and deploymentName !=''">
+	   	 and  dbms_lob.instr(jdnt.NAME_, #{deploymentName} , 1, 1) > 0
+	   </if>
+	   order by END_ desc
+	</select>
+
+</mapper>

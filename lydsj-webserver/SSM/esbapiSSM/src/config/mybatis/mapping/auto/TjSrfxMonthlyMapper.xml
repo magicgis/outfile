@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.TjSrfxMonthlyMapper">
+ <resultMap id="BaseResultMap" type="com.naswork.model.TjSrfxMonthly">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="recordYear" jdbcType="INTEGER" property="recordYear" />
+    <result column="recordMonth" jdbcType="INTEGER" property="recordMonth" />
+    <result column="income" jdbcType="REAL" property="income" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="insertTime" jdbcType="TIMESTAMP" property="insertTime" />
+  </resultMap>
+	<sql id="orLevels">
+		<foreach collection="levels" item="item" open="" separator=""
+			close="">
+			<if test="item !=null">
+				or level=#{item}
+			</if>
+		</foreach>
+	</sql>
+
+	<!-- 1、获取某年某企业所有月收入 -->
+	<select id="getOneIncomeMonthly" parameterType="java.util.Map"
+		resultType="com.naswork.model.TjSrfxMonthly">
+		SELECT * FROM `tj_srfx_monthly` where 1=1
+		<if test="year != null">
+			and recordYear=#{year}
+		</if>
+		<if test="level != null">
+			and level=#{level}
+		</if>
+	</select>
+	<!--2、 获取所有年某几个企业月 收入和 （年收入） -->
+	<select id="getSumIncomeYearly" parameterType="java.util.List"
+		resultType="com.naswork.model.TjSrfxMonthly">
+		SELECT t.recordYear recordYear, sum(t.income) income FROM
+		`tj_srfx_monthly` t
+		<where>
+			<include refid="orLevels"></include>
+		</where>
+		GROUP by recordYear
+	</select>
+
+	<!--3、 获取所有年某个企业月 收入和 （年收入） -->
+	<select id="getOneSumIncomeYearly"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT t.recordYear recordYear, sum(t.income) income FROM
+		`tj_srfx_monthly` t
+		<where>
+			<if test="level !=null">
+				and level=#{level}
+			</if>
+		</where>
+		GROUP by recordYear
+	</select>
+</mapper>

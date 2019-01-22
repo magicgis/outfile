@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewjdrzDailyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewjdrzDaily" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDate" property="recorddate" jdbcType="DATE" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+  </resultMap>
+  
+</mapper>

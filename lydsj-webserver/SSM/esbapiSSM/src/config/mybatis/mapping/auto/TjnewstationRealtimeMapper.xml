@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjnewstationRealtimeDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjnewstationRealtime" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordDateTime" property="recorddatetime" jdbcType="TIMESTAMP" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="latest" property="latest" jdbcType="CHAR" />
+    <result column="spotName" property="spotName" jdbcType="CHAR" />
+    <result column="trend" property="trend" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, recordDateTime, subscriberCount, level, insertTime, latest, trend
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjnewstationRealtimeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_new_station_realtime
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjnewstationRealtimeKey" >
+    delete from tj_new_station_realtime
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjnewstationRealtime" >
+    insert into tj_new_station_realtime (id, recordDateTime, subscriberCount, 
+      level, insertTime, latest, 
+      trend)
+    values (#{id,jdbcType=INTEGER}, #{recorddatetime,jdbcType=TIMESTAMP}, #{subscribercount,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{inserttime,jdbcType=TIMESTAMP}, #{latest,jdbcType=CHAR}, 
+      #{trend,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjnewstationRealtime" >
+    insert into tj_new_station_realtime
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recorddatetime != null" >
+        recordDateTime,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+      <if test="latest != null" >
+        latest,
+      </if>
+      <if test="trend != null" >
+        trend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recorddatetime != null" >
+        #{recorddatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latest != null" >
+        #{latest,jdbcType=CHAR},
+      </if>
+      <if test="trend != null" >
+        #{trend,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjnewstationRealtime" >
+    update tj_new_station_realtime
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latest != null" >
+        latest = #{latest,jdbcType=CHAR},
+      </if>
+      <if test="trend != null" >
+        trend = #{trend,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjnewstationRealtime" >
+    update tj_new_station_realtime
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      latest = #{latest,jdbcType=CHAR},
+      trend = #{trend,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+      and recordDateTime = #{recorddatetime,jdbcType=TIMESTAMP}
+  </update>
+  <!--各交通枢纽实时客流监测 -->
+  <select id="getStationCountRealtime" resultType="com.naswork.model.TjnewstationRealtime">
+	select s.spotName as spotName,ROUND((t.subscriberCount*s.rt_factor),0) as subscribercount
+	from tj_new_station_realtime t, station s
+	where t.id= s.id
+	and t.latest='Y'
+	ORDER BY subscribercount desc;
+  </select>
+</mapper>
+
+
+

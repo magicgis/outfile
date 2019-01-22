@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjKydfxMonthlyDao">
+    <resultMap id="BaseResultMap" type="com.naswork.model.TjKydfxMonthly">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="recordYear" property="recordyear" jdbcType="INTEGER"/>
+        <id column="recordMonth" property="recordmonth" jdbcType="INTEGER"/>
+        <id column="sourceName" property="sourcename" jdbcType="VARCHAR"/>
+        <id column="sourceScope" property="sourcescope" jdbcType="INTEGER"/>
+        <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER"/>
+        <result column="level" property="level" jdbcType="INTEGER"/>
+        <result column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR"/>
+        <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP"/>
+        <result column="percent" property="percent" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="Map1" type="com.naswork.model.MyModel">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="totalNum" property="totalNum" jdbcType="INTEGER"/>
+        <result column="spotName" property="spotName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="KydfxTop5Data" type="com.naswork.model.KydfxTop5Data">
+        <result column="rank" property="rank" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="value" property="value" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="rankVoMap" type="com.naswork.vo.RankVo">
+        <result column="name" property="spotName" jdbcType="VARCHAR"></result>
+        <result column="value" property="count" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, recordYear, recordMonth, sourceName, sourceScope, subscriberCount, level, recordIdentifier, 
+    insertTime
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjKydfxMonthlyKey">
+        select
+        <include refid="Base_Column_List"/>
+        from tj_kydfx_monthly
+        where id = #{id,jdbcType=INTEGER}
+        and recordYear = #{recordyear,jdbcType=INTEGER}
+        and recordMonth = #{recordmonth,jdbcType=INTEGER}
+        and sourceName = #{sourcename,jdbcType=VARCHAR}
+        and sourceScope = #{sourcescope,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjKydfxMonthlyKey">
+    delete from tj_kydfx_monthly
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.naswork.model.TjKydfxMonthly">
+    insert into tj_kydfx_monthly (id, recordYear, recordMonth, 
+      sourceName, sourceScope, subscriberCount, 
+      level, recordIdentifier, insertTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{recordyear,jdbcType=INTEGER}, #{recordmonth,jdbcType=INTEGER}, 
+      #{sourcename,jdbcType=VARCHAR}, #{sourcescope,jdbcType=INTEGER}, #{subscribercount,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{recordidentifier,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.naswork.model.TjKydfxMonthly">
+        insert into tj_kydfx_monthly
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="recordyear != null">
+                recordYear,
+            </if>
+            <if test="recordmonth != null">
+                recordMonth,
+            </if>
+            <if test="sourcename != null">
+                sourceName,
+            </if>
+            <if test="sourcescope != null">
+                sourceScope,
+            </if>
+            <if test="subscribercount != null">
+                subscriberCount,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="recordidentifier != null">
+                recordIdentifier,
+            </if>
+            <if test="inserttime != null">
+                insertTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="recordyear != null">
+                #{recordyear,jdbcType=INTEGER},
+            </if>
+            <if test="recordmonth != null">
+                #{recordmonth,jdbcType=INTEGER},
+            </if>
+            <if test="sourcename != null">
+                #{sourcename,jdbcType=VARCHAR},
+            </if>
+            <if test="sourcescope != null">
+                #{sourcescope,jdbcType=INTEGER},
+            </if>
+            <if test="subscribercount != null">
+                #{subscribercount,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
+            </if>
+            <if test="recordidentifier != null">
+                #{recordidentifier,jdbcType=VARCHAR},
+            </if>
+            <if test="inserttime != null">
+                #{inserttime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjKydfxMonthly">
+        update tj_kydfx_monthly
+        <set>
+            <if test="subscribercount != null">
+                subscriberCount = #{subscribercount,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="recordidentifier != null">
+                recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+            </if>
+            <if test="inserttime != null">
+                insertTime = #{inserttime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+        and recordYear = #{recordyear,jdbcType=INTEGER}
+        and recordMonth = #{recordmonth,jdbcType=INTEGER}
+        and sourceName = #{sourcename,jdbcType=VARCHAR}
+        and sourceScope = #{sourcescope,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjKydfxMonthly">
+    update tj_kydfx_monthly
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      recordIdentifier = #{recordidentifier,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+      and recordYear = #{recordyear,jdbcType=INTEGER}
+      and recordMonth = #{recordmonth,jdbcType=INTEGER}
+      and sourceName = #{sourcename,jdbcType=VARCHAR}
+      and sourceScope = #{sourcescope,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectTop5ById1" resultMap="Map1">
+	select sum(t1.subscriberCount) as totalNum, t2.spotName 
+	from tj_kydfx_monthly t1
+	join jqqd t2 on (t1.id = t2.id)
+	where t1.recordIdentifier = #{idStr} and t1.level = 3 and t1.sourceScope = #{areaRange}
+	group by t1.id
+	order by totalNum desc
+	
+  </select>
+
+    <select id="selectTop5ById2" resultMap="Map1">
+	select sum(t1.subscriberCount) as totalNum, t2.spotName 
+	from tj_kydfx_monthly t1
+	join jqqd t2 on (t1.id = t2.id)
+	where t1.recordIdentifier = #{idStr} and t1.level = 3 and t1.sourceScope = #{areaRange} and t2.districtId = #{id}
+	group by t1.id
+	order by totalNum desc
+	
+  </select>
+
+
+    <select id="selectByScope" resultMap="BaseResultMap">
+	select *
+	from tj_kydfx_monthly t
+	where t.sourceScope = #{scope} and t.recordIdentifier = #{idStr} and t.id = #{id}
+</select>
+    <!--根据参数查询对应的客源地来梅人数，并进行排序 取前五名 ,sourceScope为null就查询所有-->
+    <select id="selectTop5" resultMap="KydfxTop5Data">
+        select sourceName as name,
+        sum(subscriberCount) as value from tj_kydfx_monthly
+        where 1=1
+        <if test="scope != null">
+            and sourceScope = #{scope}
+        </if>
+        and recordIdentifier = #{idStr} and id =#{id}
+        group by sourceName
+        order by value desc
+    </select>
+    <!--根据景区id、年份参数、月份参数和区域参数查询客源地来梅人数并进行排名-->
+    <select id="KydpmByMonth" resultType="com.naswork.model.KydfxTop5Data">
+        select @s:=@s+1 as rank, sourceName as name,
+        ROUND((subscriberCount/(SELECT sum(subscriberCount)
+        from tj_kydfx_monthly
+        where
+        id =#{id}
+        and recordYear=#{year}
+        and recordMonth=#{month}
+        <if test="area_range==5">
+            and sourceScope NOT IN (1)
+        </if>
+        <if test="area_range==6">
+            and 1=1
+        </if>
+        <if test="area_range!=6 and area_range!=5">
+            and sourceScope = #{area_range}
+        </if>))*100,1) as value
+        from (select @s:=0) t, tj_kydfx_monthly
+        where
+        id =#{id}
+        and recordYear=#{year}
+        and recordMonth=#{month}
+        <if test="area_range==5">
+            and sourceScope NOT IN (1)
+        </if>
+        <if test="area_range==6">
+            and 1=1
+        </if>
+        <if test="area_range!=6 and area_range!=5">
+            and sourceScope = #{area_range}
+        </if>
+        order by subscriberCount DESC
+    </select>
+
+
+    <!--根据景区id,年份参数、月份参数,区域参数查询对应的客源地来梅旅游人数-->
+    <select id="selectAllByMonth" resultType="com.naswork.model.TjKydfxMonthly">
+        select sourceName,
+        ROUND((subscriberCount/(SELECT sum(subscriberCount)
+        from tj_kydfx_monthly
+        where
+        id =#{id}
+        and recordYear=#{year}
+        and recordMonth=#{month}
+        <if test="area_range==5">
+            and sourceScope NOT IN (1)
+        </if>
+        <if test="area_range==6">
+            and 1=1
+        </if>
+        <if test="area_range!=6 and area_range!=5">
+            and sourceScope = #{area_range}
+        </if>))*100,1) as percent
+        from tj_kydfx_monthly
+        where
+        id =#{id}
+        and recordYear=#{year}
+        and recordMonth=#{month}
+        <if test="area_range==5">
+            and sourceScope NOT IN (1)
+        </if>
+        <if test="area_range==6">
+            and 1=1
+        </if>
+        <if test="area_range!=6 and area_range!=5">
+            and sourceScope = #{area_range}
+        </if>
+        group by sourceName
+        order by subscriberCount desc
+    </select>
+
+    <!--根据year参数和area_range参数查询全市客源地排名  -->
+    <select id="getQskydpm" resultMap="KydfxTop5Data">
+	SELECT  sourceName as name ,ROUND(SUM(subscriberCount)/(SELECT sum(subscriberCount) 
+	from tj_kydfx_monthly
+		where  
+	id =1000
+	and recordYear=#{year}
+	and sourceScope =#{area_range} )*100,1) as value
+	from  tj_kydfx_monthly
+	WHERE id =1000
+	and recordYear=#{year}
+	and sourceScope =#{area_range} 
+	GROUP BY name
+	ORDER BY value desc
+	</select>
+
+    <select id="getkydfx" resultMap="rankVoMap">
+        SELECT  sourceName as name ,ROUND(SUM(subscriberCount)/(SELECT sum(subscriberCount)
+	from tj_kydfx_monthly
+		where
+	id =1000
+	and recordYear=#{year}
+	and sourceScope =#{area_range} )*100,1) as value
+	from  tj_kydfx_monthly
+	WHERE id =1000
+	and recordYear=#{yearId}
+	and sourceScope =#{area_range}
+	and recordMonth =#{monthId}
+	GROUP BY name
+	ORDER BY value desc
+    </select>
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TjCmrsDailyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TjCmrsDaily" >
+    <id column="recordDate" property="recorddate" jdbcType="DATE" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="recordIdentifier" property="recordidentifier" jdbcType="VARCHAR" />
+    <result column="subscriberCount" property="subscribercount" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="insertTime" property="inserttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    recordDate, id, recordIdentifier, subscriberCount, level, insertTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.TjCmrsDailyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_cmrs_daily
+    where recordDate = #{recorddate,jdbcType=DATE}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.TjCmrsDailyKey" >
+    delete from tj_cmrs_daily
+    where recordDate = #{recorddate,jdbcType=DATE}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TjCmrsDaily" >
+    insert into tj_cmrs_daily (recordDate, id, recordIdentifier, 
+      subscriberCount, level, insertTime
+      )
+    values (#{recorddate,jdbcType=DATE}, #{id,jdbcType=INTEGER}, #{recordidentifier,jdbcType=VARCHAR}, 
+      #{subscribercount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{inserttime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TjCmrsDaily" >
+    insert into tj_cmrs_daily
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recorddate != null" >
+        recordDate,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recordidentifier != null" >
+        recordIdentifier,
+      </if>
+      <if test="subscribercount != null" >
+        subscriberCount,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="inserttime != null" >
+        insertTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recorddate != null" >
+        #{recorddate,jdbcType=DATE},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recordidentifier != null" >
+        #{recordidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribercount != null" >
+        #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TjCmrsDaily" >
+    update tj_cmrs_daily
+    <set >
+      <if test="subscribercount != null" >
+        subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="inserttime != null" >
+        insertTime = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where recordDate = #{recorddate,jdbcType=DATE}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TjCmrsDaily" >
+    update tj_cmrs_daily
+    set subscriberCount = #{subscribercount,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      insertTime = #{inserttime,jdbcType=TIMESTAMP}
+    where recordDate = #{recorddate,jdbcType=DATE}
+      and id = #{id,jdbcType=INTEGER}
+      and recordIdentifier = #{recordidentifier,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="selectByIdAndStartDay" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tj_cmrs_daily
+    where recordDate >= #{startDay}
+      and id = #{id}
+    order by recordIdentifier 
+  </select>
+</mapper>
