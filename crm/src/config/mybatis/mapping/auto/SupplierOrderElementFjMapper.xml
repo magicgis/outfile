@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierOrderElementFjDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierOrderElementFj" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ORDER_ELEMENT_IDS" property="supplierOrderElementIds" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_ORDER_ELEMENT_IDS, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_order_element_fj
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_order_element_fj
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierOrderElementFj" >
+    insert into supplier_order_element_fj (ID, SUPPLIER_ORDER_ELEMENT_IDS, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{supplierOrderElementIds,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierOrderElementFj" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into supplier_order_element_fj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierOrderElementIds != null" >
+        SUPPLIER_ORDER_ELEMENT_IDS,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierOrderElementIds != null" >
+        #{supplierOrderElementIds,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierOrderElementFj" >
+    update supplier_order_element_fj
+    <set >
+      <if test="supplierOrderElementIds != null" >
+        SUPPLIER_ORDER_ELEMENT_IDS = #{supplierOrderElementIds,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierOrderElementFj" >
+    update supplier_order_element_fj
+    set SUPPLIER_ORDER_ELEMENT_IDS = #{supplierOrderElementIds,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getByOrderId" parameterType="page" resultMap="BaseResultMap">
+  	SELECT * FROM supplier_order_element_fj soef WHERE soef.SUPPLIER_ORDER_ELEMENT_IDS LIKE ${id}
+  </select>
+  
+  <select id="selectForeignKey" parameterType="string" resultMap="BaseResultMap">
+  	SELECT * FROM supplier_order_element_fj soef WHERE soef.SUPPLIER_ORDER_ELEMENT_IDS = #{ids}
+  </select>
+  
+</mapper>

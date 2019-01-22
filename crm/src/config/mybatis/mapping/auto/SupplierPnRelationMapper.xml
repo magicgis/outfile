@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierPnRelationDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierPnRelationKey" >
+	<id column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+	<id column="BSN" property="bsn" jdbcType="VARCHAR" />
+	<id column="MSN" property="msn" jdbcType="VARCHAR" />
+	<result column="CAGE_CODE" property="cageCode" jdbcType="CHAR" />
+	<result column="MAN_NAME" property="manName" jdbcType="VARCHAR" />
+	<result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
+	<result column="PART_NUM" property="partNum" jdbcType="VARCHAR" />
+	<result column="ATA" property="ata" jdbcType="VARCHAR" />
+	<result column="AIRCRAFT" property="aircraft" jdbcType="VARCHAR" />
+	<result column="CONDITION" property="condition" jdbcType="VARCHAR" />
+	<result column="QTY" property="qty" jdbcType="DOUBLE" />
+	<result column="value" property="value" jdbcType="VARCHAR" />
+	<result column="SUPPLY_ABILITY" property="supplyAbility" jdbcType="INTEGER" />
+	<result column="STOCK_ABILITY" property="stockAbility" jdbcType="INTEGER" />
+	<result column="REPAIR_ABILITY" property="repairAbility" jdbcType="INTEGER" />
+	<result column="EXCHANGE_ABILITY" property="exchangeAbility" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="factoryVo" type="com.naswork.module.system.controller.suppliermanage.FactoryVo" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="bsn" property="bsn" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="part_num" property="partNum" jdbcType="VARCHAR" />
+    <result column="man_name" property="manName" jdbcType="VARCHAR" />
+    <result column="cage_code" property="cageCode" jdbcType="VARCHAR" />
+    <result column="msn" property="msn" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.marketing.controller.partsinformation.SupplierAbilityVo" id="supplierAbilityVo">
+  	<result column="bsn" property="bsn" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="part_num" property="partNumber" jdbcType="VARCHAR" />
+    <result column="cage_code" property="cageCode" jdbcType="VARCHAR" />
+    <result column="msn" property="msn" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <select id="selectByPrimaryKeyPage" resultMap="BaseResultMap" parameterType="page" >
+      select t.PART_NAME,t.PART_NUM,tm.CAGE_CODE,tm.MAN_NAME,spr.*
+      from crm.supplier_pn_relation spr
+		INNER JOIN crmstock.t_part t on 
+		(t.BSN=spr.BSN)
+		LEFT JOIN crmstock.t_manufactory tm on 
+		(t.MSN=tm.MSN)
+		    where SUPPLIER_ID = ${supplierId}
+  </select>
+  
+     <select id="selectBybsn" resultMap="BaseResultMap" parameterType="String" >
+      select spr.bsn from crm.supplier_pn_relation spr
+		    where bsn = #{0} and SUPPLIER_ID = #{1}
+  </select>
+  
+   <select id="selectByNameAndNum" resultMap="BaseResultMap" parameterType="String" >
+  select t.BSN,t.MSN,t.PART_NAME,t.PART_NUM,tm.CAGE_CODE,tm.MAN_NAME from crmstock.t_part t INNER JOIN crmstock.t_manufactory tm on 
+	(t.MSN=tm.MSN)
+	 where t.SHORT_PART_NUM=#{partName} 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.SupplierPnRelationKey" >
+    delete from supplier_pn_relation
+    where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and BSN = #{bsn,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierPnRelationKey"> 
+  update supplier_pn_relation SET ATA=#{ata},AIRCRAFT=#{aircraft},`CONDITION`=#{condition},QTY=#{qty},TYPE=#{supplierPnType},
+  SN=#{sn,jdbcType=VARCHAR},REPAIR=#{repair,jdbcType=VARCHAR},CERT=#{cert,jdbcType=VARCHAR},REMARK=#{remark,jdbcType=VARCHAR},
+   <if test="supplyAbility != null" >
+  SUPPLY_ABILITY=#{supplyAbility,jdbcType=INTEGER}
+  </if>
+   <if test="stockAbility != null" >
+  STOCK_ABILITY=#{stockAbility,jdbcType=INTEGER}
+  </if>
+   <if test="repairAbility != null" >
+  REPAIR_ABILITY=#{repairAbility,jdbcType=INTEGER}
+  </if>
+   <if test="exchangeAbility != null" >
+  EXCHANGE_ABILITY=#{exchangeAbility,jdbcType=INTEGER}
+  </if>
+   where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and BSN = #{bsn,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimarySelectiveKey" parameterType="com.naswork.model.SupplierPnRelationKey"> 
+  update supplier_pn_relation 
+ <set >
+    <if test="ata != null" >
+   ATA=#{ata},
+   </if>
+     <if test="aircraft != null" >
+   AIRCRAFT=#{aircraft},
+   </if>
+     <if test="condition != null" >
+   `CONDITION`=#{condition},
+   </if>
+     <if test="qty != null" >
+   QTY=#{qty},
+   </if>
+     <if test="supplierPnType != null" >
+   TYPE=#{supplierPnType},
+   </if>
+     <if test="sn != null" >
+  SN=#{sn,jdbcType=VARCHAR},
+  </if>
+    <if test="repair != null" >
+  REPAIR=#{repair,jdbcType=VARCHAR},
+  </if>
+    <if test="cert != null" >
+  CERT=#{cert,jdbcType=VARCHAR},
+  </if>
+    <if test="remark != null" >
+  REMARK=#{remark,jdbcType=VARCHAR},
+  </if>
+   <if test="supplyAbility != null" >
+  SUPPLY_ABILITY=#{supplyAbility,jdbcType=INTEGER},
+  </if>
+   <if test="stockAbility != null" >
+  STOCK_ABILITY=#{stockAbility,jdbcType=INTEGER},
+  </if>
+   <if test="repairAbility != null" >
+  REPAIR_ABILITY=#{repairAbility,jdbcType=INTEGER},
+  </if>
+   <if test="exchangeAbility != null" >
+  EXCHANGE_ABILITY=#{exchangeAbility,jdbcType=INTEGER},
+  </if>
+  </set>
+   where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and BSN = #{bsn,jdbcType=VARCHAR}
+  </update>
+  
+  <insert id="insert" parameterType="com.naswork.model.SupplierPnRelationKey" >
+    insert into supplier_pn_relation (SUPPLIER_ID, BSN,ATA,AIRCRAFT,`CONDITION`,QTY,TYPE,SN,REPAIR,CERT,REMARK,SUPPLY_ABILITY,STOCK_ABILITY,REPAIR_ABILITY,EXCHANGE_ABILITY)
+    values (#{supplierId,jdbcType=INTEGER}, #{bsn,jdbcType=VARCHAR}, #{ata,jdbcType=VARCHAR},
+     #{aircraft,jdbcType=VARCHAR}, #{condition,jdbcType=VARCHAR}, #{qty,jdbcType=DOUBLE},#{supplierPnType,jdbcType=INTEGER},
+     #{sn,jdbcType=VARCHAR},#{repair,jdbcType=VARCHAR},#{cert,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{supplyAbility,jdbcType=INTEGER},#{stockAbility,jdbcType=INTEGER}
+     ,#{repairAbility,jdbcType=INTEGER},#{exchangeAbility,jdbcType=INTEGER}
+     )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierPnRelationKey" >
+    insert into supplier_pn_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="bsn != null" >
+        BSN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="bsn != null" >
+        #{bsn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="inquiryList" parameterType="String" resultMap="factoryVo">
+  		select tp.PART_NUM,s.`CODE`,
+				s.`NAME`,tp.PART_NAME,s.id AS supplier_id
+				from crmstock.t_part tp 
+				inner JOIN supplier_pn_relation spr ON (
+					tp.BSN = spr.BSN
+				)
+				inner JOIN supplier s ON (
+					s.ID = spr.SUPPLIER_ID
+				)
+				where tp.SHORT_PART_NUM = #{partNumberCode}
+  </select>
+  
+  <select id="getTpart" parameterType="String" resultMap="factoryVo">
+  		select DISTINCT tp.BSN,tp.PART_NUM,tp.PART_NAME,tm.MAN_NAME,tm.CAGE_CODE,tp.MSN
+			from crmstock.t_part tp LEFT JOIN crmstock.t_manufactory tm
+			ON (tm.msn = tp.msn) where tp.SHORT_PART_NUM = #{partNumberCode} 
+  </select>
+  
+  <select id="getTpartByMsnFlag" parameterType="page" resultMap="factoryVo">
+  		select DISTINCT tp.BSN,tp.PART_NUM,tp.PART_NAME,tm.MAN_NAME,tm.CAGE_CODE,tp.MSN
+			from crmstock.t_part tp LEFT JOIN crmstock.t_manufactory tm
+			ON (tm.msn = tp.msn) where tp.SHORT_PART_NUM = #{partNumberCode} 
+			<if test="msnFlag != null">
+				AND tp.MSN_FLAG = #{msnFlag}
+			</if>
+			
+  </select>
+  
+  <select id="selectByBsn" parameterType="String" resultType="Integer">
+  		select spr.SUPPLIER_ID FROM supplier_pn_relation spr where spr.bsn = #{bsn}
+  </select>
+  
+  <select id="listPage" parameterType="page" resultMap="supplierAbilityVo">
+  		SELECT
+			tp.PART_NUM,
+			s.`CODE` AS supplier_code,
+			s.ID AS supplier_id,
+			tp.BSN
+		FROM
+			supplier_pn_relation spr
+		LEFT JOIN crmstock.t_part tp ON tp.BSN = spr.BSN
+		LEFT JOIN supplier s ON s.ID = spr.SUPPLIER_ID
+		<if test="userId != null">
+			LEFT JOIN authority_relation ar on ar.CLIENT_ID = s.ID
+		</if>
+		where 1=1
+  		<if test="where != null">
+  			and ${where}
+  		</if>
+  		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+  		<if test="orderby != null">
+  			${orderby}
+  		</if>
+  </select>
+  
+  
+</mapper>

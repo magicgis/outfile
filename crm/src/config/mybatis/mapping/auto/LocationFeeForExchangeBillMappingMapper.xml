@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.LocationFeeForExchangeBillMappingDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.LocationFeeForExchangeBillMapping" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="FEE_EXCHANGE_BILL" property="feeExchangeBill" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, LOCATION, FEE_EXCHANGE_BILL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from location_fee_for_exchange_bill_mapping
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from location_fee_for_exchange_bill_mapping
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.LocationFeeForExchangeBillMapping" >
+    insert into location_fee_for_exchange_bill_mapping (ID, LOCATION, FEE_EXCHANGE_BILL
+      )
+    values (#{id,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{feeExchangeBill,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.LocationFeeForExchangeBillMapping" >
+    insert into location_fee_for_exchange_bill_mapping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="feeExchangeBill != null" >
+        FEE_EXCHANGE_BILL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="feeExchangeBill != null" >
+        #{feeExchangeBill,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.LocationFeeForExchangeBillMapping" >
+    update location_fee_for_exchange_bill_mapping
+    <set >
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="feeExchangeBill != null" >
+        FEE_EXCHANGE_BILL = #{feeExchangeBill,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.LocationFeeForExchangeBillMapping" >
+    update location_fee_for_exchange_bill_mapping
+    set LOCATION = #{location,jdbcType=VARCHAR},
+      FEE_EXCHANGE_BILL = #{feeExchangeBill,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getByLocation" parameterType="String" resultMap="BaseResultMap">
+  	SELECT * FROM `location_fee_for_exchange_bill_mapping` lffebm WHERE lffebm.LOCATION = #{location}
+  </select>
+  
+</mapper>

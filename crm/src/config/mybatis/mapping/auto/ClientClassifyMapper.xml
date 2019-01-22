@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientClassifyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientClassify" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_CLASSIFY_ID" property="clientClassifyId" jdbcType="VARCHAR" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_CLASSIFY_ID, CLIENT_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_classify
+    where CLIENT_ID = #{clientId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_classify
+    where  CLIENT_ID = #{clientId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientClassify" >
+    insert into client_classify (ID, CLIENT_CLASSIFY_ID, CLIENT_ID
+      )
+    values (#{id,jdbcType=INTEGER}, #{clientClassifyId,jdbcType=VARCHAR}, #{clientId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientClassify" >
+    insert into client_classify
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientClassifyId != null" >
+        CLIENT_CLASSIFY_ID,
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientClassifyId != null" >
+        #{clientClassifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientClassify" >
+    update client_classify
+    <set >
+      <if test="clientClassifyId != null" >
+        CLIENT_CLASSIFY_ID = #{clientClassifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID = #{clientId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientClassify" >
+    update client_classify
+    set CLIENT_CLASSIFY_ID = #{clientClassifyId,jdbcType=VARCHAR},
+      CLIENT_ID = #{clientId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

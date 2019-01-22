@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TxtavQuoteElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TxtavQuoteElement" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="UNIT_PRICE" property="unitPrice" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="CAGE_CODE" property="cageCode" jdbcType="VARCHAR" />
+    <result column="CERTIFICATION" property="certification" jdbcType="VARCHAR" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="TXTAV_QUOTE_ID" property="txtavQuoteId" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ELEMENT_ID" property="clientInquiryElementId" jdbcType="INTEGER" />
+    <result column="STOCK_MESSAGE" property="stockMessage" jdbcType="VARCHAR" />
+    <result column="INFORMATION" property="information" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATETIME" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="AMOUNT" property="amount" jdbcType="INTEGER" />
+    <result column="ISREPLACE" property="isreplace" jdbcType="INTEGER" />
+    <result column="DANGER" property="danger" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PART_NUMBER, DESCRIPTION, UNIT_PRICE, UNIT, CURRENCY, CAGE_CODE, CERTIFICATION, 
+    LEAD_TIME, TXTAV_QUOTE_ID, CLIENT_INQUIRY_ELEMENT_ID, STOCK_MESSAGE, INFORMATION, 
+    UPDATE_DATETIME, AMOUNT, ISREPLACE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from txtav_quote_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from txtav_quote_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TxtavQuoteElement" >
+    insert into txtav_quote_element (ID, PART_NUMBER, DESCRIPTION, 
+      UNIT_PRICE, UNIT, CURRENCY, 
+      CAGE_CODE, CERTIFICATION, LEAD_TIME, 
+      TXTAV_QUOTE_ID, CLIENT_INQUIRY_ELEMENT_ID, STOCK_MESSAGE, 
+      INFORMATION, UPDATE_DATETIME, AMOUNT, 
+      ISREPLACE)
+    values (#{id,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{unitPrice,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, 
+      #{cageCode,jdbcType=VARCHAR}, #{certification,jdbcType=VARCHAR}, #{leadTime,jdbcType=VARCHAR}, 
+      #{txtavQuoteId,jdbcType=INTEGER}, #{clientInquiryElementId,jdbcType=INTEGER}, #{stockMessage,jdbcType=VARCHAR}, 
+      #{information,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP}, #{amount,jdbcType=INTEGER}, 
+      #{isreplace,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TxtavQuoteElement" >
+    insert into txtav_quote_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="unitPrice != null" >
+        UNIT_PRICE,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="currency != null" >
+        CURRENCY,
+      </if>
+      <if test="cageCode != null" >
+        CAGE_CODE,
+      </if>
+      <if test="certification != null" >
+        CERTIFICATION,
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+      <if test="txtavQuoteId != null" >
+        TXTAV_QUOTE_ID,
+      </if>
+      <if test="clientInquiryElementId != null" >
+        CLIENT_INQUIRY_ELEMENT_ID,
+      </if>
+      <if test="stockMessage != null" >
+        STOCK_MESSAGE,
+      </if>
+      <if test="information != null" >
+        INFORMATION,
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="isreplace != null" >
+        ISREPLACE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="cageCode != null" >
+        #{cageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="certification != null" >
+        #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="txtavQuoteId != null" >
+        #{txtavQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryElementId != null" >
+        #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="stockMessage != null" >
+        #{stockMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="information != null" >
+        #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="isreplace != null" >
+        #{isreplace,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TxtavQuoteElement" >
+    update txtav_quote_element
+    <set >
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        UNIT_PRICE = #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        CURRENCY = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="cageCode != null" >
+        CAGE_CODE = #{cageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="certification != null" >
+        CERTIFICATION = #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="txtavQuoteId != null" >
+        TXTAV_QUOTE_ID = #{txtavQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryElementId != null" >
+        CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="stockMessage != null" >
+        STOCK_MESSAGE = #{stockMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="information != null" >
+        INFORMATION = #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="isreplace != null" >
+        ISREPLACE = #{isreplace,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TxtavQuoteElement" >
+    update txtav_quote_element
+    set PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      UNIT_PRICE = #{unitPrice,jdbcType=VARCHAR},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      CURRENCY = #{currency,jdbcType=VARCHAR},
+      CAGE_CODE = #{cageCode,jdbcType=VARCHAR},
+      CERTIFICATION = #{certification,jdbcType=VARCHAR},
+      LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      TXTAV_QUOTE_ID = #{txtavQuoteId,jdbcType=INTEGER},
+      CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER},
+      STOCK_MESSAGE = #{stockMessage,jdbcType=VARCHAR},
+      INFORMATION = #{information,jdbcType=VARCHAR},
+      UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},
+      AMOUNT = #{amount,jdbcType=INTEGER},
+      ISREPLACE = #{isreplace,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByClientInquiryId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT kqe.* FROM txtav_quote_element kqe LEFT JOIN txtav_quote kq ON kq.ID = kqe.TXTAV_QUOTE_ID WHERE kq.CLIENT_INQUIRY_ID = #{0} and kq.id=#{1} and kqe.UNIT_PRICE is not null and kqe.UNIT_PRICE > 0
+  </select>
+  
+</mapper>

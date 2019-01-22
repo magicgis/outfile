@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.CompetitorQuoteDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.CompetitorQuote" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+    <result column="COMPETITOR_ID" property="competitorId" jdbcType="INTEGER" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="QUOTE_DATE" property="quoteDate" jdbcType="DATE" />
+    <result column="FREIGHT" property="freight" jdbcType="DOUBLE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_INQUIRY_ID, COMPETITOR_ID, CURRENCY_ID, EXCHANGE_RATE, QUOTE_DATE, FREIGHT, 
+    UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from competitor_quote
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from competitor_quote
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.CompetitorQuote" >
+    insert into competitor_quote (ID, CLIENT_INQUIRY_ID, COMPETITOR_ID, 
+      CURRENCY_ID, EXCHANGE_RATE, QUOTE_DATE, 
+      FREIGHT, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{clientInquiryId,jdbcType=INTEGER}, #{competitorId,jdbcType=INTEGER}, 
+      #{currencyId,jdbcType=INTEGER}, #{exchangeRate,jdbcType=DOUBLE}, #{quoteDate,jdbcType=DATE}, 
+      #{freight,jdbcType=DOUBLE}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.CompetitorQuote" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into competitor_quote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID,
+      </if>
+      <if test="competitorId != null" >
+        COMPETITOR_ID,
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE,
+      </if>
+      <if test="quoteDate != null" >
+        QUOTE_DATE,
+      </if>
+      <if test="freight != null" >
+        FREIGHT,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clientInquiryId != null" >
+        #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="competitorId != null" >
+        #{competitorId,jdbcType=INTEGER},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeRate != null" >
+        #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="quoteDate != null" >
+        #{quoteDate,jdbcType=DATE},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.CompetitorQuote" >
+    update competitor_quote
+    <set >
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="competitorId != null" >
+        COMPETITOR_ID = #{competitorId,jdbcType=INTEGER},
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="quoteDate != null" >
+        QUOTE_DATE = #{quoteDate,jdbcType=DATE},
+      </if>
+      <if test="freight != null" >
+        FREIGHT = #{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.CompetitorQuote" >
+    update competitor_quote
+    set CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      COMPETITOR_ID = #{competitorId,jdbcType=INTEGER},
+      CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      QUOTE_DATE = #{quoteDate,jdbcType=DATE},
+      FREIGHT = #{freight,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process key="AbnormalpartProcess" name="abnormalpart" xmlns="http://jbpm.org/4.4/jpdl">  
+  <start g="93,190,48,48" name="start1"> 
+    <transition to="采购确认异常件"/> 
+  </start>  
+  <task form="/task/abnormalpart/cgqrycj" g="193,188,131,52" name="采购确认异常件"> 
+    <transition g="-23,-29" name="退货" to="物流退货"/>  
+    <transition g="-5,-22" name="ALT" to="物流异常件转ALT"/>  
+    <transition g="-27,-1" name="库存" to="物流转库存"/> 
+  </task>  
+  <task form="/task/abnormalpart/wlth" g="407,95,101,52" name="物流退货"> 
+    <transition g="-4,-27" name="完成" to="end1"/> 
+  </task>  
+  <task form="/task/abnormalpart/wlycjzalt" g="397,193,133,52" name="物流异常件转ALT"> 
+    <transition g="-35,-24" name="完成" to="end1"/> 
+  </task>  
+  <task form="/task/abnormalpart/wlzkc" g="413,293,101,52" name="物流转库存"> 
+    <transition g="-11,6" name="完成" to="end1"/> 
+  </task>  
+  <end g="659,199,48,48" name="end1"/> 
+</process>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process xmlns="http://jbpm.org/4.4/jpdl" key="TestProcess" name="TestProcess">  
+  <start g="205,102,48,48" name="start1"> 
+    <transition g="-52,-22" name="提交审核" to="测试节点"/> 
+  </start>  
+  <end g="795,91,48,48" name="end1"/>  
+  <task form="/task/TestProcess/csjd" g="431,130,92,52" name="测试节点"> 
+    <transition g="-50,-22" name="完成" to="end1"/> 
+  </task> 
+</process>

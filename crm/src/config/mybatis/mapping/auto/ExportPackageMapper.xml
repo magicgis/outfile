@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ExportPackageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ExportPackage" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="EXPORT_NUMBER" property="exportNumber" jdbcType="VARCHAR" />
+    <result column="EXPORT_DATE" property="exportDate" jdbcType="DATE" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="SEQ" property="seq" jdbcType="INTEGER" />
+    <result column="LOGISTICS_WAY" property="logisticsWay" jdbcType="INTEGER" />
+    <result column="AWB" property="awb" jdbcType="VARCHAR" />
+    <result column="WEIGHT" property="weight" jdbcType="DOUBLE" />
+    <result column="SIZE" property="size" jdbcType="VARCHAR" />
+    <result column="EXPORT_PACKAGE_INSTRUCTIONS_NUMBER" property="exportPackageInstructionsNumber" jdbcType="VARCHAR" />
+    <result column="EXPORT_PACKAGE_INSTRUCTIONS_ID" property="exportPackageInstructionsId" jdbcType="INTEGER" />
+    <result column="EXPORT_FEE" property="exportFee" jdbcType="DOUBLE" />
+    <result column="FREIGHT" property="freight" jdbcType="DOUBLE" />
+    <result column="EXPORT_AMOUNT" property="exportAmount" jdbcType="DOUBLE" />
+    <result column="TOTAL_AMOUNT" property="totalAmount" jdbcType="DOUBLE" />
+    <result column="REAL_EXPORT_DATE" property="realExportDate" jdbcType="DATE" />
+    <result column="FEE_RATE" property="feeRate" jdbcType="DOUBLE" />
+    <result column="FEE_CURRENCY_ID" property="feeCurrencyId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.storage.controller.exportpackage.ExportPackageVo" id="exportPackageVo">
+  	<id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="EXPORT_NUMBER" property="exportNumber" jdbcType="VARCHAR" />
+    <result column="EXPORT_DATE" property="exportDate" jdbcType="DATE" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="SEQ" property="seq" jdbcType="INTEGER" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="client_name" property="clientName" jdbcType="VARCHAR" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="EXPORT_PACKAGE_INSTRUCTIONS_NUMBER" property="exportPackageInstructionsNumber" jdbcType="VARCHAR" />
+    <result column="SIZE" property="size" jdbcType="VARCHAR" />
+    <result column="WEIGHT" property="weight" jdbcType="DOUBLE" />
+    <result column="AWB" property="awb" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_VALUE" property="logisticsValue" jdbcType="VARCHAR" />
+    <result column="EXPORT_FEE" property="exportFee" jdbcType="DOUBLE" />
+    <result column="FREIGHT" property="freight" jdbcType="DOUBLE" />
+    <result column="REAL_EXPORT_DATE" property="realExportDate" jdbcType="DATE" />
+    <result column="FEE_CURRENCY_ID" property="feeCurrencyId" jdbcType="INTEGER" />
+    <result column="FEE_currency_code" property="feeCurrencyCode" jdbcType="VARCHAR" />
+    <result column="FEE_currency_value" property="feeCurrencyValue" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ep.ID, ep.EXPORT_NUMBER, ep.EXPORT_DATE, ep.CLIENT_ID, ep.REMARK, ep.UPDATE_TIMESTAMP, ep.EXCHANGE_RATE, ep.EXPORT_FEE,ep.FREIGHT,FEE_CURRENCY_ID,FEE_RATE,
+    ep.CURRENCY_ID, ep.SEQ,ep.LOGISTICS_WAY,ep.AWB,ep.WEIGHT,ep.SIZE,epi.EXPORT_PACKAGE_INSTRUCTIONS_NUMBER,ep.EXPORT_PACKAGE_INSTRUCTIONS_ID,ep.REAL_EXPORT_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from export_package ep LEFT JOIN export_package_instructions epi ON 
+	(ep.EXPORT_PACKAGE_INSTRUCTIONS_ID = epi.ID)
+    where ep.ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from export_package
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ExportPackage" >
+    insert into export_package (ID, EXPORT_NUMBER, EXPORT_DATE, 
+      CLIENT_ID, REMARK, UPDATE_TIMESTAMP, 
+      EXCHANGE_RATE, CURRENCY_ID, SEQ,EXPORT_FEE,FREIGHT
+      )
+    values (#{id,jdbcType=INTEGER}, #{exportNumber,jdbcType=VARCHAR}, #{exportDate,jdbcType=DATE}, 
+      #{clientId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}, 
+      #{exchangeRate,jdbcType=DOUBLE}, #{currencyId,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{exportFee,jdbcType=DOUBLE}, #{freight,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ExportPackage" >
+   <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into export_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="exportNumber != null" >
+        EXPORT_NUMBER,
+      </if>
+      <if test="exportDate != null" >
+        EXPORT_DATE,
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE,
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="seq != null" >
+        SEQ,
+      </if>
+      <if test="logisticsWay != null" >
+        LOGISTICS_WAY,
+      </if>
+      <if test="awb != null" >
+        AWB,
+      </if>
+      <if test="weight != null" >
+        WEIGHT,
+      </if>
+      <if test="size != null" >
+        SIZE,
+      </if>
+      <if test="exportPackageInstructionsId != null" >
+        EXPORT_PACKAGE_INSTRUCTIONS_ID,
+      </if>
+      <if test="exportFee != null" >
+        EXPORT_FEE,
+      </if>
+      <if test="freight != null" >
+        FREIGHT,
+      </if>
+      <if test="realExportDate != null" >
+        REAL_EXPORT_DATE,
+      </if>
+      <if test="feeCurrencyId != null" >
+        FEE_CURRENCY_ID,
+      </if>
+      <if test="feeRate != null" >
+        FEE_RATE,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="exportNumber != null" >
+        #{exportNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="exportDate != null" >
+        #{exportDate,jdbcType=DATE},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangeRate != null" >
+        #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsWay != null" >
+        #{logisticsWay,jdbcType=INTEGER},
+      </if>
+      <if test="awb != null" >
+        #{awb,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="exportPackageInstructionsId != null" >
+        #{exportPackageInstructionsId,jdbcType=INTEGER},
+      </if>
+      <if test="exportFee != null" >
+        #{exportFee,jdbcType=DOUBLE},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="realExportDate != null" >
+        #{realExportDate,jdbcType=DATE},
+      </if>
+      <if test="feeCurrencyId != null" >
+        #{feeCurrencyId,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate != null" >
+        #{feeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ExportPackage" >
+    update export_package
+    <set >
+      <if test="exportNumber != null" >
+        EXPORT_NUMBER = #{exportNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="exportDate != null" >
+        EXPORT_DATE = #{exportDate,jdbcType=DATE},
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID = #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        SEQ = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsWay != null" >
+        LOGISTICS_WAY = #{logisticsWay,jdbcType=INTEGER},
+      </if>
+      <if test="awb != null" >
+        AWB = #{awb,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        WEIGHT = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="size != null" >
+        SIZE = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="exportFee != null" >
+        EXPORT_FEE = #{exportFee,jdbcType=DOUBLE},
+      </if>
+      <if test="freight != null" >
+        FREIGHT = #{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="realExportDate != null" >
+        REAL_EXPORT_DATE = #{realExportDate,jdbcType=DATE},
+      </if>
+      <if test="feeCurrencyId != null" >
+        FEE_CURRENCY_ID = #{feeCurrencyId,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate != null" >
+        FEE_RATE = #{feeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="lastUpdateUser != null" >
+        LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ExportPackage" >
+    update export_package
+    set EXPORT_NUMBER = #{exportNumber,jdbcType=VARCHAR},
+      EXPORT_DATE = #{exportDate,jdbcType=DATE},
+      CLIENT_ID = #{clientId,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      SEQ = #{seq,jdbcType=INTEGER},
+      EXPORT_FEE = #{exportFee,jdbcType=INTEGER},
+      FREIGHT = #{freight,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="exportPackageVo">
+  	SELECT DISTINCT
+		ep.id,
+		ep.export_number,
+		ep.export_date,
+		ep.seq,
+		ep.WEIGHT,
+		ep.SIZE,
+		c.id AS client_id,
+		c. CODE AS client_code,
+		c. NAME AS client_name,
+		cu.id AS currency_id,
+		cu. CODE AS currency_code,
+		cu.VALUE AS currency_value,
+		fcu.id AS fee_currency_id,
+		fcu. CODE AS fee_currency_code,
+		fcu.VALUE AS fee_currency_value,
+		ep.exchange_rate,
+		ep.remark,
+		ep.update_timestamp,
+		epi.EXPORT_PACKAGE_INSTRUCTIONS_NUMBER,
+		ep.AWB,
+		shipWay.`VALUE` AS LOGISTICS_VALUE,
+		ep.EXPORT_FEE,
+		ep.FREIGHT,
+		ep.REAL_EXPORT_DATE,
+		IFNULL(tuu.login_name,tu.login_name) as CREATE_USER_NAME
+	FROM
+		export_package ep
+	LEFT JOIN client c ON (ep.client_id = c.id)
+	LEFT JOIN system_code cu ON (ep.currency_id = cu.id)
+	LEFT JOIN system_code shipWay ON (shipWay.ID = ep.LOGISTICS_WAY)
+	LEFT JOIN system_code fcu ON (ep.fee_currency_id = fcu.id)
+	LEFT JOIN export_package_instructions epi ON 
+	(ep.EXPORT_PACKAGE_INSTRUCTIONS_ID = epi.ID)
+	LEFT JOIN t_user tu ON (tu.user_id = ep.CREATE_USER)
+	LEFT JOIN t_user tuu ON (tuu.user_id = ep.LAST_UPDATE_USER)
+	<if test="orderNumber != null">
+		LEFT JOIN export_package_element epe ON epe.EXPORT_PACKAGE_ID = ep.ID
+		LEFT JOIN import_package_element ipe ON ipe.ID = epe.IMPORT_PACKAGE_ELEMENT_ID
+		LEFT JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		LEFT JOIN supplier_order_element soe ON soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+		LEFT JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+		LEFT JOIN client_order co ON co.ID = coe.CLIENT_ORDER_ID
+	</if>
+	<where>
+		${where}
+	</where>
+	<if test="orderby != null">
+		${orderby}
+	</if>
+  </select>
+  
+  <select id="getMaxSeq" parameterType="com.naswork.model.ExportPackage" resultType="Integer">
+  	SELECT MAX(seq) AS max_seq FROM export_package WHERE export_date=#{exportDate} AND client_id=#{clientId}
+  </select>
+  
+    <select id="findStorageExport" parameterType="com.naswork.model.ExportPackage" resultMap="BaseResultMap">
+  	SELECT  *  FROM export_package WHERE export_date=#{exportDate} AND client_id=#{clientId} AND remark=#{remark}
+  </select>
+  
+  <select id="findByCidAndexportDate" parameterType="com.naswork.model.ExportPackage" resultMap="BaseResultMap">
+  	SELECT
+		ep.id,
+		ep.export_number,
+		ep.export_date,
+		ep.seq,
+		c.id AS client_id,
+		c. CODE AS client_code,
+		c. NAME AS client_name,
+		cu.id AS currency_id,
+		cu. CODE AS currency_code,
+		cu.VALUE AS currency_value,
+		ep.exchange_rate,
+		ep.remark,
+		ep.update_timestamp
+	FROM
+		export_package ep
+	INNER JOIN client c ON (ep.client_id = c.id)
+	INNER JOIN system_code cu ON (ep.currency_id = cu.id)
+	WHERE c.id=#{clientId} AND ep.export_date=#{exportDate}
+ </select>
+ 
+ <select id="getByIpeId" parameterType="Integer" resultMap="BaseResultMap">
+ 	SELECT
+		ep.ID,
+		IFNULL(ep.EXPORT_FEE, 0) AS EXPORT_FEE,
+		IFNULL(ep.FREIGHT, 0) AS FREIGHT,
+		IFNULL(epe.AMOUNT, 0) AS EXPORT_AMOUNT,
+		ep.FEE_CURRENCY_ID,
+		ep.FEE_RATE
+	FROM
+		export_package ep
+	LEFT JOIN export_package_element epe ON epe.EXPORT_PACKAGE_ID = ep.ID
+	WHERE epe.IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId}
+ </select>
+ 
+ <select id="getToTalAmount" parameterType="Integer" resultMap="BaseResultMap">
+ 	SELECT ep.ID,SUM(epe.AMOUNT) AS total_amount FROM export_package ep LEFT JOIN export_package_element epe ON epe.EXPORT_PACKAGE_ID = ep.ID
+		WHERE ep.ID = #{exportPackageId} GROUP BY ep.ID
+ </select>
+ 
+</mapper>

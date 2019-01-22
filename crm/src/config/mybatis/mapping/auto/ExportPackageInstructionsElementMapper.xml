@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ExportPackageInstructionsElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ExportPackageInstructionsElement" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ELEMENT_ID" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="EXPORT_PACKAGE_INSTRUCTIONS_ID" property="exportPackageInstructionsId" jdbcType="INTEGER" />
+        <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_ELEMENT_ID, EXPORT_PACKAGE_INSTRUCTIONS_ID,AMOUNT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from export_package_instructions_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="findElement" resultMap="BaseResultMap" parameterType="com.naswork.model.ExportPackageInstructionsElement" >
+    select 
+    <include refid="Base_Column_List" />
+    from export_package_instructions_element
+    where IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId} and 
+      EXPORT_PACKAGE_INSTRUCTIONS_ID = #{exportPackageInstructionsId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from export_package_instructions_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ExportPackageInstructionsElement" >
+    insert into export_package_instructions_element (ID, IMPORT_PACKAGE_ELEMENT_ID, EXPORT_PACKAGE_INSTRUCTIONS_ID,AMOUNT
+      )
+    values (#{id,jdbcType=INTEGER}, #{importPackageElementId,jdbcType=INTEGER}, #{exportPackageInstructionsId,jdbcType=INTEGER}, #{amount,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ExportPackageInstructionsElement" >
+    insert into export_package_instructions_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID,
+      </if>
+      <if test="exportPackageInstructionsId != null" >
+        EXPORT_PACKAGE_INSTRUCTIONS_ID,
+      </if>
+        <if test="amount != null" >
+        AMOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageElementId != null" >
+        #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="exportPackageInstructionsId != null" >
+        #{exportPackageInstructionsId,jdbcType=INTEGER},
+      </if>
+       <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ExportPackageInstructionsElement" >
+    update export_package_instructions_element
+    <set >
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="exportPackageInstructionsId != null" >
+        EXPORT_PACKAGE_INSTRUCTIONS_ID = #{exportPackageInstructionsId,jdbcType=INTEGER},
+      </if>
+       <if test="amount != null" >
+        AMOUNT =    #{amount,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ExportPackageInstructionsElement" >
+    update export_package_instructions_element
+    set IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      EXPORT_PACKAGE_INSTRUCTIONS_ID = #{exportPackageInstructionsId,jdbcType=INTEGER} , AMOUNT =  #{amount,jdbcType=DOUBLE}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <update id="updateStatus" parameterType="com.naswork.model.ExportPackageInstructionsElement" >
+    update export_package_instructions_element
+    set EXPORT_PACKAGE_STATUS = #{exportPackageStatus,jdbcType=INTEGER}, AMOUNT =  #{amount,jdbcType=DOUBLE}
+    where IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER} AND  EXPORT_PACKAGE_INSTRUCTIONS_ID = #{exportPackageInstructionsId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByImportElementId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		ID,
+		IMPORT_PACKAGE_ELEMENT_ID,
+		EXPORT_PACKAGE_INSTRUCTIONS_ID,
+		IFNULL(AMOUNT,0) as amount
+	FROM
+		export_package_instructions_element 
+	WHERE
+		IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId}
+  </select>
+  
+    <select id="selectByImportElementIdAndExID" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		ID,
+		IMPORT_PACKAGE_ELEMENT_ID,
+		EXPORT_PACKAGE_INSTRUCTIONS_ID,
+		IFNULL(AMOUNT,0) as amount
+	FROM
+		export_package_instructions_element 
+	WHERE
+		IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId} AND  EXPORT_PACKAGE_INSTRUCTIONS_ID =#{exportPackageInstructionsId}
+  </select>
+  
+  <update id="updateExportStatus" parameterType="Integer">
+  	UPDATE export_package_instructions_element SET EXPORT_PACKAGE_STATUS = 0 WHERE IMPORT_PACKAGE_ELEMENT_ID = #{0} AND EXPORT_PACKAGE_INSTRUCTIONS_ID = #{1}
+  </update>
+  
+  <select id="getImportElementId" parameterType="Integer" resultType="Integer">
+  	SELECT DISTINCT
+		epie.IMPORT_PACKAGE_ELEMENT_ID
+	FROM
+		export_package_instructions_element epie
+	WHERE epie.EXPORT_PACKAGE_INSTRUCTIONS_ID = #{id}
+  </select>
+  
+</mapper>

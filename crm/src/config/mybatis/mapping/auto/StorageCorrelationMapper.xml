@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.StorageCorrelationDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.StorageCorrelation" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ELEMENT_ID" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="CORRELATION_IMPORT_PACKAGE_ELEMENT_ID" property="correlationImportPackageElementId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_ELEMENT_ID, CORRELATION_IMPORT_PACKAGE_ELEMENT_ID, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from storage_correlation
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from storage_correlation
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.StorageCorrelation" >
+    insert into storage_correlation (ID, IMPORT_PACKAGE_ELEMENT_ID, CORRELATION_IMPORT_PACKAGE_ELEMENT_ID, 
+      UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{importPackageElementId,jdbcType=INTEGER}, #{correlationImportPackageElementId,jdbcType=VARCHAR}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.StorageCorrelation" >
+    insert into storage_correlation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID,
+      </if>
+      <if test="correlationImportPackageElementId != null" >
+        CORRELATION_IMPORT_PACKAGE_ELEMENT_ID,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageElementId != null" >
+        #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="correlationImportPackageElementId != null" >
+        #{correlationImportPackageElementId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.StorageCorrelation" >
+    update storage_correlation
+    <set >
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="correlationImportPackageElementId != null" >
+        CORRELATION_IMPORT_PACKAGE_ELEMENT_ID = #{correlationImportPackageElementId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.StorageCorrelation" >
+    update storage_correlation
+    set IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      CORRELATION_IMPORT_PACKAGE_ELEMENT_ID = #{correlationImportPackageElementId,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByImportId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT * FROM storage_correlation sc WHERE sc.IMPORT_PACKAGE_ELEMENT_ID = #{importId}
+  </select>
+  
+  <select id="selectByCorrelationId" parameterType="page" resultMap="BaseResultMap">
+  	SELECT * FROM storage_correlation sc WHERE sc.CORRELATION_IMPORT_PACKAGE_ELEMENT_ID LIKE ${importId}
+  </select>
+  
+  <select id="getList" parameterType="page" resultMap="BaseResultMap">
+  	SELECT * FROM storage_correlation sc WHERE sc.IMPORT_PACKAGE_ELEMENT_ID = ${importId} OR sc.CORRELATION_IMPORT_PACKAGE_ELEMENT_ID LIKE ${importIdLike} limit 0,1
+  </select>
+  
+</mapper>

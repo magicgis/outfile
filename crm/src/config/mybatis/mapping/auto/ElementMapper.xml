@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ElementDao" >
+<resultMap type="com.naswork.model.Element" id="element">
+	<result column="ID" property="id" jdbcType="INTEGER" />
+	<result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+	<result column="PART_NUMBER_CODE" property="partNumberCode" jdbcType="VARBINARY" />
+</resultMap>
+
+<select id="findIdByPn" parameterType="String" resultMap="element">
+	select * from element where PART_NUMBER_CODE=#{partNumber}
+</select>
+
+<insert id="insert" parameterType="com.naswork.model.Element">
+	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+	insert into element(UPDATE_TIMESTAMP,PART_NUMBER_CODE) values(#{updateTimestamp,jdbcType=TIMESTAMP},#{partNumberCode,jdbcType=VARBINARY})
+</insert>
+
+</mapper>

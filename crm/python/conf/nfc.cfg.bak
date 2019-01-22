@@ -1,0 +1,33 @@
+{
+    "NSNCageFileCrawlerManager":
+        {
+            "noDB":"False",
+            "dbHost":"localhost",
+            "dbPort":3306,
+            "dbUser":"test",
+            "dbPasswd":"test",
+            "dbName":"rfqstock",
+            "failureHandling":"False",
+            "failureTableName":"sina_failure",
+            "sleepRange":[0,0],
+            "startCageNum":"5GPY7",
+            "endCageNum":"ZZZZZ",
+            "parentPath":"H:\\NSN\\output\\CAGE\\Stock",
+            "numThread":5,
+            "recurrence":
+                        {
+                            "enable":"False",
+                            "startTime":"09:00:00",
+                            "daily":
+                                    {
+                                        "enable":"True",
+                                        "tradeDayOnly":"True"                                        
+                                    },
+                            "weekly":
+                                    {
+                                        "enable":"False",
+                                        "dayOfWeek":["SUN","MON","TUE","WED","THU","FRI","SAT"]
+                                    }
+                        }
+        }
+}

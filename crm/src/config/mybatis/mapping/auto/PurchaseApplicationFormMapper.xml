@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.PurchaseApplicationFormDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.PurchaseApplicationForm" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="APPLICATION_DATE" property="applicationDate" jdbcType="DATE" />
+    <result column="APPLICATION_NUMBER" property="applicationNumber" jdbcType="VARCHAR" />
+    <result column="CLIENT_ORDER_ID" property="clientOrderId" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, APPLICATION_DATE, APPLICATION_NUMBER, CLIENT_ORDER_ID, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchase_application_form
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from purchase_application_form
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.PurchaseApplicationForm" >
+    insert into purchase_application_form (ID, USER_ID, APPLICATION_DATE, 
+      APPLICATION_NUMBER, CLIENT_ORDER_ID, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{applicationDate,jdbcType=DATE}, 
+      #{applicationNumber,jdbcType=VARCHAR}, #{clientOrderId,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.PurchaseApplicationForm" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+   	</selectKey>
+    insert into purchase_application_form
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="applicationDate != null" >
+        APPLICATION_DATE,
+      </if>
+      <if test="applicationNumber != null" >
+        APPLICATION_NUMBER,
+      </if>
+      <if test="clientOrderId != null" >
+        CLIENT_ORDER_ID,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="applicationDate != null" >
+        #{applicationDate,jdbcType=DATE},
+      </if>
+      <if test="applicationNumber != null" >
+        #{applicationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="clientOrderId != null" >
+        #{clientOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.PurchaseApplicationForm" >
+    update purchase_application_form
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="applicationDate != null" >
+        APPLICATION_DATE = #{applicationDate,jdbcType=DATE},
+      </if>
+      <if test="applicationNumber != null" >
+        APPLICATION_NUMBER = #{applicationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="clientOrderId != null" >
+        CLIENT_ORDER_ID = #{clientOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.PurchaseApplicationForm" >
+    update purchase_application_form
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      APPLICATION_DATE = #{applicationDate,jdbcType=DATE},
+      APPLICATION_NUMBER = #{applicationNumber,jdbcType=VARCHAR},
+      CLIENT_ORDER_ID = #{clientOrderId,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByClientOrderId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT * FROM purchase_application_form paf where paf.CLIENT_ORDER_ID = #{clientOrderId}
+  </select>
+</mapper>

@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientInvoiceElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientInvoiceElement" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_INVOICE_ID" property="clientInvoiceId" jdbcType="INTEGER" />
+    <result column="CLIENT_ORDER_ELEMENT_ID" property="clientOrderElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="TERMS" property="terms" jdbcType="INTEGER" />
+    <result column="invoice_total" property="invoiceTotal" jdbcType="DOUBLE" />
+    <result column="order_total" property="orderTotal" jdbcType="DOUBLE" />
+  </resultMap>
+  
+
+  <resultMap type="com.naswork.module.finance.controller.clientinvoice.ClientInvoiceExcelVo" id="clientInvoiceExcelVo">
+  	<result column="quote_part_number" property="quotePartNumber" jdbcType="VARCHAR" />
+    <result column="quote_description" property="quoteDescription" jdbcType="VARCHAR" />
+    <result column="quote_unit" property="quoteUnit" jdbcType="VARCHAR" />
+    <result column="invoice_amount" property="invoiceAmount" jdbcType="DOUBLE" />
+    <result column="client_order_price" property="clientOrderPrice" jdbcType="DOUBLE" />
+    <result column="element_terms" property="elementTerms" jdbcType="INTEGER" />
+    <result column="ITEM" property="item" jdbcType="INTEGER" />
+    <result column="client_order_element_id" property="clientOrderElementId" jdbcType="INTEGER" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="csn" property="csn" jdbcType="INTEGER" />
+    <result column="order_description" property="orderDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  
+
+    <resultMap id="ElementDataMap" type="com.naswork.module.finance.controller.clientinvoice.ElementDataVo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+     <result column="INVOICE_NUMBER" property="invoiceNumber" jdbcType="VARCHAR" />
+    <result column="CLIENT_INVOICE_ID" property="clientInvoiceId" jdbcType="INTEGER" />
+    <result column="CLIENT_ORDER_ID" property="clientOrderId" jdbcType="INTEGER" />
+    <result column="CLIENT_ORDER_ELEMENT_ID" property="clientOrderElementId" jdbcType="INTEGER" />
+    <result column="CLIENT_QUOTE_ELEMENT_ID" property="clientQuoteElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="CLIENT_ORDER_AMOUNT" property="clientOrderAmount" jdbcType="DOUBLE" />
+    <result column="CLIENT_ORDER_PRICE" property="clientOrderPrice" jdbcType="DOUBLE" />
+    <result column="CLIENT_ORDER_DEADLINE" property="clientOrderDeadline" jdbcType="VARCHAR" />
+     <result column="CLIENT_ORDER_LEAD_TIME" property="clientOrderLeadTime" jdbcType="VARCHAR" />
+     <result column="ORDER_DATE" property="orderDate" jdbcType="DATE" />
+     <result column="SOURCE_ORDER_NUMBER" property="sourceOrderNumber" jdbcType="VARCHAR" />
+     <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="TERMS" property="terms" jdbcType="INTEGER" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="QUOTE_AMOUNT" property="quoteAmount" jdbcType="DOUBLE" />
+     <result column="CLIENT_QUOTE_PRICE" property="clientQuotePrice" jdbcType="DOUBLE" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+  	<result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+  	 <result column="QUOTE_PART_NUMBER" property="quotePartNumber" jdbcType="VARCHAR" />
+  	 <result column="QUOTE_DESCRIPTION" property="quoteDescription" jdbcType="VARCHAR" />
+  	  <result column="SUPPLIER_QUOTE_PRICE" property="supplierQuotePrice" jdbcType="DOUBLE" />
+  	  <result column="CONDITION_CODE" property="conditionCode" jdbcType="VARCHAR" />
+    <result column="CONDITION_VALUE" property="conditionValue" jdbcType="VARCHAR" />
+     <result column="CERTIFICATION_CODE" property="certificationCode" jdbcType="VARCHAR" />
+    <result column="CERTIFICATION_VALUE" property="certificationValue" jdbcType="VARCHAR" />
+    <result column="CURRENCY_CODE" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="CURRENCY_VALUE" property="currencyValue" jdbcType="VARCHAR" />
+  	<result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+  	 <result column="QUOTE_UNIT" property="quoteUnit" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+     <result column="QUOTE_REMARK" property="quoteRemark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="INVOICE_AMOUNT" property="invoiceAmount" jdbcType="DOUBLE" />
+     <result column="INVOICE_TERMS" property="invoiceTerms" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, CLIENT_INVOICE_ID, CLIENT_ORDER_ELEMENT_ID, AMOUNT, REMARK, UPDATE_TIMESTAMP, 
+    TERMS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_invoice_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+ <select id="selectByCoeIdAndCiId" resultMap="BaseResultMap" parameterType="com.naswork.model.ClientInvoiceElement" >
+    select 
+	    cie.ID, cie.CLIENT_INVOICE_ID, cie.CLIENT_ORDER_ELEMENT_ID, cie.AMOUNT, cie.REMARK, cie.UPDATE_TIMESTAMP, 
+	    cie.TERMS
+    from client_invoice_element cie
+    left join client_invoice ci on ci.id = cie.client_invoice_id
+    where CLIENT_INVOICE_ID = #{clientInvoiceId} and CLIENT_ORDER_ELEMENT_ID=#{clientOrderElementId} AND ci.INVOICE_TYPE = 2
+  </select>
+  
+   <select id="elementDataPage" resultMap="ElementDataMap" parameterType="page" >
+    SELECT cie.id,  
+			   ci.id AS client_invoice_id, ci.invoice_number,  
+			   coe.id AS client_order_element_id, coe.client_order_id, coe.client_quote_element_id,  
+			   co.order_date, co.source_number AS source_order_number, co.order_number, co.terms,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, co.exchange_rate,  
+			   sqe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   sqe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   CONCAT (sqe.part_number, '\n', sqe.description, '\n\t\t', cert.code) AS detail,  
+			   sqe.part_number AS quote_part_number, sqe.unit AS quote_unit, cqe.amount AS quote_amount,  
+			   sqe.description AS quote_description, cqe.remark AS quote_remark,  
+			   sqe.price AS supplier_quote_price, cqe.price AS client_quote_price,  
+			   coe.amount AS client_order_amount, coe.price AS client_order_price,  
+			   coe.lead_time AS client_order_lead_time, coe.deadline AS client_order_deadline,  
+			   cie.amount AS invoice_amount, cie.terms AS invoice_terms, cie.remark, cie.update_timestamp  
+			   FROM  client_order_element coe  
+			   INNER JOIN  client_order co ON (coe.client_order_id=co.id)  
+			   INNER JOIN  client_quote cq ON (co.client_quote_id=cq.id)  
+			   INNER JOIN  client_quote_element cqe ON (coe.client_quote_element_id=cqe.id)  
+			   INNER JOIN  supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN  element e ON (sqe.element_id=e.id)  
+			   INNER JOIN  system_code cond ON (sqe.condition_id=cond.id)  
+			   INNER JOIN  system_code cert ON (sqe.certification_id=cert.id)  
+			   INNER JOIN  system_code cu ON (cq.currency_id=cu.id)  
+			   LEFT JOIN  client_invoice ci ON (ci.client_order_id=co.id)  
+			   LEFT JOIN  client_invoice_element cie ON (cie.client_invoice_id=ci.id AND cie.client_order_element_id=coe.id)  
+			WHERE co.id=#{clientOrderId} AND (ci.id=#{clientInvoiceId} OR ci.id IS NULL)  
+			
+  </select>
+  
+  <select id="findByCoidAndCiid" resultMap="ElementDataMap" parameterType="String" >
+    SELECT cie.id,  
+			   ci.id AS client_invoice_id, ci.invoice_number,  
+			   coe.id AS client_order_element_id, coe.client_order_id, coe.client_quote_element_id,  
+			   co.order_date, co.source_number AS source_order_number, co.order_number, co.terms,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, co.exchange_rate,  
+			   sqe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   sqe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   CONCAT (sqe.part_number, '\n', sqe.description, '\n\t\t', cert.code) AS detail,  
+			   sqe.part_number AS quote_part_number, sqe.unit AS quote_unit, cqe.amount AS quote_amount,  
+			   sqe.description AS quote_description, cqe.remark AS quote_remark,  
+			   sqe.price AS supplier_quote_price, cqe.price AS client_quote_price,  
+			   coe.amount AS client_order_amount, coe.price AS client_order_price,  
+			   coe.lead_time AS client_order_lead_time, coe.deadline AS client_order_deadline,  
+			   coe.amount AS invoice_amount, cie.terms AS invoice_terms, cie.remark, cie.update_timestamp  
+			   FROM  client_order_element coe  
+			   INNER JOIN  client_order co ON (coe.client_order_id=co.id)  
+			   INNER JOIN  client_quote cq ON (co.client_quote_id=cq.id)  
+			   INNER JOIN  client_quote_element cqe ON (coe.client_quote_element_id=cqe.id)  
+			   INNER JOIN  supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN  element e ON (sqe.element_id=e.id)  
+			   INNER JOIN  system_code cond ON (sqe.condition_id=cond.id)  
+			   INNER JOIN  system_code cert ON (sqe.certification_id=cert.id)  
+			   INNER JOIN  system_code cu ON (cq.currency_id=cu.id)  
+			   LEFT JOIN  client_invoice ci ON (ci.client_order_id=co.id)  
+			   LEFT JOIN  client_invoice_element cie ON (cie.client_invoice_id=ci.id AND cie.client_order_element_id=coe.id)  
+			WHERE co.id=#{0} AND (ci.id=#{1} OR ci.id IS NULL)  
+  </select>
+  
+<select id="findByCoid" resultMap="ElementDataMap" parameterType="String" >
+    SELECT cie.id,  
+			   ci.id AS client_invoice_id, ci.invoice_number,  
+			   coe.id AS client_order_element_id, coe.client_order_id, coe.client_quote_element_id,  
+			   co.order_date, co.source_number AS source_order_number, co.order_number, co.terms,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, co.exchange_rate,  
+			   sqe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   sqe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   CONCAT (sqe.part_number, '\n', sqe.description, '\n\t\t', cert.code) AS detail,  
+			   sqe.part_number AS quote_part_number, sqe.unit AS quote_unit, cqe.amount AS quote_amount,  
+			   sqe.description AS quote_description, cqe.remark AS quote_remark,  
+			   sqe.price AS supplier_quote_price, cqe.price AS client_quote_price,  
+			   coe.amount AS client_order_amount, coe.price AS client_order_price,  
+			   coe.lead_time AS client_order_lead_time, coe.deadline AS client_order_deadline,  
+			   cie.amount AS invoice_amount, cie.terms AS invoice_terms, cie.remark, cie.update_timestamp  
+			   FROM  client_order_element coe  
+			   INNER JOIN  client_order co ON (coe.client_order_id=co.id)  
+			   INNER JOIN  client_quote cq ON (co.client_quote_id=cq.id)  
+			   INNER JOIN  client_quote_element cqe ON (coe.client_quote_element_id=cqe.id)  
+			   INNER JOIN  supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN  element e ON (sqe.element_id=e.id)  
+			   INNER JOIN  system_code cond ON (sqe.condition_id=cond.id)  
+			   INNER JOIN  system_code cert ON (sqe.certification_id=cert.id)  
+			   INNER JOIN  system_code cu ON (cq.currency_id=cu.id)  
+			   LEFT JOIN  client_invoice ci ON (ci.client_order_id=co.id)  
+			   LEFT JOIN  client_invoice_element cie ON (cie.client_invoice_id=ci.id AND cie.client_order_element_id=coe.id)  
+			WHERE co.id=#{0} 
+			
+  </select>
+
+    <select id="findByCoeidAndCiid" resultMap="ElementDataMap" parameterType="page" >
+    SELECT cie.id,  
+			   ci.id AS client_invoice_id, ci.invoice_number,  
+			   coe.id AS client_order_element_id, coe.client_order_id, coe.client_quote_element_id,  
+			   co.order_date, co.source_number AS source_order_number, co.order_number, co.terms,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, co.exchange_rate,  
+			   sqe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   sqe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   CONCAT (sqe.part_number, '\n', sqe.description, '\n\t\t', cert.code) AS detail,  
+			   sqe.part_number AS quote_part_number, sqe.unit AS quote_unit, cqe.amount AS quote_amount,  
+			   sqe.description AS quote_description, cqe.remark AS quote_remark,  
+			   sqe.price AS supplier_quote_price, cqe.price AS client_quote_price,  
+			   coe.amount AS client_order_amount, coe.price AS client_order_price,  
+			   coe.lead_time AS client_order_lead_time, coe.deadline AS client_order_deadline,  
+			   cie.amount AS invoice_amount, cie.terms AS invoice_terms, cie.remark, cie.update_timestamp  
+			   FROM  client_order_element coe  
+			   INNER JOIN  client_order co ON (coe.client_order_id=co.id)  
+			   INNER JOIN  client_quote cq ON (co.client_quote_id=cq.id)  
+			   INNER JOIN  client_quote_element cqe ON (coe.client_quote_element_id=cqe.id)  
+			   INNER JOIN  supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN  element e ON (sqe.element_id=e.id)  
+			   INNER JOIN  system_code cond ON (sqe.condition_id=cond.id)  
+			   INNER JOIN  system_code cert ON (sqe.certification_id=cert.id)  
+			   INNER JOIN  system_code cu ON (cq.currency_id=cu.id)  
+			   LEFT JOIN  client_invoice ci ON (ci.client_order_id=co.id)  
+			   LEFT JOIN  client_invoice_element cie ON (cie.client_invoice_id=ci.id AND cie.client_order_element_id=coe.id)  
+			WHERE coe.id=#{clientOrderElementId} AND ci.id=#{clientInvocieId}
+  </select>
+  
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_invoice_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientInvoiceElement" >
+    insert into client_invoice_element (ID, CLIENT_INVOICE_ID, CLIENT_ORDER_ELEMENT_ID, 
+      AMOUNT, REMARK, UPDATE_TIMESTAMP, 
+      TERMS)
+    values (#{id,jdbcType=INTEGER}, #{clientInvoiceId,jdbcType=INTEGER}, #{clientOrderElementId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, CURRENT_TIMESTAMP, 
+      #{terms,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientInvoiceElement" >
+    insert into client_invoice_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientInvoiceId != null" >
+        CLIENT_INVOICE_ID,
+      </if>
+      <if test="clientOrderElementId != null" >
+        CLIENT_ORDER_ELEMENT_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="terms != null" >
+        TERMS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientInvoiceId != null" >
+        #{clientInvoiceId,jdbcType=INTEGER},
+      </if>
+      <if test="clientOrderElementId != null" >
+        #{clientOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terms != null" >
+        #{terms,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientInvoiceElement" >
+    update client_invoice_element
+    <set >
+      <if test="clientInvoiceId != null" >
+        CLIENT_INVOICE_ID = #{clientInvoiceId,jdbcType=INTEGER},
+      </if>
+      <if test="clientOrderElementId != null" >
+        CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terms != null" >
+        TERMS = #{terms,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <update id="updateByClientOrderElementId" parameterType="com.naswork.model.ClientInvoiceElement" >
+    update client_invoice_element
+    <set >
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where   CLIENT_INVOICE_ID = #{clientInvoiceId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientInvoiceElement" >
+    update client_invoice_element
+    set CLIENT_INVOICE_ID = #{clientInvoiceId,jdbcType=INTEGER},
+      CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP =CURRENT_TIMESTAMP,
+      TERMS = #{terms,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  
+  <select id="getEleMessage" parameterType="Integer" resultMap="clientInvoiceExcelVo">
+		SELECT
+			a.id,
+			a.client_invoice_id,
+			a.invoice_number,
+			a.client_order_element_id,
+			a.client_order_id,
+			a.client_quote_element_id,
+			a.order_date,
+			a.source_order_number,
+			a.order_number,
+			a.terms,
+			a.currency_id,
+			a.currency_code,
+			a.currency_value,
+			a.exchange_rate,
+			a.condition_id,
+			a.condition_code,
+			a.condition_value,
+			a.certification_id,
+			a.certification_code,
+			a.certification_value,
+			a.detail,
+			a.quote_part_number,
+			a.quote_unit,
+			a.quote_amount,
+			a.quote_description,
+			a.quote_remark,
+			a.supplier_quote_price,
+			a.client_quote_price,
+			SUM(a.client_order_amount) AS client_order_amount,
+			a.client_order_price,
+			a.client_order_lead_time,
+			a.client_order_deadline,
+			SUM(a.invoice_amount) AS invoice_amount,
+			a.element_terms,
+			a.remark,
+			a.update_timestamp,
+			a.ITEM,
+			a.csn,
+			a.SPLIT_RECEIVE,
+			a.order_description
+		FROM
+			(
+				SELECT DISTINCT
+					cie.id,
+					ci.id AS client_invoice_id,
+					ci.invoice_number,
+					coe.id AS client_order_element_id,
+					coe.client_order_id,
+					coe.client_quote_element_id,
+					co.order_date,
+					co.source_number AS source_order_number,
+					co.order_number,
+					co.terms,
+					cu.id AS currency_id,
+					cu. CODE AS currency_code,
+					cu.
+				VALUE
+					AS currency_value,
+					co.exchange_rate,
+					sqe.condition_id,
+					cond. CODE AS condition_code,
+					cond.
+				VALUE
+					AS condition_value,
+					sqe.certification_id,
+					cert. CODE AS certification_code,
+					cert.
+				VALUE
+					AS certification_value,
+					CONCAT(
+						sqe.part_number,
+						'
+			',
+						sqe.description,
+						'
+					',
+						cert. CODE
+					) AS detail,
+					sqe.part_number AS quote_part_number,
+					sqe.unit AS quote_unit,
+					cqe.amount AS quote_amount,
+					sqe.description AS quote_description,
+					cqe.remark AS quote_remark,
+					sqe.price AS supplier_quote_price,
+					cqe.price AS client_quote_price,
+					coe.amount AS client_order_amount,
+					coe.price AS client_order_price,
+					coe.lead_time AS client_order_lead_time,
+					coe.deadline AS client_order_deadline,
+					cie.AMOUNT AS invoice_amount,
+					cie.terms AS element_terms,
+					cie.remark,
+					cie.update_timestamp,
+					ciie.ITEM,
+					ciie.csn,
+					coe.SPLIT_RECEIVE,
+					IF(coe.DESCRIPTION != NULL,coe.DESCRIPTION,ciie.DESCRIPTION) as order_description,
+					cie.ID AS client_invoice_element_id
+				FROM
+					client_order_element coe
+				INNER JOIN client_order co ON (coe.client_order_id = co.id)
+				INNER JOIN client_quote_element cqe ON (
+					coe.client_quote_element_id = cqe.id
+				)
+				INNER JOIN client_quote cq ON (cqe.CLIENT_QUOTE_ID = cq.id)
+				LEFT JOIN client_inquiry_element ciie ON (
+					cqe.CLIENT_INQUIRY_ELEMENT_ID = ciie.ID
+				)
+				LEFT JOIN client_inquiry cii ON (
+					cii.ID = ciie.CLIENT_INQUIRY_ID
+				)
+				INNER JOIN supplier_quote_element sqe ON (
+					cqe.supplier_quote_element_id = sqe.id
+				)
+				INNER JOIN element e ON (sqe.element_id = e.id)
+				INNER JOIN system_code cond ON (sqe.condition_id = cond.id)
+				INNER JOIN system_code cert ON (
+					sqe.certification_id = cert.id
+				)
+				INNER JOIN system_code cu ON (cq.currency_id = cu.id)
+				LEFT JOIN client_invoice ci ON (ci.client_order_id = co.id)
+				LEFT JOIN client c ON (c.ID = cii.CLIENT_ID)
+				LEFT JOIN client_contact cc ON (cc.CLIENT_ID = c.ID)
+				LEFT JOIN client_invoice_element cie ON (
+					cie.client_invoice_id = ci.id
+					AND cie.client_order_element_id = coe.id
+				)
+				WHERE
+					ci.id = #{invoiceId}
+				AND cie.id IS NOT NULL
+				ORDER BY
+					ciie.csn
+			) a
+		GROUP BY
+			a.client_quote_element_id,
+			a.SPLIT_RECEIVE,
+			a.client_invoice_element_id,
+			a.client_order_element_id
+  </select>
+  
+  <select id="getTotalByCoId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			SUM(DISTINCT vcib.client_invoice_price) AS invoice_total,
+			SUM(coe.PRICE * coe.AMOUNT) AS order_total
+		FROM
+			client_order co
+		LEFT JOIN client_invoice ci ON ci.CLIENT_ORDER_ID = co.ID
+		LEFT JOIN v_client_invoice_bill vcib ON vcib.client_invoice_id = ci.ID
+		LEFT JOIN client_order_element coe ON coe.CLIENT_ORDER_ID = co.ID
+		WHERE
+			co.ID = #{clientOrderId} and ci.invoice_type != 0
+		GROUP BY
+			co.ID
+  </select>
+  
+  <select id="selectByOrderId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			cie.ID,
+			cie.CLIENT_INVOICE_ID,
+			cie.CLIENT_ORDER_ELEMENT_ID,
+			cie.AMOUNT,
+			cie.REMARK,
+			cie.UPDATE_TIMESTAMP,
+			cie.TERMS
+		FROM
+			client_invoice_element cie 
+		LEFT JOIN client_invoice ci ON ci.ID = cie.CLIENT_INVOICE_ID
+		WHERE
+			cie.CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId}
+		AND ci.INVOICE_TYPE = 2
+  </select> 
+
+</mapper>

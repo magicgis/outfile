@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientShipDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientShip" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="EXPORT_PACKAGE_ID" property="exportPackageId" jdbcType="INTEGER" />
+    <result column="SHIP_NUMBER" property="shipNumber" jdbcType="VARCHAR" />
+    <result column="SHIP_DATE" property="shipDate" jdbcType="DATE" />
+    <result column="CLIENT_CONTACT_ID" property="clientContactId" jdbcType="INTEGER" />
+    <result column="SHIP_CONTACT_ID" property="shipContactId" jdbcType="INTEGER" />
+    <result column="WEIGHT" property="weight" jdbcType="VARCHAR" />
+    <result column="DIMENSIONS" property="dimensions" jdbcType="VARCHAR" />
+    <result column="SHIP_INVOICE_NUMBER" property="shipInvoiceNumber" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.storage.controller.clientship.ClientShipVo" id="clientShipVo">
+    <result column="EXPORT_PACKAGE_INSTRUCTIONS_NUMBER" property="exportPackageInstructionsNumber" jdbcType="VARCHAR" />
+  	<result column="ID" property="id" jdbcType="INTEGER" />
+  	<result column="export_package_id" property="exportPackageId" jdbcType="INTEGER" />
+    <result column="ship_number" property="shipNumber" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="client_code" property="clientCode" jdbcType="DATE" />
+    <result column="ship_date" property="shipDate" jdbcType="INTEGER" />
+    <result column="ship_contact_name" property="shipContactName" jdbcType="INTEGER" />
+    <result column="WEIGHT" property="weight" jdbcType="VARCHAR" />
+    <result column="DIMENSIONS" property="dimensions" jdbcType="VARCHAR" />
+    <result column="SHIP_INVOICE_NUMBER" property="shipInvoiceNumber" jdbcType="VARCHAR" />
+    <result column="export_number" property="exportNumber" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="client_contact_address" property="clientContactAddress" jdbcType="VARCHAR" />
+    <result column="client_name" property="clientName" jdbcType="VARCHAR" />
+    <result column="ship_contact_address" property="shipContactAddress" jdbcType="VARCHAR" />
+    <result column="client_contact_name" property="clientContactName" jdbcType="VARCHAR" />
+    <result column="ship_contact_name" property="shipContactName" jdbcType="VARCHAR" />
+    <result column="client_contact_phone" property="clientContactPhone" jdbcType="VARCHAR" />
+    <result column="ship_contact_phone" property="shipContactPhone" jdbcType="VARCHAR" />
+    <result column="SHIP_TEMPLET" property="shipTemplet" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, EXPORT_PACKAGE_ID, SHIP_NUMBER, SHIP_DATE, CLIENT_CONTACT_ID, SHIP_CONTACT_ID, 
+    WEIGHT, DIMENSIONS, SHIP_INVOICE_NUMBER, REMARK, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_ship
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_ship
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientShip" >
+    insert into client_ship (ID, EXPORT_PACKAGE_ID, SHIP_NUMBER, 
+      SHIP_DATE, CLIENT_CONTACT_ID, SHIP_CONTACT_ID, 
+      WEIGHT, DIMENSIONS, SHIP_INVOICE_NUMBER, 
+      REMARK, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{exportPackageId,jdbcType=INTEGER}, #{shipNumber,jdbcType=VARCHAR}, 
+      #{shipDate,jdbcType=DATE}, #{clientContactId,jdbcType=INTEGER}, #{shipContactId,jdbcType=INTEGER}, 
+      #{weight,jdbcType=VARCHAR}, #{dimensions,jdbcType=VARCHAR}, #{shipInvoiceNumber,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientShip" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into client_ship
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="exportPackageId != null" >
+        EXPORT_PACKAGE_ID,
+      </if>
+      <if test="shipNumber != null" >
+        SHIP_NUMBER,
+      </if>
+      <if test="shipDate != null" >
+        SHIP_DATE,
+      </if>
+      <if test="clientContactId != null" >
+        CLIENT_CONTACT_ID,
+      </if>
+      <if test="shipContactId != null" >
+        SHIP_CONTACT_ID,
+      </if>
+      <if test="weight != null" >
+        WEIGHT,
+      </if>
+      <if test="dimensions != null" >
+        DIMENSIONS,
+      </if>
+      <if test="shipInvoiceNumber != null" >
+        SHIP_INVOICE_NUMBER,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="exportPackageId != null" >
+        #{exportPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="shipNumber != null" >
+        #{shipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="shipDate != null" >
+        #{shipDate,jdbcType=DATE},
+      </if>
+      <if test="clientContactId != null" >
+        #{clientContactId,jdbcType=INTEGER},
+      </if>
+      <if test="shipContactId != null" >
+        #{shipContactId,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensions != null" >
+        #{dimensions,jdbcType=VARCHAR},
+      </if>
+      <if test="shipInvoiceNumber != null" >
+        #{shipInvoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientShip" >
+    update client_ship
+    <set >
+      <if test="exportPackageId != null" >
+        EXPORT_PACKAGE_ID = #{exportPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="shipNumber != null" >
+        SHIP_NUMBER = #{shipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="shipDate != null" >
+        SHIP_DATE = #{shipDate,jdbcType=DATE},
+      </if>
+      <if test="clientContactId != null" >
+        CLIENT_CONTACT_ID = #{clientContactId,jdbcType=INTEGER},
+      </if>
+      <if test="shipContactId != null" >
+        SHIP_CONTACT_ID = #{shipContactId,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        WEIGHT = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensions != null" >
+        DIMENSIONS = #{dimensions,jdbcType=VARCHAR},
+      </if>
+      <if test="shipInvoiceNumber != null" >
+        SHIP_INVOICE_NUMBER = #{shipInvoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientShip" >
+    update client_ship
+    set EXPORT_PACKAGE_ID = #{exportPackageId,jdbcType=INTEGER},
+      SHIP_NUMBER = #{shipNumber,jdbcType=VARCHAR},
+      SHIP_DATE = #{shipDate,jdbcType=DATE},
+      CLIENT_CONTACT_ID = #{clientContactId,jdbcType=INTEGER},
+      SHIP_CONTACT_ID = #{shipContactId,jdbcType=INTEGER},
+      WEIGHT = #{weight,jdbcType=VARCHAR},
+      DIMENSIONS = #{dimensions,jdbcType=VARCHAR},
+      SHIP_INVOICE_NUMBER = #{shipInvoiceNumber,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="clientShipVo">
+  		SELECT
+			cs.id,
+			cs.export_package_id,
+			cs.ship_number,
+			cs.ship_date,
+			cs.ship_invoice_number,
+			cs.weight,
+			cs.dimensions,
+			ep.export_number,
+			ep.export_date,
+			ep.exchange_rate,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cc.id AS client_contact_id,
+			sc.id AS ship_contact_id,
+			cc. NAME AS client_contact_name,
+			sc. NAME AS ship_contact_name,
+			cc.address AS client_contact_address,
+			sc.address AS ship_contact_address,
+			cc.phone AS client_contact_phone,
+			sc.phone AS ship_contact_phone,
+			cs.remark,epi.EXPORT_PACKAGE_INSTRUCTIONS_NUMBER,
+			cs.update_timestamp
+		FROM
+			client_ship cs
+		INNER JOIN export_package ep ON (cs.export_package_id = ep.id)
+		LEFT JOIN export_package_instructions epi ON (ep.EXPORT_PACKAGE_INSTRUCTIONS_ID = epi.ID)
+		INNER JOIN client c ON (ep.client_id = c.id)
+		INNER JOIN client_contact cc ON (cs.client_contact_id = cc.id)
+		INNER JOIN client_contact sc ON (cs.ship_contact_id = sc.id)
+		<where>
+			${where}
+		</where>
+		<if test="orderby != null">
+			${orderby}
+		</if>	
+  </select>
+  
+  <select id="findById" parameterType="Integer" resultMap="clientShipVo">
+  		SELECT
+			cs.id,
+			cs.export_package_id,
+			cs.ship_number,
+			cs.ship_date,
+			cs.ship_invoice_number,
+			cs.weight,
+			cs.dimensions,
+			ep.export_number,
+			ep.export_date,
+			ep.exchange_rate,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cc.id AS client_contact_id,
+			sc.id AS ship_contact_id,
+			cc. NAME AS client_contact_name,
+			sc. NAME AS ship_contact_name,
+			cc.address AS client_contact_address,
+			sc.address AS ship_contact_address,
+			cc.phone AS client_contact_phone,
+			sc.phone AS ship_contact_phone,
+			cs.remark,
+			cs.update_timestamp,
+			templet.`VALUE` AS SHIP_TEMPLET
+		FROM
+			client_ship cs
+		INNER JOIN export_package ep ON (cs.export_package_id = ep.id)
+		INNER JOIN client c ON (ep.client_id = c.id)
+		INNER JOIN system_code templet ON (templet.ID = c.SHIP_TEMPLET)
+		INNER JOIN client_contact cc ON (cs.client_contact_id = cc.id)
+		INNER JOIN client_contact sc ON (cs.ship_contact_id = sc.id)
+		where cs.id = #{id}
+  </select>
+  
+  <select id="getTemplet" parameterType="String" resultType="String">
+  		SELECT
+			templet.`VALUE`
+		FROM
+			client c
+		LEFT JOIN system_code templet ON templet.ID = c.SHIP_TEMPLET
+		WHERE c.ID = #{clientId}
+  </select>
+  
+</mapper>

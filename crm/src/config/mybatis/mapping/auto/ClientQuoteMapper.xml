@@ -1,0 +1,1123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientQuoteDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientQuote" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+    <result column="SEQ" property="seq" jdbcType="INTEGER" />
+    <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+    <result column="QUOTE_DATE" property="quoteDate" jdbcType="DATE" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="PROFIT_MARGIN" property="profitMargin" jdbcType="DOUBLE" />
+    <result column="PREPAY_RATE" property="prepayRate" jdbcType="DOUBLE" />
+   <result column="SHIP_PAY_RATE" property="shipPayRate" jdbcType="DOUBLE" />
+   <result column="SHIP_PAY_PERIOD" property="shipPayPeriod" jdbcType="INTEGER" />
+   <result column="RECEIVE_PAY_RATE" property="receivePayRate" jdbcType="DOUBLE" />
+   <result column="RECEIVE_PAY_PERIOD" property="receivePayPeriod" jdbcType="INTEGER" />
+   <result column="TERMS_OF_DELIVERY" property="termsOfDelivery" jdbcType="INTEGER" />
+   <result column="terms_of_delivery_value" property="termsOfDeliveryValue" jdbcType="VARCHAR" />
+   <result column="FREIGHT" property="freight" jdbcType="DOUBLE" />
+   <result column="LOWEST_FREIGHT" property="lowestFreight" jdbcType="DOUBLE" />
+   <result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+   <result column="BANK_COST" property="bankCost" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <resultMap id="listdateMap" type="com.naswork.module.marketing.controller.clientquote.ClientQuoteVo">
+     <result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+    <result column="FREIGHT" property="freight" jdbcType="DOUBLE" />
+   <result column="LOWEST_FREIGHT" property="lowestFreight" jdbcType="DOUBLE" />
+     <result column="client_template_type" property="clientTemplateType" jdbcType="INTEGER" />
+  	<result column="terms_of_delivery_value" property="termsOfDeliveryValue" jdbcType="VARCHAR" />
+   <result column="terms_of_delivery" property="termsOfDelivery" jdbcType="INTEGER" />
+   <result column="CLIENT_SHIP_WAY" property="clientShipWay" jdbcType="VARCHAR" />
+   <result column="ID" property="id" jdbcType="INTEGER" />
+   <result column="quote_date" property="quoteDate" jdbcType="DATE" />
+   <result column="exchange_rate" property="exchangeRate" jdbcType="DOUBLE" />
+   <result column="PROFIT_MARGIN" property="profitMargin" jdbcType="DOUBLE" />
+   <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+   <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+   <result column="client_inquiry_id" property="client_inquiry_id" jdbcType="INTEGER" />
+   <result column="SOURCE_NUMBER" property="sourceNumber" jdbcType="VARCHAR" />
+   <result column="client_inquiry_quote_number" property="client_inquiry_quote_number" jdbcType="VARCHAR" />
+   <result column="INQUIRY_DATE" property="inquiryDate" jdbcType="DATE" />
+   <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+   <result column="BIZ_TYPE_ID" property="bizTypeId" jdbcType="INTEGER" />
+   <result column="AIR_TYPE_ID" property="airTypeId" jdbcType="INTEGER" />
+   <result column="client_id" property="client_id" jdbcType="INTEGER" />
+   <result column="client_code" property="client_code" jdbcType="VARCHAR" />
+   <result column="client_name" property="client_name" jdbcType="VARCHAR" />
+   <result column="client_contact_id" property="client_contact_id" jdbcType="INTEGER" />
+   <result column="client_contact_name" property="client_contact_name" jdbcType="VARCHAR" />
+   <result column="client_contact_phone" property="client_contact_phone" jdbcType="VARCHAR" />
+   <result column="client_contact_fax" property="client_contact_fax" jdbcType="VARCHAR" />
+   <result column="currency_code" property="currency_code" jdbcType="VARCHAR" />
+   <result column="currency_id" property="currency_id" jdbcType="INTEGER" />
+   <result column="currency_value" property="currency_value" jdbcType="VARCHAR" />
+   <result column="biz_type_code" property="biz_type_code" jdbcType="VARCHAR" />
+   <result column="biz_type_value" property="biz_type_value" jdbcType="VARCHAR" />
+   <result column="air_type_code" property="air_type_code" jdbcType="VARCHAR" />
+   <result column="air_type_value" property="air_type_value" jdbcType="VARCHAR" />
+   <result column="PREPAY_RATE" property="prepayRate" jdbcType="DOUBLE" />
+   <result column="SHIP_PAY_RATE" property="shipPayRate" jdbcType="DOUBLE" />
+   <result column="SHIP_PAY_PERIOD" property="shipPayPeriod" jdbcType="INTEGER" />
+   <result column="RECEIVE_PAY_RATE" property="receivePayRate" jdbcType="DOUBLE" />
+   <result column="RECEIVE_PAY_PERIOD" property="receivePayPeriod" jdbcType="INTEGER" />
+  </resultMap>
+  
+   <resultMap id="ProfitStatementMap" type="com.naswork.module.marketing.controller.clientquote.ProfitStatementVo">
+    <result column="COUNTER_FEE" property="counterFee" jdbcType="DOUBLE" />
+    <result column="BANK_CHARGES" property="bankCharges" jdbcType="DOUBLE" />
+  	<result column="PAYMENT_DATE" property="paymentDate" jdbcType="TIMESTAMP" />
+   	<result column="PAYMENT_SUM" property="paymentSum" jdbcType="DOUBLE" />
+    <result column="supplier_order_amount" property="supplierOrderAmount" jdbcType="DOUBLE" />
+    <result column="supplier_order_price" property="supplierOrderPrice" jdbcType="DOUBLE" />
+    <result column="co_currency_value" property="coCurrencyValue" jdbcType="VARCHAR" />
+    <result column="cq_currency_value" property="cqCurrencyValue" jdbcType="VARCHAR" />
+    <result column="sq_currency_value" property="sqCurrencyValue" jdbcType="VARCHAR" />
+    <result column="so_currency_value" property="soCurrencyValue" jdbcType="VARCHAR" />
+    <result column="so_exchange_rate" property="soExchangeRate" jdbcType="DOUBLE" />
+    <result column="co_exchange_rate" property="coExchangeRate" jdbcType="DOUBLE" />
+    <result column="cq_exchange_rate" property="cqExchangeRate" jdbcType="DOUBLE" />
+    <result column="sq_exchange_rate" property="sqExchangeRate" jdbcType="DOUBLE" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="FREIGHT" property="freight" jdbcType="DOUBLE" />
+    <result column="supplier_quote_element_id" property="supplierQuoteElementId" jdbcType="INTEGER" />
+ 	<result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="quote_amount" property="quoteAmount" jdbcType="DOUBLE" />
+    <result column="client_inquiry_element_id" property="clientInquiryElementId" jdbcType="INTEGER" />
+    <result column="item" property="item" jdbcType="INTEGER" />
+    <result column="inquiry_part_number" property="inquiryPartNumber" jdbcType="VARCHAR" />
+ 	<result column="ALTER_PART_NUMBER" property="alterPartNumber" jdbcType="VARCHAR" />
+    <result column="inquiry_description" property="inquiryDescription" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="client_order_element_id" property="clientOrderElementId" jdbcType="INTEGER" />
+    <result column="order_amount" property="orderAmount" jdbcType="DOUBLE" />
+    <result column="import_amount" property="importAmount" jdbcType="DOUBLE" />
+    <result column="storage_amount" property="storageAmount" jdbcType="DOUBLE" />
+    <result column="base_storage_price" property="baseStoragePrice" jdbcType="DOUBLE" />
+    <result column="quote_total_price" property="quoteTotalPrice" jdbcType="DOUBLE" />
+    <result column="client_quote_base_price" property="clientQuoteBasePrice" jdbcType="DOUBLE" />
+    <result column="order_base_price" property="orderBasePrice" jdbcType="DOUBLE" />
+    <result column="client_quote_total_price" property="clientQuoteTotalPrice" jdbcType="DOUBLE" />
+    <result column="quote_base_price" property="quoteBasePrice" jdbcType="DOUBLE" />
+    <result column="order_total_price" property="orderTotalPrice" jdbcType="DOUBLE" />
+    <result column="profit_margin" property="profitMargin" jdbcType="DOUBLE" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="supplier_order_number" property="supplierOrderNumber" jdbcType="VARCHAR" />
+    <result column="order_date" property="orderDate" jdbcType="DATE" />
+    <result column="part_number" property="partNumber" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="air_type" property="airType" jdbcType="VARCHAR" />
+    <result column="TOTAL" property="total" jdbcType="DOUBLE" />
+	<result column="RECEIVE_DATE" property="receiveDate" jdbcType="DATE" />
+	<result column="fixed_cost" property="fixedCost" jdbcType="DOUBLE" />
+	<result column="client_quote_id" property="clientQuoteId" jdbcType="INTEGER" />
+	<result column="client_order_id" property="clientOrderId" jdbcType="INTEGER" />
+	<result column="PROFIT_OTHER_FEE" property="profitOtherFee" jdbcType="DOUBLE" />
+	<result column="supplier_order_element_price" property="supplierOrderElementPrice" jdbcType="DOUBLE" />
+	<result column="supplier_order_currency_id" property="supplierOrderCurrencyId" jdbcType="INTEGER" />
+	<result column="client_quote_element_id" property="clientQuoteElementId" jdbcType="INTEGER" />
+	<result column="supplier_quote_price" property="supplierQuotePrice" jdbcType="DOUBLE" />
+	<result column="RELATIVE_RATE" property="relativeRate" jdbcType="DOUBLE" />
+	<result column="FEE_FOR_EXCHANGE_BILL" property="feeForExchangeBill" jdbcType="DOUBLE" />
+	<result column="BANK_COST" property="bankCost" jdbcType="DOUBLE" />
+	<result column="OTHER_FEE" property="otherFee" jdbcType="DOUBLE" />
+	<result column="HAZMAT_FEE" property="hazmatFee" jdbcType="DOUBLE" />
+	<result column="MOQ" property="moq" jdbcType="DOUBLE" />
+  </resultMap>
+  
+   <resultMap type="com.naswork.module.marketing.controller.clientorder.ClientOrderVo" id="clientOrderVo">
+  	 <result column="id" property="id" jdbcType="INTEGER" />
+  	 <result column="client_quote_id" property="clientQuoteId" jdbcType="INTEGER" />
+  	 <result column="client_inquiry_id" property="clientInquiryId" jdbcType="INTEGER" />
+  	 <result column="client_id" property="clientId" jdbcType="INTEGER" />
+  	 <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+  	 <result column="client_name" property="clientName" jdbcType="VARCHAR" />
+  	 <result column="address" property="address" jdbcType="VARCHAR" />
+  	 <result column="ship_address" property="shipAddress" jdbcType="VARCHAR" />
+  	 <result column="contact_address" property="contactAddress" jdbcType="VARCHAR" />	 
+  	 <result column="contact_ship_address" property="contactShipAddress" jdbcType="VARCHAR" />
+  	 <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+  	 <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+  	 <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+  	 <result column="exchange_rate" property="exchangeRate" jdbcType="VARCHAR" /> 
+  	 <result column="biz_type_id" property="bizTypeId" jdbcType="INTEGER" />
+  	 <result column="biz_type_code" property="bizTypeCode" jdbcType="VARCHAR" />
+  	 <result column="biz_type_value" property="bizTypeValue" jdbcType="VARCHAR" />
+  	 <result column="air_type_id" property="airTypeId" jdbcType="INTEGER" />
+  	 <result column="air_type_code" property="airTypeCode" jdbcType="VARCHAR" />
+  	 <result column="air_type_value" property="airTypeValue" jdbcType="VARCHAR" />
+  	 <result column="order_status_id" property="orderStatusId" jdbcType="INTEGER" />
+  	 <result column="order_status_code" property="orderStatusCode" jdbcType="VARCHAR" />
+  	 <result column="order_status_value" property="orderStatusValue" jdbcType="VARCHAR" />
+  	 <result column="seq" property="seq" jdbcType="INTEGER" />
+  	 <result column="quote_number" property="quoteNumber" jdbcType="VARCHAR" />
+  	 <result column="order_date" property="orderDate" jdbcType="DATE" />
+  	 <result column="source_order_number" property="sourceOrderNumber" jdbcType="VARCHAR" />
+  	 <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+  	<!--  <result column="terms" property="terms" jdbcType="INTEGER" />
+  	 <result column="terms_1" property="terms_1" jdbcType="INTEGER" /> -->
+  	 <result column="profit_margin" property="profitMargin" jdbcType="DOUBLE" />
+  	 <result column="remark" property="remark" jdbcType="VARCHAR" />
+  	 <result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+   <resultMap id="ClientquoteElementMap" type="com.naswork.module.marketing.controller.clientquote.ClientQuoteElementVo" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_QUOTE_ID" property="clientQuoteId" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ELEMENT_ID" property="clientInquiryElementId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_QUOTE_ELEMENT_ID" property="supplierQuoteElementId" jdbcType="INTEGER" />
+    <result column="client_quote_price" property="clientQuotePrice" jdbcType="DOUBLE" />
+    <result column="client_quote_remark" property="clientQuoteRemark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="client_quote_amount" property="clientQuoteAmount" jdbcType="DOUBLE" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="supplier_quote_price" property="supplierQuotePrice" jdbcType="DOUBLE" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+  	<result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_QUOTE_STATUS_ID" property="supplierQuoteStatusId" jdbcType="INTEGER" />
+ 	<result column="quote_element_id" property="quoteElementId" jdbcType="INTEGER" />
+ 	<result column="quote_part_number" property="quotePartNumber" jdbcType="VARCHAR" />
+ 	<result column="quote_unit" property="quoteUnit" jdbcType="VARCHAR" />
+  	<result column="supplier_quote_amount" property="supplierQuoteAmount" jdbcType="DOUBLE" />
+ 	<result column="quote_description" property="quoteDescription" jdbcType="VARCHAR" />
+ 	<result column="quote_remark" property="quoteRemark" jdbcType="VARCHAR" />
+ 	<result column="supplier_quote_exchange_rate" property="supplierQuoteExchangeRate" jdbcType="DOUBLE" />
+ 	<result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+  	<result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="inquiry_element_id" property="inquiryElementId" jdbcType="INTEGER" />
+   	<result column="inquiry_part_number" property="inquiryPartNumber" jdbcType="VARCHAR" />
+   	<result column="inquiry_unit" property="inquiryUnit" jdbcType="VARCHAR" />
+    <result column="inquiry_amount" property="inquiryAmount" jdbcType="DOUBLE" />
+  	<result column="inquiry_description" property="inquiryDescription" jdbcType="VARCHAR" />
+    <result column="inquiry_remark" property="inquiryRemark" jdbcType="VARCHAR" />
+    <result column="condition_code" property="conditionCode" jdbcType="VARCHAR" />
+    <result column="condition_value" property="conditionValue" jdbcType="VARCHAR" />
+    <result column="certification_code" property="certificationCode" jdbcType="VARCHAR" />
+    <result column="certification_value" property="certificationValue" jdbcType="VARCHAR" />
+    <result column="supplier_quote_status_code" property="supplierQuoteStatusCode" jdbcType="VARCHAR" />
+    <result column="supplier_quote_status_value" property="supplierQuoteStatusValue" jdbcType="VARCHAR" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+  	<result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+  	<result column="countprice" property="countprice" jdbcType="DOUBLE" />
+  	<result column="PROFIT_MARGIN" property="profitMargin" jdbcType="DOUBLE" />
+  	<result column="quoteupdate_timestamp" property="quoteupDatTimestamp" jdbcType="TIMESTAMP" />
+  	<result column="AVERAGE_PRICE" property="averagePrice" jdbcType="DOUBLE" />
+  	<result column="LOWEST_PRICE" property="lowestPrice" jdbcType="DOUBLE" />
+  	<result column="COMPARE_RATE" property="compareRate" jdbcType="DOUBLE" />
+  	<result column="base_price" property="basePrice" jdbcType="DOUBLE" />
+  	<result column="RELATIVE_RATE" property="relativeRate" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    cq.ID, cq.CLIENT_INQUIRY_ID, cq.SEQ, cq.QUOTE_NUMBER, cq.QUOTE_DATE, cq.CURRENCY_ID, cq.EXCHANGE_RATE, cq.RECEIVE_PAY_PERIOD,
+    cq.PREPAY_RATE,cq.SHIP_PAY_RATE,cq.SHIP_PAY_PERIOD,cq.RECEIVE_PAY_RATE,cq.UPDATE_TIMESTAMP, cq.PROFIT_MARGIN,cq.TERMS_OF_DELIVERY
+   ,ct.value as terms_of_delivery_value,cq.freight,cq.LOWEST_FREIGHT,cq.FIXED_COST,cq.BANK_COST
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_quote cq
+    INNER JOIN system_code ct ON (cq.terms_of_delivery=ct.id)
+    where cq.ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectByclientInquiryId" resultMap="BaseResultMap" parameterType="page" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_quote cq
+    INNER JOIN system_code ct ON (cq.terms_of_delivery=ct.id)
+    where cq.CLIENT_INQUIRY_ID = ${clientInquiryId}
+  </select>
+  
+   <select id="findQuoteProfitStatement" resultMap="ProfitStatementMap" parameterType="String" >
+   SELECT cqe.id, cie.id AS client_inquiry_element_id,cq.exchange_rate cq_exchange_rate,sq.exchange_rate sq_exchange_rate,
+			   cie.item, cie.part_number AS inquiry_part_number, cie.description AS inquiry_description,  
+			   cqe.amount AS quote_amount, coe.amount AS order_amount,  
+			   vcos.storage_amount, vcos.base_storage_price,  cu.value AS cq_currency_value, bt.value AS sq_currency_value,  
+			   coe.id AS client_order_element_id,sqe.id AS supplier_quote_element_id,
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   sqe.price*sq.exchange_rate AS quote_base_price, sqe.price*sq.exchange_rate*(cqe.amount-IFNULL(vcos.storage_amount, 0)) AS quote_total_price,  
+			   cqe.price*cq.exchange_rate AS client_quote_base_price, cqe.price*cq.exchange_rate*cqe.amount AS client_quote_total_price,  
+			   coe.price*co.exchange_rate AS order_base_price, coe.price*co.exchange_rate*coe.amount AS order_total_price  
+			   FROM client_quote_element cqe  
+			   INNER JOIN client_quote cq ON (cqe.client_quote_id=cq.id)  
+			   INNER JOIN client_inquiry_element cie ON (cqe.client_inquiry_element_id=cie.id)  
+			   INNER JOIN supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			   INNER JOIN supplier s ON (si.supplier_id=s.id)  
+			   LEFT JOIN client_order_element coe ON (coe.client_quote_element_id=cqe.id)  
+			   LEFT JOIN v_client_order_storage vcos ON (vcos.client_order_element_id=coe.id)  
+			   LEFT JOIN client_order co ON (coe.client_order_id=co.id)  
+			     INNER JOIN system_code cu ON (cq.currency_id=cu.id)
+		       INNER JOIN system_code bt ON (sq.currency_id=bt.id)
+			   WHERE cq.id=#{id}
+			   order by cie.item 
+			   </select>
+			   
+			     <select id="findOrderProfitStatement" resultMap="ProfitStatementMap" parameterType="String" >
+  				 SELECT co.CURRENCY_ID,co.exchange_rate co_exchange_rate,sq.exchange_rate sq_exchange_rate,cq.exchange_rate cq_exchange_rate,
+  				 cqe.id, cie.id AS client_inquiry_element_id,cu.value AS co_currency_value, bt.value AS sq_currency_value, 
+			   cie.item, cie.part_number AS inquiry_part_number, cie.description AS inquiry_description,  
+			   cqe.amount AS quote_amount, coe.amount AS order_amount,  
+			   vcos.storage_amount, vcos.base_storage_price,  
+			   coe.id AS client_order_element_id,sqe.id AS supplier_quote_element_id,
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   sqe.price*sq.exchange_rate AS quote_base_price, sqe.price*sq.exchange_rate*(coe.amount-IFNULL(vcos.storage_amount, 0)) AS quote_total_price,  
+			   cqe.price*cq.exchange_rate AS client_quote_base_price, cqe.price*cq.exchange_rate*cqe.amount AS client_quote_total_price,  
+			   coe.price*co.exchange_rate AS order_base_price, coe.price*co.exchange_rate*coe.amount AS order_total_price  
+			   FROM client_quote_element cqe  
+			   INNER JOIN client_quote cq ON (cqe.client_quote_id=cq.id)  
+			   INNER JOIN client_inquiry_element cie ON (cqe.client_inquiry_element_id=cie.id)  
+			   INNER JOIN supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			   INNER JOIN supplier s ON (si.supplier_id=s.id)  
+			   INNER JOIN client_order_element coe ON (coe.client_quote_element_id=cqe.id)  
+			   LEFT JOIN v_client_order_storage vcos ON (vcos.client_order_element_id=coe.id)  
+			   INNER JOIN client_order co ON (coe.client_order_id=co.id)  
+			     INNER JOIN system_code cu ON (cq.currency_id=cu.id)
+		       INNER JOIN system_code bt ON (sq.currency_id=bt.id)
+			   WHERE co.id=#{id}
+			   order by cie.item 
+			   </select>
+			   
+			     <select id="findProfitStatement" resultMap="ProfitStatementMap" parameterType="String" >
+			   SELECT
+				coe.BANK_CHARGES,
+				coe.FIXED_COST,
+				sqe.BANK_COST,
+				sqe.HAZMAT_FEE,
+				sqe.OTHER_FEE,
+				sqe.FEE_FOR_EXCHANGE_BILL,
+				s.COUNTER_FEE,
+				coe.AMOUNT AS client_order_amount,
+				soe.AMOUNT AS supplier_order_amount,
+				IFNULL(soe.PROFIT_OTHER_FEE, 0) as PROFIT_OTHER_FEE,
+			   soe.id,so.SUPPLIER_ID,soe.SUPPLIER_QUOTE_ELEMENT_ID,co.ORDER_NUMBER,
+				cie.id AS client_inquiry_element_id,soe.AMOUNT supplier_order_amount,
+				soe.PRICE supplier_order_price,
+				cu.VALUE AS co_currency_value,bt.VALUE AS so_currency_value,cr.VALUE AS cq_currency_value,
+				cie.item,cie.part_number AS inquiry_part_number,
+				cie.description AS inquiry_description,sqe.FREIGHT,
+				co.exchange_rate co_exchange_rate,so.exchange_rate so_exchange_rate,cq.exchange_rate cq_exchange_rate,
+				ROUND(CASE IFNULL(sqe.FREIGHT, 0)
+					WHEN 0 THEN((coe.PRICE * co.exchange_rate - (soe.PRICE * so.exchange_rate)) / (coe.PRICE * co.exchange_rate)) * 100
+					ELSE((coe.PRICE * co.exchange_rate - (soe.PRICE * so.exchange_rate + sqe.FREIGHT)) / (coe.PRICE * co.exchange_rate)) * 100
+					END,1) AS profit_margin,cqe.amount AS quote_amount,coe.amount AS order_amount,vcos.storage_amount,vcos.base_storage_price,
+				coe.id AS client_order_element_id,sqe.id AS supplier_quote_element_id,s.id AS supplier_id,
+				s. CODE AS supplier_code,s. NAME AS supplier_name,soe.price * so.exchange_rate AS quote_base_price,
+				soe.price * so.exchange_rate * (coe.amount - IFNULL(vcos.storage_amount, 0)) AS quote_total_price,
+				cqe.price * cq.exchange_rate AS client_quote_base_price,cqe.price * cq.exchange_rate * cqe.amount AS client_quote_total_price,
+				coe.price * co.exchange_rate AS order_base_price,coe.price * co.exchange_rate * coe.amount AS order_total_price 
+			   FROM client_quote_element cqe  
+			   INNER JOIN client_quote cq ON (cqe.client_quote_id=cq.id)  
+			   INNER JOIN client_inquiry_element cie ON (cqe.client_inquiry_element_id=cie.id)  
+			   INNER JOIN supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			   INNER JOIN client_order_element coe ON (coe.client_quote_element_id=cqe.id)  
+			   LEFT JOIN v_client_order_storage vcos ON (vcos.client_order_element_id=coe.id)  
+			   INNER JOIN supplier_order_element soe ON (
+						soe.CLIENT_ORDER_ELEMENT_ID = coe.ID
+					)
+					INNER JOIN supplier_order so ON (
+						so.id = soe.SUPPLIER_ORDER_ID
+					)
+			   INNER JOIN client_order co ON (coe.client_order_id=co.id)  
+			   INNER JOIN system_code cr ON (cq.currency_id=cr.id)
+			   INNER JOIN system_code cu ON (co.currency_id=cu.id)
+		       INNER JOIN system_code bt ON (so.currency_id=bt.id)
+		         INNER JOIN supplier s ON (so.supplier_id=s.id) 
+			   WHERE  co.id=#{clientOrderId} AND so.ORDER_STATUS_ID != 64 AND soe.ORDER_STATUS_ID != 64
+			   order by cie.item 
+			   </select>
+  
+   <select id="findQuoteProfitStatementpage" resultMap="ProfitStatementMap" parameterType="page" >
+   SELECT cqe.id, cie.id AS client_inquiry_element_id,cu.value AS cq_currency_value, bt.value AS sq_currency_value,  
+			   cie.item, cie.part_number AS inquiry_part_number, cie.description AS inquiry_description,  
+			    IFNULL(sqe.FREIGHT,0) FREIGHT,cq.exchange_rate cq_exchange_rate,sq.exchange_rate sq_exchange_rate,
+				ROUND(CASE IFNULL(sqe.FREIGHT,0)  when 0 then 
+				((cqe.price * cq.exchange_rate - (sqe.price * sq.exchange_rate)) 
+				/ (cqe.price * cq.exchange_rate)) * 100 ELSE 
+				((cqe.price * cq.exchange_rate - (sqe.price * sq.exchange_rate + sqe.FREIGHT)) 
+				/ (cqe.price * cq.exchange_rate)) * 100 end ,1)as profit_margin,
+			   cqe.amount AS quote_amount, coe.amount AS order_amount,  
+			   vcos.storage_amount, vcos.base_storage_price,   cqe.BANK_CHARGES,s.COUNTER_FEE,
+			   coe.id AS client_order_element_id,sqe.id AS supplier_quote_element_id,cq.id client_quote_id,
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name ,IFNULL(cqe.FIXED_COST,0) FIXED_COST,
+			   sqe.price*sq.exchange_rate AS quote_base_price, sqe.price*sq.exchange_rate*(cqe.amount-IFNULL(vcos.storage_amount, 0)) AS quote_total_price,  
+			   cqe.price*cq.exchange_rate AS client_quote_base_price, cqe.price*cq.exchange_rate*cqe.amount AS client_quote_total_price,  
+			   coe.price*co.exchange_rate AS order_base_price, coe.price*co.exchange_rate*coe.amount AS order_total_price,
+			   sqe.price as supplier_quote_price,cqe.RELATIVE_RATE,cqe.amount as supplier_order_amount,
+			   sqe.FEE_FOR_EXCHANGE_BILL,sqe.BANK_COST,sqe.OTHER_FEE,sqe.HAZMAT_FEE,cqe.moq
+			   FROM client_quote_element cqe  
+			   INNER JOIN client_quote cq ON (cqe.client_quote_id=cq.id)  
+			   INNER JOIN client_inquiry_element cie ON (cqe.client_inquiry_element_id=cie.id)  
+			   INNER JOIN supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			   INNER JOIN supplier s ON (si.supplier_id=s.id)  
+			   
+			   LEFT JOIN client_order_element coe ON (coe.client_quote_element_id=cqe.id)  
+			   LEFT JOIN v_client_order_storage vcos ON (vcos.client_order_element_id=coe.id)  
+			   LEFT JOIN client_order co ON (coe.client_order_id=co.id)  
+			   INNER JOIN system_code cu ON (cq.currency_id=cu.id)
+		       INNER JOIN system_code bt ON (sq.currency_id=bt.id)
+			   WHERE cq.id=${clientquoteid}
+			   GROUP BY cqe.id
+			   order by cie.item 
+			   </select>
+			   
+			<select id="findOrderWeatherProfitStatementpage" resultMap="ProfitStatementMap" parameterType="page" >
+   			SELECT cqe.id, cie.id AS client_inquiry_element_id,cu.value AS co_currency_value, bt.value AS sq_currency_value,
+			   cie.item, cie.part_number AS inquiry_part_number, cie.description AS inquiry_description,  
+			  IFNULL(sqe.FREIGHT,0) FREIGHT,co.exchange_rate co_exchange_rate,sq.exchange_rate sq_exchange_rate,cq.exchange_rate cq_exchange_rate,
+				ROUND(CASE IFNULL(sqe.FREIGHT,0)  when 0 then 
+			((cqe.PRICE * cq.exchange_rate - (sqe.price * sq.exchange_rate)) 
+			/ (cqe.PRICE * cq.exchange_rate)) * 100 ELSE 
+			((cqe.PRICE * cq.exchange_rate - (sqe.price * sq.exchange_rate + sqe.FREIGHT)) 
+			/ (cqe.PRICE* cq.exchange_rate)) * 100 end ,1)as profit_margin,
+			   cqe.amount AS quote_amount, coe.amount AS order_amount,  coe.client_order_id,
+			   vcos.storage_amount, vcos.base_storage_price,  cqe.BANK_CHARGES,s.COUNTER_FEE,
+			   coe.id AS client_order_element_id,sqe.id AS supplier_quote_element_id,
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,IFNULL(cqe.FIXED_COST,0) FIXED_COST,
+			   sqe.price*sq.exchange_rate AS quote_base_price, sqe.price*sq.exchange_rate*(coe.amount-IFNULL(vcos.storage_amount, 0)) AS quote_total_price,  
+			   cqe.price*cq.exchange_rate AS client_quote_base_price, cqe.price*cq.exchange_rate*cqe.amount AS client_quote_total_price,  
+			   coe.price*co.exchange_rate AS order_base_price, coe.price*co.exchange_rate*coe.amount AS order_total_price,
+			   sqe.price as supplier_quote_price,cqe.RELATIVE_RATE,cqe.amount as supplier_order_amount,
+			   sqe.FEE_FOR_EXCHANGE_BILL,sqe.BANK_COST,sqe.OTHER_FEE,sqe.HAZMAT_FEE,cqe.moq
+			   FROM client_quote_element cqe  
+			   INNER JOIN client_quote cq ON (cqe.client_quote_id=cq.id)  
+			   INNER JOIN client_inquiry_element cie ON (cqe.client_inquiry_element_id=cie.id)  
+			   INNER JOIN supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			   INNER JOIN supplier s ON (si.supplier_id=s.id)  
+			   INNER JOIN client_order_element coe ON (coe.client_quote_element_id=cqe.id)  
+			   LEFT JOIN v_client_order_storage vcos ON (vcos.client_order_element_id=coe.id)  
+			   INNER JOIN client_order co ON (coe.client_order_id=co.id)  
+			   INNER JOIN system_code cu ON (co.currency_id=cu.id)
+		       INNER JOIN system_code bt ON (sq.currency_id=bt.id)
+			   WHERE  co.id=${clientOrderId}
+			   order by cie.item 
+			   </select>
+			   
+			   		<select id="findOrderProfitStatementpage" resultMap="ProfitStatementMap" parameterType="page" >
+   			SELECT soe.id,so.SUPPLIER_ID,soe.SUPPLIER_QUOTE_ELEMENT_ID,co.ORDER_NUMBER,
+				cie.id AS client_inquiry_element_id,soe.AMOUNT supplier_order_amount,
+				soe.PRICE supplier_order_price,
+				cu.VALUE AS co_currency_value,bt.VALUE AS so_currency_value,cr.VALUE AS cq_currency_value,
+				cie.item,cie.part_number AS inquiry_part_number, coe.BANK_CHARGES,s.COUNTER_FEE,
+				cie.description AS inquiry_description,IFNULL(sqe.FREIGHT, 0) FREIGHT,coe.client_order_id,
+				co.exchange_rate co_exchange_rate,so.exchange_rate so_exchange_rate,cq.exchange_rate cq_exchange_rate,
+				ROUND(CASE IFNULL(sqe.FREIGHT, 0)
+					WHEN 0 THEN((coe.PRICE * co.exchange_rate - (soe.PRICE * so.exchange_rate)) / (coe.PRICE * co.exchange_rate)) * 100
+					ELSE((coe.PRICE * co.exchange_rate - (soe.PRICE * so.exchange_rate + sqe.FREIGHT)) / (coe.PRICE * co.exchange_rate)) * 100
+					END,1) AS profit_margin,cqe.amount AS quote_amount,coe.amount AS order_amount,vcos.storage_amount,vcos.base_storage_price,
+				coe.id AS client_order_element_id,sqe.id AS supplier_quote_element_id,s.id AS supplier_id,IFNULL(coe.FIXED_COST,0) FIXED_COST,
+				s. CODE AS supplier_code,s. NAME AS supplier_name,soe.price * so.exchange_rate AS quote_base_price,
+				soe.price * so.exchange_rate * (coe.amount - IFNULL(vcos.storage_amount, 0)) AS quote_total_price,
+				cqe.price * cq.exchange_rate AS client_quote_base_price,cqe.price * cq.exchange_rate * cqe.amount AS client_quote_total_price,
+				coe.price * co.exchange_rate AS order_base_price,coe.price * co.exchange_rate * coe.amount AS order_total_price,
+				sqe.price as supplier_quote_price,cqe.RELATIVE_RATE,cqe.moq,
+				sqe.FEE_FOR_EXCHANGE_BILL,sqe.BANK_COST,sqe.OTHER_FEE,sqe.HAZMAT_FEE
+			   FROM client_quote_element cqe  
+			   INNER JOIN client_quote cq ON (cqe.client_quote_id=cq.id)  
+			   INNER JOIN client_inquiry_element cie ON (cqe.client_inquiry_element_id=cie.id)  
+			   INNER JOIN supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			 
+			   INNER JOIN client_order_element coe ON (coe.client_quote_element_id=cqe.id)  
+			   LEFT JOIN v_client_order_storage vcos ON (vcos.client_order_element_id=coe.id)  
+			   INNER JOIN supplier_order_element soe ON (
+						soe.CLIENT_ORDER_ELEMENT_ID = coe.ID
+					)
+					INNER JOIN supplier_order so ON (
+						so.id = soe.SUPPLIER_ORDER_ID
+					)
+			   INNER JOIN client_order co ON (coe.client_order_id=co.id)  
+			   INNER JOIN system_code cr ON (cq.currency_id=cr.id)
+			   INNER JOIN system_code cu ON (co.currency_id=cu.id)
+		       INNER JOIN system_code bt ON (so.currency_id=bt.id)
+		         INNER JOIN supplier s ON (so.supplier_id=s.id)  
+			   WHERE  co.id=${clientOrderId} AND so.ORDER_STATUS_ID != 64 AND soe.ORDER_STATUS_ID != 64
+			   order by cie.item 
+			   </select>
+			   
+			   	<select id="profitStatisticsPage" resultMap="ProfitStatementMap" parameterType="page" >
+				SELECT soe.id,id.TOTAL,`at`.`CODE` AIR_TYPE,
+					id.UPDATE_TIMESTAMP RECEIVE_DATE,ippe.PAYMENT_SUM,ippe.UPDATE_TIMESTAMP PAYMENT_DATE,
+					c.`CODE` client_code,
+					co.ORDER_NUMBER,
+					co.ORDER_DATE,coe.BANK_CHARGES,s.COUNTER_FEE,
+					co.id client_order_id,
+					sqe.PART_NUMBER,
+					sqe.DESCRIPTION,
+					ci.AIR_TYPE_ID,
+					so.ORDER_NUMBER supplier_order_number,
+					cu.VALUE AS co_currency_value,
+					bt.VALUE AS so_currency_value,
+					<!-- IFNULL(sqe.FREIGHT, 0) FREIGHT,  -->
+					co.exchange_rate co_exchange_rate,
+					so.exchange_rate so_exchange_rate,
+					cq.exchange_rate cq_exchange_rate,
+					IFNULL(coe.FIXED_COST,0) FIXED_COST,cq.id client_quote_id,
+					ROUND(	
+						(
+							(
+								coe.PRICE * co.exchange_rate - (soe.PRICE * so.exchange_rate+ IFNULL(sqe.FREIGHT, 0))
+							) / (coe.PRICE * co.exchange_rate)
+						) * 100,
+					
+					1
+				) AS profit_margin,
+				coe.amount AS order_amount,
+				vcos.storage_amount,
+				vcos.base_storage_price,
+				s. CODE AS supplier_code,
+				s. NAME AS supplier_name,
+				soe.price as supplier_order_element_price,
+				soe.price * so.exchange_rate<!-- + IFNULL(sqe.FREIGHT, 0) --> AS quote_base_price,
+				(soe.price * so.exchange_rate<!-- + IFNULL(sqe.FREIGHT, 0) -->) * (
+					<!-- coe.amount - IFNULL(vcos.storage_amount, 0) --> soe.amount
+				) AS quote_total_price,
+				coe.price * co.exchange_rate AS order_base_price,
+				coe.price * co.exchange_rate * coe.amount AS order_total_price,
+				soe.amount as supplier_order_amount,
+				IFNULL(soe.PROFIT_OTHER_FEE, 0) as PROFIT_OTHER_FEE,
+				so.currency_id AS supplier_order_currency_id,
+				cqe.id AS client_quote_element_id,
+				sqe.FEE_FOR_EXCHANGE_BILL,
+				sqe.BANK_COST,
+				sqe.OTHER_FEE,
+				sqe.HAZMAT_FEE,
+				cqe.moq
+				FROM
+					client_order_element coe
+				INNER JOIN client_quote_element cqe ON (
+					coe.client_quote_element_id = cqe.id
+				)
+				INNER JOIN client_quote cq ON (cqe.client_quote_id = cq.id)
+				INNER JOIN client_inquiry_element cie ON (
+					cqe.client_inquiry_element_id = cie.id
+				)
+				INNER JOIN client_inquiry ci ON (
+					ci.id = cie.CLIENT_INQUIRY_ID
+				)
+				LEFT JOIN v_client_order_storage vcos ON (
+					vcos.client_order_element_id = coe.id
+				)
+				INNER JOIN supplier_order_element soe ON (
+					soe.CLIENT_ORDER_ELEMENT_ID = coe.ID
+				)
+				INNER JOIN supplier_quote_element sqe ON (
+					soe.supplier_quote_element_id = sqe.id
+				)
+				INNER JOIN supplier_quote sq ON (
+					sqe.supplier_quote_id = sq.id
+				)
+				INNER JOIN supplier_inquiry si ON (
+					sq.supplier_inquiry_id = si.id
+				)
+				INNER JOIN supplier_order so ON (
+					so.id = soe.SUPPLIER_ORDER_ID
+				)
+				INNER JOIN client_order co ON (coe.client_order_id = co.id)
+				INNER JOIN system_code cu ON (co.currency_id = cu.id)
+				INNER JOIN system_code bt ON (so.currency_id = bt.id)
+				INNER JOIN system_code at ON (ci.AIR_TYPE_ID = at.id)
+				INNER JOIN supplier s ON (so.supplier_id = s.id)
+				LEFT JOIN supplier_import_element sie ON (
+					sie.SUPPLIER_ORDER_ELEMENT_ID = soe.ID
+				)
+				INNER JOIN client c ON (c.ID = ci.CLIENT_ID)
+				INNER JOIN element e1 on ( sqe.ELEMENT_ID=e1.ID)
+				INNER JOIN element e2 on (cie.ELEMENT_ID=e2.ID )
+				LEFT JOIN income_detail id on (id.CLIENT_ORDER_ELEMENT_ID=coe.ID)
+				LEFT JOIN income i on (id.INCOME_ID=i.ID)
+				LEFT JOIN import_package_payment_element ippe on ippe.SUPPLIER_ORDER_ELEMENT_ID=soe.ID
+				<where>
+				${where}
+				</where>
+				<if test="orderby != null">
+					${orderby}
+				</if>
+			   	</select>
+			   
+			   	<select id="findSupplierOrderAmount" resultMap="ProfitStatementMap" parameterType="Integer" >
+			SELECT
+				SUM(IFNULL(soe.AMOUNT, 0)) AS order_amount,
+					SUM(	IFNULL(vsie.import_amount, 0)) AS import_amount
+				
+				FROM
+					supplier_order_element soe
+				LEFT JOIN v_supplier_import_element vsie ON (
+					soe.id = vsie.supplier_order_element_id
+				)
+				INNER JOIN supplier_order so ON (
+					soe.supplier_order_id = so.id
+				)
+				INNER JOIN client_order co ON (so.client_order_id = co.id)
+				INNER JOIN client_quote cq ON (co.client_quote_id = cq.id)
+				INNER JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+				INNER JOIN client c ON (ci.client_id = c.id)
+				INNER JOIN supplier s ON (so.supplier_id = s.id)
+				INNER JOIN client_order_element coe ON (
+					soe.client_order_element_id = coe.id
+				)
+				INNER JOIN client_quote_element cqe ON (
+					coe.client_quote_element_id = cqe.id
+				)
+				INNER JOIN supplier_quote_element sqe ON (
+					soe.supplier_quote_element_id = sqe.id
+				)
+				INNER JOIN supplier_quote sq ON (
+					sqe.supplier_quote_id = sq.id
+				)
+				INNER JOIN supplier_inquiry si ON (
+					sq.supplier_inquiry_id = si.id
+				)
+				INNER JOIN element e ON (sqe.element_id = e.id)
+				INNER JOIN system_code cu ON (so.currency_id = cu.id)
+				INNER JOIN system_code cond ON (sqe.condition_id = cond.id)
+				INNER JOIN system_code cert ON (
+					sqe.certification_id = cert.id
+				)
+				INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+				INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+				WHERE
+				 coe.id=#{clientOrderElementId} 
+				</select>
+			   
+			    <!-- 根据id查询 -->
+  	<select id="findByCqId" parameterType="String" resultMap="clientOrderVo">
+  		SELECT co.id, co.client_quote_id, cq.client_inquiry_id,
+			c.id AS client_id, c.code AS client_code, c.name AS client_name,
+			c.address, c.ship_address,
+			cc.address AS contact_address, cc.ship_address AS contact_ship_address,
+			cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, co.exchange_rate,
+			bt.id AS biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,
+			at.id AS air_type_id, at.code AS air_type_code, at.value AS air_type_value,
+			sta.id AS order_status_id, sta.code AS order_status_code, sta.value AS order_status_value,
+			cq.seq, cq.quote_number, co.order_date, co.source_number AS source_order_number, co.order_number,
+			<!-- co.terms, 100-co.terms AS terms_1, --> co.remark, co.update_timestamp
+			FROM client_order co
+			INNER JOIN client_quote cq ON (co.client_quote_id=cq.id)
+			INNER JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)
+			INNER JOIN client c ON (ci.client_id=c.id)
+			INNER JOIN client_contact cc ON (ci.client_contact_id=cc.id)
+			INNER JOIN system_code cu ON (co.currency_id=cu.id)
+			INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)
+			INNER JOIN system_code at ON (ci.air_type_id=at.id)
+			INNER JOIN system_code sta ON (co.order_status_id=sta.id)
+			where cq.id=#{id}
+  </select>
+  
+  <select id="findQuoteDataByCieId" parameterType="Integer" resultMap="ClientquoteElementMap">
+   SELECT sqe.id, si.client_inquiry_id,  
+			   sqe.supplier_quote_id, sq.quote_date, ci.quote_number AS client_inquiry_quote_number,  
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   sq.currency_id, cu.code AS currency_code, cu.value AS currency_value, sq.exchange_rate,  
+			   si.quote_number AS supplier_inquiry_quote_number,  
+			   sqe.supplier_inquiry_element_id, cie.id client_inquiry_element_id, cie.item,  
+			   sqe.lead_time, cie.client_inquiry_id, sqe.price,  
+			   sqe.price*sq.exchange_rate AS base_price,  
+			   sqe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   sqe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   sqe.supplier_quote_status_id, sqs.code AS supplier_quote_status_code, sqs.value AS supplier_quote_status_value,  
+			   cie.element_id AS inquiry_element_id, sqe.element_id AS quote_element_id,  
+			   cie.part_number AS inquiry_part_number, sqe.part_number AS quote_part_number,  
+			   cie.unit AS inquiry_unit, sqe.unit AS quote_unit,  
+			   cie.amount AS inquiry_amount, sqe.amount AS quote_amount,  
+			   cie.description AS inquiry_description, sqe.description AS quote_description,  
+			   cie.remark AS inquiry_remark, sqe.remark AS quote_remark,  
+			   sqe.update_timestamp,cqe.RELATIVE_RATE,sqe.price as supplier_quote_price
+			   FROM supplier_quote_element sqe  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			   INNER JOIN client_inquiry ci ON (si.client_inquiry_id=ci.id)  
+			   INNER JOIN supplier s ON (si.supplier_id=s.id)  
+			   INNER JOIN supplier_inquiry_element sie ON (sqe.supplier_inquiry_element_id=sie.id)  
+			   INNER JOIN client_quote_element cqe ON (
+					sqe.id = cqe.SUPPLIER_QUOTE_ELEMENT_ID
+				)
+				INNER JOIN client_inquiry_element cie ON (
+					cqe.CLIENT_INQUIRY_ELEMENT_ID = cie.id
+				)  
+			   INNER JOIN element e ON (sqe.element_id=e.id)  
+			   INNER JOIN system_code cu ON (sq.currency_id=cu.id)  
+			   INNER JOIN system_code cond ON (sqe.condition_id=cond.id)  
+			   INNER JOIN system_code cert ON (sqe.certification_id=cert.id)  
+			   INNER JOIN system_code sqs ON (sqe.supplier_quote_status_id=sqs.id)  
+			   WHERE cie.id=#{clietinquiryelementid}
+			   </select>
+			   
+			     <select id="findOrderDataByCieId" parameterType="Integer" resultMap="ClientquoteElementMap">
+  				 SELECT sqe.id, si.client_inquiry_id,  
+			   sqe.supplier_quote_id, sq.quote_date, ci.quote_number AS client_inquiry_quote_number,  
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   sq.currency_id, cu.code AS currency_code, cu.value AS currency_value, sq.exchange_rate,  
+			   si.quote_number AS supplier_inquiry_quote_number,  
+			   sqe.supplier_inquiry_element_id, cie.id client_inquiry_element_id, cie.item,  
+			   sqe.lead_time, cie.client_inquiry_id, sqe.price,  
+			   sqe.price*sq.exchange_rate AS base_price,  
+			   sqe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   sqe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   sqe.supplier_quote_status_id, sqs.code AS supplier_quote_status_code, sqs.value AS supplier_quote_status_value,  
+			   cie.element_id AS inquiry_element_id, sqe.element_id AS quote_element_id,  
+			   cie.part_number AS inquiry_part_number, sqe.part_number AS quote_part_number,  
+			   cie.unit AS inquiry_unit, sqe.unit AS quote_unit,  
+			   cie.amount AS inquiry_amount, sqe.amount AS quote_amount,  
+			   cie.description AS inquiry_description, sqe.description AS quote_description,  
+			   cie.remark AS inquiry_remark, sqe.remark AS quote_remark,  
+			   sqe.update_timestamp,cqe.RELATIVE_RATE,sqe.price as supplier_quote_price
+			   FROM supplier_quote_element sqe  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			   INNER JOIN client_inquiry ci ON (si.client_inquiry_id=ci.id)  
+			   INNER JOIN supplier s ON (si.supplier_id=s.id)  
+			   INNER JOIN supplier_inquiry_element sie ON (sqe.supplier_inquiry_element_id=sie.id)  
+			   INNER JOIN client_quote_element cqe ON (
+					sqe.id = cqe.SUPPLIER_QUOTE_ELEMENT_ID
+				)
+				INNER JOIN client_inquiry_element cie ON (
+					cqe.CLIENT_INQUIRY_ELEMENT_ID = cie.id
+				)
+			   INNER JOIN element e ON (sqe.element_id=e.id)  
+			   INNER JOIN system_code cu ON (sq.currency_id=cu.id)  
+			   INNER JOIN system_code cond ON (sqe.condition_id=cond.id)  
+			   INNER JOIN system_code cert ON (sqe.certification_id=cert.id)  
+			   INNER JOIN system_code sqs ON (sqe.supplier_quote_status_id=sqs.id)  
+				inner JOIN client_order_element coe ON (
+					coe.client_quote_element_id = cqe.id
+				)
+			   WHERE cie.id=#{clietinquiryelementid}
+			   </select>
+			   
+			    <select id="findCodeByCoId" parameterType="String" resultMap="ClientquoteElementMap">
+			    SELECT
+					s. CODE AS supplier_code, soe.price*so.exchange_rate AS base_price,soe.id,so.exchange_rate,cu.value AS currency_value,cqe.RELATIVE_RATE,sqe.price as supplier_quote_price
+				FROM
+					client_quote_element cqe
+				INNER JOIN client_quote cq ON (cqe.client_quote_id = cq.id)
+				INNER JOIN client_inquiry_element cie ON (
+					cqe.client_inquiry_element_id = cie.id
+				)
+				INNER JOIN supplier_quote_element sqe ON (
+					cqe.supplier_quote_element_id = sqe.id
+				)
+				INNER JOIN supplier_quote sq ON (
+					sqe.supplier_quote_id = sq.id
+				)
+				INNER JOIN supplier_inquiry si ON (
+					sq.supplier_inquiry_id = si.id
+				)
+				INNER JOIN client_order_element coe ON (
+					coe.client_quote_element_id = cqe.id
+				)
+				LEFT JOIN v_client_order_storage vcos ON (
+					vcos.client_order_element_id = coe.id
+				)
+				INNER JOIN client_order co ON (coe.client_order_id = co.id)
+			
+				INNER JOIN system_code bt ON (sq.currency_id = bt.id)
+				
+				INNER JOIN supplier_order_element soe ON (
+					soe.CLIENT_ORDER_ELEMENT_ID = coe.ID
+				)
+				INNER JOIN supplier_order so ON (
+					so.id = soe.SUPPLIER_ORDER_ID
+				)INNER JOIN supplier s ON (so.supplier_id = s.id)
+					INNER JOIN system_code cu ON (so.currency_id = cu.id)
+				WHERE
+				 co.id=#{clientOrderId}  and so.order_status_id !=64
+
+			    </select>
+  
+  <select id="searchclient" resultMap="listdateMap" parameterType="com.naswork.model.AuthorityRelation">
+   SELECT DISTINCT c.code AS client_code
+	FROM  client c 
+		<if test="userId != null">
+	INNER JOIN authority_relation ar on (ar.CLIENT_ID=c.ID)
+	where ar.USER_ID=${userId}
+	</if>
+	ORDER BY client_code
+  </select>
+  
+  <select id="searchairType" resultMap="listdateMap">
+    SELECT DISTINCT   at.code AS air_type_code, at.VALUE AS air_type_value
+	FROM  client_inquiry ci
+	INNER JOIN system_code at ON (ci.air_type_id=at.id) 
+	ORDER BY at.code
+  </select>
+  
+   <select id="searchbizType" resultMap="listdateMap">
+   SELECT DISTINCT  bt.code AS biz_type_code
+	FROM  client_inquiry ci
+INNER JOIN system_code bt ON (ci.biz_type_id=bt.id) 
+  </select>
+  
+  
+  <select id="findseq" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+   SELECT MAX(c.SEQ)   FROM client_order c WHERE c.client_quote_id=#{id}
+  </select>
+  
+   <select id="searchcurrency" resultMap="listdateMap">
+   select cu.value as currency_value,cu.id as currency_id from system_code cu where cu.TYPE='CURRENCY'
+  </select>
+  
+    <select id="findPage" resultMap="listdateMap" parameterType="page" >
+    SELECT cq.id, cq.quote_date, cq.exchange_rate, cq.profit_margin, cq.update_timestamp,
+    cq.PREPAY_RATE,cq.SHIP_PAY_RATE,cq.SHIP_PAY_PERIOD,cq.RECEIVE_PAY_RATE,cq.RECEIVE_PAY_PERIOD,
+	ci.id as client_inquiry_id, ci.source_number, ci.quote_number AS client_inquiry_quote_number,
+	ci.inquiry_date, ci.deadline, cq.quote_number,c.client_template_type,
+	c.id AS client_id, c.code AS client_code, c.name AS client_name, 
+	cc.id AS client_contact_id, cc.name AS client_contact_name,cq.freight,cq.LOWEST_FREIGHT,IFNULL(cq.FIXED_COST,0) FIXED_COST,
+	cc.phone AS client_contact_phone, cc.fax AS client_contact_fax,
+	c.currency_id AS currency_id,cu.code AS currency_code, cu.value AS currency_value,
+	ci.biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,
+	ci.air_type_id, at.code AS air_type_code, at.value AS air_type_value,cq.terms_of_delivery,ct.value as terms_of_delivery_value
+	FROM client_quote cq
+	INNER JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)
+	INNER JOIN client_contact cc on (ci.client_contact_id=cc.id)
+	INNER JOIN client c ON (ci.client_id=c.id) 
+	INNER JOIN system_code cu ON (cq.currency_id=cu.id)
+	INNER JOIN system_code bt ON (ci.biz_type_id=bt.id) 
+	INNER JOIN system_code at ON (ci.air_type_id=at.id)
+	INNER JOIN system_code ct ON (cq.terms_of_delivery=ct.id)
+		<if test="userId != null">
+	INNER JOIN authority_relation ar on (ar.CLIENT_ID=c.ID)
+	</if>
+	<where>
+	${where}  
+	</where>
+	<if test="orderby != null">
+			${orderby}
+		</if>
+	<!-- order BY cq.quote_date DESC -->
+  </select>
+  
+    <select id="findclientquote" resultMap="BaseResultMap" parameterType="Integer" >
+   SELECT cq.id, cq.quote_date, cq.exchange_rate, cq.profit_margin, cq.update_timestamp,
+    cq.PREPAY_RATE,cq.SHIP_PAY_RATE,cq.SHIP_PAY_PERIOD,cq.RECEIVE_PAY_RATE,cq.RECEIVE_PAY_PERIOD,
+	ci.id as client_inquiry_id, ci.source_number, ci.quote_number AS client_inquiry_quote_number,
+	ci.inquiry_date, ci.deadline, cq.quote_number,
+	c.id AS client_id, c.code AS client_code, c.name AS client_name, 
+	cc.id AS client_contact_id, cc.name AS client_contact_name,
+	cc.phone AS client_contact_phone, cc.fax AS client_contact_fax,
+	cu.id AS currency_id,cu.code AS currency_code, cu.value AS currency_value,
+	ci.biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,
+	ci.air_type_id, at.code AS air_type_code, at.value AS air_type_value
+	FROM client_quote cq
+	INNER JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)
+	INNER JOIN client_contact cc on (ci.client_contact_id=cc.id)
+	INNER JOIN client c ON (ci.client_id=c.id) 
+	INNER JOIN system_code cu ON (cq.currency_id=cu.id)
+	INNER JOIN system_code bt ON (ci.biz_type_id=bt.id) 
+	INNER JOIN system_code at ON (ci.air_type_id=at.id)
+	WHERE ci.id=#{cientinquiryid}
+	</select>
+  
+  <select id="findbyclientquoteid" resultMap="listdateMap" parameterType="String" >
+    SELECT cq.id, cq.quote_date, cq.exchange_rate, cq.profit_margin, cq.update_timestamp,cq.currency_id,
+	ci.id as client_inquiry_id, ci.source_number, ci.quote_number AS client_inquiry_quote_number,
+	ci.inquiry_date, ci.deadline, cq.quote_number,c.CLIENT_SHIP_WAY,
+	c.id AS client_id, c.code AS client_code, c.name AS client_name, 
+	cc.id AS client_contact_id, cc.name AS client_contact_name,
+	cc.phone AS client_contact_phone, cc.fax AS client_contact_fax,
+	cu.id AS currency_id,cu.code AS currency_code, cu.value AS currency_value,
+	ci.biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,
+	ci.air_type_id, at.code AS air_type_code, at.value AS air_type_value,
+	cq.RECEIVE_PAY_PERIOD,cq.RECEIVE_PAY_RATE,cq.SHIP_PAY_PERIOD,cq.SHIP_PAY_RATE,cq.PREPAY_RATE,IFNULL(cq.FREIGHT,0) FREIGHT,IFNULL(cq.LOWEST_FREIGHT,0) LOWEST_FREIGHT
+	,cq.terms_of_delivery,ct.value as terms_of_delivery_value,c.client_template_type,IFNULL(cq.FIXED_COST,0) FIXED_COST
+	FROM client_quote cq
+	INNER JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)
+	INNER JOIN client_contact cc on (ci.client_contact_id=cc.id)
+	INNER JOIN client c ON (ci.client_id=c.id) 
+	INNER JOIN system_code cu ON (cq.currency_id=cu.id)
+	INNER JOIN system_code bt ON (ci.biz_type_id=bt.id) 
+	INNER JOIN system_code at ON (ci.air_type_id=at.id)
+	INNER JOIN system_code ct ON (cq.terms_of_delivery=ct.id)
+	where cq.id=#{clientquoteid}
+	</select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_quote
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientQuote" >
+    insert into client_quote (ID, CLIENT_INQUIRY_ID, SEQ, 
+      QUOTE_NUMBER, QUOTE_DATE, CURRENCY_ID, 
+      EXCHANGE_RATE, UPDATE_TIMESTAMP, PROFIT_MARGIN
+      )
+    values (#{id,jdbcType=INTEGER}, #{clientInquiryId,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, 
+      #{quoteNumber,jdbcType=VARCHAR}, #{quoteDate,jdbcType=DATE}, #{currencyId,jdbcType=INTEGER}, 
+      #{exchangeRate,jdbcType=DOUBLE}, CURRENT_TIMESTAMP, #{profitMargin,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientQuote" >
+   	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into client_quote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID,
+      </if>
+      <if test="seq != null" >
+        SEQ,
+      </if>
+      <if test="quoteNumber != null" >
+        QUOTE_NUMBER,
+      </if>
+      <if test="quoteDate != null" >
+        QUOTE_DATE,
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="profitMargin != null" >
+        PROFIT_MARGIN,
+      </if>
+      <if test="prepayRate != null" >
+        PREPAY_RATE,
+      </if>
+      <if test="shipPayRate != null" >
+        SHIP_PAY_RATE,
+      </if>
+      <if test="shipPayPeriod != null" >
+        SHIP_PAY_PERIOD,
+      </if>
+      <if test="receivePayRate != null" >
+        RECEIVE_PAY_RATE,
+      </if>
+      <if test="receivePayPeriod != null" >
+        RECEIVE_PAY_PERIOD,
+      </if>
+      <if test="termsOfDelivery != null" >
+        TERMS_OF_DELIVERY,
+      </if>
+      <if test="freight != null" >
+        FREIGHT,
+      </if>
+      <if test="lowestFreight != null" >
+        LOWEST_FREIGHT,
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST,
+      </if>
+      <if test="bankCost != null" >
+        BANK_COST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryId != null" >
+        #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="quoteNumber != null" >
+        #{quoteNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="quoteDate != null" >
+        #{quoteDate,jdbcType=DATE},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeRate != null" >
+        #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="profitMargin != null" >
+        #{profitMargin,jdbcType=DOUBLE},
+      </if>
+      <if test="prepayRate != null" >
+        #{prepayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayRate != null" >
+        #{shipPayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayPeriod != null" >
+        #{shipPayPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePayRate != null" >
+        #{receivePayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receivePayPeriod != null" >
+        #{receivePayPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="termsOfDelivery != null" >
+        #{termsOfDelivery,jdbcType=INTEGER},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="lowestFreight != null" >
+        #{lowestFreight,jdbcType=DOUBLE},
+      </if>
+      <if test="fixedCost != null" >
+        #{fixedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCost != null" >
+        #{bankCost,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientQuote" >
+    update client_quote
+    <set >
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        SEQ = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="quoteNumber != null" >
+        QUOTE_NUMBER = #{quoteNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="quoteDate != null" >
+        QUOTE_DATE = #{quoteDate,jdbcType=DATE},
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="profitMargin != null" >
+        PROFIT_MARGIN = #{profitMargin,jdbcType=DOUBLE},
+      </if>
+      <if test="prepayRate != null" >
+        PREPAY_RATE = #{prepayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayRate != null" >
+        SHIP_PAY_RATE = #{shipPayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayPeriod != null" >
+        SHIP_PAY_PERIOD = #{shipPayPeriod,jdbcType=DOUBLE},
+      </if>
+      <if test="receivePayRate != null" >
+        RECEIVE_PAY_RATE = #{receivePayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receivePayPeriod != null" >
+        RECEIVE_PAY_PERIOD = #{receivePayPeriod,jdbcType=DOUBLE},
+      </if>
+      <if test="termsOfDelivery != null" >
+        TERMS_OF_DELIVERY=#{termsOfDelivery,jdbcType=INTEGER},
+      </if>
+      <if test="freight != null" >
+        FREIGHT=#{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="lowestFreight != null" >
+        LOWEST_FREIGHT=#{lowestFreight,jdbcType=DOUBLE},
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST=#{fixedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCost != null" >
+        BANK_COST=#{bankCost,jdbcType=DOUBLE},
+      </if>
+       
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientQuote" >
+    update client_quote
+    set CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      SEQ = #{seq,jdbcType=INTEGER},
+      QUOTE_NUMBER = #{quoteNumber,jdbcType=VARCHAR},
+      QUOTE_DATE = #{quoteDate,jdbcType=DATE},
+      CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      PROFIT_MARGIN = #{profitMargin,jdbcType=DOUBLE},
+      FIXED_COST=#{fixedCost,jdbcType=DOUBLE},
+      BANK_COST=#{bankCost,jdbcType=DOUBLE}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findMaxSeq" resultType="java.lang.Integer">
+  		select max(SEQ) from client_quote
+  </select>
+  
+   <select id="findAlterNumber" resultType="java.lang.Integer" resultMap="ProfitStatementMap">
+  		select * from client_inquiry_alter_element ciae where ciae.element_id=#{elementId}
+  </select>
+  
+  <select id="getCurrencyId" parameterType="Integer" resultType="Integer">
+  		select DISTINCT cq.CURRENCY_ID from client_inquiry ci 
+			LEFT JOIN client_quote cq on (ci.ID = cq.CLIENT_INQUIRY_ID)
+			where ci.id = #{clientInquiryId}
+  </select>
+  
+  <select id="getQuoteCount" parameterType="Integer" resultType="Double">
+  		select SUM(cqe.AMOUNT) from client_quote_element cqe where cqe.CLIENT_QUOTE_ID = #{clientQuoteId}
+  </select>
+  
+  <select id="getQuotePrice" parameterType="Integer" resultType="Double">
+  		select IFNULL(SUM(cqe.PRICE),0) from client_quote_element cqe where cqe.CLIENT_QUOTE_ID = #{clientQuoteId}
+  </select>
+  
+  <select id="getByClientInquiryId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT * FROM client_quote cq  WHERE cq.CLIENT_INQUIRY_ID = #{clientInquiryId} ORDER BY cq.QUOTE_DATE DESC
+  </select>
+  
+  <select id="getMessageForAddQuote" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			ci.ID AS CLIENT_INQUIRY_ID,
+			c.CURRENCY_ID,
+			er.RATE AS EXCHANGE_RATE,
+			c.PROFIT_MARGIN,
+			c.PREPAY_RATE,
+			c.SHIP_PAY_RATE,
+			c.SHIP_PAY_PERIOD,
+			c.RECEIVE_PAY_RATE,
+			c.RECEIVE_PAY_PERIOD,
+			c.TERMS_OF_DELIVERY,
+			c.FREIGHT,
+			c.LOWEST_FREIGHT,
+			c.FIXED_COST,
+			c.BANK_COST
+		FROM
+			client_inquiry ci
+		LEFT JOIN client c ON c.ID = ci.CLIENT_ID
+		LEFT JOIN exchange_rate er ON er.CURRENCY_ID = c.CURRENCY_ID
+		WHERE ci.ID = #{clientInquiryId}
+  </select>
+  
+  
+  
+</mapper>

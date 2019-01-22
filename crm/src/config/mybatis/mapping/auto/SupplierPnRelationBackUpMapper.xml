@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierPnRelationBackUpDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierPnRelationBackUp" >
+    <id column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <id column="BSN" property="bsn" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ATA" property="ata" jdbcType="VARCHAR" />
+    <result column="AIRCRAFT" property="aircraft" jdbcType="VARCHAR" />
+    <result column="CONDITION" property="condition" jdbcType="VARCHAR" />
+    <result column="QTY" property="qty" jdbcType="DOUBLE" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="SUPPLY_ABILITY" property="supplyAbility" jdbcType="INTEGER" />
+    <result column="STOCK_ABILITY" property="stockAbility" jdbcType="INTEGER" />
+    <result column="REPAIR_ABILITY" property="repairAbility" jdbcType="INTEGER" />
+    <result column="EXCHANGE_ABILITY" property="exchangeAbility" jdbcType="INTEGER" />
+    <result column="SN" property="sn" jdbcType="VARCHAR" />
+    <result column="REPAIR" property="repair" jdbcType="VARCHAR" />
+    <result column="CERT" property="cert" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="MSN" property="msn" jdbcType="VARCHAR" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SUPPLIER_ID, BSN, ID, ATA, AIRCRAFT, `CONDITION`, QTY, `TYPE`, SUPPLY_ABILITY, STOCK_ABILITY, 
+    REPAIR_ABILITY, EXCHANGE_ABILITY, SN, REPAIR, CERT, REMARK, USER_ID, MSN,PART_NUMBER,DESCRIPTION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_pn_relation_back_up
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.SupplierPnRelationBackUpKey" >
+    delete from supplier_pn_relation_back_up
+    where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and BSN = #{bsn,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierPnRelationBackUp" >
+    insert into supplier_pn_relation_back_up (SUPPLIER_ID, BSN, ID, 
+      ATA, AIRCRAFT, CONDITION, 
+      QTY, TYPE, SUPPLY_ABILITY, 
+      STOCK_ABILITY, REPAIR_ABILITY, EXCHANGE_ABILITY, 
+      SN, REPAIR, CERT, REMARK, 
+      USER_ID, MSN)
+    values (#{supplierId,jdbcType=INTEGER}, #{bsn,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, 
+      #{ata,jdbcType=VARCHAR}, #{aircraft,jdbcType=VARCHAR}, #{condition,jdbcType=VARCHAR}, 
+      #{qty,jdbcType=DOUBLE}, #{type,jdbcType=INTEGER}, #{supplyAbility,jdbcType=INTEGER}, 
+      #{stockAbility,jdbcType=INTEGER}, #{repairAbility,jdbcType=INTEGER}, #{exchangeAbility,jdbcType=INTEGER}, 
+      #{sn,jdbcType=VARCHAR}, #{repair,jdbcType=VARCHAR}, #{cert,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{msn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierPnRelationBackUp" >
+    insert into supplier_pn_relation_back_up
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="bsn != null" >
+        BSN,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="ata != null" >
+        ATA,
+      </if>
+      <if test="aircraft != null" >
+        AIRCRAFT,
+      </if>
+      <if test="condition != null" >
+        `CONDITION`,
+      </if>
+      <if test="qty != null" >
+        QTY,
+      </if>
+      <if test="type != null" >
+        `TYPE`,
+      </if>
+      <if test="supplyAbility != null" >
+        SUPPLY_ABILITY,
+      </if>
+      <if test="stockAbility != null" >
+        STOCK_ABILITY,
+      </if>
+      <if test="repairAbility != null" >
+        REPAIR_ABILITY,
+      </if>
+      <if test="exchangeAbility != null" >
+        EXCHANGE_ABILITY,
+      </if>
+      <if test="sn != null" >
+        SN,
+      </if>
+      <if test="repair != null" >
+        REPAIR,
+      </if>
+      <if test="cert != null" >
+        CERT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="msn != null" >
+        MSN,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="bsn != null" >
+        #{bsn,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ata != null" >
+        #{ata,jdbcType=VARCHAR},
+      </if>
+      <if test="aircraft != null" >
+        #{aircraft,jdbcType=VARCHAR},
+      </if>
+      <if test="condition != null" >
+        #{condition,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null" >
+        #{qty,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="supplyAbility != null" >
+        #{supplyAbility,jdbcType=INTEGER},
+      </if>
+      <if test="stockAbility != null" >
+        #{stockAbility,jdbcType=INTEGER},
+      </if>
+      <if test="repairAbility != null" >
+        #{repairAbility,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeAbility != null" >
+        #{exchangeAbility,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="repair != null" >
+        #{repair,jdbcType=VARCHAR},
+      </if>
+      <if test="cert != null" >
+        #{cert,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="msn != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierPnRelationBackUp" >
+    update supplier_pn_relation_back_up
+    <set >
+      <if test="id != null" >
+        ID = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ata != null" >
+        ATA = #{ata,jdbcType=VARCHAR},
+      </if>
+      <if test="aircraft != null" >
+        AIRCRAFT = #{aircraft,jdbcType=VARCHAR},
+      </if>
+      <if test="condition != null" >
+        CONDITION = #{condition,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null" >
+        QTY = #{qty,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="supplyAbility != null" >
+        SUPPLY_ABILITY = #{supplyAbility,jdbcType=INTEGER},
+      </if>
+      <if test="stockAbility != null" >
+        STOCK_ABILITY = #{stockAbility,jdbcType=INTEGER},
+      </if>
+      <if test="repairAbility != null" >
+        REPAIR_ABILITY = #{repairAbility,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeAbility != null" >
+        EXCHANGE_ABILITY = #{exchangeAbility,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null" >
+        SN = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="repair != null" >
+        REPAIR = #{repair,jdbcType=VARCHAR},
+      </if>
+      <if test="cert != null" >
+        CERT = #{cert,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="msn != null" >
+        MSN = #{msn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and BSN = #{bsn,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierPnRelationBackUp" >
+    update supplier_pn_relation_back_up
+    set ID = #{id,jdbcType=INTEGER},
+      ATA = #{ata,jdbcType=VARCHAR},
+      AIRCRAFT = #{aircraft,jdbcType=VARCHAR},
+      CONDITION = #{condition,jdbcType=VARCHAR},
+      QTY = #{qty,jdbcType=DOUBLE},
+      TYPE = #{type,jdbcType=INTEGER},
+      SUPPLY_ABILITY = #{supplyAbility,jdbcType=INTEGER},
+      STOCK_ABILITY = #{stockAbility,jdbcType=INTEGER},
+      REPAIR_ABILITY = #{repairAbility,jdbcType=INTEGER},
+      EXCHANGE_ABILITY = #{exchangeAbility,jdbcType=INTEGER},
+      SN = #{sn,jdbcType=VARCHAR},
+      REPAIR = #{repair,jdbcType=VARCHAR},
+      CERT = #{cert,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      MSN = #{msn,jdbcType=VARCHAR}
+    where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and BSN = #{bsn,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getByUserId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			supplier_pn_relation_back_up
+		WHERE
+			USER_ID = #{userId}
+  </select>
+  
+  <delete id="deleteMessage" parameterType="Integer">
+  		DELETE FROM supplier_pn_relation_back_up WHERE user_id = #{userId}
+  </delete>
+  
+</mapper>

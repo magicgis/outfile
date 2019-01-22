@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.DasiDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.Dasi" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+    <result column="COMPLETE" property="complete" jdbcType="INTEGER" />
+    <result column="SEND_STATUS" property="sendStatus" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_INQUIRY_ID, COMPLETE, SEND_STATUS, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dasi
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dasi
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.Dasi" >
+    insert into dasi (ID, CLIENT_INQUIRY_ID, COMPLETE, 
+      SEND_STATUS, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{clientInquiryId,jdbcType=INTEGER}, #{complete,jdbcType=INTEGER}, 
+      #{sendStatus,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.Dasi" >
+    insert into dasi
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID,
+      </if>
+      <if test="complete != null" >
+        COMPLETE,
+      </if>
+      <if test="sendStatus != null" >
+        SEND_STATUS,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryId != null" >
+        #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="complete != null" >
+        #{complete,jdbcType=INTEGER},
+      </if>
+      <if test="sendStatus != null" >
+        #{sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.Dasi" >
+    update dasi
+    <set >
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="complete != null" >
+        COMPLETE = #{complete,jdbcType=INTEGER},
+      </if>
+      <if test="sendStatus != null" >
+        SEND_STATUS = #{sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.Dasi" >
+    update dasi
+    set CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      COMPLETE = #{complete,jdbcType=INTEGER},
+      SEND_STATUS = #{sendStatus,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getCompleteList" resultMap="BaseResultMap">
+  	SELECT ID, CLIENT_INQUIRY_ID, COMPLETE, SEND_STATUS, UPDATE_TIMESTAMP FROM dasi d WHERE d.COMPLETE = 1 AND d.SEND_STATUS = 0
+  </select>
+  
+</mapper>

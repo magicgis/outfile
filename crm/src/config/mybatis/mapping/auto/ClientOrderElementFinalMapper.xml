@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientOrderElementFinalDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientOrderElementFinal" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_ORDER_ELEMENT_ID" property="clientOrderElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="ORDER_STATUS_ID" property="orderStatusId" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="DEADLINE" property="deadline" jdbcType="TIMESTAMP" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="BANK_CHARGES" property="bankCharges" jdbcType="DOUBLE" />
+    <result column="ORDER_NUMBER_INDEX" property="orderNumberIndex" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_ORDER_ELEMENT_ID, AMOUNT, PRICE, LEAD_TIME,IFNULL(FIXED_COST,0) FIXED_COST, CERTIFICATION_ID, 
+    ORDER_STATUS_ID, UPDATE_TIMESTAMP,DEADLINE,DESCRIPTION,IFNULL(BANK_CHARGES,0) BANK_CHARGES,ORDER_NUMBER_INDEX
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_order_element_final
+    where CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER}
+  </select>
+  
+     <select id="sumPrice" resultType="DOUBLE" parameterType="INTEGER" >
+ 	 select SUM(coef.PRICE*coef.AMOUNT) from client_order_element_final coef INNER JOIN client_weather_order_element cwoe on coef.CLIENT_ORDER_ELEMENT_ID=cwoe.ID
+		where cwoe.CLIENT_WEATHER_ORDER_ID=#{clientWeatherOrderId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_order_element_final
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientOrderElementFinal" >
+    insert into client_order_element_final (ID, CLIENT_ORDER_ELEMENT_ID, AMOUNT, 
+      PRICE, LEAD_TIME, FIXED_COST, BANK_CHARGES,
+      CERTIFICATION_ID, ORDER_STATUS_ID, UPDATE_TIMESTAMP,DEADLINE,DESCRIPTION,CLIENT_WEATHER_ORDER_ID,ORDER_NUMBER_INDEX
+      )
+    values (#{id,jdbcType=INTEGER}, #{clientOrderElementId,jdbcType=INTEGER}, #{amount,jdbcType=DOUBLE}, 
+      #{price,jdbcType=DOUBLE}, #{leadTime,jdbcType=VARCHAR}, #{fixedCost,jdbcType=DOUBLE}, #{bankCharges,jdbcType=DOUBLE}, 
+      #{certificationId,jdbcType=INTEGER}, #{orderStatusId,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP}, 
+      #{deadline,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{clientWeatherOrderId,jdbcType=INTEGER},#{orderNumberIndex,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientOrderElementFinal" >
+    insert into client_order_element_final
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientOrderElementId != null" >
+        CLIENT_ORDER_ELEMENT_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST,
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID,
+      </if>
+      <if test="orderStatusId != null" >
+        ORDER_STATUS_ID,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="deadline != null" >
+        DEADLINE,
+      </if>
+      <if test="orderNumberIndex != null" >
+        ORDER_NUMBER_INDEX,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientOrderElementId != null" >
+        #{clientOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedCost != null" >
+        #{fixedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="certificationId != null" >
+        #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatusId != null" >
+        #{orderStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNumberIndex != null" >
+        #{orderNumberIndex,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientOrderElementFinal" >
+    update client_order_element_final
+    <set >
+      <if test="clientOrderElementId != null" >
+        CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST = #{fixedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCharges != null" >
+        BANK_CHARGES = #{bankCharges,jdbcType=DOUBLE},
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatusId != null" >
+        ORDER_STATUS_ID = #{orderStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deadline != null" >
+        DEADLINE = #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumberIndex != null" >
+        ORDER_NUMBER_INDEX = #{orderNumberIndex,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientOrderElementFinal" >
+    update client_order_element_final
+    set CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      PRICE = #{price,jdbcType=DOUBLE},
+      LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      FIXED_COST = #{fixedCost,jdbcType=DOUBLE},
+      CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      ORDER_STATUS_ID = #{orderStatusId,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      DEADLINE = #{deadline,jdbcType=TIMESTAMP},
+      ORDER_NUMBER_INDEX = #{orderNumberIndex,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <update id="updateBankCharges" parameterType="com.naswork.model.ClientOrderElementFinal" >
+    update client_order_element_final
+    set 
+        BANK_CHARGES = #{bankCharges,jdbcType=TIMESTAMP}
+    where CLIENT_WEATHER_ORDER_ID = #{clientWeatherOrderId,jdbcType=INTEGER}
+  </update>
+  
+   <update id="updateStatus" parameterType="com.naswork.model.ClientOrderElementFinal" >
+    update client_order_element_final
+    set 
+         ORDER_STATUS_ID = #{orderStatusId,jdbcType=INTEGER}
+    where CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER}
+  </update>
+</mapper>

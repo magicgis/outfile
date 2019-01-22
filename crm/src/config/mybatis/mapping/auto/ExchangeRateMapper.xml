@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ExchangeRateDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ExchangeRate" >
+    <id column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="RATE" property="rate" jdbcType="DOUBLE" />
+    <result column="TRANSFER_RANGE" property="transferRange" jdbcType="DOUBLE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="RELATIVE_RATE" property="relativeRate" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.system.controller.exchangerate.ExchangeRateVo" id="exchangeRateVo">
+  	<result column="id" property="id" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
+    <result column="TRANSFER_RANGE" property="transferRange" jdbcType="DOUBLE" />
+    <result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="RELATIVE_RATE" property="relativeRate" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    CURRENCY_ID, RATE, UPDATE_TIMESTAMP,TRANSFER_RANGE,RELATIVE_RATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from exchange_rate
+    where CURRENCY_ID = #{currencyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exchange_rate
+    where CURRENCY_ID = #{currencyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ExchangeRate" >
+    insert into exchange_rate (CURRENCY_ID, RATE, UPDATE_TIMESTAMP
+      )
+    values (#{currencyId,jdbcType=INTEGER}, #{rate,jdbcType=DOUBLE}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ExchangeRate" >
+    insert into exchange_rate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="rate != null" >
+        RATE,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ExchangeRate" >
+    update exchange_rate
+    <set >
+      <if test="rate != null" >
+        RATE = #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="transferRange != null" >
+        TRANSFER_RANGE = #{transferRange,jdbcType=DOUBLE},
+      </if>
+      <if test="relativeRate != null" >
+        RELATIVE_RATE = #{relativeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CURRENCY_ID = #{currencyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ExchangeRate" >
+    update exchange_rate
+    set RATE = #{rate,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where CURRENCY_ID = #{currencyId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="exchangeRateVo">
+  	select sc.ID,sc.`VALUE`,er.RATE,er.TRANSFER_RANGE,er.UPDATE_TIMESTAMP,er.RELATIVE_RATE from exchange_rate er LEFT JOIN system_code sc 
+		on er.CURRENCY_ID = sc.ID 
+  </select>
+  
+   <select id="findById" parameterType="Integer" resultMap="exchangeRateVo">
+  	select sc.ID,sc.`VALUE`,er.RATE,er.TRANSFER_RANGE,er.UPDATE_TIMESTAMP from exchange_rate er LEFT JOIN system_code sc 
+		on er.CURRENCY_ID = sc.ID where sc.id = #{id}
+  </select>
+  
+</mapper>

@@ -1,0 +1,930 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta charset="utf-8" /><meta name="description" content="Our Proponent Procart center makes it easy and convenient to order aircraft parts from the top suppliers in the aerospace industry." /><meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" /><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="SHORTCUT ICON" href="/images/favicon.ico" /><link href="/css/font-awesome.css" type="text/css" rel="stylesheet" /><link href="/css/app.css" type="text/css" rel="stylesheet" />
+    <script src="/js/vendor/jQuery/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="/js/vendor/jQuery/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <script src="/js/global.js" type="text/javascript"></script>
+    <script src="/js/jquery.fancybox.js"></script>
+    <script src="/js/jquery.fancybox.pack.js"></script>
+    <script src="/js/jQuery_UI.js"></script>
+    <script src="/js/jquery.validate.js"></script>
+    <script src="/js/date.js"></script>
+    <link href="/JQGrid/css/ui.jqgrid.css" rel="stylesheet" />
+    <script src="/JQGrid/js/i18n/grid.locale-en.js"></script>
+    <script src="/JQGrid/js/jquery.jqGrid.min.js"></script>
+
+    <link href="/JQGrid/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" /><link href="/css/jquery.fancybox.css" rel="stylesheet" />
+    <script src="/js/jquery.cycle2.min.js"></script>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TWG662"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push(
+    { 'gtm.start': new Date().getTime(), event: 'gtm.js' }
+    ); var f = d.getElementsByTagName(s)[0],
+    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-TWG662');</script>
+    <!-- End Google Tag Manager -->
+
+    
+    <script src="js/jquery.cycle2.min.js"></script>
+<title>
+	Proponent |  Part Search
+</title></head>
+<body>
+    <a class="faq-fixed" href="/FAQ.aspx">
+        <span class="faq-icon"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+        <span class="faq-txt">FAQ</span>
+    </a>
+    <div class="tips-wrapper-fixed">
+        <div class="tips-title">
+            TIPS
+        </div>
+        <div class="tips-slider-wrap">  
+            <!-- slideshow -->
+            
+            <div class="cycle-slideshow" 
+                data-cycle-fx="scrollHorz"
+                data-cycle-timeout=0
+                data-cycle-prev="#prev"
+                data-cycle-next="#next"
+                data-cycle-slides="> div.tips-slide"
+                >
+                <div class="tips-slide"><h3>Tip 1</h3><p>Looking for copies of invoices, packing slips, or certifications for your order? Click on the VIEW DETAILS of your Purchase Order to access these documents.</p></div><div class="tips-slide"><h3>Tip 2</h3><p>Need to track your package? Click on the Tracking Number of your order and it will take you directly to the shipping website.</p></div><div class="tips-slide"><h3>Tip 3</h3><p>Need to search for parts in bulk? All you need to do is copy and paste your list of part numbers from an Excel sheet into our BULK SEARCH portal.</p></div>
+               
+            </div>
+            <!-- prev/next links -->
+            <div class="control-buttons">
+                <span id="prev"><i class="fa fa-caret-left" aria-hidden="true"></i> </span>
+                <span id="next"> <i class="fa fa-caret-right" aria-hidden="true"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="site-wrapper-main">
+        <a class="exit-mob-menu" href="javascript:void(0)"></a>
+        <div class="row">
+            <div class="columns small-12 txt-right">
+                
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="heading">
+                <div class="logoCnt">
+                    <a href="/PartSearch.aspx">
+                        <img src="/images/procart-logo.png" alt="Proponent" title="Proponent" border="0"></a>
+                </div>
+                <a class="mob-cart" href="/shoppingCart.aspx"><span class="cart-count"></span><i class="fa fa-shopping-cart"></i></a>
+                <a class="mob-menu" href="javascript:void(0)"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                <div class="nav-details-wrap">
+                    <div class="loginUserInfo">
+                        <div class="row">
+                            <div class="small-12 large-9 columns">
+                                <div class="loginUserInfoContent right">
+                                    <span class="welcome-user"><span class="mh-welcome">Welcome,</span> <strong id="lbluserName">Tracy Chen</strong>from <strong id="lblCompany">Betterair Trade Co., Ltd</strong><br />
+                                        <span class="mh-checking">Checking out as:</span> <strong id="lblCustomer">86416 - BETTERAIR TRADE CO., LTD</strong>
+                                    </span>
+
+                                    <span class="logout-btn-cnt">
+                                        <a id="lnkSignOut" class="button success logout-btn" onclick="LogOut();">LOGOUT</a>&nbsp;
+                                    <span class="cart-cnt">
+                                        <i class="fa fa-shopping-cart"></i><a id="lnkMiniCar" class="minicart-anchor" style="display:none;"></a>
+                                    </span>
+                                    </span>
+                                    <a href="/ChooseCustomer.aspx" class="button success tiny change-customer">Change Customer</a>
+                                    <br>
+                                    <br>
+                                    <span id="spnSlsRepInfo"><strong>Your Customer Relationship Manager is:</strong><br>LI LI NG | Lng@proponent.com</span>
+                                    <br />
+                                    <br />
+                                    <div id="minicart" style="display: none">
+                                        <div class="inner-minicart">
+                                            <a onclick="return Close();"><i class="fa fa-times main-close-btn"></i></a>
+                                            <table id="jQMiniCart"></table>
+                                            <div class="button-cnt"><a href="/shoppingCart.aspx" class="button success">PROCEED TO SHOPPING CART</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="small-12 large-3 columns kart-img-holder">
+                            <img src="/images/thumb_kart.png" alt="" />
+                        </div> -->
+                        </div>
+
+                    </div>
+                    <div class="navigationCnt">
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <ul class="clearfix tab-menu-list">
+                                    <li><a href="/PartSearch.aspx">PART SEARCH</a></li>
+                                    <li id="liAdmin" class="hasSubMenu" style="display:none;">
+                                        <a href="/admin/PendingRequest.aspx">ADMIN</a>
+                                        <a class="accord-handle">&nbsp;</a>
+                                        <ul>
+                                            <li><a href="/admin/UsersLoggedInDetails.aspx">USER List Report</a></li>
+                                            <li><a href="/admin/Banners.aspx">BANNERS</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/MyAccount.aspx">MY ACCOUNT</a></li>
+                                    <li><a href="/PurchaseOrders.aspx">PURCHASE ORDERS</a></li>
+                                    <li class="lastNav"><a href="/shoppingCart.aspx">SHOPPING CART</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnDownLoad").click(function (e) {
+                window.location = '/templates/PartSearchExcelTemplate.xls';
+                $.fancybox.close();
+            });
+            $("#btnNo").click(function (e) {
+                $.fancybox.close();
+            });
+        })
+        function Download() {
+            $('#lnkView').fancybox({
+                'width': 500,
+                'href': '#fancy-download',
+                'height': 200,
+                'autoSize': false,
+            });
+        }
+        function bannerAnimation() {
+            var totalHeight = $('.individualSearch').height();
+            if (totalHeight > 303) {
+                $(".partSearch .lowerContent").slideUp(200);
+                $(".partSearch .imgHolder").delay(200).slideDown(200);
+            }
+            else {
+                $(".partSearch .imgHolder").slideUp(200);
+                $(".partSearch .lowerContent").delay(200).slideDown(200);
+            }
+        }
+        function CheckLines(obj) {
+            var Lines = obj.value.split("\n").length;
+            if (Lines > 500) {
+                alert('You can only paste parts up to 500 only');
+            }
+        }
+
+    </script>
+    <form method="post" action="PartSearch.aspx" onsubmit="javascript:return WebForm_OnSubmit();" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZOA-o-1WpQ4RyhySLNND39EebNSUH_HUtPWhTjTD9lAuwsgc0si2BibVRq-HFhmxMQ2&amp;t=635586452020000000" type="text/javascript"></script>
+
+
+<script src="/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1JhA-u6yZfkLvN4kSZmoTyD6B7RboTcEdA3seMmxaZ4_Dnz214LfzXx5raFOJHBrhFVqf-YycId_aMnCspAN7EB2J7gp4GklH4FOn8Ks9FmYKAgZ6F0TLa2TiGb2HV6u1Q2&amp;t=fffffffffe82416f" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=D9drwtSJ4hBA6O8UhT6CQpeFiNVBEbONEPj-SK-ZfW8Fod_Sfnot7SZYRmWm_orbSILD-INL8BLEome6OZc4H9_yJKeMnMHTvol1_kaU2_78cDV3au54tKRqW6NTrNTvhflh201_JYITlpecHXAYHXaEqdd9FmbHxszJABt7vxo1&amp;t=7b689585" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<script src="/ScriptResource.axd?d=JnUc-DEDOM5KzzVKtsL1taiFkJyAKuJMb_0FCwl0urbvjVHfSIj5yjAf3_xX2SpIdyelTDBjMx8M8m-eS4jSpir8PPyLAOuoDFgD8DN5dgKiMkPy7NgaRCauk1znlIyRv-YX70X6TxzHxwUfzoOLpxMj0xm8fLUg8rluzvXdWKHWwBGe-3aZHUd4giydMkUY0&amp;t=7b689585" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="4439047B" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="v+9J8FQ57Ay6p8FlOXhMIgX+8lL4bvMJIfFzq/SZ2inSKbz4r8iyppBxvAuwokyi4avRB0+bU9y6Sk/fSrQm3I9+wu2mDi8FnjGyHQxYEjU4X3XwKCyEOmXF6E0Et1o6JSR+O6qvUzPQNYujik0MfvcOq6w01Ichv1zsSdiKNVeLz7bi3tvG2CBKGlpL+doh1waGkqAqWX081C9dESm/GOTssc4N5omqaDqcgTrYWP4Iwh03x1gUzCIf1cB3kK1LDqdZTPLtCbdyV5D6sFM4cLlqNMRmwF86+lbjKvAyWgw/eq8AGC4gTPbL5Sk92j89HcVkiyBcdAKojLngT0hd5z01LFUMXc6tgDEE9vmLuSAvxqlfGR6RtiUmKuGHj+y4zSD+Hy3bDEYmkSJyQ+gxtwBWMv+n7aNqN6GPZ2bIH/JJaUvilZTnIPP+0caashXg4hnbHfr92q5TxT/Bmj1zhNfWk/fUxrmgRN+jNvN86/rd5b8MuYxH8FElLtJsu0XlKqZOBzaYysGK5b86jVBpnJh+4ABCJLCirNnSKBGBCUw=" />
+</div>
+        <div class="middleCnt partSearch">
+
+            <div class="row">
+                <div class="small-12 medium-4 columns">
+                    <div class="individualSearch box">
+
+                        <span class="boxTitle">INDIVIDUAL SEARCH</span><br>
+                        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$MainContent$scriptmanager1', 'form1', ['tctl00$MainContent$updatepnl','MainContent_updatepnl'], ['ctl00$MainContent$btnAddControls','MainContent_btnAddControls'], [], 90, 'ctl00');
+//]]>
+</script>
+
+                        <div id="MainContent_updatepnl">
+	
+                                <table>
+                                    <tr>
+                                        <span id="MainContent_lblIndSearchMsg" style="color:Red;"></span>
+                                    </tr>
+                                    <tr>
+                                        <th>PART NUMBER</th>
+                                        <th>QTY</th>
+                                        <th></th>
+                                    </tr>
+
+                                    
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                        <a href="#" class="searchBtn"><i class="fa fa-search"></i></a>
+                                                        <input name="ctl00$MainContent$rptControls$ctl00$txtPart" type="text" id="MainContent_rptControls_txtPart_0" class="searchTextbox" /></td>
+                                                    <td>
+                                                        <input name="ctl00$MainContent$rptControls$ctl00$txtQty" type="text" id="MainContent_rptControls_txtQty_0" maxlength="5" />
+
+                                                    </td>
+                                                    <td class="closeBtn_cnt">
+                                                        <span id="MainContent_rptControls_revQty_0" class="error" style="color:Red;display:none;">*</span>
+                                                        <a id="MainContent_rptControls_btnClose_0" class="fa fa-times close-btn" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptControls$ctl00$btnClose&#39;,&#39;&#39;)"></a>
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                        <a href="#" class="searchBtn"><i class="fa fa-search"></i></a>
+                                                        <input name="ctl00$MainContent$rptControls$ctl01$txtPart" type="text" id="MainContent_rptControls_txtPart_1" class="searchTextbox" /></td>
+                                                    <td>
+                                                        <input name="ctl00$MainContent$rptControls$ctl01$txtQty" type="text" id="MainContent_rptControls_txtQty_1" maxlength="5" />
+
+                                                    </td>
+                                                    <td class="closeBtn_cnt">
+                                                        <span id="MainContent_rptControls_revQty_1" class="error" style="color:Red;display:none;">*</span>
+                                                        <a id="MainContent_rptControls_btnClose_1" class="fa fa-times close-btn" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptControls$ctl01$btnClose&#39;,&#39;&#39;)"></a>
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                        <a href="#" class="searchBtn"><i class="fa fa-search"></i></a>
+                                                        <input name="ctl00$MainContent$rptControls$ctl02$txtPart" type="text" id="MainContent_rptControls_txtPart_2" class="searchTextbox" /></td>
+                                                    <td>
+                                                        <input name="ctl00$MainContent$rptControls$ctl02$txtQty" type="text" id="MainContent_rptControls_txtQty_2" maxlength="5" />
+
+                                                    </td>
+                                                    <td class="closeBtn_cnt">
+                                                        <span id="MainContent_rptControls_revQty_2" class="error" style="color:Red;display:none;">*</span>
+                                                        <a id="MainContent_rptControls_btnClose_2" class="fa fa-times close-btn" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptControls$ctl02$btnClose&#39;,&#39;&#39;)"></a>
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                        <a href="#" class="searchBtn"><i class="fa fa-search"></i></a>
+                                                        <input name="ctl00$MainContent$rptControls$ctl03$txtPart" type="text" id="MainContent_rptControls_txtPart_3" class="searchTextbox" /></td>
+                                                    <td>
+                                                        <input name="ctl00$MainContent$rptControls$ctl03$txtQty" type="text" id="MainContent_rptControls_txtQty_3" maxlength="5" />
+
+                                                    </td>
+                                                    <td class="closeBtn_cnt">
+                                                        <span id="MainContent_rptControls_revQty_3" class="error" style="color:Red;display:none;">*</span>
+                                                        <a id="MainContent_rptControls_btnClose_3" class="fa fa-times close-btn" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptControls$ctl03$btnClose&#39;,&#39;&#39;)"></a>
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                        <a href="#" class="searchBtn"><i class="fa fa-search"></i></a>
+                                                        <input name="ctl00$MainContent$rptControls$ctl04$txtPart" type="text" id="MainContent_rptControls_txtPart_4" class="searchTextbox" /></td>
+                                                    <td>
+                                                        <input name="ctl00$MainContent$rptControls$ctl04$txtQty" type="text" id="MainContent_rptControls_txtQty_4" maxlength="5" />
+
+                                                    </td>
+                                                    <td class="closeBtn_cnt">
+                                                        <span id="MainContent_rptControls_revQty_4" class="error" style="color:Red;display:none;">*</span>
+                                                        <a id="MainContent_rptControls_btnClose_4" class="fa fa-times close-btn" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptControls$ctl04$btnClose&#39;,&#39;&#39;)"></a>
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        
+                                </table>
+
+
+                                <span class="searchMoreParts_Cnt"><i class="fa fa-plus"></i>
+                                    <input type="submit" name="ctl00$MainContent$btnAddControls" value="Search More Parts" id="MainContent_btnAddControls" class="searchMoreParts_btn" /></span>
+
+                                <input type="submit" name="ctl00$MainContent$btnSearch" value="SEARCH" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$MainContent$btnSearch&quot;, &quot;&quot;, true, &quot;Search&quot;, &quot;&quot;, false, false))" id="MainContent_btnSearch" class="button tiny search-btn" />
+
+                            
+</div>
+
+
+                    </div>
+                </div>
+
+                <div class="small-12 medium-4 columns">
+                    <div class="bulkSearch box">
+
+                        <span class="boxTitle">BULK SEARCH</span><br>
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <span id="MainContent_lblBulkSearchMsg" style="color:Red;"></span>
+                            </div>
+                        </div>
+                        <p>
+                            <strong>PASTE PART NUMBERS FROM EXCEL</strong><br>
+                            Got a list of parts? We’ve made it easier than ever to search. Just copy and paste the list with your desired quantities from an Excel spreadsheet. One part number and quantity per line.
+                        </p>
+
+                        <div class="viewExampleCnt">
+                            <a id="lnkView" onclick="Download();">View Example <i class="fa fa-info"></i></a>
+                        </div>
+                        
+                        <textarea name="ctl00$MainContent$txtBulkPart" id="MainContent_txtBulkPart" rows="500" onblur="CheckLines(this)"></textarea>
+
+                        <div class="btnCnt">
+                            <input type="submit" name="ctl00$MainContent$btnBulkSearch" value="SEARCH" id="MainContent_btnBulkSearch" class="button tiny search-btn" />
+                        </div>
+                    </div>
+
+                    <div class="imgHolder">
+                       
+<div class="hero">
+	
+    <div style="display: none;" class="slider cycle-slideshow" data-cycle-log="false" data-cycle-fx="scrollHorz" data-cycle-pause-on-hover="true" data-cycle-speed="2000" data-cycle-slides=">.slide">
+        <div class="cycle-pager"></div>
+        
+                <img src="/images/banners/Slide 1 Trusted Partnership.jpg" alt="Slide 1 Trusted Partnership" class="slide" />
+            
+                <img src="/images/banners/Slide 2 CCI.jpg" alt="Slide 2 CCI" class="slide" />
+            
+                <img src="/images/banners/Slide 3 EI.jpg" alt="Slide 3 EI" class="slide" />
+            
+                <img src="/images/banners/Slide 4 PMS.jpg" alt="Slide 4 PMS" class="slide" />
+            
+                <img src="/images/banners/Slide 5 SFM.jpg" alt="Slide 5 SFM" class="slide" />
+            
+                <img src="/images/banners/Slide 6 SSH.jpg" alt="Slide 6 SSH" class="slide" />
+            
+                <img src="/images/banners/Trelleborg.jpg" alt="Trelleborg" class="slide" />
+            
+    </div>
+</div>
+
+
+
+                    </div>
+                </div>
+
+                <div id="MainContent_divWildSearch" class="small-12 medium-4 columns">
+                    <div class="WildCardSearch box">
+
+                        <span class="boxTitle">WILDCARD SEARCH</span><br>
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <span style="color: red; display: inline-block; font-weight: bold; margin-top: 10px;">A minimum of 2 characters is required for wildcard search.</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="small-12 columns" style="color: red; margin-top: 10px;">
+                                <span id="MainContent_lblwildSearchMsg"></span>
+                            </div>
+                        </div>
+                        <span class="title">Enter Part Number Beginning:</span>
+                        <input name="ctl00$MainContent$txtWildSearchPart" type="text" id="MainContent_txtWildSearchPart" />
+                        <div style="color: Red; display: block; margin-bottom: 20px; margin-top: -10px;">
+                            <span id="MainContent_rfvWildSearch" style="display:none;">Minimum 2 characters required</span>
+                            <span id="MainContent_revWildSearch" style="display:none;">Minimum 2 characters required</span>
+                        </div>
+                        <div class="btnCnt">
+                            <input type="submit" name="ctl00$MainContent$btnWildSearch" value="SEARCH" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$MainContent$btnWildSearch&quot;, &quot;&quot;, true, &quot;WildcardSearch&quot;, &quot;&quot;, false, false))" id="MainContent_btnWildSearch" class="button tiny search-btn" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- HTML for welcome message starts -->
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <div class="video-box box">
+                                <span class="boxTitle">Welcome to Proponent Procart</span>
+                                <br>
+                                <h5>Please watch our introduction videos to familiarize yourself with all of Proponent Procart's features:</h5>
+                               <div class="row">
+                                    <div class="small-12 medium-6 columns text-center">
+                                        <a href="https://www.youtube.com/embed/v_xCFnj_qdY?autoplay=1" class="video-link fancybox.iframe"><i class="fa fa-play-circle" aria-hidden="true"></i>Finding Tracking Information</a>
+                                    </div>
+                                    <div class="small-12 medium-6 columns text-center">
+                                         <a href="https://www.youtube.com/embed/z6ytfH3Rd50?autoplay=1" class="video-link fancybox.iframe"><i class="fa fa-play-circle" aria-hidden="true"></i>Access Documents</a>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+         <!-- HTML for welcome message ends -->
+
+            <div class="lowerContent">
+                <div class="row">
+                    <div class="small-12 medium-8 large-centered medium-centered columns">
+                        
+<div class="hero">
+	
+    <div style="display: none;" class="slider cycle-slideshow" data-cycle-log="false" data-cycle-fx="scrollHorz" data-cycle-pause-on-hover="true" data-cycle-speed="2000" data-cycle-slides=">.slide">
+        <div class="cycle-pager"></div>
+        
+                <img src="/images/banners/Slide 1 Trusted Partnership.jpg" alt="Slide 1 Trusted Partnership" class="slide" />
+            
+                <img src="/images/banners/Slide 2 CCI.jpg" alt="Slide 2 CCI" class="slide" />
+            
+                <img src="/images/banners/Slide 3 EI.jpg" alt="Slide 3 EI" class="slide" />
+            
+                <img src="/images/banners/Slide 4 PMS.jpg" alt="Slide 4 PMS" class="slide" />
+            
+                <img src="/images/banners/Slide 5 SFM.jpg" alt="Slide 5 SFM" class="slide" />
+            
+                <img src="/images/banners/Slide 6 SSH.jpg" alt="Slide 6 SSH" class="slide" />
+            
+                <img src="/images/banners/Trelleborg.jpg" alt="Trelleborg" class="slide" />
+            
+    </div>
+</div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div style="display: none;">
+                <div id="fancy-download" style="text-align: center; padding: 20px 10px;">
+                    <h4>Do you want to download this?</h4>
+                    <br />
+                    <a class="clsYes button tiny" id="btnDownLoad">Download</a>
+                    <a class="clsNo button secondary tiny" id="btnNo">Cancel</a>
+                </div>
+            </div>
+        </div>
+
+       
+    
+<script type="text/javascript">
+//<![CDATA[
+var Page_Validators =  new Array(document.getElementById("MainContent_rptControls_revQty_0"), document.getElementById("MainContent_rptControls_revQty_1"), document.getElementById("MainContent_rptControls_revQty_2"), document.getElementById("MainContent_rptControls_revQty_3"), document.getElementById("MainContent_rptControls_revQty_4"), document.getElementById("MainContent_rfvWildSearch"), document.getElementById("MainContent_revWildSearch"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var MainContent_rptControls_revQty_0 = document.all ? document.all["MainContent_rptControls_revQty_0"] : document.getElementById("MainContent_rptControls_revQty_0");
+MainContent_rptControls_revQty_0.controltovalidate = "MainContent_rptControls_txtQty_0";
+MainContent_rptControls_revQty_0.errormessage = "Please enter valid Quantity.";
+MainContent_rptControls_revQty_0.display = "Dynamic";
+MainContent_rptControls_revQty_0.validationGroup = "Search";
+MainContent_rptControls_revQty_0.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+MainContent_rptControls_revQty_0.validationexpression = "^[0-9]{1,}$";
+var MainContent_rptControls_revQty_1 = document.all ? document.all["MainContent_rptControls_revQty_1"] : document.getElementById("MainContent_rptControls_revQty_1");
+MainContent_rptControls_revQty_1.controltovalidate = "MainContent_rptControls_txtQty_1";
+MainContent_rptControls_revQty_1.errormessage = "Please enter valid Quantity.";
+MainContent_rptControls_revQty_1.display = "Dynamic";
+MainContent_rptControls_revQty_1.validationGroup = "Search";
+MainContent_rptControls_revQty_1.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+MainContent_rptControls_revQty_1.validationexpression = "^[0-9]{1,}$";
+var MainContent_rptControls_revQty_2 = document.all ? document.all["MainContent_rptControls_revQty_2"] : document.getElementById("MainContent_rptControls_revQty_2");
+MainContent_rptControls_revQty_2.controltovalidate = "MainContent_rptControls_txtQty_2";
+MainContent_rptControls_revQty_2.errormessage = "Please enter valid Quantity.";
+MainContent_rptControls_revQty_2.display = "Dynamic";
+MainContent_rptControls_revQty_2.validationGroup = "Search";
+MainContent_rptControls_revQty_2.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+MainContent_rptControls_revQty_2.validationexpression = "^[0-9]{1,}$";
+var MainContent_rptControls_revQty_3 = document.all ? document.all["MainContent_rptControls_revQty_3"] : document.getElementById("MainContent_rptControls_revQty_3");
+MainContent_rptControls_revQty_3.controltovalidate = "MainContent_rptControls_txtQty_3";
+MainContent_rptControls_revQty_3.errormessage = "Please enter valid Quantity.";
+MainContent_rptControls_revQty_3.display = "Dynamic";
+MainContent_rptControls_revQty_3.validationGroup = "Search";
+MainContent_rptControls_revQty_3.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+MainContent_rptControls_revQty_3.validationexpression = "^[0-9]{1,}$";
+var MainContent_rptControls_revQty_4 = document.all ? document.all["MainContent_rptControls_revQty_4"] : document.getElementById("MainContent_rptControls_revQty_4");
+MainContent_rptControls_revQty_4.controltovalidate = "MainContent_rptControls_txtQty_4";
+MainContent_rptControls_revQty_4.errormessage = "Please enter valid Quantity.";
+MainContent_rptControls_revQty_4.display = "Dynamic";
+MainContent_rptControls_revQty_4.validationGroup = "Search";
+MainContent_rptControls_revQty_4.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+MainContent_rptControls_revQty_4.validationexpression = "^[0-9]{1,}$";
+var MainContent_rfvWildSearch = document.all ? document.all["MainContent_rfvWildSearch"] : document.getElementById("MainContent_rfvWildSearch");
+MainContent_rfvWildSearch.controltovalidate = "MainContent_txtWildSearchPart";
+MainContent_rfvWildSearch.errormessage = "*";
+MainContent_rfvWildSearch.display = "Dynamic";
+MainContent_rfvWildSearch.validationGroup = "WildcardSearch";
+MainContent_rfvWildSearch.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+MainContent_rfvWildSearch.initialvalue = "";
+var MainContent_revWildSearch = document.all ? document.all["MainContent_revWildSearch"] : document.getElementById("MainContent_revWildSearch");
+MainContent_revWildSearch.controltovalidate = "MainContent_txtWildSearchPart";
+MainContent_revWildSearch.errormessage = "*";
+MainContent_revWildSearch.display = "Dynamic";
+MainContent_revWildSearch.validationGroup = "WildcardSearch";
+MainContent_revWildSearch.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+MainContent_revWildSearch.validationexpression = "^[\\s\\S]{2,}$";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        
+document.getElementById('MainContent_rptControls_revQty_0').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('MainContent_rptControls_revQty_0'));
+}
+
+document.getElementById('MainContent_rptControls_revQty_1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('MainContent_rptControls_revQty_1'));
+}
+
+document.getElementById('MainContent_rptControls_revQty_2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('MainContent_rptControls_revQty_2'));
+}
+
+document.getElementById('MainContent_rptControls_revQty_3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('MainContent_rptControls_revQty_3'));
+}
+
+document.getElementById('MainContent_rptControls_revQty_4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('MainContent_rptControls_revQty_4'));
+}
+
+document.getElementById('MainContent_rfvWildSearch').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('MainContent_rfvWildSearch'));
+}
+
+document.getElementById('MainContent_revWildSearch').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('MainContent_revWildSearch'));
+}
+//]]>
+</script>
+</form>
+
+            </div>
+            <div class="push"></div>
+        </div>
+        <div class="footer">
+            <div class="row">
+                <div class="small-12 columns">
+                    <p>©2018 Proponent - All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+        <div style="display: none;">
+            <div id="fancy-delete" style="text-align: center; padding: 20px 10px;">
+                <h4>Item removed.</h4>
+                <br />
+                <a class="clsNo button tiny" id="btnClose">Close</a>
+            </div>
+        </div>
+
+        <div style="display: none;">
+            <div id="div_fancyLogout" style="text-align: center; padding: 20px 10px;">
+                <h4>You have items in your cart. Are you sure you want to leave?</h4>
+                <br />
+                <a class="clsYesLogout button tiny" id="A2">Yes</a>
+                <a class="clsNo button tiny secondary" id="A1">Cancel</a>
+            </div>
+
+            <div id="div_fancyLogin" style="text-align: center; padding: 20px 10px;">
+                <h4>Reminder: You have shopping items in your cart from a previous session.</h4>
+                <br />
+                <a class="clsNo button tiny" id="A4">Close</a>
+            </div>
+        </div>
+    </div>
+    <script src="/js/foundation/foundation.js" type="text/javascript"></script>
+    <script src="/js/foundation/foundation.equalizer.js" type="text/javascript"></script>
+
+    <script>
+        $(document).foundation();
+    </script>
+
+    <script src="/js/rem.js" type="text/javascript"></script>
+    <script src="/js/respond.min.js"></script>
+
+    <style>
+        .chat {
+            position: fixed;
+            right: 5px;
+            bottom: 5px;
+        }
+    </style>
+    <div class="chat">
+        <img id="liveagent_button_online_573U0000000k9hW" style="display: none; border: 0px none; cursor: pointer" onclick="liveagent.startChat('573U0000000k9hW')" src="https://kapco.secure.force.com/LiveAgent/resource/1473245530000/OnlineChatButton" /><img id="liveagent_button_offline_573U0000000k9hW" style="display: none; border: 0px none;" src="https://kapco.secure.force.com/LiveAgent/resource/1473245530000/OfflineChatButton" />
+        <script type="text/javascript">
+            if (!window._laq) { window._laq = []; }
+            window._laq.push(function () {
+                liveagent.showWhenOnline('573U0000000k9hW', document.getElementById('liveagent_button_online_573U0000000k9hW'));
+                liveagent.showWhenOffline('573U0000000k9hW', document.getElementById('liveagent_button_offline_573U0000000k9hW'));
+            });</script>
+
+        <script type='text/javascript' src='https://c.la2-c2-dfw.salesforceliveagent.com/content/g/js/37.0/deployment.js'></script>
+        <script type='text/javascript'>
+            liveagent.init('https://d.la2-c2-dfw.salesforceliveagent.com/chat', '572U0000000k9hH', '00DU0000000Xtpv');
+        </script>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            sessionStorage.removeItem("PONumber");
+            sessionStorage.removeItem("reqShipDate");
+            sessionStorage.removeItem("shipEarly");
+            sessionStorage.removeItem("partialShip");
+            sessionStorage.removeItem("specialReqs");
+
+            var eventsFired = 'True'
+            if (eventsFired != 'False') {
+                LogInPopup();
+            }
+            var rowIndex = 1;
+            $('.cart-cnt').click(function () {
+                if ($("#jQMiniCart")[0].grid) {
+                    $("#jQMiniCart").trigger('reloadGrid');
+                    $("#minicart").show();
+                }
+                else {
+                    rowIndex = 1;
+                    jQuery("#jQMiniCart").jqGrid({
+                        url: '/Handlers/CartHandler.ashx?MiniCart=true',
+                        datatype: "json",
+                        async: false,
+                        ajaxGridOptions: { contentType: 'application/json; charset=utf-8', cache: false },
+                        serializeGridData: function (postData) {
+                            return JSON.stringify(postData);
+                        },
+                        jsonReader: { repeatitems: false, root: "d.rows", page: "d.page", total: "d.total", records: "d.records" },
+                        colNames: ['Quantity', 'Part #', 'Total', '', ''],
+                        colModel: [
+
+                                 { name: 'Qty_needed', index: 'Qty_needed' },
+                                 {
+                                     name: 'Item_number', index: 'Item_number'
+                                 },
+                                 { name: 'Price', index: 'Price', formatter: 'currency', formatoptions: { prefix: '$' }, },
+                                 {
+                                     name: 'Remove',
+                                     width: 87,
+                                     align: 'center',
+                                     formatter: function (cellValue, option) {
+                                         var partNumber = option.rowId;
+                                         return "<a class='btn'></a><a  onClick=\"DeleteItem('" + partNumber + "');\"><img src='/images/cross.png'/></a>";
+                                     }
+                                 },
+                                { name: 'Cart_id', index: 'Cart_id', key: true, hidden: true }
+                        ],
+
+                        afterInsertRow: function (rowid, rowdata) {
+
+                            var currentRow = $('#jQMiniCart').jqGrid('getRowData', rowid);
+                            if (rowIndex == 4) {
+                                $("<div id='divMoreItems'></div>").insertBefore(".ui-jqgrid-ftable");
+                                $("#divMoreItems").html("<span>More items...</span><br/>");
+                                $(".ui-widget-content#" + rowid).hide();
+                            }
+                            if (rowIndex > 4) {
+                                $(".ui-widget-content#" + rowid).hide();
+                            }
+                            rowIndex++;
+                        },
+                        height: 'auto',
+                        width: 'auto',
+                        footerrow: true,
+                        mtype: 'POST',
+                        gridComplete: function () {
+                            var records = $('#jQMiniCart').getGridParam('records');
+                            var $footerRow = $(this.grid.sDiv).find("tr.footrow"),
+                            $newFooterRow,
+                            colSum = $('#jQMiniCart').jqGrid('getCol', 'Price', false, 'sum');
+                            $newFooterRow = $(this.grid.sDiv).find("tr.myfootrow");
+                            $newSecondFooterRow = $(this.grid.sDiv).find("tr.myfootrow");
+                            if ($newFooterRow.length === 0) {
+                                $newFooterRow = $footerRow.clone();
+                                $newFooterRow.removeClass("footrow").addClass("myfootrow ui-widget-content");
+                                $newFooterRow.children("td").each(function () {
+                                    this.style.width = "";
+                                });
+                                $newFooterRow.insertAfter($footerRow);
+
+                                $newSecondFooterRow = $footerRow.clone();
+                                $newSecondFooterRow.removeClass("footrow").addClass("myfootrow ui-widget-content");
+                                $newSecondFooterRow.children("td").each(function () {
+                                    this.style.width = "";
+                                });
+                                $newSecondFooterRow.insertAfter($newFooterRow);
+                            }
+                            if ($newFooterRow.length > 0) {
+                                $newFooterRow.empty();
+                                $newSecondFooterRow.empty();
+                                $newFooterRow = $footerRow.clone();
+                                $newFooterRow.removeClass("footrow").addClass("myfootrow ui-widget-content");
+                                $newFooterRow.children("td").each(function () {
+                                    this.style.width = "";
+                                });
+                                $newFooterRow.insertAfter($footerRow);
+
+                                $newSecondFooterRow = $footerRow.clone();
+                                $newSecondFooterRow.removeClass("footrow").addClass("myfootrow ui-widget-content");
+                                $newSecondFooterRow.children("td").each(function () {
+                                    this.style.width = "";
+                                });
+                                $newSecondFooterRow.insertAfter($newFooterRow);
+                            }
+                            var tax = 0;
+                            $('#jQMiniCart').jqGrid('footerData', 'set', { 'Price': colSum });
+                            $footerRow.find(">td[aria-describedby=" + this.id + "_Item_number]").text("SubTotal:");
+                            $newFooterRow.find(">td[aria-describedby=" + this.id + "_Item_number]").text("Tax:");
+                            $newFooterRow.find(">td[aria-describedby=" + this.id + "_Price]").text('$' + parseFloat(tax).toFixed(2));
+
+                            $newSecondFooterRow.find(">td[aria-describedby=" + this.id + "_Item_number]").text("Total:");
+                            $newSecondFooterRow.find(">td[aria-describedby=" + this.id + "_Price]").text('$' + addCommas(parseFloat(colSum + tax).toFixed(2)));
+                            rowIndex = 1
+                        }
+                    });
+
+                    $('#minicart').show();
+                    $('.cart-cnt').show();
+                }
+            });
+
+            $('.clsNo').click(function (e) {
+                $.fancybox.close();
+                return false;
+            });
+
+            $('.clsYesLogout').click(function (e) {
+                LogOutCall();
+            });
+        });
+
+        function DeleteItem(partNumber) {
+            var rowIndex = 1;
+            var cust_part = $('#jQMiniCart').jqGrid('getCell', partNumber, 'Item_number');
+            $("#divMoreItems").remove();
+            $.ajax({
+                type: "POST",
+                url: "/Handlers/CartHandler.ashx?DeleteMiniCartItem=true&partNumber=" + cust_part + "",
+                success: function (result) {
+                    if (result > 0) {
+                        $("#jQMiniCart").trigger('reloadGrid');
+                        $('#lnkMiniCar').html(result);
+                    }
+                    else if (result == 0) {
+                        $("#jQMiniCart").trigger('reloadGrid');
+                        $('#lnkMiniCar').hide();
+                        $('#lnkMiniCar').html(0);
+                    }
+                    else {
+                        $('#lnkMiniCar').hide();
+                        $('#minicart').hide();
+                        $('#lnkMiniCar').html(0);
+                    }
+                    $.fancybox({ 'href': '#fancy-delete' })
+                },
+                error: function (error) {
+                    alert(result.responseText);
+                }
+            });
+        }
+
+        function addCommas(nStr) {
+            nStr += '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        }
+
+        function showAlert(text, type) {
+            var alertBox = $('<div class="alert rc5" id="mainAlert">' + text + '</div>');
+            $('#contentCol .innerc').prepend(alertBox);
+            if (type == 'ok') {
+                $(alertBox).removeClass('redbg');
+                $(alertBox).addClass('greenbg');
+            } else if (type == 'error') {
+                $(alertBox).removeClass('greenbg');
+                $(alertBox).addClass('redbg');
+            }
+            $(alertBox).slideDown().delay(2000).slideUp();
+        }
+
+        function Close() {
+            $('#minicart').hide();
+        }
+
+        function LogOut() {
+
+            sessionStorage.removeItem("PONumber");
+            sessionStorage.removeItem("reqShipDate");
+            sessionStorage.removeItem("shipEarly");
+            sessionStorage.removeItem("partialShip");
+            sessionStorage.removeItem("specialReqs");
+
+            var itemCount = $('#lnkMiniCar').html();
+            if (itemCount != '' && itemCount != undefined) {
+                itemCount = parseInt(itemCount);
+            }
+            if (itemCount > 0) {
+                LogOutPopup();
+            }
+            else {
+                LogOutCall();
+            }
+        }
+
+        function LogOutPopup() {
+            $.fancybox({
+                'href': '#div_fancyLogout',
+                Async: false,
+            });
+        }
+
+        function LogOutCall() {
+            $.ajax({
+                url: '/Handlers/LogOut.ashx',
+                async: false,
+                success: function (url) {
+                    window.location = url;
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        }
+
+        function LogInPopup() {
+            var itemCount = $('#lnkMiniCar').html();
+            if (itemCount != '' && itemCount != undefined) {
+                itemCount = parseInt(itemCount);
+            }
+            if (itemCount > 0) {
+                $.fancybox({
+                    'href': '#div_fancyLogin'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

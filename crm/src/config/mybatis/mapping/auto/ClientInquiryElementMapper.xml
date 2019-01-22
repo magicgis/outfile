@@ -1,0 +1,2930 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientInquiryElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientInquiryElement" >
+	    <result column="ID" property="id" jdbcType="INTEGER" />
+	    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+	    <result column="ELEMENT_ID" property="elementId" jdbcType="INTEGER" />
+	    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+	    <result column="ALTER_PART_NUMBER" property="alterPartNumber" jdbcType="VARCHAR" />
+	    <result column="ITEM" property="item" jdbcType="INTEGER" />
+	    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+	    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+	    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+	    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+	    <result column="IS_MAIN" property="isMain" jdbcType="INTEGER" />
+	    <result column="main_part_number" property="mainPartNumber" jdbcType="VARCHAR" />
+	    <result column="IS_BLACKLIST" property="isBlacklist" jdbcType="INTEGER" />
+	    <result column="TYPE_CODE" property="typeCode" jdbcType="INTEGER" />
+	    <result column="BSN" property="bsn" jdbcType="VARCHAR" />
+	    <result column="EMAIL_SEND" property="emailSend" jdbcType="INTEGER" />
+	    <result column="total" property="total" jdbcType="DOUBLE" />
+	    <result column="client_order_element_id" property="clientOrderElementId" jdbcType="INTEGER" />
+	    <result column="ELEMENT_STATUS_ID" property="elementStatusId" jdbcType="INTEGER" />
+	    <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+	    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+	    <result column="INQUIRY_DATE" property="inquiryDate" jdbcType="DATE" />
+	    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+	    <result column="INQUIRY_STATUS" property="inquiryStatus" jdbcType="INTEGER" />
+	    <result column="CONDITION_CODE" property="conditionCode" jdbcType="VARCHAR" />
+	    <result column="CONDITION_VALUE" property="conditionValue" jdbcType="VARCHAR" />
+	    <result column="BANK_COST" property="bankCost" jdbcType="DOUBLE" />
+	    <result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+	    <result column="PROFIT_MARGIN" property="profitMargin" jdbcType="DOUBLE" />
+	    <result column="SHORT_PART_NUMBER" property="shortPartNumber" jdbcType="VARCHAR" />
+	    <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+	    <result column="AIM_PRICE" property="aimPrice" jdbcType="VARCHAR" />
+	    <result column="ELEMENT_STATUS_VALUE" property="elementStatusValue" jdbcType="VARCHAR" />
+	    <result column="MAIN_ID" property="mainId" jdbcType="INTEGER" />
+	    <result column="BIZ_TYPE_ID" property="bizTypeId" jdbcType="INTEGER" />
+	    <result column="CLIENT_TEMPLATE_TYPE" property="clientTemplateType" jdbcType="INTEGER" />
+	    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+	    <result column="t_part_remark" property="tPartRemark" jdbcType="VARCHAR" />
+	    <result column="SOURCE_NUMBER" property="sourceNumber" jdbcType="VARCHAR" />
+	    <result column="supplier_and_price" property="supplierAndPrice" jdbcType="VARCHAR" />
+	    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+	    <result column="moq" property="moq" jdbcType="DOUBLE" />
+	    <result column="LEAD_TIME" property="leadTime" jdbcType="INTEGER" />
+	    <result column="quote_cond" property="quoteCond" jdbcType="VARCHAR" />
+	    <result column="quote_cert" property="quoteCert" jdbcType="VARCHAR" />
+	    <result column="client_quote_element_id" property="clientQuoteElementId" jdbcType="INTEGER" />
+	    <result column="client_quote_id" property="clientQuoteId" jdbcType="INTEGER" />
+	    <result column="supplier_quote_element_id" property="supplierQuoteElementId" jdbcType="INTEGER" />
+	    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+	    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+	    <result column="supplier_quote_price" property="supplierQuotePrice" jdbcType="DOUBLE" />
+	    <result column="supplier_currency_id" property="supplierCurrencyId" jdbcType="INTEGER" />
+	    <result column="supplier_exchange_rate" property="supplierExchangeRate" jdbcType="DOUBLE" />
+	    <result column="exchange_rate" property="exchangeRate" jdbcType="DOUBLE" />
+  </resultMap>
+  
+   <resultMap type="com.naswork.module.marketing.controller.clientinquiry.ElementVo" id="elementVo">
+  		<result column="id" property="id" jdbcType="INTEGER" />
+  		<result column="profit_margin" property="profitMargin" jdbcType="DOUBLE" />
+  		<result column="quote_number" property="quoteNumber" jdbcType="VARCHAR" />
+  		<result column="client_inquiry_id" property="clientInquiryId" jdbcType="INTEGER" />
+  		<result column="item" property="item" jdbcType="INTEGER" />
+  		<result column="part_number" property="partNumber" jdbcType="VARCHAR" />
+  		<result column="ALTER_PART_NUMBER" property="alterPartNumber" jdbcType="VARCHAR" />
+  		<result column="part_number_code" property="partNumberCode" jdbcType="VARCHAR" />
+  		<result column="description" property="description" jdbcType="VARCHAR" />
+  		<result column="unit" property="unit" jdbcType="VARCHAR" />
+  		<result column="amount" property="amount" jdbcType="INTEGER" />
+  		<result column="remark" property="remark" jdbcType="VARCHAR" />
+  		<result column="element_id" property="elementId" jdbcType="VARCHAR" />
+  		<result column="csn" property="csn" jdbcType="INTEGER" />
+  		<result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  		<result column="is_main" property="isMain" jdbcType="INTEGER" />
+  		<result column="code" property="supplierCode" jdbcType="VARCHAR" />
+  		<result column="IS_BLACKLIST" property="isBlacklist" jdbcType="INTEGER" />
+  		<result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+  		<result column="BANK_COST" property="bankCost" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.marketing.controller.clientinquiry.ClientDownLoadVo" id="clientDownLoadVo">
+  		 <result column="COUNTER_FEE" property="counterFee" jdbcType="DOUBLE" />
+  		 <result column="code" property="code" jdbcType="VARCHAR" />
+  		 <result column="quote_number" property="quoteNumber" jdbcType="VARCHAR" />
+   		 <result column="PRICE" property="price" jdbcType="DOUBLE" />
+   		 <result column="id" property="id" jdbcType="INTEGER" />
+   		 <result column="client_inquiry_id" property="clientInquiryId" jdbcType="INTEGER" />
+   		 <result column="remark" property="remark" jdbcType="VARCHAR" />
+   		 <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.marketing.controller.partsinformation.PartsInformationVo" id="partsInformationVo">
+        <result column="warranty" property="warranty" jdbcType="VARCHAR" />
+        <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+        <result column="tag_src" property="tagSrc" jdbcType="VARCHAR" />
+        <result column="tag_date" property="tagDate" jdbcType="VARCHAR" />
+        <result column="trace" property="trace" jdbcType="VARCHAR" />
+  		<result column="id" property="id" jdbcType="INTEGER" />
+  		<result column="inquiry_part_number" property="inquiryPartNumber" jdbcType="VARCHAR" />
+  		<result column="inquiry_description" property="inquiryDescription" jdbcType="VARCHAR" />
+  		<result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+  		<result column="client_inquiry_quote_number" property="clientInquiryQuoteNumber" jdbcType="VARCHAR" />
+  		<result column="inquiry_date" property="inquiryDate" jdbcType="DATE" />
+  		<result column="inquiry_unit" property="inquiryUnit" jdbcType="VARCHAR" />
+  		<result column="quote_unit" property="quoteUnit" jdbcType="VARCHAR" />
+  		<result column="inquiry_amount" property="inquiryAmount" jdbcType="DOUBLE" />
+  		<result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+  		<result column="supplier_inquiry_quote_number" property="supplierInquiryQuoteNumber" jdbcType="VARCHAR" />
+  		<result column="supplier_quote_date" property="supplierQuoteDate" jdbcType="DATE" />
+  		<result column="quote_part_number" property="quotePartNumber" jdbcType="VARCHAR" />
+  		<result column="quote_description" property="quoteDescription" jdbcType="VARCHAR" />
+  		<result column="quote_remark" property="quoteRemark" jdbcType="VARCHAR" />
+  		<result column="quote_amount" property="quoteAmount" jdbcType="DOUBLE" />
+  		<result column="supplier_base_price" property="supplierBasePrice" jdbcType="DOUBLE" />
+  		<result column="supplier_quote_status_value" property="supplierQuoteStatusValue" jdbcType="VARCHAR" />
+  		<result column="client_quote_date" property="clientQuoteDate" jdbcType="DATE" />
+  		<result column="client_quote_amount" property="clientQuoteAmount" jdbcType="DOUBLE" />
+  		<result column="client_base_price" property="clientBasePrice" jdbcType="DOUBLE" />
+  		<result column="client_order_number" property="clientOrderNumber" jdbcType="VARCHAR" />
+  		<result column="client_order_date" property="clientOrderDate" jdbcType="DATE" />
+  		<result column="client_order_amout" property="clientOrderAmout" jdbcType="DOUBLE" />
+  		<result column="client_order_base_price" property="clientOrderBasePrice" jdbcType="DOUBLE" />
+  		<result column="supplier_order_code" property="supplierOrderCode" jdbcType="VARCHAR" />
+  		<result column="supplier_order_number" property="supplierOrderNumber" jdbcType="VARCHAR" />
+  		<result column="supplier_order_date" property="supplierOrderDate" jdbcType="DATE" />
+  		<result column="supplier_order_amout" property="supplierOrderAmout" jdbcType="DOUBLE" />
+  		<result column="supplier_order_base_price" property="supplierOrderBasePrice" jdbcType="DOUBLE" />
+  		<result column="competitor_price" property="competitorPrice" jdbcType="DOUBLE" />
+  		<result column="item" property="item" jdbcType="INTEGER" />
+  		<result column="csn" property="csn" jdbcType="INTEGER" />
+  		<result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+  		<result column="order_remark" property="orderRemark" jdbcType="VARCHAR" />
+  		<result column="supplier_order_deadline" property="supplierOrderDeadline" jdbcType="DATE" />
+  		<result column="supplier_order_total_price" property="supplierOrderTotalPrice" jdbcType="DOUBLE" />
+  		<result column="export_amount" property="exportAmount" jdbcType="DOUBLE" />
+  		<result column="storage_amount" property="storageAmount" jdbcType="DOUBLE" />
+  		<result column="amount" property="amount" jdbcType="DOUBLE" />
+  		<result column="supplier_currency_value" property="supplierCurrencyValue" jdbcType="VARCHAR" />
+  		<result column="CERTIFICATION_CODE" property="certificationCode" jdbcType="VARCHAR" />
+  		<result column="CONDITION_CODE" property="conditionCode" jdbcType="VARCHAR" />
+  		<result column="client_inquriy_id" property="clientInquriyId" jdbcType="INTEGER" />
+  		<result column="MAIN_ID" property="mainId" jdbcType="INTEGER" />
+  		<result column="client_id" property="clientId" jdbcType="INTEGER" />
+		<result column="LOCATION" property="location" jdbcType="VARCHAR" />
+		<result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+		<result column="supplier_quote_element_id" property="supplierQuoteElementId" jdbcType="INTEGER" />
+		<result column="client_order_element_id" property="clientOrderElementId" jdbcType="INTEGER" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="CORE_CHARGE" property="coreCharge" jdbcType="VARCHAR" />
+		<result column="CONDITION_VALUE" property="conditionValue" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, CLIENT_INQUIRY_ID, ELEMENT_ID, PART_NUMBER, ITEM, DESCRIPTION, REMARK, UNIT, MAIN_ID,
+    AMOUNT, UPDATE_TIMESTAMP,IS_BLACKLIST,BSN,ELEMENT_STATUS_ID,CONDITION_ID,INQUIRY_STATUS,ELEMENT_STATUS_ID,SHORT_PART_NUMBER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * 
+    from client_inquiry_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_inquiry_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientInquiryElement" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into client_inquiry_element (ID, CLIENT_INQUIRY_ID, ELEMENT_ID, 
+      PART_NUMBER, ITEM,CSN, DESCRIPTION, 
+      REMARK, UNIT, AMOUNT, 
+      UPDATE_TIMESTAMP,SHORT_PART_NUMBER,BSN,ELEMENT_STATUS_ID)
+    values (#{id,jdbcType=INTEGER}, #{clientInquiryId,jdbcType=INTEGER}, #{elementId,jdbcType=INTEGER}, 
+      #{partNumber,jdbcType=VARCHAR}, #{item,jdbcType=INTEGER}, #{csn,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP},#{shortPartNumber,jdbcType=VARCHAR},#{bsn,jdbcType=VARCHAR},#{elementStatusId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientInquiryElement" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into client_inquiry_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID,
+      </if>
+      <if test="elementId != null" >
+        ELEMENT_ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="alterPartNumber != null" >
+        ALTER_PART_NUMBER,
+      </if>
+      <if test="item != null" >
+        ITEM,
+      </if>
+      <if test="csn != null" >
+        CSN,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="isMain != null" >
+        IS_MAIN,
+      </if>
+      <if test="mainId != null" >
+        MAIN_ID,
+      </if>
+      <if test="isBlacklist != null" >
+        IS_BLACKLIST,
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE,
+      </if>
+      <if test="bsn != null" >
+        BSN,
+      </if>
+      <if test="emailSend != null" >
+        EMAIL_SEND,
+      </if>
+      <if test="elementStatusId != null" >
+        ELEMENT_STATUS_ID,
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID,
+      </if>
+      <if test="shortPartNumber != null" >
+        SHORT_PART_NUMBER,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryId != null" >
+        #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="elementId != null" >
+        #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="alterPartNumber != null" >
+        #{alterPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        #{item,jdbcType=INTEGER},
+      </if>
+      <if test="csn != null" >
+        #{csn,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isMain != null" >
+        #{isMain,jdbcType=INTEGER},
+      </if>
+      <if test="mainId != null" >
+        #{mainId,jdbcType=INTEGER},
+      </if>
+      <if test="isBlacklist != null" >
+        #{isBlacklist,jdbcType=INTEGER},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="bsn != null" >
+        #{bsn,jdbcType=VARCHAR},
+      </if>
+      <if test="emailSend != null" >
+        #{emailSend,jdbcType=INTEGER},
+      </if>
+      <if test="elementStatusId != null" >
+        #{elementStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="conditionId != null" >
+        #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="shortPartNumber != null" >
+        #{shortPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientInquiryElement" >
+    update client_inquiry_element
+    <set >
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="elementId != null" >
+        ELEMENT_ID = #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="alterPartNumber != null" >
+        ALTER_PART_NUMBER = #{alterPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        ITEM = #{item,jdbcType=INTEGER},
+      </if>
+      <if test="csn != null" >
+        CSN = #{csn,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isBlacklist != null" >
+         IS_BLACKLIST=#{isBlacklist,jdbcType=INTEGER},
+      </if>
+      <if test="bsn != null" >
+         BSN=#{bsn,jdbcType=VARCHAR},
+      </if>
+      <if test="emailSend != null" >
+         EMAIL_SEND=#{emailSend,jdbcType=INTEGER},
+      </if>
+      <if test="elementStatusId != null" >
+         ELEMENT_STATUS_ID=#{elementStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="inquiryStatus != null" >
+         INQUIRY_STATUS=#{inquiryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="conditionId != null" >
+         CONDITION_ID=#{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="shortPartNumber != null" >
+        SHORT_PART_NUMBER=#{shortPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="aimPrice != null" >
+        AIM_PRICE=#{aimPrice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientInquiryElement" >
+    update client_inquiry_element
+    set CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      ELEMENT_ID = #{elementId,jdbcType=INTEGER},
+      PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      ITEM = #{item,jdbcType=INTEGER},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByclientInquiryId" parameterType="Integer" resultMap="BaseResultMap">
+  		select ID, CLIENT_INQUIRY_ID, ELEMENT_ID, PART_NUMBER, ITEM, DESCRIPTION, REMARK, UNIT, 
+   		 AMOUNT, UPDATE_TIMESTAMP,IS_BLACKLIST,CSN,BSN,SHORT_PART_NUMBER from client_inquiry_element where CLIENT_INQUIRY_ID = #{id}
+  </select>
+  
+  <select id="findByclientInquiryIdNoBsn" parameterType="page" resultMap="BaseResultMap">
+  		select ID, CLIENT_INQUIRY_ID, ELEMENT_ID, PART_NUMBER, ITEM, DESCRIPTION, REMARK, UNIT, 
+   		 AMOUNT, UPDATE_TIMESTAMP,IS_BLACKLIST,CSN from client_inquiry_element where CLIENT_INQUIRY_ID = #{id} and bsn is null
+   		 <if test="where != null">
+   		 	and ${where}
+   		 </if>
+   		 order by PART_NUMBER
+  </select>
+  
+  <select id="findMaxItem" parameterType="Integer" resultType="java.lang.Integer">
+  		select max(ITEM) from client_inquiry_element where CLIENT_INQUIRY_ID = #{id}
+  </select>
+  
+  
+  <select id="getId" parameterType="com.naswork.model.ClientInquiryElement" resultType="Integer">
+  		select cie.id from client_inquiry_element cie where cie.ITEM=#{item} and cie.client_inquiry_id=#{clientInquiryId}
+  </select>
+  
+  <select id="getEle" parameterType="Integer" resultMap="elementVo">
+  		SELECT DISTINCT
+			ci.QUOTE_NUMBER,
+			cie.ITEM,
+			cie.CSN,
+			cie.PART_NUMBER,
+			cie.DESCRIPTION,
+			cie.is_main,
+			ci.id AS client_inquiry_id,
+			cie.element_id,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.REMARK,
+			cq.PROFIT_MARGIN,
+			cq.FIXED_COST,
+			cq.BANK_COST,
+			cie.IS_BLACKLIST,
+			cie.BSN
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN supplier_inquiry_element sie ON (
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			si.id = sie.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN supplier s ON (s.ID = si.SUPPLIER_ID)
+		LEFT JOIN client_inquiry ci ON (
+			ci.ID = cie.CLIENT_INQUIRY_ID
+		)
+		LEFT JOIN client_quote cq ON (cq.CLIENT_INQUIRY_ID = ci.ID)
+		where ci.id=#{clientInuqiryId}
+  </select>
+  
+    
+  <select id="findElementByCieId" parameterType="Integer" resultMap="elementVo">
+  		SELECT DISTINCT
+			ci.QUOTE_NUMBER,
+			cie.ITEM,
+			cie.CSN,
+			cie.PART_NUMBER,
+			cie.DESCRIPTION,
+			cie.is_main,
+			ci.id AS client_inquiry_id,
+			cie.element_id,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.REMARK,
+			cq.PROFIT_MARGIN,
+			cq.FIXED_COST,
+			cie.IS_BLACKLIST,
+			cie.BSN,
+			cie.id 
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN supplier_inquiry_element sie ON (
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			si.id = sie.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN supplier s ON (s.ID = si.SUPPLIER_ID)
+		LEFT JOIN client_inquiry ci ON (
+			ci.ID = cie.CLIENT_INQUIRY_ID
+		)
+		LEFT JOIN client_quote cq ON (cq.CLIENT_INQUIRY_ID = ci.ID)
+		where cie.id=#{clientInuqiryElementId}
+  </select>
+  
+  <select id="getPricesByElementVo" parameterType="com.naswork.module.marketing.controller.clientinquiry.ElementVo" resultMap="clientDownLoadVo">
+  		SELECT s.`CODE`,sqe.PRICE,sq.quote_number,si.id,sqe.remark,ci.id as client_inquiry_id,s.COUNTER_FEE,sq.CURRENCY_ID from supplier_quote_element sqe
+				LEFT JOIN  client_quote_element cqe on cqe.SUPPLIER_QUOTE_ELEMENT_ID=sqe.ID
+				LEFT JOIN supplier_inquiry_element sie on (sie.ID=sqe.SUPPLIER_INQUIRY_ELEMENT_ID)
+				LEFT JOIN supplier_inquiry si on (si.id=sie.SUPPLIER_INQUIRY_ID)
+				LEFT JOIN client_inquiry_element cie on (cie.ID=sie.CLIENT_INQUIRY_ELEMENT_ID)
+				LEFT JOIN client_inquiry ci on (ci.ID=cie.CLIENT_INQUIRY_ID)
+				LEFT JOIN supplier s on (s.ID=si.SUPPLIER_ID)
+				LEFT JOIN supplier_quote sq on (sq.ID=sqe.SUPPLIER_QUOTE_ID)
+				where ci.id=#{clientInquiryId} and cie.ITEM=#{item}
+				and sqe.supplier_quote_status_id = '70'
+				and sq.quote_status_id = '90'
+				
+  </select>
+  
+  <select id="getPricesByPartVo" parameterType="com.naswork.module.marketing.controller.partsinformation.PartsInformationVo" resultMap="clientDownLoadVo">
+  		SELECT s.`CODE`,sqe.PRICE,si.quote_number,si.id,sqe.remark,ci.id as client_inquiry_id,sq.CURRENCY_ID from supplier_quote_element sqe 
+				LEFT JOIN supplier_inquiry_element sie on (sie.ID=sqe.SUPPLIER_INQUIRY_ELEMENT_ID)
+				LEFT JOIN supplier_inquiry si on (si.id=sie.SUPPLIER_INQUIRY_ID)
+				LEFT JOIN client_inquiry_element cie on (cie.ID=sie.CLIENT_INQUIRY_ELEMENT_ID)
+				LEFT JOIN client_inquiry ci on (ci.ID=cie.CLIENT_INQUIRY_ID)
+				LEFT JOIN supplier s on (s.ID=si.SUPPLIER_ID)
+				LEFT JOIN supplier_quote sq on (sq.ID=sqe.SUPPLIER_QUOTE_ID)
+				where ci.QUOTE_NUMBER=#{clientInquiryQuoteNumber} and cie.ITEM=#{item}
+				and sqe.supplier_quote_status_id = '70'
+				and sq.quote_status_id = '90'
+				
+  </select>
+  
+  <select id="marketpartPage" parameterType="page" resultMap="partsInformationVo">
+  		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.id AS client_inquriy_id,
+			ci.inquiry_date,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu_c.id AS client_currency_id,
+			cu_c. CODE AS client_currency_code,
+			cu_c.
+		VALUE
+			AS client_currency_value,
+			cq.quote_date AS client_quote_date,
+			cqe.price AS client_price,
+			cqe.amount AS client_quote_amount,
+			cqe.price AS client_base_price,
+			cie.element_id AS inquiry_element_id,
+			cie.part_number AS inquiry_part_number,
+			cie.unit AS inquiry_unit,
+			cie.amount AS inquiry_amount,
+			cie.description AS inquiry_description,
+			cie.remark AS inquiry_remark,
+			co.ORDER_NUMBER AS client_order_number,
+			co.ORDER_DATE AS client_order_date,
+			cos.
+		VALUE
+			AS order_status,
+			co.REMARK AS order_remark,
+			coe.ID AS client_order_element_id,
+			coe.AMOUNT AS client_order_amout,
+			coe.PRICE AS client_order_base_price,
+			ccqe.PRICE AS competitor_price,
+			si.QUOTE_NUMBER,
+			sqe.ID AS supplier_quote_element_id,
+			sqe.PART_NUMBER AS quote_part_number,
+			sqe.unit AS quote_unit,
+			sqe.amount AS quote_amount,
+			sqe.description AS quote_description,
+			sqe.remark AS quote_remark,
+			sqe.price AS supplier_price,
+			sqe.price AS supplier_base_price,
+			sqe.element_id AS quote_element_id,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sq.quote_date AS supplier_quote_date,
+			s. CODE AS supplier_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			co.order_number,
+			cond.`VALUE` AS CONDITION_VALUE,
+			cond.`code` as CONDITION_CODE
+		FROM
+			client_inquiry_element cie
+		INNER JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (ciie.ID = cie.MAIN_ID)
+		LEFT JOIN element ciiee ON (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+		INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN competitor_quote_element ccqe ON (
+			ccqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry_element sie ON (
+			sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			si.ID = sie.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN supplier_quote sq ON (
+			sq.ID = sqe.SUPPLIER_QUOTE_ID
+		)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code cu_c ON (cq.currency_id = cu_c.id)
+		LEFT JOIN client_order_element coe ON (
+			coe.CLIENT_QUOTE_ELEMENT_ID = cqe.ID
+		)
+		LEFT JOIN client_order co ON (co.ID = coe.CLIENT_ORDER_ID)
+		LEFT JOIN supplier_order so ON (so.CLIENT_ORDER_ID = co.ID)
+		LEFT JOIN system_code cos ON (co.ORDER_STATUS_ID = cos.id)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier s ON (s.ID = si.SUPPLIER_ID)
+		LEFT JOIN system_code cond ON cond.ID = sqe.CONDITION_ID
+		where 1=1
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>	
+  </select>
+  
+  <!-- <select id="marketpartPage" parameterType="page" resultMap="partsInformationVo">
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.id AS client_inquriy_id,
+			ci.inquiry_date,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu_c.id AS client_currency_id,
+			cu_c. CODE AS client_currency_code,
+			cu_c.
+		VALUE
+			AS client_currency_value,
+			cq.quote_date AS client_quote_date,
+			cqe.price AS client_price,
+			cqe.amount AS client_quote_amount,
+			cqe.price AS client_base_price,
+			cie.element_id AS inquiry_element_id,
+			cie.part_number AS inquiry_part_number,
+			cie.unit AS inquiry_unit,
+			cie.amount AS inquiry_amount,
+			cie.description AS inquiry_description,
+			cie.remark AS inquiry_remark,
+			co.ORDER_NUMBER AS client_order_number,
+			co.ORDER_DATE AS client_order_date,
+			cos.
+		VALUE
+			AS order_status,
+			co.REMARK AS order_remark,
+			coe.AMOUNT AS client_order_amout,
+			coe.PRICE AS client_order_base_price,
+			ccqe.PRICE AS competitor_price,
+			si.QUOTE_NUMBER,
+			sqe.PART_NUMBER AS quote_part_number,
+			sqe.unit AS quote_unit,
+			sqe.amount AS quote_amount,
+			sqe.description AS quote_description,
+			sqe.remark AS quote_remark,
+			sqe.price AS supplier_price,
+			sqe.price AS supplier_base_price,
+			sqe.element_id AS quote_element_id,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sq.quote_date AS supplier_quote_date,
+			s. CODE AS supplier_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			co.order_number
+		FROM
+			client_inquiry_element cie
+		INNER JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (ciie.ID = cie.MAIN_ID)
+		LEFT JOIN element ciiee ON (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+		INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN competitor_quote_element ccqe ON (
+			ccqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry_element sie ON (
+			sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			si.ID = sie.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN supplier_quote sq ON (
+			sq.ID = sqe.SUPPLIER_QUOTE_ID
+		)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code cu_c ON (cq.currency_id = cu_c.id)
+		LEFT JOIN client_order_element coe ON (
+			coe.CLIENT_QUOTE_ELEMENT_ID = cqe.ID
+		)
+		LEFT JOIN client_order co ON (co.ID = coe.CLIENT_ORDER_ID)
+		LEFT JOIN supplier_order so ON (so.CLIENT_ORDER_ID = co.ID)
+		LEFT JOIN system_code cos ON (co.ORDER_STATUS_ID = cos.id)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier s ON (s.ID = si.SUPPLIER_ID)
+		WHERE
+			1 = 1
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>	
+  </select> -->
+  
+  <!-- <select id="marketpartPage" parameterType="page" resultMap="partsInformationVo">
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.id AS client_inquriy_id,
+			ci.inquiry_date,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu_c.id AS client_currency_id,
+			cu_c. CODE AS client_currency_code,
+			cu_c.
+		VALUE
+			AS client_currency_value,
+			cq.quote_date AS client_quote_date,
+			cqe.price AS client_price,
+			cqe.amount AS client_quote_amount,
+			cqe.price AS client_base_price,
+			cie.element_id AS inquiry_element_id,
+			cie.part_number AS inquiry_part_number,
+			cie.unit AS inquiry_unit,
+			cie.amount AS inquiry_amount,
+			cie.description AS inquiry_description,
+			cie.remark AS inquiry_remark,
+			co.ORDER_NUMBER AS client_order_number,
+			co.ORDER_DATE AS client_order_date,
+			cos.
+		VALUE
+			AS order_status,
+			co.REMARK AS order_remark,
+			coe.AMOUNT AS client_order_amout,
+			coe.PRICE AS client_order_base_price,
+			ccqe.PRICE AS competitor_price,
+			si.QUOTE_NUMBER,
+			sqe.PART_NUMBER AS quote_part_number,
+			sqe.unit AS quote_unit,
+			sqe.amount AS quote_amount,
+			sqe.description AS quote_description,
+			sqe.remark AS quote_remark,
+			sqe.price AS supplier_price,
+			sqe.price AS supplier_base_price,
+			sqe.element_id AS quote_element_id,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sq.quote_date AS supplier_quote_date,
+			s. CODE AS supplier_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			co.order_number
+		FROM
+			client_inquiry_element cie
+		INNER JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (ciie.ID = cie.MAIN_ID)
+		LEFT JOIN element ciiee ON (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+		INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN competitor_quote_element ccqe ON (
+			ccqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry_element sie ON (
+			sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			si.ID = sie.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN supplier_quote sq ON (
+			sq.ID = sqe.SUPPLIER_QUOTE_ID
+		)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code cu_c ON (cq.currency_id = cu_c.id)
+		LEFT JOIN client_order_element coe ON (
+			coe.CLIENT_QUOTE_ELEMENT_ID = cqe.ID
+		)
+		LEFT JOIN client_order co ON (co.ID = coe.CLIENT_ORDER_ID)
+		LEFT JOIN supplier_order so ON (so.CLIENT_ORDER_ID = co.ID)
+		LEFT JOIN system_code cos ON (co.ORDER_STATUS_ID = cos.id)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier s ON (s.ID = si.SUPPLIER_ID)
+		WHERE
+			coe.ID IS NOT NULL
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>	
+  </select>
+  
+  <select id="marketpartAllNullPage" parameterType="page" resultMap="partsInformationVo">
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.id AS client_inquriy_id,
+			ci.inquiry_date,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu_c.id AS client_currency_id,
+			cu_c. CODE AS client_currency_code,
+			cu_c.
+		VALUE
+			AS client_currency_value,
+			cq.quote_date AS client_quote_date,
+			cqe.price AS client_price,
+			cqe.amount AS client_quote_amount,
+			cqe.price AS client_base_price,
+			cie.element_id AS inquiry_element_id,
+			cie.part_number AS inquiry_part_number,
+			cie.unit AS inquiry_unit,
+			cie.amount AS inquiry_amount,
+			cie.description AS inquiry_description,
+			cie.remark AS inquiry_remark,
+			co.ORDER_NUMBER AS client_order_number,
+			co.ORDER_DATE AS client_order_date,
+			cos.
+		VALUE
+			AS order_status,
+			co.REMARK AS order_remark,
+			coe.AMOUNT AS client_order_amout,
+			coe.PRICE AS client_order_base_price,
+			ccqe.PRICE AS competitor_price,
+			si.QUOTE_NUMBER,
+			sqe.PART_NUMBER AS quote_part_number,
+			sqe.unit AS quote_unit,
+			sqe.amount AS quote_amount,
+			sqe.description AS quote_description,
+			sqe.remark AS quote_remark,
+			sqe.price AS supplier_price,
+			sqe.price AS supplier_base_price,
+			sqe.element_id AS quote_element_id,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sq.quote_date AS supplier_quote_date,
+			s. CODE AS supplier_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			co.order_number
+		FROM
+			client_inquiry_element cie
+		INNER JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (ciie.ID = cie.MAIN_ID)
+		LEFT JOIN element ciiee ON (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+		INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN competitor_quote_element ccqe ON (
+			ccqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry_element sie ON (
+			sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			si.ID = sie.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN supplier_quote sq ON (
+			sq.ID = sqe.SUPPLIER_QUOTE_ID
+		)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code cu_c ON (cq.currency_id = cu_c.id)
+		LEFT JOIN client_order_element coe ON (
+			coe.CLIENT_QUOTE_ELEMENT_ID = cqe.ID
+		)
+		LEFT JOIN client_order co ON (co.ID = coe.CLIENT_ORDER_ID)
+		LEFT JOIN supplier_order so ON (so.CLIENT_ORDER_ID = co.ID)
+		LEFT JOIN system_code cos ON (co.ORDER_STATUS_ID = cos.id)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier s ON (s.ID = si.SUPPLIER_ID)
+		WHERE
+			coe.ID IS NULL AND sqe.ID IS NULL
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>	
+  </select>
+  
+  <select id="marketpartCoeNullPage" parameterType="page" resultMap="partsInformationVo">
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.id AS client_inquriy_id,
+			ci.inquiry_date,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu_c.id AS client_currency_id,
+			cu_c. CODE AS client_currency_code,
+			cu_c.
+		VALUE
+			AS client_currency_value,
+			cq.quote_date AS client_quote_date,
+			cqe.price AS client_price,
+			cqe.amount AS client_quote_amount,
+			cqe.price AS client_base_price,
+			cie.element_id AS inquiry_element_id,
+			cie.part_number AS inquiry_part_number,
+			cie.unit AS inquiry_unit,
+			cie.amount AS inquiry_amount,
+			cie.description AS inquiry_description,
+			cie.remark AS inquiry_remark,
+			co.ORDER_NUMBER AS client_order_number,
+			co.ORDER_DATE AS client_order_date,
+			cos.
+		VALUE
+			AS order_status,
+			co.REMARK AS order_remark,
+			coe.AMOUNT AS client_order_amout,
+			coe.PRICE AS client_order_base_price,
+			ccqe.PRICE AS competitor_price,
+			si.QUOTE_NUMBER,
+			sqe.PART_NUMBER AS quote_part_number,
+			sqe.unit AS quote_unit,
+			sqe.amount AS quote_amount,
+			sqe.description AS quote_description,
+			sqe.remark AS quote_remark,
+			sqe.price AS supplier_price,
+			sqe.price AS supplier_base_price,
+			sqe.element_id AS quote_element_id,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sq.quote_date AS supplier_quote_date,
+			s. CODE AS supplier_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			co.order_number
+		FROM
+			client_inquiry_element cie
+		INNER JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (ciie.ID = cie.MAIN_ID)
+		LEFT JOIN element ciiee ON (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+		INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.ID = cqe.SUPPLIER_QUOTE_ELEMENT_ID
+		)
+		LEFT JOIN supplier_quote sq ON (
+			sq.ID = sqe.SUPPLIER_QUOTE_ID
+		)
+		LEFT JOIN competitor_quote_element ccqe ON (
+			ccqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry_element sie ON (
+			sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			si.ID = sie.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN system_code cu_c ON (cq.currency_id = cu_c.id)
+		LEFT JOIN client_order_element coe ON (
+			coe.CLIENT_QUOTE_ELEMENT_ID = cqe.ID
+		)
+		LEFT JOIN client_order co ON (co.ID = coe.CLIENT_ORDER_ID)
+		LEFT JOIN supplier_order so ON (so.CLIENT_ORDER_ID = co.ID)
+		LEFT JOIN system_code cos ON (co.ORDER_STATUS_ID = cos.id)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier s ON (s.ID = si.SUPPLIER_ID)
+		WHERE
+			coe.ID IS NULL AND sqe.ID IS NOT NULL
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>	
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.id AS client_inquriy_id,
+			ci.inquiry_date,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu_c.id AS client_currency_id,
+			cu_c. CODE AS client_currency_code,
+			cu_c.
+		VALUE
+			AS client_currency_value,
+			cq.quote_date AS client_quote_date,
+			cqe.price AS client_price,
+			cqe.amount AS client_quote_amount,
+			cqe.price AS client_base_price,
+			cie.element_id AS inquiry_element_id,
+			cie.part_number AS inquiry_part_number,
+			cie.unit AS inquiry_unit,
+			cie.amount AS inquiry_amount,
+			cie.description AS inquiry_description,
+			cie.remark AS inquiry_remark,
+			co.ORDER_NUMBER AS client_order_number,
+			co.ORDER_DATE AS client_order_date,
+			cos.
+		VALUE
+			AS order_status,
+			co.REMARK AS order_remark,
+			coe.AMOUNT AS client_order_amout,
+			coe.PRICE AS client_order_base_price,
+			ccqe.PRICE AS competitor_price,
+			si.QUOTE_NUMBER,
+			sqe.PART_NUMBER AS quote_part_number,
+			sqe.unit AS quote_unit,
+			sqe.amount AS quote_amount,
+			sqe.description AS quote_description,
+			sqe.remark AS quote_remark,
+			sqe.price AS supplier_price,
+			sqe.price AS supplier_base_price,
+			sqe.element_id AS quote_element_id,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sq.quote_date AS supplier_quote_date,
+			s. CODE AS supplier_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			co.order_number
+		FROM
+			client_inquiry_element cie
+		INNER JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (ciie.ID = cie.MAIN_ID)
+		LEFT JOIN element ciiee ON (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+		INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN competitor_quote_element ccqe ON (
+			ccqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry_element sie ON (
+			sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			si.ID = sie.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN supplier_quote sq ON (
+			sq.ID = sqe.SUPPLIER_QUOTE_ID
+		)
+		LEFT JOIN system_code cu_c ON (cq.currency_id = cu_c.id)
+		LEFT JOIN client_order_element coe ON (
+			coe.CLIENT_QUOTE_ELEMENT_ID = cqe.ID
+		)
+		LEFT JOIN client_order co ON (co.ID = coe.CLIENT_ORDER_ID)
+		LEFT JOIN supplier_order so ON (so.CLIENT_ORDER_ID = co.ID)
+		LEFT JOIN system_code cos ON (co.ORDER_STATUS_ID = cos.id)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier s ON (s.ID = si.SUPPLIER_ID)
+		WHERE
+			coe.ID IS NULL
+		AND sqe.ID IS NOT NULL
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select> -->
+  
+  <select id="marketPartInformation" parameterType="page" resultMap="partsInformationVo">
+  		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.id AS client_inquriy_id,
+			ci.inquiry_date,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu_c.id AS client_currency_id,
+			cu_c. CODE AS client_currency_code,
+			cu_c.
+		VALUE
+			AS client_currency_value,
+			cq.quote_date AS client_quote_date,
+			cqe.price AS client_price,
+			cqe.amount AS client_quote_amount,
+			cqe.price AS client_base_price,
+			cie.element_id AS inquiry_element_id,
+			cie.part_number AS inquiry_part_number,
+			cie.unit AS inquiry_unit,
+			cie.amount AS inquiry_amount,
+			cie.description AS inquiry_description,
+			cie.remark AS inquiry_remark,
+			co.ORDER_NUMBER AS client_order_number,
+			co.ORDER_DATE AS client_order_date,
+			cos.
+		VALUE
+			AS order_status,
+			co.REMARK AS order_remark,
+			coe.AMOUNT AS client_order_amout,
+			coe.PRICE AS client_order_base_price,
+			ccqe.PRICE AS competitor_price,
+			si.QUOTE_NUMBER,
+			sqe.PART_NUMBER AS quote_part_number,
+			sqe.unit AS quote_unit,
+			sqe.amount AS quote_amount,
+			sqe.description AS quote_description,
+			sqe.remark AS quote_remark,
+			sqe.price AS supplier_price,
+			sqe.price AS supplier_base_price,
+			sqe.element_id AS quote_element_id,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sq.quote_date AS supplier_quote_date,
+			s. CODE AS supplier_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			co.order_number
+		FROM
+			client_inquiry_element cie
+		INNER JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (
+			ciie.ID = cie.MAIN_ID
+		)
+		LEFT JOIN element ciiee on (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+		INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN supplier_inquiry_element sie ON (
+			sie.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code cu_c ON (cq.currency_id = cu_c.id)
+		LEFT JOIN client_order co ON (co.CLIENT_QUOTE_ID = cq.ID)
+		LEFT JOIN system_code cos ON (co.ORDER_STATUS_ID = cos.id)
+		LEFT JOIN client_order_element coe ON (coe.CLIENT_QUOTE_ELEMENT_ID = cqe.ID)
+		LEFT JOIN competitor_quote_element ccqe ON (
+			ccqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.ID = cqe.SUPPLIER_QUOTE_ELEMENT_ID
+		)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN supplier_quote sq ON(
+			sq.ID = sqe.SUPPLIER_QUOTE_ID
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier_inquiry si ON (
+			si.ID = sq.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN supplier s ON (
+			s.ID = si.SUPPLIER_ID
+		)
+		where 1=1
+		<if test="download != null">
+			and (ci.INQUIRY_DATE between DATE_ADD(now(),INTERVAL -3 MONTH) and now())
+		</if>
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if> 		
+  </select>
+  
+  <select id="purchasepartPage" parameterType="page" resultMap="partsInformationVo">
+	SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.inquiry_date,
+			cert.CODE CERTIFICATION_CODE,cond.CODE CONDITION_CODE,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			sqe.id AS supplier_quote_element_id,
+			sq.quote_date AS supplier_quote_date,
+			si.quote_number AS supplier_inquiry_quote_number,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			cu_s.id AS supplier_currency_id,
+			cu_s. CODE AS supplier_currency_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			sqe.supplier_quote_status_id,
+			sqs. CODE AS supplier_quote_status_code,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			sqe.price AS supplier_price,
+			sqe.price supplier_base_price,
+			sqe.CORE_CHARGE,
+			cie.element_id AS inquiry_element_id,
+			sqe.element_id AS quote_element_id,
+			cie.part_number AS inquiry_part_number,
+			sqe.part_number AS quote_part_number,
+			cie.unit AS inquiry_unit,
+			sqe.unit AS quote_unit,
+			cie.amount AS inquiry_amount,
+			sqe.amount AS quote_amount,
+			cie.description AS inquiry_description,
+			sqe.description AS quote_description,
+			cie.remark AS inquiry_remark,
+			sqe.remark AS quote_remark,
+			ss.`CODE` AS supplier_order_code,
+			so.ORDER_NUMBER AS supplier_order_number,
+			so.ORDER_DATE AS supplier_order_date,
+			soe.AMOUNT AS supplier_order_amout,
+			soe.PRICE AS supplier_order_base_price,
+			soe.DEADLINE AS supplier_order_deadline,
+			soe.PRICE * soe.AMOUNT AS supplier_order_total_price,
+			sqe.LOCATION,
+			sqe.LEAD_TIME,sqe.tag_src,sqe.tag_date,sqe.trace,
+			sqe.warranty,sqe.serial_number,
+			tu.login_name as user_name
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (
+			ciie.ID = cie.MAIN_ID
+		)
+		LEFT JOIN element ciiee on (ciiee.id = ciie.element_id)
+		LEFT JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN supplier_inquiry_element sie ON(
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			sie.SUPPLIER_INQUIRY_ID = si.ID
+		)
+		LEFT JOIN supplier s ON (
+			s.ID = si.SUPPLIER_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN system_code cert on (cert.ID=sqe.CERTIFICATION_ID)
+		LEFT JOIN system_code cond on (cond.id=sqe.CONDITION_ID)
+		LEFT JOIN supplier_quote sq ON (
+			sqe.SUPPLIER_QUOTE_ID = sq.ID
+		)
+		LEFT JOIN t_user tu ON (
+				tu.user_id = sq.CREATE_USER
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier_order_element soe ON (
+			soe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID and soe.ORDER_STATUS_ID != 64
+		)
+		LEFT JOIN supplier_order so ON(so.id = soe.SUPPLIER_ORDER_ID and so.ORDER_STATUS_ID != 64)
+		LEFT JOIN supplier ss ON(ss.ID = so.SUPPLIER_ID)
+		where 1=1 and ((sqe.SUPPLIER_QUOTE_STATUS_ID != 73 and sq.QUOTE_STATUS_ID != 91) or sqe.SUPPLIER_QUOTE_STATUS_ID is NULL OR soe.ID IS NOT NULL)
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and (s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId}) OR s.id is null)
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if> 		
+  </select>
+  
+  <select id="purchasepart" parameterType="page" resultMap="partsInformationVo">
+	SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.inquiry_date,
+			cert.CODE CERTIFICATION_CODE,cond.CODE CONDITION_CODE,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			sqe.id AS supplier_quote_element_id,
+			sq.quote_date AS supplier_quote_date,
+			si.quote_number AS supplier_inquiry_quote_number,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			cu_s.id AS supplier_currency_id,
+			cu_s. CODE AS supplier_currency_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			sqe.supplier_quote_status_id,
+			sqs. CODE AS supplier_quote_status_code,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			sqe.price AS supplier_price,
+			sqe.price supplier_base_price,
+			sqe.CORE_CHARGE,
+			cie.element_id AS inquiry_element_id,
+			sqe.element_id AS quote_element_id,
+			cie.part_number AS inquiry_part_number,
+			sqe.part_number AS quote_part_number,
+			cie.unit AS inquiry_unit,
+			sqe.unit AS quote_unit,
+			cie.amount AS inquiry_amount,
+			sqe.amount AS quote_amount,
+			cie.description AS inquiry_description,
+			sqe.description AS quote_description,
+			cie.remark AS inquiry_remark,
+			sqe.remark AS quote_remark,
+			ss.`CODE` AS supplier_order_code,
+			so.ORDER_NUMBER AS supplier_order_number,
+			so.ORDER_DATE AS supplier_order_date,
+			soe.AMOUNT AS supplier_order_amout,
+			soe.PRICE AS supplier_order_base_price,
+			soe.DEADLINE AS supplier_order_deadline,
+			soe.PRICE * soe.AMOUNT AS supplier_order_total_price,
+			sqe.LOCATION,
+			sqe.LEAD_TIME,sqe.tag_src,sqe.tag_date,sqe.trace,
+			sqe.warranty,sqe.serial_number,
+			tu.login_name as user_name
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (
+			ciie.ID = cie.MAIN_ID
+		)
+		LEFT JOIN element ciiee on (ciiee.id = ciie.element_id)
+		LEFT JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN supplier_inquiry_element sie ON(
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			sie.SUPPLIER_INQUIRY_ID = si.ID
+		)
+		LEFT JOIN supplier s ON (
+			s.ID = si.SUPPLIER_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN system_code cert on (cert.ID=sqe.CERTIFICATION_ID)
+		LEFT JOIN system_code cond on (cond.id=sqe.CONDITION_ID)
+		LEFT JOIN supplier_quote sq ON (
+			sqe.SUPPLIER_QUOTE_ID = sq.ID
+		)
+		LEFT JOIN t_user tu ON (
+				tu.user_id = sq.CREATE_USER
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier_order_element soe ON (
+			soe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID and soe.ORDER_STATUS_ID != 64
+		)
+		LEFT JOIN supplier_order so ON(so.id = soe.SUPPLIER_ORDER_ID and so.ORDER_STATUS_ID != 64)
+		LEFT JOIN supplier ss ON(ss.ID = so.SUPPLIER_ID)
+		where 1=1 and ((sqe.SUPPLIER_QUOTE_STATUS_ID != 73 and sq.QUOTE_STATUS_ID != 91) or sqe.SUPPLIER_QUOTE_STATUS_ID is NULL OR soe.ID IS NOT NULL)
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and (s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId}) OR s.id is null)
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if> 		
+  </select>
+  
+  <select id="purchasepartWithPartPage" parameterType="page" resultMap="partsInformationVo">
+  	select * from(
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.inquiry_date,
+			cert.CODE CERTIFICATION_CODE,cond.CODE CONDITION_CODE,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			sqe.id AS supplier_quote_element_id,
+			sq.quote_date AS supplier_quote_date,
+			si.quote_number AS supplier_inquiry_quote_number,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			cu_s.id AS supplier_currency_id,
+			cu_s. CODE AS supplier_currency_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			sqe.supplier_quote_status_id,
+			sqs. CODE AS supplier_quote_status_code,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			sqe.price AS supplier_price,
+			sqe.price supplier_base_price,
+			sqe.CORE_CHARGE,
+			cie.element_id AS inquiry_element_id,
+			sqe.element_id AS quote_element_id,
+			cie.part_number AS inquiry_part_number,
+			sqe.part_number AS quote_part_number,
+			cie.unit AS inquiry_unit,
+			sqe.unit AS quote_unit,
+			cie.amount AS inquiry_amount,
+			sqe.amount AS quote_amount,
+			cie.description AS inquiry_description,
+			sqe.description AS quote_description,
+			cie.remark AS inquiry_remark,
+			sqe.remark AS quote_remark,
+			ss.`CODE` AS supplier_order_code,
+			so.ORDER_NUMBER AS supplier_order_number,
+			so.ORDER_DATE AS supplier_order_date,
+			soe.AMOUNT AS supplier_order_amout,
+			soe.PRICE AS supplier_order_base_price,
+			soe.DEADLINE AS supplier_order_deadline,
+			soe.PRICE * soe.AMOUNT AS supplier_order_total_price,
+			sqe.LOCATION,
+			sqe.LEAD_TIME,sqe.tag_src,sqe.tag_date,sqe.trace,
+			sqe.warranty,sqe.serial_number,
+			tu.login_name as user_name
+		FROM
+			(SELECT * FROM client_inquiry_element cie 
+			<if test="like != null">
+				where cie.PART_NUMBER like ${partNumber}
+                or cie.SHORT_PART_NUMBER like ${partNumber2}
+			</if>
+			<if test="like == null">
+				where cie.PART_NUMBER = ${partNumber}
+			</if>
+			) cie
+		LEFT JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (
+			ciie.ID = cie.MAIN_ID
+		)
+		LEFT JOIN element ciiee on (ciiee.id = ciie.element_id)
+		LEFT JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN supplier_inquiry_element sie ON(
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			sie.SUPPLIER_INQUIRY_ID = si.ID
+		)
+		LEFT JOIN supplier s ON (
+			s.ID = si.SUPPLIER_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN system_code cert on (cert.ID=sqe.CERTIFICATION_ID)
+		LEFT JOIN system_code cond on (cond.id=sqe.CONDITION_ID)
+		LEFT JOIN supplier_quote sq ON (
+			sqe.SUPPLIER_QUOTE_ID = sq.ID
+		)
+		LEFT JOIN t_user tu ON (
+				tu.user_id = sq.CREATE_USER
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier_order_element soe ON (
+			soe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID and soe.ORDER_STATUS_ID != 64
+		)
+		LEFT JOIN supplier_order so ON(so.id = soe.SUPPLIER_ORDER_ID and so.ORDER_STATUS_ID != 64)
+		LEFT JOIN supplier ss ON(ss.ID = so.SUPPLIER_ID)
+		where 1=1 and ((sqe.SUPPLIER_QUOTE_STATUS_ID != 73 and sq.QUOTE_STATUS_ID != 91) or sqe.SUPPLIER_QUOTE_STATUS_ID is NULL OR soe.ID IS NOT NULL)
+		<if test="where != null">
+			and ${where}
+		</if>
+		<!-- <if test="partNumber != null">
+			and cie.SHORT_PART_NUMBER like ${partNumber}
+		</if> -->
+		<if test="like != null">
+            and
+            (cie.PART_NUMBER like ${partNumber}
+            or cie.SHORT_PART_NUMBER like ${partNumber2})
+        </if>
+		<if test="like == null">
+			and cie.PART_NUMBER = ${partNumber}
+		</if>
+		<if test="userId != null">
+			and (s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId}) OR s.id is null)
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+		) t1
+		union 
+		select * from(
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.inquiry_date,
+			cert.CODE CERTIFICATION_CODE,cond.CODE CONDITION_CODE,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			sqe.id AS supplier_quote_element_id,
+			sq.quote_date AS supplier_quote_date,
+			si.quote_number AS supplier_inquiry_quote_number,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			cu_s.id AS supplier_currency_id,
+			cu_s. CODE AS supplier_currency_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			sqe.supplier_quote_status_id,
+			sqs. CODE AS supplier_quote_status_code,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			sqe.price AS supplier_price,
+			sqe.price supplier_base_price,
+			sqe.CORE_CHARGE,
+			cie.element_id AS inquiry_element_id,
+			sqe.element_id AS quote_element_id,
+			cie.part_number AS inquiry_part_number,
+			sqe.part_number AS quote_part_number,
+			cie.unit AS inquiry_unit,
+			sqe.unit AS quote_unit,
+			cie.amount AS inquiry_amount,
+			sqe.amount AS quote_amount,
+			cie.description AS inquiry_description,
+			sqe.description AS quote_description,
+			cie.remark AS inquiry_remark,
+			sqe.remark AS quote_remark,
+			ss.`CODE` AS supplier_order_code,
+			so.ORDER_NUMBER AS supplier_order_number,
+			so.ORDER_DATE AS supplier_order_date,
+			soe.AMOUNT AS supplier_order_amout,
+			soe.PRICE AS supplier_order_base_price,
+			soe.DEADLINE AS supplier_order_deadline,
+			soe.PRICE * soe.AMOUNT AS supplier_order_total_price,
+			sqe.LOCATION,
+			sqe.LEAD_TIME,sqe.tag_src,sqe.tag_date,sqe.trace,
+			sqe.warranty,sqe.serial_number,
+			tu.login_name as user_name
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (
+			ciie.ID = cie.MAIN_ID
+		)
+		LEFT JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN supplier_inquiry_element sie ON(
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			sie.SUPPLIER_INQUIRY_ID = si.ID
+		)
+		LEFT JOIN supplier s ON (
+			s.ID = si.SUPPLIER_ID
+		)
+		LEFT JOIN (
+			SELECT * FROM supplier_quote_element sqe 
+			<if test="like != null">
+				where sqe.PART_NUMBER like ${partNumber}
+                or sqe.SHORT_PART_NUMBER like ${partNumber2}
+			</if>
+			<if test="like == null">
+				where sqe.PART_NUMBER = ${partNumber}
+			</if>
+		) sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN system_code cert on (cert.ID=sqe.CERTIFICATION_ID)
+		LEFT JOIN system_code cond on (cond.id=sqe.CONDITION_ID)
+		LEFT JOIN supplier_quote sq ON (
+			sqe.SUPPLIER_QUOTE_ID = sq.ID
+		)
+		LEFT JOIN t_user tu ON (
+				tu.user_id = sq.CREATE_USER
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier_order_element soe ON (
+			soe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID and soe.ORDER_STATUS_ID != 64
+		)
+		LEFT JOIN supplier_order so ON(so.id = soe.SUPPLIER_ORDER_ID and so.ORDER_STATUS_ID != 64)
+		LEFT JOIN supplier ss ON(ss.ID = so.SUPPLIER_ID)
+		where 1=1 and ((sqe.SUPPLIER_QUOTE_STATUS_ID != 73 and sq.QUOTE_STATUS_ID != 91) or sqe.SUPPLIER_QUOTE_STATUS_ID is NULL OR soe.ID IS NOT NULL)
+		<if test="where != null">
+			and ${where}
+		</if>
+		<!-- <if test="partNumber != null">
+			and sqe.SHORT_PART_NUMBER like ${partNumber}
+		</if> -->
+		<if test="like != null">
+			and (
+            sqe.PART_NUMBER like ${partNumber}
+            or sqe.SHORT_PART_NUMBER like ${partNumber2}
+            )
+		</if>
+		<if test="like == null">
+			and sqe.PART_NUMBER = ${partNumber}
+		</if>
+		<if test="userId != null">
+			and (s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId}) OR s.id is null)
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+		) t2		
+  </select>
+  
+  <select id="purchasepartWithPart" parameterType="page" resultMap="partsInformationVo">
+  	select * from(
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.inquiry_date,
+			cert.CODE CERTIFICATION_CODE,cond.CODE CONDITION_CODE,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			sqe.id AS supplier_quote_element_id,
+			sq.quote_date AS supplier_quote_date,
+			si.quote_number AS supplier_inquiry_quote_number,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			cu_s.id AS supplier_currency_id,
+			cu_s. CODE AS supplier_currency_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			sqe.supplier_quote_status_id,
+			sqs. CODE AS supplier_quote_status_code,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			sqe.price AS supplier_price,
+			sqe.price supplier_base_price,
+			sqe.CORE_CHARGE,
+			cie.element_id AS inquiry_element_id,
+			sqe.element_id AS quote_element_id,
+			cie.part_number AS inquiry_part_number,
+			sqe.part_number AS quote_part_number,
+			cie.unit AS inquiry_unit,
+			sqe.unit AS quote_unit,
+			cie.amount AS inquiry_amount,
+			sqe.amount AS quote_amount,
+			cie.description AS inquiry_description,
+			sqe.description AS quote_description,
+			cie.remark AS inquiry_remark,
+			sqe.remark AS quote_remark,
+			ss.`CODE` AS supplier_order_code,
+			so.ORDER_NUMBER AS supplier_order_number,
+			so.ORDER_DATE AS supplier_order_date,
+			soe.AMOUNT AS supplier_order_amout,
+			soe.PRICE AS supplier_order_base_price,
+			soe.DEADLINE AS supplier_order_deadline,
+			soe.PRICE * soe.AMOUNT AS supplier_order_total_price,
+			sqe.LOCATION,
+			sqe.LEAD_TIME,sqe.tag_src,sqe.tag_date,sqe.trace,
+			sqe.warranty,sqe.serial_number,
+			tu.login_name as user_name
+		FROM
+			(SELECT * FROM client_inquiry_element cie 
+			<if test="like != null">
+				where cie.PART_NUMBER like ${partNumber}
+			</if>
+			<if test="like == null">
+				where cie.PART_NUMBER = ${partNumber}
+			</if>
+			) cie
+		LEFT JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (
+			ciie.ID = cie.MAIN_ID
+		)
+		LEFT JOIN element ciiee on (ciiee.id = ciie.element_id)
+		LEFT JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN supplier_inquiry_element sie ON(
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			sie.SUPPLIER_INQUIRY_ID = si.ID
+		)
+		LEFT JOIN supplier s ON (
+			s.ID = si.SUPPLIER_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN system_code cert on (cert.ID=sqe.CERTIFICATION_ID)
+		LEFT JOIN system_code cond on (cond.id=sqe.CONDITION_ID)
+		LEFT JOIN supplier_quote sq ON (
+			sqe.SUPPLIER_QUOTE_ID = sq.ID
+		)
+		LEFT JOIN t_user tu ON (
+				tu.user_id = sq.CREATE_USER
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier_order_element soe ON (
+			soe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID and soe.ORDER_STATUS_ID != 64
+		)
+		LEFT JOIN supplier_order so ON(so.id = soe.SUPPLIER_ORDER_ID and so.ORDER_STATUS_ID != 64)
+		LEFT JOIN supplier ss ON(ss.ID = so.SUPPLIER_ID)
+		where 1=1 and ((sqe.SUPPLIER_QUOTE_STATUS_ID != 73 and sq.QUOTE_STATUS_ID != 91) or sqe.SUPPLIER_QUOTE_STATUS_ID is NULL OR soe.ID IS NOT NULL)
+		<if test="where != null">
+			and ${where}
+		</if>
+		<!-- <if test="partNumber != null">
+			and cie.SHORT_PART_NUMBER like ${partNumber}
+		</if> -->
+		<if test="like != null">
+			and cie.PART_NUMBER like ${partNumber}
+		</if>
+		<if test="like == null">
+			and cie.PART_NUMBER = ${partNumber}
+		</if>
+		<if test="userId != null">
+			and (s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId}) OR s.id is null)
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+		) t1
+		union 
+		select * from(
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.inquiry_date,
+			cert.CODE CERTIFICATION_CODE,cond.CODE CONDITION_CODE,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			sqe.id AS supplier_quote_element_id,
+			sq.quote_date AS supplier_quote_date,
+			si.quote_number AS supplier_inquiry_quote_number,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			cu_s.id AS supplier_currency_id,
+			cu_s. CODE AS supplier_currency_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			sqe.supplier_quote_status_id,
+			sqs. CODE AS supplier_quote_status_code,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			sqe.price AS supplier_price,
+			sqe.price supplier_base_price,
+			sqe.CORE_CHARGE,
+			cie.element_id AS inquiry_element_id,
+			sqe.element_id AS quote_element_id,
+			cie.part_number AS inquiry_part_number,
+			sqe.part_number AS quote_part_number,
+			cie.unit AS inquiry_unit,
+			sqe.unit AS quote_unit,
+			cie.amount AS inquiry_amount,
+			sqe.amount AS quote_amount,
+			cie.description AS inquiry_description,
+			sqe.description AS quote_description,
+			cie.remark AS inquiry_remark,
+			sqe.remark AS quote_remark,
+			ss.`CODE` AS supplier_order_code,
+			so.ORDER_NUMBER AS supplier_order_number,
+			so.ORDER_DATE AS supplier_order_date,
+			soe.AMOUNT AS supplier_order_amout,
+			soe.PRICE AS supplier_order_base_price,
+			soe.DEADLINE AS supplier_order_deadline,
+			soe.PRICE * soe.AMOUNT AS supplier_order_total_price,
+			sqe.LOCATION,
+			sqe.LEAD_TIME,sqe.tag_src,sqe.tag_date,sqe.trace,
+			sqe.warranty,sqe.serial_number,
+			tu.login_name as user_name
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (
+			ciie.ID = cie.MAIN_ID
+		)
+		LEFT JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN supplier_inquiry_element sie ON(
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			sie.SUPPLIER_INQUIRY_ID = si.ID
+		)
+		LEFT JOIN supplier s ON (
+			s.ID = si.SUPPLIER_ID
+		)
+		LEFT JOIN (
+			SELECT * FROM supplier_quote_element sqe 
+			<if test="like != null">
+				where sqe.PART_NUMBER like ${partNumber}
+			</if>
+			<if test="like == null">
+				where sqe.PART_NUMBER = ${partNumber}
+			</if>
+		) sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN system_code cert on (cert.ID=sqe.CERTIFICATION_ID)
+		LEFT JOIN system_code cond on (cond.id=sqe.CONDITION_ID)
+		LEFT JOIN supplier_quote sq ON (
+			sqe.SUPPLIER_QUOTE_ID = sq.ID
+		)
+		LEFT JOIN t_user tu ON (
+				tu.user_id = sq.CREATE_USER
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier_order_element soe ON (
+			soe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID and soe.ORDER_STATUS_ID != 64
+		)
+		LEFT JOIN supplier_order so ON(so.id = soe.SUPPLIER_ORDER_ID and so.ORDER_STATUS_ID != 64)
+		LEFT JOIN supplier ss ON(ss.ID = so.SUPPLIER_ID)
+		where 1=1 and ((sqe.SUPPLIER_QUOTE_STATUS_ID != 73 and sq.QUOTE_STATUS_ID != 91) or sqe.SUPPLIER_QUOTE_STATUS_ID is NULL OR soe.ID IS NOT NULL)
+		<if test="where != null">
+			and ${where}
+		</if>
+		<!-- <if test="partNumber != null">
+			and sqe.SHORT_PART_NUMBER like ${partNumber}
+		</if> -->
+		<if test="like != null">
+			and sqe.PART_NUMBER like ${partNumber}
+		</if>
+		<if test="like == null">
+			and sqe.PART_NUMBER = ${partNumber}
+		</if>
+		<if test="userId != null">
+			and (s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId}) OR s.id is null)
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+		) t2		
+  </select>
+  
+  
+  <select id="purchasePartInformation" parameterType="page" resultMap="partsInformationVo">
+	SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			ci.id AS client_inquriy_id,
+			ci.inquiry_date,
+			cert.CODE CERTIFICATION_CODE,cond.CODE CONDITION_CODE,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			sqe.id AS supplier_quote_element_id,
+			sq.quote_date AS supplier_quote_date,
+			si.quote_number AS supplier_inquiry_quote_number,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			cu_s.id AS supplier_currency_id,
+			cu_s. CODE AS supplier_currency_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			sqe.supplier_quote_status_id,
+			sqs. CODE AS supplier_quote_status_code,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			sqe.price AS supplier_price,
+			sqe.price supplier_base_price,
+			
+			cie.element_id AS inquiry_element_id,
+			sqe.element_id AS quote_element_id,
+			cie.part_number AS inquiry_part_number,
+			sqe.part_number AS quote_part_number,
+			cie.unit AS inquiry_unit,
+			sqe.unit AS quote_unit,
+			cie.amount AS inquiry_amount,
+			sqe.amount AS quote_amount,
+			cie.description AS inquiry_description,
+			sqe.description AS quote_description,
+			cie.remark AS inquiry_remark,
+			sqe.remark AS quote_remark,
+			ss.`CODE` AS supplier_order_code,
+			so.ORDER_NUMBER AS supplier_order_number,
+			so.ORDER_DATE AS supplier_order_date,
+			soe.AMOUNT AS supplier_order_amout,
+			soe.PRICE AS supplier_order_base_price,
+			soe.DEADLINE AS supplier_order_deadline,
+			soe.PRICE * soe.AMOUNT AS supplier_order_total_price
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (
+			ciie.ID = cie.MAIN_ID
+		)
+		LEFT JOIN element ciiee on (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)
+		INNER JOIN system_code at ON (ci.air_type_id=at.id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN supplier_inquiry_element sie ON(
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			sie.SUPPLIER_INQUIRY_ID = si.ID
+		)
+		LEFT JOIN supplier s ON (
+			s.ID = si.SUPPLIER_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		INNER JOIN system_code cert on (cert.ID=sqe.CERTIFICATION_ID)
+		INNER JOIN system_code cond on (cond.id=sqe.CONDITION_ID)
+		LEFT JOIN supplier_quote sq ON (
+			sqe.SUPPLIER_QUOTE_ID = sq.ID
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier_order_element soe ON (
+			soe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID
+		)
+		LEFT JOIN supplier_order so ON(so.id = soe.SUPPLIER_ORDER_ID)
+		LEFT JOIN supplier ss ON(ss.ID = so.SUPPLIER_ID)
+		where (sqe.SUPPLIER_QUOTE_STATUS_ID != 73 or sqe.SUPPLIER_QUOTE_STATUS_ID is NULL)
+		<if test="download != null">
+			and (ci.INQUIRY_DATE between DATE_ADD(now(),INTERVAL -3 MONTH) and now())
+		</if>
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and (s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId}) OR s.id is null)
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if> 		
+  </select>
+  
+  
+  <select id="supplierAbilityPage" parameterType="page" resultMap="partsInformationVo">
+  	SELECT DISTINCT
+  			s.id,
+			s. CODE AS supplier_code
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (
+			ciie.ID = cie.MAIN_ID
+		)
+		LEFT JOIN element ciiee on (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		LEFT JOIN system_code bt ON (ci.biz_type_id=bt.id)
+		LEFT JOIN system_code at ON (ci.air_type_id=at.id)
+		LEFT JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN supplier_inquiry_element sie ON(
+			cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			sie.SUPPLIER_INQUIRY_ID = si.ID
+		)
+		LEFT JOIN supplier s ON (
+			s.ID = si.SUPPLIER_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN system_code cert on (cert.ID=sqe.CERTIFICATION_ID)
+		LEFT JOIN system_code cond on (cond.id=sqe.CONDITION_ID)
+		LEFT JOIN supplier_quote sq ON (
+			sqe.SUPPLIER_QUOTE_ID = sq.ID
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier_order_element soe ON (
+			soe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID
+		)
+		LEFT JOIN supplier_order so ON(so.id = soe.SUPPLIER_ORDER_ID)
+		LEFT JOIN supplier ss ON(ss.ID = so.SUPPLIER_ID)
+		where (sqe.SUPPLIER_QUOTE_STATUS_ID != 73 or sqe.SUPPLIER_QUOTE_STATUS_ID is NULL) and sqe.id is not null
+		<if test="where != null">
+			and ${where}
+		</if> 
+		<if test="orderby != null">
+			${orderby}
+		</if> 	
+  </select>
+  
+  <select id="getSupplierCode" parameterType="Integer" resultMap="elementVo">
+  		SELECT  DISTINCT ci.QUOTE_NUMBER,cie.ITEM,cie.CSN,cie.PART_NUMBER,cie.DESCRIPTION,cie.is_main,
+				cie.UNIT,cie.AMOUNT,cie.REMARK,cq.PROFIT_MARGIN,s.`CODE` from client_inquiry_element cie 
+				LEFT JOIN supplier_inquiry_element sie on (cie.ID=sie.CLIENT_INQUIRY_ELEMENT_ID)
+				LEFT JOIN supplier_quote_element sqe on (sie.ID=sqe.SUPPLIER_INQUIRY_ELEMENT_ID)
+				LEFT JOIN supplier_inquiry si on (si.id=sie.SUPPLIER_INQUIRY_ID)
+				LEFT JOIN supplier s on (s.ID = si.SUPPLIER_ID)
+				LEFT JOIN client_inquiry ci on (ci.ID=cie.CLIENT_INQUIRY_ID)
+				LEFT JOIN client_quote cq on (cq.CLIENT_INQUIRY_ID=ci.ID)
+				where ci.id=#{clientInuqiryId} and sqe.id is not null
+  </select>
+  
+    
+  <select id="findSupplierCodeByCieId" parameterType="Integer" resultMap="elementVo">
+  		SELECT  DISTINCT ci.QUOTE_NUMBER,cie.ITEM,cie.CSN,cie.PART_NUMBER,cie.DESCRIPTION,cie.is_main,
+				cie.UNIT,cie.AMOUNT,cie.REMARK,cq.PROFIT_MARGIN,s.`CODE` from client_inquiry_element cie 
+				LEFT JOIN supplier_inquiry_element sie on (cie.ID=sie.CLIENT_INQUIRY_ELEMENT_ID)
+				INNER JOIN supplier_quote_element sqe on (sie.ID=sqe.SUPPLIER_INQUIRY_ELEMENT_ID)
+				LEFT JOIN supplier_inquiry si on (si.id=sie.SUPPLIER_INQUIRY_ID)
+				LEFT JOIN supplier s on (s.ID = si.SUPPLIER_ID)
+				LEFT JOIN client_inquiry ci on (ci.ID=cie.CLIENT_INQUIRY_ID)
+				LEFT JOIN client_quote cq on (cq.CLIENT_INQUIRY_ID=ci.ID)
+				where cie.id=#{clientInuqiryElementId}
+  </select>
+  
+  
+  <select id="getTypeCode" parameterType="page" resultMap="BaseResultMap">
+  		SELECT cie.CLIENT_INQUIRY_ID,cie.TYPE_CODE FROM client_inquiry_element cie 
+  			where cie.CLIENT_INQUIRY_ID = #{id}
+  			<if test="special != null">
+  				and cie.TYPE_CODE in (42,43,44,45,73,74)
+  			</if>
+  			GROUP BY cie.TYPE_CODE
+  </select>
+  
+  <select id="findByTypeCode" parameterType="com.naswork.model.ClientInquiryElement" resultMap="BaseResultMap">
+  		SELECT
+			cie.ID,
+			cie.CLIENT_INQUIRY_ID,
+			cie.ELEMENT_ID,
+			cie.PART_NUMBER,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.UPDATE_TIMESTAMP,
+			cie.IS_BLACKLIST,
+			cie.remark
+		FROM
+			client_inquiry_element cie
+		WHERE
+			cie.CLIENT_INQUIRY_ID = #{clientInquiryId} and cie.TYPE_CODE = #{typeCode}
+  </select>
+  
+  <select id="findCieBySi" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT cie.* FROM client_inquiry_element cie 
+			LEFT JOIN supplier_inquiry_element sie on sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+			WHERE sie.SUPPLIER_INQUIRY_ID = #{supplierInquiryId}
+  </select>
+  
+  <select id="selectByMainId" parameterType="Integer" resultType="String">
+  		SELECT DISTINCT e.PART_NUMBER_CODE FROM client_inquiry_element cie 
+			LEFT JOIN element e on e.ID = cie.ELEMENT_ID
+			WHERE cie.ID = #{mainId}
+  </select>
+  
+  <select id="selectBySupplierInuqiryElementId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT cie.CLIENT_INQUIRY_ID,cie.PART_NUMBER FROM client_inquiry_element cie
+			LEFT JOIN supplier_inquiry_element sie on cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+			WHERE sie.ID =  #{supplierInquiryElementId}
+  </select>
+  
+  <select id="selectByCsn" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT
+			ID,
+			CLIENT_INQUIRY_ID,
+			ELEMENT_ID,
+			PART_NUMBER,
+			ITEM,
+			DESCRIPTION,
+			REMARK,
+			UNIT,
+			AMOUNT,
+			UPDATE_TIMESTAMP,
+			IS_BLACKLIST
+		FROM
+			client_inquiry_element
+		WHERE
+			CSN = #{0}
+		AND IS_MAIN = 2
+		AND CLIENT_INQUIRY_ID = #{1}
+  </select>
+  
+  <select id="selectBySupplierInquiryId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT cie.ITEM,cie.PART_NUMBER,cie.DESCRIPTION,cie.UNIT,cie.AMOUNT,cie.remark FROM supplier_inquiry_element sie 
+			LEFT JOIN client_inquiry_element cie on cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+			WHERE sie.SUPPLIER_INQUIRY_ID = #{supplierInquiryId}
+  </select>
+  
+  <select id="selectBySupplierInquiryIdWhenAuto" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			cie.ITEM,
+			cie.PART_NUMBER,
+			cie.DESCRIPTION,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.remark
+		FROM
+			supplier_inquiry_element sie
+		LEFT JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		WHERE
+			sie.SUPPLIER_INQUIRY_ID = #{supplierInquiryId} AND cie.EMAIL_SEND = 0
+  </select>
+  
+  <select id="selectStorageByElementId" parameterType="String" resultMap="BaseResultMap">
+  		select * from client_inquiry_element cie 
+		INNER JOIN client_inquiry ci on cie.CLIENT_INQUIRY_ID=ci.ID
+		where cie.ELEMENT_ID=#{0} and cie.REMARK='STORAGE' and cie.AMOUNT=0 and ci.quote_number=#{1}
+  </select>
+  
+  <select id="selectByBsnPartPage" parameterType="page" resultMap="partsInformationVo">
+		SELECT DISTINCT
+			cie.id,
+			cie.item,
+			cie.csn,
+			cie.MAIN_ID,
+			ci.id AS client_inquriy_id,
+			ci.inquiry_date,
+			ci.quote_number AS client_inquiry_quote_number,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu_c.id AS client_currency_id,
+			cu_c. CODE AS client_currency_code,
+			cu_c.
+		VALUE
+			AS client_currency_value,
+			cq.quote_date AS client_quote_date,
+			cqe.price AS client_price,
+			cqe.amount AS client_quote_amount,
+			cqe.price AS client_base_price,
+			cie.element_id AS inquiry_element_id,
+			cie.part_number AS inquiry_part_number,
+			cie.unit AS inquiry_unit,
+			cie.amount AS inquiry_amount,
+			cie.description AS inquiry_description,
+			cie.remark AS inquiry_remark,
+			co.ORDER_NUMBER AS client_order_number,
+			co.ORDER_DATE AS client_order_date,
+			cos.
+		VALUE
+			AS order_status,
+			co.REMARK AS order_remark,
+			coe.AMOUNT AS client_order_amout,
+			coe.PRICE AS client_order_base_price,
+			ccqe.PRICE AS competitor_price,
+			si.QUOTE_NUMBER,
+			sqe.PART_NUMBER AS quote_part_number,
+			sqe.unit AS quote_unit,
+			sqe.amount AS quote_amount,
+			sqe.description AS quote_description,
+			sqe.remark AS quote_remark,
+			sqe.price AS supplier_price,
+			sqe.price AS supplier_base_price,
+			sqe.element_id AS quote_element_id,
+			sqs.
+		VALUE
+			AS supplier_quote_status_value,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sq.quote_date AS supplier_quote_date,
+			s. CODE AS supplier_code,
+			cu_s.
+		VALUE
+			AS supplier_currency_value,
+			co.order_number
+		FROM
+			client_inquiry_element cie
+		INNER JOIN client_inquiry ci ON (
+			cie.client_inquiry_id = ci.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (ciie.ID = cie.MAIN_ID)
+		LEFT JOIN element ciiee ON (ciiee.id = ciie.element_id)
+		LEFT JOIN element e ON (e.ID = cie.ELEMENT_ID)
+		INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+		INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		LEFT JOIN competitor_quote_element ccqe ON (
+			ccqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry_element sie ON (
+			sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		)
+		LEFT JOIN supplier_inquiry si ON (
+			si.ID = sie.SUPPLIER_INQUIRY_ID
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		)
+		LEFT JOIN supplier_quote sq ON (
+			sq.ID = sqe.SUPPLIER_QUOTE_ID
+		)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.SUPPLIER_QUOTE_ELEMENT_ID = sqe.ID
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		LEFT JOIN system_code cu_c ON (cq.currency_id = cu_c.id)
+		LEFT JOIN client_order_element coe ON (
+			coe.CLIENT_QUOTE_ELEMENT_ID = cqe.ID
+		)
+		LEFT JOIN client_order co ON (co.ID = coe.CLIENT_ORDER_ID)
+		LEFT JOIN supplier_order so ON (so.CLIENT_ORDER_ID = co.ID)
+		LEFT JOIN system_code cos ON (co.ORDER_STATUS_ID = cos.id)
+		LEFT JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		LEFT JOIN system_code cu_s ON (sq.currency_id = cu_s.id)
+		LEFT JOIN supplier s ON (s.ID = si.SUPPLIER_ID)
+		WHERE
+			cie.BSN = #{bsn}
+		<if test="userId != null">
+			and c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+  </select>
+  
+  <select id="getCommissionListByClientInquiryId" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT
+			cie.ID,
+			cie.CLIENT_INQUIRY_ID,
+			cie.ELEMENT_ID,
+			cie.PART_NUMBER,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.UPDATE_TIMESTAMP,
+			cie.IS_BLACKLIST,
+			cie.BSN
+		FROM
+			supplier_commission_sale_element scse
+		LEFT JOIN supplier_commission_sale scs ON scs.ID = scse.SUPPLIER_COMMISSION_SALE_ID
+		LEFT JOIN client_inquiry_element cie ON cie.PART_NUMBER = scse.PART_NUMBER
+		WHERE
+			cie.CLIENT_INQUIRY_ID = #{0} AND scs.SUPPLIER_ID = #{1}
+  </select>
+  
+  <select id="selectByEpeId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			cie.ID,coe.AMOUNT * coe.PRICE AS total,
+			coe.ID AS client_order_element_id,cie.ELEMENT_STATUS_ID
+		FROM
+			export_package_element epe
+		LEFT JOIN import_package_element ipe ON ipe.ID = epe.IMPORT_PACKAGE_ELEMENT_ID
+		LEFT JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		LEFT JOIN supplier_order_element soe ON soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+		LEFT JOIN client_quote_element cqe ON cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID
+		LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+		WHERE epe.ID = #{exportPackageElementId}
+  </select>
+  
+  <select id="selectByClientOrderId" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT
+			cie.ID,
+			cie.CLIENT_INQUIRY_ID,
+			cie.ELEMENT_ID,
+			cie.PART_NUMBER,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.UPDATE_TIMESTAMP,
+			cie.IS_BLACKLIST,
+			cie.BSN,
+			cie.ELEMENT_STATUS_ID
+		FROM
+			client_order_element coe
+		LEFT JOIN client_order co ON co.ID = coe.CLIENT_ORDER_ID
+		LEFT JOIN client_quote_element cqe ON cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID
+		LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+		WHERE
+			co.ID = #{clientOrderId}
+  </select>
+  
+  <select id="selectBySupplierOrderId" parameterType="Integer" resultMap="BaseResultMap"> 
+		SELECT
+			cie.ID,
+			cie.CLIENT_INQUIRY_ID,
+			cie.ELEMENT_ID,
+			cie.PART_NUMBER,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.UPDATE_TIMESTAMP,
+			cie.IS_BLACKLIST,
+			cie.BSN,
+			cie.ELEMENT_STATUS_ID
+		FROM
+			supplier_order_element soe 
+		LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+		LEFT JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+		LEFT JOIN client_quote_element cqe ON cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID
+		LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+		WHERE so.ID = #{supplierOrderId}
+  </select>
+  
+  <select id="getLotsInquiryElements" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			cie.ID,
+			cie.CLIENT_INQUIRY_ID,
+			cie.ELEMENT_ID,
+			cie.PART_NUMBER,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.UPDATE_TIMESTAMP,
+			cie.IS_BLACKLIST,
+			cie.BSN,
+			cie.ELEMENT_STATUS_ID,
+			ci.QUOTE_NUMBER,
+			cie.CSN,
+			cie.TYPE_CODE
+		FROM
+			client_inquiry ci
+		LEFT JOIN client_inquiry_element cie ON cie.CLIENT_INQUIRY_ID = ci.ID
+		WHERE ci.ID in (${ids}) AND cie.ID IS NOT NULL
+  		
+  </select>
+  
+  <select id="getMaxItem" parameterType="Integer" resultType="Integer">
+  		SELECT MAX(cie.ITEM) FROM client_inquiry_element cie WHERE cie.CLIENT_INQUIRY_ID = #{clientInquiryId}
+  </select>
+  
+  <select id="getList" resultMap="BaseResultMap">
+  	SELECT
+		crm.SN AS item,
+		crm.SHORT_CODE AS part_Number
+	FROM
+		crmstock crm
+  </select>
+  
+  <select id="getCageCode" parameterType="String" resultType="String">
+  	SELECT tp.CAGE_CODE FROM crmstock.t_part tp WHERE tp.SHORT_PART_NUM = #{shortCode}
+  </select>
+  
+  <update id="updateCageCode" parameterType="String">
+  	UPDATE crmstock SET CAGE_CODE = #{0} WHERE SN = #{1}
+  </update>
+  
+   <select id="findByElementAndMian" parameterType="Integer" resultMap="BaseResultMap">
+  SELECT * from client_inquiry_element where ELEMENT_ID=#{0} and IS_MAIN=1 and client_inquiry_id = #{1} LIMIT 1
+  </select>
+  
+  <select id="elementPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT DISTINCT
+			cie.ID,
+			cie.PART_NUMBER,
+			cie.CSN,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.AMOUNT,
+			ci.QUOTE_NUMBER,
+			ci.SOURCE_NUMBER,
+			cie.ALTER_PART_NUMBER,
+			cie.TYPE_CODE,
+			cie.UPDATE_TIMESTAMP,
+			cie.UNIT,
+			ci.ID AS CLIENT_INQUIRY_ID,
+			tu.login_name AS user_name,
+			ci.INQUIRY_DATE,
+			ci.DEADLINE,
+			con.`CODE` AS CONDITION_CODE,
+			con.`VALUE` AS CONDITION_VALUE,
+			c.BANK_COST,
+			c.FIXED_COST,
+			c.PROFIT_MARGIN,
+			cie.AIM_PRICE,
+			es.`VALUE` AS ELEMENT_STATUS_VALUE,
+			ci.BIZ_TYPE_ID,
+			c.CLIENT_TEMPLATE_TYPE,
+			cq.CURRENCY_ID<!-- ,
+			tp.remark as t_part_remark -->
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		LEFT JOIN authority_relation ar ON ar.CLIENT_ID = ci.CLIENT_ID
+		LEFT JOIN t_user tu ON tu.user_id = ci.CREATE_USER
+		LEFT JOIN system_code con ON con.ID = cie.CONDITION_ID
+		LEFT JOIN client_quote cq ON cq.CLIENT_INQUIRY_ID = ci.ID
+		LEFT JOIN client c ON c.ID = ci.CLIENT_ID
+		LEFT JOIN system_code es ON es.ID = cie.ELEMENT_STATUS_ID
+		LEFT JOIN system_code bt ON bt.ID = ci.BIZ_TYPE_ID
+		<!-- LEFT JOIN crmstock.t_part tp ON tp.BSN = cie.BSN -->
+		<if test="code != null">
+			LEFT JOIN supplier_quote_element sqe ON sqe.SHORT_PART_NUMBER = cie.SHORT_PART_NUMBER
+			LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+			LEFT JOIN supplier_inquiry si ON si.ID = sq.SUPPLIER_INQUIRY_ID
+			LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+		</if>
+		<if test="quoteStatus != null">
+			LEFT JOIN client_quote_element cqe on cqe.client_inquiry_element_id = cie.id
+		</if>
+		where ci.INQUIRY_STATUS_ID != 34 
+		<if test="purchase == null">
+			and c.id != 47
+		</if>
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+		<if test="beginWith != null">
+			and c.`CODE` REGEXP #{beginWith}
+		</if>
+		<if test="quoteStatus != null">
+			${quoteStatus}
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+  
+  <select id="elementPageForMarketHis" parameterType="page" resultMap="BaseResultMap">
+  		SELECT DISTINCT
+			cie.ID,
+			cie.PART_NUMBER,
+			cie.CSN,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.AMOUNT,
+			ci.QUOTE_NUMBER,
+			ci.SOURCE_NUMBER,
+			cie.ALTER_PART_NUMBER,
+			cie.TYPE_CODE,
+			cie.UPDATE_TIMESTAMP,
+			cie.UNIT,
+			ci.ID AS CLIENT_INQUIRY_ID,
+			tu.login_name AS user_name,
+			ci.INQUIRY_DATE,
+			ci.DEADLINE,
+			con.`CODE` AS CONDITION_CODE,
+			con.`VALUE` AS CONDITION_VALUE,
+			c.BANK_COST,
+			c.FIXED_COST,
+			c.PROFIT_MARGIN,
+			cie.AIM_PRICE,
+			es.`VALUE` AS ELEMENT_STATUS_VALUE,
+			ci.BIZ_TYPE_ID,
+			c.CLIENT_TEMPLATE_TYPE,
+			cq.CURRENCY_ID,
+			cq.exchange_rate,
+			CONCAT(s.`CODE`," | ",sqe.PRICE) AS supplier_and_price,
+			cqe.PRICE,
+			cqe.moq,
+			cqe.LEAD_TIME,
+			cond.`CODE` AS quote_cond,
+			cert.`CODE` AS quote_cert,
+			cqe.id as client_quote_element_id,
+			cq.id as client_quote_id,
+			sqe.id as supplier_quote_element_id,
+			c.code as client_code,
+			s.`CODE` as supplier_code,
+			sqe.PRICE as supplier_quote_price,
+			sq.CURRENCY_ID as supplier_currency_id,
+			sq.exchange_rate as supplier_exchange_rate
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		LEFT JOIN authority_relation ar ON ar.CLIENT_ID = ci.CLIENT_ID
+		LEFT JOIN t_user tu ON tu.user_id = ci.CREATE_USER
+		LEFT JOIN system_code con ON con.ID = cie.CONDITION_ID
+		LEFT JOIN client_quote_element cqe ON (cqe.CLIENT_INQUIRY_ELEMENT_ID = cie.ID)
+		LEFT JOIN client_quote cq ON cq.ID = cqe.CLIENT_QUOTE_ID
+		LEFT JOIN supplier_quote_element sqe ON sqe.ID = cqe.SUPPLIER_QUOTE_ELEMENT_ID
+		LEFT JOIN system_code cond ON cond.ID = sqe.CONDITION_ID
+		LEFT JOIN system_code cert ON cert.ID = sqe.CERTIFICATION_ID
+		LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+		LEFT JOIN supplier_inquiry si ON si.ID = sq.SUPPLIER_INQUIRY_ID
+		LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+		LEFT JOIN client c ON c.ID = ci.CLIENT_ID
+		LEFT JOIN system_code es ON es.ID = cie.ELEMENT_STATUS_ID
+		LEFT JOIN system_code bt ON bt.ID = ci.BIZ_TYPE_ID
+		<!-- LEFT JOIN crmstock.t_part tp ON tp.BSN = cie.BSN -->
+		<if test="code != null">
+			LEFT JOIN supplier_quote_element sqe ON sqe.SHORT_PART_NUMBER = cie.SHORT_PART_NUMBER
+			LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+			LEFT JOIN supplier_inquiry si ON si.ID = sq.SUPPLIER_INQUIRY_ID
+			LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+		</if>
+		<if test="quoteStatus != null">
+			LEFT JOIN client_quote_element cqe on cqe.client_inquiry_element_id = cie.id
+		</if>
+		where ci.INQUIRY_STATUS_ID != 34 and c.id != 47
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+		<if test="beginWith != null">
+			and c.`CODE` REGEXP #{beginWith}
+		</if>
+		<if test="quoteStatus != null">
+			${quoteStatus}
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+  
+  <select id="getDataOnce" parameterType="page" resultMap="BaseResultMap">
+  		SELECT DISTINCT
+			cie.ID,
+			cie.PART_NUMBER,
+			cie.CSN,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.AMOUNT,
+			ci.QUOTE_NUMBER,
+			cie.ALTER_PART_NUMBER,
+			cie.TYPE_CODE,
+			cie.UPDATE_TIMESTAMP,	
+			cie.UNIT,
+			ci.ID AS CLIENT_INQUIRY_ID
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		LEFT JOIN authority_relation ar ON ar.CLIENT_ID = ci.CLIENT_ID
+		where 1=1
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+		order by cie.id desc
+		limit 0,2000
+  </select>
+  
+  <select id="getElementList" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			cie.id
+		FROM
+			client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		<where>
+			${where}
+		</where>
+  </select>
+  
+  <select id="getListBySupplierAbility" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			cie.ID,
+			cie.CLIENT_INQUIRY_ID,
+			cie.ELEMENT_ID,
+			cie.PART_NUMBER,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.UPDATE_TIMESTAMP,
+			cie.IS_BLACKLIST,
+			cie.remark,
+			air.`CODE` AS TYPE_CODE
+		FROM
+			supplier_air_relation sar
+		LEFT JOIN system_code air ON air.ID = sar.AIR_ID
+		LEFT JOIN client_inquiry_element cie ON cie.TYPE_CODE = air.`CODE`
+		WHERE
+			cie.CLIENT_INQUIRY_ID = #{0}
+		AND sar.SUPPLIER_ID = #{1}
+		AND air.`CODE` in (42, 44, 72, 73, 74, 50)
+  </select>
+  
+  <select id="selectByPartNumber" parameterType="String" resultMap="BaseResultMap">
+  	SELECT * FROM client_inquiry_element cie WHERE cie.PART_NUMBER = #{0}  AND cie.CLIENT_INQUIRY_ID = #{1} limit 0,1
+  </select>
+  
+  <select id="getBsnByShortPart" parameterType="String" resultType="String">
+  	SELECT DISTINCT cie.BSN FROM client_inquiry_element cie WHERE cie.SHORT_PART_NUMBER = #{0} AND cie.BSN IS NOT NULL
+  </select>
+  
+  <select id="getTotalPrice" parameterType="Integer" resultType="Double">
+  		SELECT
+			IFNULL(SUM(b.price * b.AMOUNT),0)
+		FROM
+			(
+				SELECT
+					MAX(a.PRICE) AS price,
+					a.AMOUNT
+				FROM
+					(
+						SELECT
+							sqe.PRICE * (er.RATE/err.RATE) AS PRICE,
+							sqe.SHORT_PART_NUMBER,
+							cie.AMOUNT
+						FROM
+							supplier_quote_element sqe
+						INNER JOIN client_inquiry_element cie ON cie.SHORT_PART_NUMBER = sqe.SHORT_PART_NUMBER
+						INNER JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+						INNER JOIN exchange_rate er ON er.CURRENCY_ID = sq.CURRENCY_ID
+						INNER JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+						INNER JOIN client c ON c.ID = ci.CLIENT_ID
+						INNER JOIN exchange_rate err ON err.CURRENCY_ID = c.CURRENCY_ID
+						WHERE
+							cie.CLIENT_INQUIRY_ID = #{id} AND sq.QUOTE_STATUS_ID != 91 AND sq.QUOTE_STATUS_ID != 92
+							AND sqe.SUPPLIER_QUOTE_ID != 71 AND sqe.SUPPLIER_QUOTE_ID != 72 AND sqe.SUPPLIER_QUOTE_ID != 73 
+					) a
+				GROUP BY
+					a.SHORT_PART_NUMBER
+			) b
+  </select>
+  
+  <select id="getDateBySelect" parameterType="String" resultMap="BaseResultMap">
+  	SELECT * FROM client_inquiry_element cie WHERE cie.ID in (#{ids})
+  </select>
+  
+  <select id="getListBySelect" parameterType="String" resultMap="BaseResultMap">
+  	SELECT
+			cie.ID,
+			cie.CLIENT_INQUIRY_ID,
+			cie.ELEMENT_ID,
+			cie.PART_NUMBER,
+			cie.ITEM,
+			cie.DESCRIPTION,
+			cie.REMARK,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.UPDATE_TIMESTAMP,
+			cie.IS_BLACKLIST,
+			cie.remark,
+			air.`CODE` AS TYPE_CODE
+		FROM
+			supplier_air_relation sar
+		LEFT JOIN system_code air ON air.ID = sar.AIR_ID
+		LEFT JOIN client_inquiry_element cie ON cie.TYPE_CODE = air.`CODE`
+		WHERE
+			cie.ID in (#{0})
+		AND sar.SUPPLIER_ID = #{1}
+		AND air.`CODE` in (42, 44, 72, 73, 74, 50)
+  </select>
+  
+  <select id="getDangerList" parameterType="com.naswork.model.ClientInquiryElement" resultType="Integer">
+  	SELECT count(*) FROM satair_danger sd WHERE sd.CLIENT_INQUIRY_ELEMENT_ID = ${id} 
+  	<if test="mainId != null">
+  		or sd.CLIENT_INQUIRY_ELEMENT_ID = ${mainId}
+  	</if>
+  </select>
+  
+  <select id="getByMainId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT * FROM client_inquiry_element cie WHERE cie.MAIN_ID = #{mainId};
+  </select>
+  
+  <select id="selectByMainIdAndId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		*
+	FROM
+		client_inquiry_element cie
+	WHERE
+		(cie.ID = #{0} OR cie.MAIN_ID =#{0})
+	AND cie.ID != #{1};
+  </select>
+  
+  <select id="getByItem" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT * FROM client_inquiry_element cie WHERE cie.CLIENT_INQUIRY_ID = #{0} AND cie.ITEM = #{1}
+  </select>
+  
+  <update id="updateByPartNumber" parameterType="String">
+  	UPDATE client_inquiry_element SET ELEMENT_STATUS_ID = 702 WHERE PART_NUMBER = #{partNumber} AND (ELEMENT_STATUS_ID = 700 OR ELEMENT_STATUS_ID = 701)
+  </update>
+  
+  
+</mapper>

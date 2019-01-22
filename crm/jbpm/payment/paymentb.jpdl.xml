@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process xmlns="http://jbpm.org/4.4/jpdl" key="PaymentProcess" name="payment">  
+  <start g="72,253,48,48" name="start1"> 
+    <transition g="-27,-25" name="付款申请" to="财务审核"/> 
+  </start>  
+  <task form="/task/payment/cwsh" g="236,252,92,52" name="财务审核"> 
+    <transition name="退回" to="采购重新申请" g="-32,-5"/>  
+    <transition name="不通过" to="end1" g="474,199:-62,-25"/>  
+    <transition g="-29,-25" name="通过" to="付款"/> 
+  </task>  
+  <task form="/task/payment/fk" g="443,253,92,52" name="付款"> 
+    <transition g="-32,-25" name="完成" to="end1"/> 
+  </task>  
+  <end g="633,260,48,48" name="end1"/>  
+  <task name="采购重新申请" g="359,369,139,52" form="/task/payment/cgzxsq"> 
+    <transition name="再次发起申请" to="财务审核" g="286,365:-93,-8"/> 
+  </task> 
+</process>

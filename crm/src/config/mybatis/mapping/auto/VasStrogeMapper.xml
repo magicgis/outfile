@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.VasStrogeDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.VasStroge" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="ABILITY" property="ability" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIMESTAMP" property="createTimestamp" jdbcType="TIMESTAMP" />
+    <result column="SHORT_PART_NUMBER" property="shortPartNumber" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PART_NUMBER, DESCRIPTION, ABILITY, AMOUNT, REMARK, CREATE_TIMESTAMP, SHORT_PART_NUMBER, 
+    FILE_PATH,FILE_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vas_stroge
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vas_stroge
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.VasStroge" >
+    insert into vas_stroge (ID, PART_NUMBER, DESCRIPTION, 
+      ABILITY, AMOUNT, REMARK, 
+      CREATE_TIMESTAMP, SHORT_PART_NUMBER, FILE_PATH
+      )
+    values (#{id,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{ability,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, 
+      #{createTimestamp,jdbcType=TIMESTAMP}, #{shortPartNumber,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.VasStroge" >
+    insert into vas_stroge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="ability != null" >
+        ABILITY,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTimestamp != null" >
+        CREATE_TIMESTAMP,
+      </if>
+      <if test="shortPartNumber != null" >
+        SHORT_PART_NUMBER,
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="ability != null" >
+        #{ability,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null" >
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shortPartNumber != null" >
+        #{shortPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.VasStroge" >
+    update vas_stroge
+    <set >
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="ability != null" >
+        ABILITY = #{ability,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null" >
+        CREATE_TIMESTAMP = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shortPartNumber != null" >
+        SHORT_PART_NUMBER = #{shortPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.VasStroge" >
+    update vas_stroge
+    set PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      ABILITY = #{ability,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIMESTAMP = #{createTimestamp,jdbcType=TIMESTAMP},
+      SHORT_PART_NUMBER = #{shortPartNumber,jdbcType=VARCHAR},
+      FILE_PATH = #{filePath,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getFileInformationPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT * FROM vas_stroge vs WHERE vs.SHORT_PART_NUMBER = #{partNumber} and vs.FILE_PATH is not null and vs.FILE_PATH != ""
+  </select>
+  
+  <select id="findByIds" parameterType="String" resultMap="BaseResultMap">
+		select * from
+			vas_stroge vs
+			where id in (${_parameter})
+  </select>
+  
+  <select id="getShortPart" parameterType="Integer" resultType="String">
+  	SELECT
+		vs.SHORT_PART_NUMBER
+	FROM
+		`vas_stroge` vs
+	WHERE
+		vs.ID = #{id}
+	UNION
+		SELECT
+			sqe.SHORT_PART_NUMBER
+		FROM
+			supplier_quote_element sqe
+		WHERE
+			sqe.ID = #{id};
+  </select>
+  
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierDebtDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierDebt" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ORDER_ID" property="supplierOrderId" jdbcType="INTEGER" />
+    <result column="TOTAL" property="total" jdbcType="DOUBLE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="PAID" property="paid" jdbcType="DOUBLE" />
+      <result column="SURPLUS" property="surplus" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_ORDER_ID, TOTAL, UPDATE_TIMESTAMP,PAID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_debt
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_debt
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierDebt" >
+    insert into supplier_debt (ID, SUPPLIER_ORDER_ID, TOTAL, 
+      UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{supplierOrderId,jdbcType=INTEGER}, #{total,jdbcType=DOUBLE}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierDebt" >
+    insert into supplier_debt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierOrderId != null" >
+        SUPPLIER_ORDER_ID,
+      </if>
+      <if test="total != null" >
+        TOTAL,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierOrderId != null" >
+        #{supplierOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierDebt" >
+    update supplier_debt
+    <set >
+      <if test="supplierOrderId != null" >
+        SUPPLIER_ORDER_ID = #{supplierOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        TOTAL = #{total,jdbcType=DOUBLE},
+      </if>
+       <if test="paid != null" >
+        PAID = #{paid,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierDebt" >
+    update supplier_debt
+    set SUPPLIER_ORDER_ID = #{supplierOrderId,jdbcType=INTEGER},
+      TOTAL = #{total,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			sd.ID,
+			sd.SUPPLIER_ORDER_ID,
+			IFNULL(sd.TOTAL,0) as TOTAL,
+			IFNULL(sd.PAID,0) as PAID,
+			sd.UPDATE_TIMESTAMP,
+			so.ORDER_NUMBER,
+			s.`CODE` AS supplier_code
+		FROM
+			supplier_debt sd
+		LEFT JOIN supplier_order so ON so.ID = sd.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier s on s.ID = so.SUPPLIER_ID
+			<where>
+				${where}
+			</where>
+			<if test="orderby != null">
+				${orderby}
+			</if>
+  		
+  </select>
+  
+  <select id="dataBySupplierCode" parameterType="String" resultMap="BaseResultMap">
+  		SELECT
+			sd.ID,
+			sd.SUPPLIER_ORDER_ID,
+			IFNULL(sd.TOTAL,0) as TOTAL,
+			IFNULL(sd.PAID,0) as PAID,
+			IFNULL(sd.TOTAL,0)-IFNULL(sd.PAID,0) as SURPLUS,
+			sd.UPDATE_TIMESTAMP,
+			so.ORDER_NUMBER,
+			s.`CODE` AS supplier_code
+		FROM
+			supplier_debt sd
+		LEFT JOIN supplier_order so ON so.ID = sd.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier s on s.ID = so.SUPPLIER_ID
+			<where>
+				s.code=#{supplierCode}
+			</where>
+  		order by TOTAL asc
+  </select>
+  
+   <select id="totalArrears" parameterType="String" resultMap="BaseResultMap">
+		  SELECT
+			sum(IFNULL(sd.TOTAL, 0))  AS TOTAL
+		FROM
+			supplier_debt sd
+		LEFT JOIN supplier_order so ON so.ID = sd.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier s ON s.ID = so.SUPPLIER_ID
+		where s.code=#{supplierCode}
+		GROUP BY s.`CODE`
+  </select>
+</mapper>

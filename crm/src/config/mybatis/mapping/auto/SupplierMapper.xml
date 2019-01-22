@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.Supplier" >
+     <result column="counter_fee" property="counterFee" jdbcType="DOUBLE" />
+   <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+     <result column="old_code" property="oldCode" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="BANK" property="bank" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT_NUMBER" property="bankAccountNumber" jdbcType="VARCHAR" />
+    <result column="TAX_PAYER_NUMBER" property="taxPayerNumber" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
+    <result column="suppler_serial_number" property="supplerSerialNumber" jdbcType="VARCHAR" />
+    <result column="owner" property="owner" jdbcType="INTEGER" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="supplier_status_id" property="supplierStatusId" jdbcType="VARCHAR" />
+     <result column="supplier_status_value" property="supplierStatusValue" jdbcType="VARCHAR" />
+    <result column="supplier_abbreviation" property="supplierAbbreviation" jdbcType="VARCHAR" />
+    <result column="supplier_full_name" property="supplierFullName" jdbcType="VARCHAR" />
+    <result column="supplier_classify_id" property="supplierClassifyId" jdbcType="VARCHAR" />
+     <result column="supplier_classify_value" property="supplierClassifyValue" jdbcType="VARCHAR" />
+    <result column="tax_reimbursement_id" property="taxReimbursementId" jdbcType="VARCHAR" />
+     <result column="tax_reimbursement_value" property="taxReimbursementValue" jdbcType="VARCHAR" />
+    <result column="supplier_grade_id" property="supplierGradeId" jdbcType="VARCHAR" />
+     <result column="supplier_grade_value" property="supplierGradeValue" jdbcType="VARCHAR" />
+    <result column="supplier_phases_id" property="supplierPhasesId" jdbcType="VARCHAR" />
+     <result column="supplier_phases_value" property="supplierPhasesValue" jdbcType="VARCHAR" />
+    <result column="supplier_source" property="supplierSource" jdbcType="VARCHAR" />
+    <result column="competence_scope" property="competenceScope" jdbcType="VARCHAR" />
+    <result column="date_created" property="dateCreated" jdbcType="TIMESTAMP" />
+    <result column="payment_rule" property="paymentRule" jdbcType="VARCHAR" />
+    <result column="bank_phone" property="bankPhone" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="english_name" property="englishName" jdbcType="VARCHAR" />
+    <result column="bank_address" property="bankAddress" jdbcType="VARCHAR" />
+     <result column="PREPAY_RATE" property="prepayRate" jdbcType="DOUBLE" />
+    <result column="SHIP_PAY_RATE" property="shipPayRate" jdbcType="DOUBLE" />
+    <result column="RECEIVE_PAY_RATE" property="receivePayRate" jdbcType="DOUBLE" />
+    <result column="RECEIVE_PAY_PERIOD" property="receivePayPeriod" jdbcType="INTEGER" />
+    <result column="MOV" property="mov" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="APTITUDE" property="aptitude" jdbcType="DATE" />
+    <result column="NAME_IN_STOCKMARKET" property="nameInStockmarket" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="CREDIT_FEE" property="creditFee" jdbcType="DOUBLE" />
+    <result column="CREDIT_LIMIT" property="creditLimit" jdbcType="DOUBLE" />
+    <result column="IS_AGENT_ID" property="isAgentId" jdbcType="INTEGER" />
+    <result column="IS_AGENT_VALUE" property="isAgentValue" jdbcType="VARCHAR" />
+    <result column="MOV_PER_LINE" property="movPerLine" jdbcType="VARCHAR" />
+    <result column="MOV_PER_ORDER" property="movPerOrder" jdbcType="VARCHAR" />
+    <result column="MOV_PER_ORDER_CURRENCY_ID" property="movPerOrderCurrencyId" jdbcType="INTEGER" />
+    <result column="IBAN" property="iban" jdbcType="VARCHAR" />
+    <result column="SWIFT_CODE" property="swiftCode" jdbcType="VARCHAR" />
+    <result column="ROUTING" property="routing" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="COUNTRY_ID" property="countryId" jdbcType="INTEGER" />
+    <result column="HAS_CAAC_ABILITY" property="hasCaacAbility" jdbcType="INTEGER" />
+    <result column="CAAC_ABILITY_VALUE" property="caacAbilityValue" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="listPage" resultMap="BaseResultMap" parameterType="page">
+   SELECT s.id,s.code,s.OLD_CODE, s.name, s.contact_name,  s.supplier_status_id,ssi.value AS supplier_status_value,
+			   s.supplier_classify_id,sci.value AS supplier_classify_value,u.user_name as owner_name,
+			   s.tax_reimbursement_id,tri.value AS tax_reimbursement_value,
+			   s.supplier_grade_id,sgi.value AS supplier_grade_value,
+			   s.supplier_phases_id,spi.value AS supplier_phases_value,
+			   s.currency_id, cu.code AS currency_code, cu.value AS currency_value, cu.rate,  
+			   s.post_code, s.address, s.phone, s.mobile, s.fax, s.email, s.remark,  
+			   s.bank, s.bank_account_number, s.tax_payer_number, s.update_timestamp,
+			   s.suppler_serial_number,s.owner,s.supplier_abbreviation,
+			   s.supplier_full_name,s.mov,s.counter_fee,s.NAME_IN_STOCKMARKET,s.location,
+			   s.supplier_source,s.competence_scope,s.date_created,s.payment_rule,s.aptitude,
+			   s.bank_phone,s.account_name,s.english_name,s.bank_address,s.PREPAY_RATE,s.SHIP_PAY_RATE,s.RECEIVE_PAY_RATE,s.RECEIVE_PAY_PERIOD,s.url,
+			   s.CREDIT_LIMIT,s.CREDIT_FEE,agent.`VALUE` as IS_AGENT_VALUE,s.IS_AGENT_ID,
+			   CONCAT(IFNULL(movc.code,'')," ",IFNULL(s.MOV_PER_LINE,'')) AS MOV_PER_LINE,
+			   CONCAT(IFNULL(movc.code,'')," ",IFNULL(s.MOV_PER_ORDER,'')) AS MOV_PER_ORDER,
+			   s.IBAN,s.SWIFT_CODE,s.ROUTING,country.name as country,caac.`VALUE` AS CAAC_ABILITY_VALUE
+			   FROM supplier s  
+			   INNER JOIN v_currency cu ON (s.currency_id=cu.id) 
+			   LEFT JOIN system_code ssi ON (s.supplier_status_id=ssi.id)
+				LEFT JOIN system_code sci ON (s.supplier_classify_id=sci.id)
+				LEFT JOIN system_code tri ON (s.tax_reimbursement_id=tri.id)
+				LEFT JOIN system_code sgi ON (s.supplier_grade_id=sgi.id)
+				LEFT JOIN system_code spi ON (s.supplier_phases_id=spi.id)
+				LEFT JOIN t_user u on u.user_id = s.owner
+				LEFT JOIN supplier_air_relation sar on sar.SUPPLIER_ID=s.ID
+				LEFT JOIN system_code at on `at`.ID=sar.AIR_ID
+				LEFT JOIN system_code agent ON agent.ID = s.IS_AGENT_ID
+				LEFT JOIN system_code movc ON movc.ID = s.MOV_PER_ORDER_CURRENCY_ID
+				LEFT JOIN country country ON country.ID = s.COUNTRY_ID
+				LEFT JOIN system_code caac ON caac.ID = s.HAS_CAAC_ABILITY
+				<if test="cageCode != null">
+					LEFT JOIN supplier_cage_relation acr ON acr.SUPPLIER_ID = s.ID
+					LEFT JOIN crmstock.t_manufactory tm ON tm.MSN = acr.MSN
+				</if>
+				<if test="userId != null">
+			   		INNER JOIN authority_relation ar on (ar.SUPPLIER_ID=s.ID)
+			   </if>
+			   <where>
+			   ${where}
+			   </where>
+			   GROUP BY s.ID
+			   <if test="orderby != null">
+				${orderby}
+				</if>
+  </select>
+  
+  <select id="findByCode" resultMap="BaseResultMap" parameterType="String">
+  SELECT s.id,U.USER_NAME, s.code,s.OLD_CODE, s.name, s.contact_name,  s.supplier_status_id,ssi.value AS supplier_status_value,
+			   s.supplier_classify_id,sci.value AS supplier_classify_value,
+			    s.tax_reimbursement_id,tri.value AS tax_reimbursement_value,
+			    s.supplier_grade_id,sgi.value AS supplier_grade_value,
+			     s.supplier_phases_id,spi.value AS supplier_phases_value,
+			   s.currency_id, cu.code AS currency_code, cu.value AS currency_value, cu.rate,  
+			   s.post_code, s.address, s.phone, s.mobile, s.fax, s.email, s.remark,  
+			   s.bank, s.bank_account_number, s.tax_payer_number, s.update_timestamp,
+			   s.suppler_serial_number,s.owner,
+			    s.supplier_abbreviation,s.mov,s.counter_fee,
+			   s.supplier_full_name,s.supplier_classify_id,s.tax_reimbursement_id,s.supplier_grade_id,
+			   s.supplier_phases_id,s.supplier_source,s.competence_scope,s.date_created,s.payment_rule,
+			   s.bank_phone,s.account_name,s.english_name,s.bank_address,s.PREPAY_RATE,s.SHIP_PAY_RATE,s.RECEIVE_PAY_RATE,s.RECEIVE_PAY_PERIOD,s.IS_AGENT_ID
+			   FROM supplier s  
+			   INNER JOIN v_currency cu ON (s.currency_id=cu.id)
+			   LEFT JOIN system_code ssi ON (s.supplier_status_id=ssi.id)
+			   LEFT JOIN system_code sci ON (s.supplier_classify_id=sci.id)
+				     LEFT JOIN system_code tri ON (s.tax_reimbursement_id=tri.id)
+				      LEFT JOIN system_code sgi ON (s.supplier_grade_id=sgi.id)
+				      LEFT JOIN system_code spi ON (s.supplier_phases_id=spi.id)
+				      LEFT JOIN T_USER u ON (u.user_id=s.OWNER)
+			    WHERE s.code=#{code}
+</select>
+  
+    <select id="findByShortName" resultMap="BaseResultMap" parameterType="String">
+ select code from supplier s where s.`SUPPLIER_ABBREVIATION`=#{shortName}
+</select>
+
+  <select id="findByName" resultMap="BaseResultMap" parameterType="String">
+  select code from supplier s where s.`NAME`=#{name}
+</select>
+  
+  <sql id="Base_Column_List" >
+    ID, CODE,OLD_CODE, NAME, CURRENCY_ID, CONTACT_NAME, POST_CODE, ADDRESS, PHONE, MOBILE, FAX, 
+    EMAIL, BANK, BANK_ACCOUNT_NUMBER, TAX_PAYER_NUMBER, REMARK, UPDATE_TIMESTAMP,
+    suppler_serial_number,owner,supplier_status_id,supplier_abbreviation,
+	supplier_full_name,supplier_classify_id,tax_reimbursement_id,supplier_grade_id,
+	supplier_phases_id,supplier_source,competence_scope,date_created,payment_rule,MOV_PER_LINE,MOV_PER_ORDER_CURRENCY_ID,
+	bank_phone,account_name,english_name,bank_address,PREPAY_RATE,SHIP_PAY_RATE,RECEIVE_PAY_RATE,RECEIVE_PAY_PERIOD,MOV,URL,APTITUDE,CREDIT_LIMIT,COUNTER_FEE,IS_AGENT_ID,MOV_PER_ORDER,
+	IBAN,SWIFT_CODE,ROUTING,COUNTRY_ID,HAS_CAAC_ABILITY,NAME_IN_STOCKMARKET
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.Supplier" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into supplier (ID, CODE,OLD_CODE, NAME, 
+      CURRENCY_ID, CONTACT_NAME, POST_CODE, 
+      ADDRESS, PHONE, MOBILE, 
+      FAX, EMAIL, BANK, BANK_ACCOUNT_NUMBER, 
+      TAX_PAYER_NUMBER, REMARK, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR},#{oldCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{currencyId,jdbcType=INTEGER}, #{contactName,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, #{bankAccountNumber,jdbcType=VARCHAR}, 
+      #{taxPayerNumber,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.Supplier" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+     
+      <if test="code != null" >
+        CODE,
+      </if>
+       <if test="oldCode != null" >
+        old_code,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="contactName != null" >
+        CONTACT_NAME,
+      </if>
+      <if test="postCode != null" >
+        POST_CODE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="fax != null" >
+        FAX,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="bank != null" >
+        BANK,
+      </if>
+      <if test="bankAccountNumber != null" >
+        BANK_ACCOUNT_NUMBER,
+      </if>
+      <if test="taxPayerNumber != null" >
+        TAX_PAYER_NUMBER,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+        UPDATE_TIMESTAMP,
+      <if test="supplerSerialNumber != null" >
+        suppler_serial_number,
+      </if>
+       <if test="owner != null" >
+        owner,
+      </if>
+         <if test="supplierStatusId != null" >
+        supplier_status_id,
+      </if>
+        <if test="mov != null" >
+        mov,
+      </if>
+        <if test="counterFee != null" >
+        COUNTER_FEE,
+      </if>
+       <if test="prepayRate != null" >
+        PREPAY_RATE,
+      </if>
+      <if test="shipPayRate != null" >
+        SHIP_PAY_RATE,
+      </if>
+      <if test="receivePayRate != null" >
+        RECEIVE_PAY_RATE,
+      </if>
+      <if test="receivePayPeriod != null" >
+        RECEIVE_PAY_PERIOD,
+      </if>
+        <if test="supplierAbbreviation != null" >
+        supplier_abbreviation,
+      </if>
+      <if test="supplierFullName != null" >
+        supplier_full_name,
+      </if>
+      <if test="supplierClassifyId != null" >
+        supplier_classify_id,
+      </if>
+      <if test="taxReimbursementId != null" >
+        tax_reimbursement_id,
+      </if>
+       <if test="supplierGradeId != null" >
+        supplier_grade_id,
+      </if>
+        <if test="supplierPhasesId != null" >
+        supplier_phases_id,
+      </if>
+       <if test="supplierSource != null" >
+        supplier_source,
+      </if>
+      <if test="competenceScope != null" >
+        competence_scope,
+      </if>
+    
+        date_created,
+      
+        <if test="paymentRule != null" >
+        payment_rule,
+      </if>
+       <if test="bankPhone != null" >
+        bank_phone,
+      </if>
+        <if test="accountName != null" >
+        account_name,
+      </if>
+        <if test="englishName != null" >
+        english_name,
+      </if>
+        <if test="bankAddress != null" >
+        bank_address,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="nameInStockmarket != null" >
+        NAME_IN_STOCKMARKET,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="creditFee != null" >
+        CREDIT_FEE,
+      </if>
+      <if test="creditLimit != null" >
+        CREDIT_LIMIT,
+      </if>
+      <if test="isAgentId != null" >
+        IS_AGENT_ID,
+      </if>
+      <if test="movPerLine != null" >
+        MOV_PER_LINE,
+      </if>
+      <if test="movPerOrder != null" >
+        MOV_PER_ORDER,
+      </if>
+      <if test="movPerOrderCurrencyId != null" >
+        MOV_PER_ORDER_CURRENCY_ID,
+      </if>
+      <if test="iban != null" >
+        IBAN,
+      </if>
+      <if test="swiftCode != null" >
+        SWIFT_CODE,
+      </if>
+      <if test="routing != null" >
+        ROUTING,
+      </if>
+      <if test="countryId != null" >
+        COUNTRY_ID,
+      </if>
+      <if test="hasCaacAbility != null" >
+        HAS_CAAC_ABILITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+        <if test="oldCode != null" >
+        #{oldCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="contactName != null" >
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccountNumber != null" >
+        #{bankAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taxPayerNumber != null" >
+        #{taxPayerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+     CURRENT_TIMESTAMP,
+       
+       <if test="supplerSerialNumber != null" >
+        #{supplerSerialNumber,jdbcType=VARCHAR},
+      </if>
+        <if test="owner != null" >
+        #{owner,jdbcType=INTEGER},
+      </if>
+        <if test="supplierStatusId != null" >
+        #{supplierStatusId,jdbcType=VARCHAR},
+      </if>
+         <if test="mov != null" >
+        #{mov,jdbcType=VARCHAR},
+      </if>
+       <if test="counterFee != null" >
+        #{counterFee,jdbcType=DOUBLE},
+      </if>
+        <if test="prepayRate != null" >
+        #{prepayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayRate != null" >
+        #{shipPayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receivePayRate != null" >
+        #{receivePayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receivePayPeriod != null" >
+        #{receivePayPeriod,jdbcType=INTEGER},
+      </if>
+        <if test="supplierAbbreviation != null" >
+        #{supplierAbbreviation,jdbcType=VARCHAR},
+      </if>
+        <if test="supplierFullName != null" >
+        #{supplierFullName,jdbcType=VARCHAR},
+      </if>
+       <if test="supplierClassifyId != null" >
+        #{supplierClassifyId,jdbcType=VARCHAR},
+      </if>
+          <if test="taxReimbursementId != null" >
+        #{taxReimbursementId,jdbcType=VARCHAR},
+      </if>
+        <if test="supplierGradeId != null" >
+        #{supplierGradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierPhasesId != null" >
+        #{supplierPhasesId,jdbcType=VARCHAR},
+      </if>
+         <if test="supplierSource != null" >
+        #{supplierSource,jdbcType=VARCHAR},
+      </if>
+        <if test="competenceScope != null" >
+        #{competenceScope,jdbcType=VARCHAR},
+      </if>
+       CURRENT_TIMESTAMP,
+             <if test="paymentRule != null" >
+        #{paymentRule,jdbcType=VARCHAR},
+      </if>
+       <if test="bankPhone != null" >
+        #{bankPhone,jdbcType=VARCHAR},
+      </if>
+        <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+        <if test="englishName != null" >
+        #{englishName,jdbcType=VARCHAR},
+      </if>
+       <if test="bankAddress != null" >
+        #{bankAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="nameInStockmarket != null" >
+        #{nameInStockmarket,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="creditFee != null" >
+        #{creditFee,jdbcType=DOUBLE},
+      </if>
+      <if test="creditLimit != null" >
+        #{creditLimit,jdbcType=DOUBLE},
+      </if>
+      <if test="isAgentId != null" >
+        #{isAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="movPerLine != null" >
+       #{movPerLine,jdbcType=VARCHAR},
+      </if>
+      <if test="movPerOrder != null" >
+        #{movPerOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="movPerOrderCurrencyId != null" >
+       #{movPerOrderCurrencyId,jdbcType=INTEGER},
+      </if>
+      <if test="iban != null" >
+        #{iban,jdbcType=VARCHAR},
+      </if>
+      <if test="swiftCode != null" >
+        #{swiftCode,jdbcType=VARCHAR},
+      </if>
+      <if test="routing != null" >
+        #{routing,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="hasCaacAbility != null" >
+        #{hasCaacAbility,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.Supplier" >
+    update supplier
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+       <if test="oldCode != null" >
+        OLD_CODE = #{oldCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="contactName != null" >
+        CONTACT_NAME = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        POST_CODE = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        FAX = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        BANK = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccountNumber != null" >
+        BANK_ACCOUNT_NUMBER = #{bankAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taxPayerNumber != null" >
+        TAX_PAYER_NUMBER = #{taxPayerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      
+        UPDATE_TIMESTAMP = CURRENT_TIMESTAMP,
+      
+      <if test="supplerSerialNumber != null" >
+        suppler_serial_number = #{supplerSerialNumber,jdbcType=VARCHAR},
+      </if>
+       <if test="owner != null" >
+        owner = #{owner,jdbcType=INTEGER},
+      </if>
+        <if test="supplierStatusId != null" >
+        supplier_status_id = #{supplierStatusId,jdbcType=VARCHAR},
+      </if>
+       <if test="supplierAbbreviation != null" >
+        supplier_abbreviation = #{supplierAbbreviation,jdbcType=VARCHAR},
+      </if>
+         <if test="supplierFullName != null" >
+        supplier_full_name = #{supplierFullName,jdbcType=VARCHAR},
+      </if>
+         <if test="supplierClassifyId != null" >
+        supplier_classify_id = #{supplierClassifyId,jdbcType=VARCHAR},
+      </if>
+          <if test="taxReimbursementId != null" >
+        tax_reimbursement_id = #{taxReimbursementId,jdbcType=VARCHAR},
+      </if>
+            <if test="supplierGradeId != null" >
+        supplier_grade_id = #{supplierGradeId,jdbcType=VARCHAR},
+      </if>
+              <if test="supplierPhasesId != null" >
+        supplier_phases_id = #{supplierPhasesId,jdbcType=VARCHAR},
+      </if>
+             <if test="supplierSource != null" >
+        supplier_source = #{supplierSource,jdbcType=VARCHAR},
+      </if>
+             <if test="competenceScope != null" >
+        competence_scope = #{competenceScope,jdbcType=VARCHAR},
+      </if>
+           <if test="paymentRule != null" >
+        payment_rule = #{paymentRule,jdbcType=VARCHAR},
+      </if>
+         <if test="bankPhone != null" >
+        bank_phone = #{bankPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+        <if test="englishName != null" >
+        english_name = #{englishName,jdbcType=VARCHAR},
+      </if>
+       <if test="bankAddress != null" >
+        bank_address = #{bankAddress,jdbcType=VARCHAR},
+      </if>
+        last_warn_time = #{lastWarnTime,jdbcType=DATE},
+      <if test="aptitude != null" >
+        APTITUDE = #{aptitude,jdbcType=DATE},
+      </if>
+      <if test="isAgentId != null" >
+        IS_AGENT_ID = #{isAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="movPerLine != null" >
+       	MOV_PER_LINE = #{movPerLine,jdbcType=VARCHAR},
+      </if>
+      <if test="movPerOrder != null" >
+        MOV_PER_ORDER = #{movPerOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="movPerOrderCurrencyId != null" >
+       	MOV_PER_ORDER_CURRENCY_ID = #{movPerOrderCurrencyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.Supplier" >
+    update supplier
+    set   CODE = #{code,jdbcType=VARCHAR}, 
+     OLD_CODE = #{oldCode,jdbcType=VARCHAR}, 
+      NAME = #{name,jdbcType=VARCHAR},
+       CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+        CONTACT_NAME = #{contactName,jdbcType=VARCHAR},
+         POST_CODE = #{postCode,jdbcType=VARCHAR}, 
+         ADDRESS = #{address,jdbcType=VARCHAR}, 
+          PHONE = #{phone,jdbcType=VARCHAR},
+           MOBILE = #{mobile,jdbcType=VARCHAR},
+           FAX = #{fax,jdbcType=VARCHAR},
+            EMAIL = #{email,jdbcType=VARCHAR}, 
+            BANK = #{bank,jdbcType=VARCHAR},
+            BANK_ACCOUNT_NUMBER = #{bankAccountNumber,jdbcType=VARCHAR},  
+            TAX_PAYER_NUMBER = #{taxPayerNumber,jdbcType=VARCHAR},
+             REMARK = #{remark,jdbcType=VARCHAR}, 
+             UPDATE_TIMESTAMP = CURRENT_TIMESTAMP,
+             suppler_serial_number = #{supplerSerialNumber,jdbcType=VARCHAR}, 
+             owner = #{owner,jdbcType=INTEGER},  
+             supplier_status_id = #{supplierStatusId,jdbcType=VARCHAR}, 
+               mov = #{mov,jdbcType=VARCHAR},
+               COUNTER_FEE = #{counterFee,jdbcType=DOUBLE},
+     	   PREPAY_RATE = #{prepayRate,jdbcType=DOUBLE},
+     	   SHIP_PAY_RATE = #{shipPayRate,jdbcType=DOUBLE},
+    	    RECEIVE_PAY_RATE = #{receivePayRate,jdbcType=DOUBLE},
+     	   RECEIVE_PAY_PERIOD = #{receivePayPeriod,jdbcType=INTEGER},
+             supplier_abbreviation = #{supplierAbbreviation,jdbcType=VARCHAR},
+              supplier_full_name = #{supplierFullName,jdbcType=VARCHAR},
+               supplier_classify_id = #{supplierClassifyId,jdbcType=VARCHAR}, 
+               tax_reimbursement_id = #{taxReimbursementId,jdbcType=VARCHAR}, 
+               supplier_grade_id = #{supplierGradeId,jdbcType=VARCHAR}, 
+               supplier_phases_id = #{supplierPhasesId,jdbcType=VARCHAR}, 
+                supplier_source = #{supplierSource,jdbcType=VARCHAR},
+                 competence_scope = #{competenceScope,jdbcType=VARCHAR},
+                   payment_rule = #{paymentRule,jdbcType=VARCHAR},
+                    bank_phone = #{bankPhone,jdbcType=VARCHAR},  
+                    account_name = #{accountName,jdbcType=VARCHAR},
+                      english_name = #{englishName,jdbcType=VARCHAR},
+                       bank_address = #{bankAddress,jdbcType=VARCHAR},
+                       url = #{url,jdbcType=VARCHAR},
+                       NAME_IN_STOCKMARKET = #{nameInStockmarket,jdbcType=VARCHAR},
+                       location = #{location,jdbcType=VARCHAR},
+                       CREDIT_FEE = #{creditFee,jdbcType=DOUBLE},
+                       CREDIT_LIMIT = #{creditLimit,jdbcType=DOUBLE},
+                       IS_AGENT_ID = #{isAgentId,jdbcType=INTEGER},
+                       MOV_PER_LINE = #{movPerLine,jdbcType=VARCHAR},
+                       MOV_PER_ORDER = #{movPerOrder,jdbcType=VARCHAR},
+                       MOV_PER_ORDER_CURRENCY_ID = #{movPerOrderCurrencyId,jdbcType=INTEGER},
+                       IBAN = #{iban,jdbcType=VARCHAR},
+                       SWIFT_CODE = #{swiftCode,jdbcType=VARCHAR},
+                       ROUTING = #{routing,jdbcType=VARCHAR},
+                       HAS_CAAC_ABILITY = #{hasCaacAbility,jdbcType=INTEGER},
+                       <if test="lastWarnTime != null" >
+                       	last_warn_time = #{lastWarnTime,jdbcType=DATE},
+                       </if>
+                       <if test="aptitude != null" >
+                       	aptitude = #{aptitude,jdbcType=DATE},
+                       </if>
+                       COUNTRY_ID = #{countryId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getCurrencyId" parameterType="String" resultType="Integer">
+  		select s.CURRENCY_ID from supplier s where s.code = #{code}
+  </select>
+  
+  <select id="Suppliers" resultMap="BaseResultMap" parameterType="page">
+  		select s.id,s.code,s.name from supplier s 
+  		<if test="userId != null">
+		where s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		order by s.code
+  </select>
+  
+   
+  <select id="selectAll" resultMap="BaseResultMap">
+  		select * from supplier order by code
+  		
+  		</select>
+  
+  <select id="findByUrl" parameterType="String" resultType="Integer">
+  		select count(*) from supplier s where s.URL = #{url}
+  </select>
+  
+  <select id="getOutTimeSupplier" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			s.ID,
+			s.CODE,
+			s.OLD_CODE,
+			s.NAME,
+			s.CURRENCY_ID,
+			s.CONTACT_NAME,
+			s.POST_CODE,
+			s.ADDRESS,
+			s.PHONE,
+			s.MOBILE,
+			s.FAX,
+			s.EMAIL,
+			s.BANK,
+			s.BANK_ACCOUNT_NUMBER,
+			s.TAX_PAYER_NUMBER,
+			s.REMARK,
+			s.UPDATE_TIMESTAMP,
+			s.suppler_serial_number,
+			s.OWNER,
+			s.supplier_status_id,
+			s.supplier_abbreviation,
+			s.supplier_full_name,
+			s.supplier_classify_id,
+			s.tax_reimbursement_id,
+			s.supplier_grade_id,
+			s.supplier_phases_id,
+			s.supplier_source,
+			s.competence_scope,
+			s.date_created,
+			s.payment_rule,
+			s.bank_phone,
+			s.account_name,
+			s.english_name,
+			s.bank_address,
+			s.PREPAY_RATE,
+			s.SHIP_PAY_RATE,
+			s.RECEIVE_PAY_RATE,
+			s.RECEIVE_PAY_PERIOD,
+			s.MOV,
+			s.URL,
+			s.APTITUDE
+		FROM
+			supplier s
+		LEFT JOIN authority_relation ar ON ar.SUPPLIER_ID = s.ID
+		WHERE
+			aptitude IS NOT NULL
+		AND datediff(aptitude, curdate()) IN (0, 7, 14, 21, 28)
+		AND ar.USER_ID = #{userId}
+		AND (date_format(now(),'%y-%m-%d') != date_format(s.LAST_WARN_TIME,'%y-%m-%d') OR s.LAST_WARN_TIME IS NULL)
+  </select>
+  
+  <select id="getRoleNameBySupplierId" parameterType="Integer" resultType="String">
+  		SELECT tr.role_name FROM supplier s 
+			LEFT JOIN authority_relation ar ON ar.SUPPLIER_ID = s.ID
+			LEFT JOIN t_user tu ON tu.user_id = ar.USER_ID
+			LEFT JOIN r_role_user rru ON rru.USER_ID = tu.user_id
+			LEFT JOIN t_role tr ON tr.role_id = rru.ROLE_ID
+			WHERE s.ID = #{supplierId}
+  		
+  </select>
+  
+  <select id="selectByCode" parameterType="String" resultMap="BaseResultMap">
+  		SELECT
+			ID,
+			CODE,
+			OLD_CODE,
+			NAME,
+			CURRENCY_ID,
+			CONTACT_NAME,
+			POST_CODE,
+			ADDRESS,
+			PHONE,
+			MOBILE,
+			FAX,
+			EMAIL,
+			BANK,
+			BANK_ACCOUNT_NUMBER,
+			TAX_PAYER_NUMBER,
+			REMARK,
+			UPDATE_TIMESTAMP,
+			suppler_serial_number,
+			OWNER,
+			supplier_status_id,
+			supplier_abbreviation,
+			supplier_full_name,
+			supplier_classify_id,
+			tax_reimbursement_id,
+			supplier_grade_id,
+			supplier_phases_id,
+			supplier_source,
+			competence_scope,
+			date_created,
+			payment_rule,
+			bank_phone,
+			account_name,
+			english_name,
+			bank_address,
+			PREPAY_RATE,
+			SHIP_PAY_RATE,
+			RECEIVE_PAY_RATE,
+			RECEIVE_PAY_PERIOD,
+			MOV,
+			URL,
+			APTITUDE,
+			COUNTER_FEE
+		FROM
+			supplier 
+		WHERE
+			`CODE` = #{code}
+  </select>
+  
+  <select id="checkByCode" parameterType="String" resultType="Integer">
+  	SELECT
+		s.ID
+	FROM
+		supplier s
+	WHERE
+		s.`CODE` = #{code}
+	UNION
+		SELECT
+			c.ID
+		FROM
+			competitor c
+		WHERE
+			c.`CODE` = #{code}
+  </select>
+
+  <select id="getSupplierByCodeAndUserId" resultMap="BaseResultMap">
+        SELECT s.*
+        FROM supplier s
+        LEFT JOIN authority_relation a ON a.SUPPLIER_ID = s.ID
+        LEFT JOIN t_user t on t.user_id = a.USER_ID
+        WHERE s.`CODE` = #{supplierCode}
+        AND t.user_id = #{userId}
+  </select>
+  
+</mapper>

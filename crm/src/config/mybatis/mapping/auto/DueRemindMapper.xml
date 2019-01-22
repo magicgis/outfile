@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.DueRemindDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.module.marketing.controller.dueremind.DueRemindListVo" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="biz_type_id" property="bizTypeId" jdbcType="INTEGER" />
+    <result column="air_type_id" property="airTypeId" jdbcType="INTEGER" />
+    <result column="inquiry_status_id" property="inquiryStatusId" jdbcType="INTEGER" />
+    <result column="inquiry_status_value" property="inquiryStatusValue" jdbcType="VARCHAR" />
+    <result column="inquiry_date" property="inquiryDate" jdbcType="DATE" />
+    <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+    <result column="source_number" property="sourceNumber" jdbcType="VARCHAR" />
+    <result column="quote_number" property="quoteNumber" jdbcType="VARCHAR" />
+    <result column="terms" property="terms" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="clientName" property="clientName" jdbcType="VARCHAR" />
+    <result column="client_contact_id" property="clientContactId" jdbcType="INTEGER" />
+    <result column="client_contact_name" property="clientContactName" jdbcType="VARCHAR" />
+    <result column="client_contact_phone" property="clientContactPhone" jdbcType="VARCHAR" />
+    <result column="client_contact_fax" property="clientContactFax" jdbcType="VARCHAR" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
+    <result column="biz_type_code" property="bizTypeCode" jdbcType="VARCHAR" />
+    <result column="biz_type_value" property="bizTypeValue" jdbcType="VARCHAR" />
+    <result column="air_type_code" property="airTypeCode" jdbcType="VARCHAR" />
+    <result column="air_type_value" property="airTypeValue" jdbcType="VARCHAR" />
+    <result column="overdue" property="overdue" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 到期提醒 -->
+  <select id="findDueRemindPage" resultMap="BaseResultMap" parameterType="page">
+  		 SELECT ci.id, ci.client_id,  
+			   c.code AS client_code, c.name AS client_name,  
+			   cc.id AS client_contact_id, cc.name AS client_contact_name,  
+			   cc.phone AS client_contact_phone, cc.fax AS client_contact_fax,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, cu.rate,  
+			   ci.biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,  
+			   ci.air_type_id, at.code AS air_type_code, at.value AS air_type_value,  
+			   ci.inquiry_status_id, sta.code AS inquiry_status_code, sta.value AS inquiry_status_value,  
+			   ci.inquiry_date, ci.deadline, ci.source_number, ci.quote_number,  
+			   DATEDIFF(ci.deadline, CURRENT_DATE()) AS overdue,  
+			   ci.terms, ci.remark, ci.update_timestamp  
+			   FROM  client_inquiry ci  
+			   INNER JOIN  client c ON (ci.client_id=c.id)  
+			   INNER JOIN  client_contact cc on (ci.client_contact_id=cc.id)  
+			   INNER JOIN v_currency cu ON (c.currency_id=cu.id)  
+			   INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)  
+			   INNER JOIN system_code at ON (ci.air_type_id=at.id)  
+			   INNER JOIN system_code sta ON (ci.inquiry_status_id=sta.id)  
+			   <if test="userId != null">
+			    <!-- <if test="type=='marketing'"> -->
+			   INNER JOIN authority_relation ar on (ar.CLIENT_ID=c.ID)
+			   <!-- </if> -->
+			    <!-- <if test="type=='purchase'">
+			  INNER JOIN supplier_air_relation sar on (sar.AIR_ID=ci.AIR_TYPE_ID)
+			  INNER JOIN supplier s on (s.ID=sar.SUPPLIER_ID)
+	  		  INNER JOIN authority_relation ar on (ar.SUPPLIER_ID=s.ID)
+			    </if> -->
+				</if>
+			   WHERE 
+			   <if test="userId != null">
+			    ar.USER_ID =${userId} AND
+			   </if>
+			   DATEDIFF(ci.deadline, CURRENT_DATE()) 
+			   
+			   	 <if test="warningDate != null">
+					<![CDATA[   <= ${warningDate}]]>  
+			 	  </if>
+			 	  
+			 	   
+			   	 <if test="searchString!=null">
+				and ${searchString}
+			   </if>
+			   
+			 	  
+			   	 <!-- <if test="type=='marketing'"> -->
+			   	AND ci.inquiry_status_id IN (30, 31, 35)  
+			   <!-- </if> -->
+			   
+			    <!-- <if test="type=='purchase'">
+			   	AND ci.inquiry_status_id IN (31)  
+			   </if> -->
+			   
+			  	 <if test="orderby != null">
+						${orderby}
+					</if>
+			   
+  </select>
+  
+   <select id="findQuoteCount" resultType="INTEGER"  parameterType="INTEGER">
+			SELECT
+				COUNT(DISTINCT cie.ITEM)
+			FROM
+				client_inquiry_element cie
+			INNER JOIN supplier_inquiry_element sie ON (
+				sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+			)
+			INNER JOIN supplier_quote_element sqe ON (
+				sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+			)
+			WHERE
+				cie.CLIENT_INQUIRY_ID = #{clientinquiryid} AND sqe.id IS NOT NULL
+			   
+  </select>
+  
+   <select id="findInquiryCount" resultType="INTEGER"  parameterType="INTEGER">
+			  		select 
+			IFNULL( MAX(cie.ITEM),0)
+			 from client_inquiry_element cie 
+			where cie.CLIENT_INQUIRY_ID=#{clientinquiryid}
+			   
+  </select>
+  
+  <!-- 超时拒报 -->
+  <update id="refuse" parameterType="com.naswork.model.ClientInquiry" >
+   UPDATE  client_inquiry SET  
+			   inquiry_status_id=#{inquiryStatusId}, update_timestamp=CURRENT_TIMESTAMP  
+			   WHERE id=#{id}
+</update>
+</mapper>

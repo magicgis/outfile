@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.Client" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_TYPE_VALUE" property="clientTypeValue" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="VALUE" property="value" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="SHIP_ADDRESS" property="shipAddress" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="PREPAY_RATE" property="prepayRate" jdbcType="DOUBLE" />
+    <result column="SHIP_PAY_RATE" property="shipPayRate" jdbcType="DOUBLE" />
+    <result column="SHIP_PAY_PERIOD" property="shipPayPeriod" jdbcType="INTEGER" />
+    <result column="RECEIVE_PAY_RATE" property="receivePayRate" jdbcType="DOUBLE" />
+    <result column="RECEIVE_PAY_PERIOD" property="receivePayPeriod" jdbcType="INTEGER" />
+    <result column="OWNER" property="owner" jdbcType="VARCHAR" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CLIENT_STATUS_ID" property="clientStatusId" jdbcType="INTEGER" />
+    <result column="TAX_RETRUN" property="taxReturn" jdbcType="INTEGER" />
+    <result column="CLIENT_LEVEL_ID" property="clientLevelId" jdbcType="INTEGER" />
+    <result column="CLIENT_STAGE" property="clientStage" jdbcType="VARCHAR" />
+    <result column="CLIENT_SOURCE" property="clientSource" jdbcType="VARCHAR" />
+    <result column="CLIENT_ABILITY" property="clientAbility" jdbcType="VARCHAR" />
+    <result column="CLIENT_SHORT_NAME" property="clientShortName" jdbcType="VARCHAR" />
+    <result column="CLIENT_TYPE" property="clientType" jdbcType="VARCHAR" />
+    <result column="CLIENT_SHIP_WAY" property="clientShipWay" jdbcType="INTEGER" />
+    <result column="ship_way_name" property="shipWayName" jdbcType="VARCHAR" />
+    <result column="delivery" property="delivery" jdbcType="VARCHAR" />
+    <result column="client_status_value" property="clientStatusValue" jdbcType="VARCHAR" />
+    <result column="client_level_value" property="clientLevelValue" jdbcType="VARCHAR" />
+    <result column="TERMS_OF_DELIVERY" property="termsOfDelivery" jdbcType="INTEGER" />
+    <result column="CLIENT_TEMPLATE_TYPE" property="clientTemplateType" jdbcType="INTEGER" />
+    <result column="client_template_type_value" property="clientTemplateTypeValue" jdbcType="VARCHAR" />
+    <result column="invoice_templet_value" property="invoiceTempletValue" jdbcType="VARCHAR" />
+    <result column="INVOICE_TEMPLET" property="invoiceTemplet" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+    <result column="PROFIT_MARGIN" property="profitMargin" jdbcType="DOUBLE" />
+    <result column="CERTIFICATION" property="certification" jdbcType="INTEGER" />
+    <result column="SHIP_TEMPLET" property="shipTemplet" jdbcType="INTEGER" />
+    <result column="SHIP_TEMPLET_VALUE" property="shipTempletValue" jdbcType="VARCHAR" />
+    <result column="LOWEST_FREIGHT" property="lowestFreight" jdbcType="DOUBLE" />
+    <result column="FREIGHT" property="freight" jdbcType="DOUBLE" />
+    <result column="BANK_COST" property="bankCost" jdbcType="DOUBLE" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="clientContact" type="com.naswork.model.ClientContact" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="SHIP_ADDRESS" property="shipAddress" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, CODE, NAME, CURRENCY_ID, POST_CODE, ADDRESS, SHIP_ADDRESS, PHONE, FAX, EMAIL,SHIP_TEMPLET
+    REMARK, UPDATE_TIMESTAMP,TERMS_OF_DELIVERY,INVOICE_TEMPLET,url,FIXED_COST,PROFIT_MARGIN,LOWEST_FREIGHT,FREIGHT,BANK_COST
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from client
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.Client" >
+    insert into client (ID, CODE, NAME, 
+      CURRENCY_ID, POST_CODE, ADDRESS, 
+      SHIP_ADDRESS, PHONE, FAX, 
+      EMAIL, REMARK, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{currencyId,jdbcType=INTEGER}, #{postCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{shipAddress,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.Client" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into client
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="postCode != null" >
+        POST_CODE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="shipAddress != null" >
+        SHIP_ADDRESS,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="fax != null" >
+        FAX,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="prepayRate != null" >
+        PREPAY_RATE,
+      </if>
+      <if test="shipPayRate != null" >
+        SHIP_PAY_RATE,
+      </if>
+      <if test="shipPayPeriod != null" >
+        SHIP_PAY_PERIOD,
+      </if>
+      <if test="receivePayRate != null" >
+        RECEIVE_PAY_RATE,
+      </if>
+      <if test="receivePayPeriod != null" >
+        RECEIVE_PAY_PERIOD,
+      </if>
+      <if test="owner != null" >
+        OWNER,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="clientStatusId != null" >
+        CLIENT_STATUS_ID,
+      </if>
+      <if test="taxReturn != null" >
+        TAX_RETRUN,
+      </if>
+      <if test="clientLevelId != null" >
+        CLIENT_LEVEL_ID,
+      </if>
+      <if test="clientStage != null" >
+        CLIENT_STAGE,
+      </if>
+      <if test="clientSource != null" >
+        CLIENT_SOURCE,
+      </if>
+      <if test="clientAbility != null" >
+        CLIENT_ABILITY,
+      </if>
+      <if test="clientShortName != null" >
+        CLIENT_SHORT_NAME,
+      </if>
+      <if test="clientType != null" >
+        CLIENT_TYPE,
+      </if>
+      <if test="clientShipWay != null" >
+        CLIENT_SHIP_WAY,
+      </if>
+      <if test="termsOfDelivery != null" >
+        TERMS_OF_DELIVERY,
+      </if>
+      <if test="clientTemplateType != null" >
+        CLIENT_TEMPLATE_TYPE,
+      </if>
+      <if test="invoiceTemplet != null" >
+        INVOICE_TEMPLET,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST,
+      </if>
+       <if test="profitMargin != null" >
+        PROFIT_MARGIN,
+      </if>
+      <if test="certification != null" >
+        CERTIFICATION,
+      </if>
+      <if test="lowestFreight != null" >
+        LOWEST_FREIGHT,
+      </if>
+      <if test="freight != null" >
+        FREIGHT,
+      </if>
+      <if test="bankCost != null" >
+        BANK_COST,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="shipTemplet != null" >
+      	SHIP_TEMPLET,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null" >
+        #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+       <if test="prepayRate != null" >
+        #{prepayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayRate != null" >
+        #{shipPayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayPeriod != null" >
+        #{shipPayPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="receivePayRate != null" >
+        #{receivePayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receivePayPeriod != null" >
+        #{receivePayPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="clientStatusId != null" >
+        #{clientStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="taxReturn != null" >
+        #{taxReturn,jdbcType=INTEGER},
+      </if>
+      <if test="clientLevelId != null" >
+        #{clientLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="clientStage != null" >
+        #{clientStage,jdbcType=VARCHAR},
+      </if>
+      <if test="clientSource != null" >
+        #{clientSource,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAbility != null" >
+        #{clientAbility,jdbcType=VARCHAR},
+      </if>
+      <if test="clientShortName != null" >
+        #{clientShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null" >
+        #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="clientShipWay != null" >
+        #{clientShipWay,jdbcType=INTEGER},
+      </if>
+      <if test="termsOfDelivery != null" >
+        #{termsOfDelivery,jdbcType=INTEGER},
+      </if>
+      <if test="clientTemplateType != null" >
+        #{clientTemplateType,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTemplet != null" >
+        #{invoiceTemplet,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedCost != null" >
+        #{fixedCost,jdbcType=DOUBLE},
+      </if>
+       <if test="profitMargin != null" >
+        #{profitMargin,jdbcType=DOUBLE},
+      </if>
+      <if test="certification != null" >
+        #{certification,jdbcType=INTEGER},
+      </if>
+      <if test="lowestFreight != null" >
+        #{lowestFreight,jdbcType=DOUBLE},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCost != null" >
+        #{bankCost,jdbcType=DOUBLE},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTemplet != null" >
+      	#{shipTemplet,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.Client" >
+    update client
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="postCode != null" >
+        POST_CODE = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null" >
+        SHIP_ADDRESS = #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        FAX = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prepayRate != null" >
+        PREPAY_RATE = #{prepayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayRate != null" >
+        SHIP_PAY_RATE = #{shipPayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayPeriod != null" >
+        SHIP_PAY_PERIOD = #{shipPayPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="receivePayRate != null" >
+        RECEIVE_PAY_RATE = #{receivePayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receivePayPeriod != null" >
+        RECEIVE_PAY_PERIOD = #{receivePayPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null" >
+        OWNER = #{owner,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="clientStatusId != null" >
+        CLIENT_STATUS_ID = #{clientStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="taxReturn != null" >
+        TAX_RETRUN = #{taxReturn,jdbcType=INTEGER},
+      </if>
+      <if test="clientLevelId != null" >
+        CLIENT_LEVEL_ID = #{clientLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="clientStage != null" >
+        CLIENT_STAGE = #{clientStage,jdbcType=VARCHAR},
+      </if>
+      <if test="clientSource != null" >
+        CLIENT_SOURCE = #{clientSource,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAbility != null" >
+        CLIENT_ABILITY = #{clientAbility,jdbcType=VARCHAR},
+      </if>
+      <if test="clientShortName != null" >
+        CLIENT_SHORT_NAME = #{clientShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null" >
+        CLIENT_TYPE = #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="clientShipWay != null" >
+        CLIENT_SHIP_WAY = #{clientShipWay,jdbcType=INTEGER},
+      </if>
+      <if test="termsOfDelivery != null" >
+        TERMS_OF_DELIVERY = #{termsOfDelivery,jdbcType=INTEGER},
+      </if>
+      <if test="clientTemplateType != null" >
+        CLIENT_TEMPLATE_TYPE = #{clientTemplateType,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTemplet != null" >
+        INVOICE_TEMPLET = #{invoiceTemplet,jdbcType=INTEGER},
+      </if>
+      <if test="shipAddress != null" >
+        SHIP_ADDRESS = #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST = #{fixedCost,jdbcType=DOUBLE},
+      </if>
+       <if test="profitMargin != null" >
+       	PROFIT_MARGIN= #{profitMargin,jdbcType=DOUBLE},
+      </if>
+      <if test="certification != null" >
+      	CERTIFICATION=  #{certification,jdbcType=INTEGER},
+      </if>
+      <if test="shipTemplet != null" >
+      	SHIP_TEMPLET=  #{shipTemplet,jdbcType=INTEGER},
+      </if>
+      <if test="lowestFreight != null" >
+        LOWEST_FREIGHT = #{lowestFreight,jdbcType=DOUBLE},
+      </if>
+      <if test="freight != null" >
+        FREIGHT = #{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCost != null" >
+        BANK_COST = #{bankCost,jdbcType=DOUBLE},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.Client" >
+    update client
+    set CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      POST_CODE = #{postCode,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      SHIP_ADDRESS = #{shipAddress,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      FAX = #{fax,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询所有的客户代码 -->
+  <select id="findAll" resultMap="BaseResultMap">
+  		select * from client c
+  		<if test="userId != null">
+			where c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		order by c.CODE
+  </select>
+  
+    
+  <!-- 查询联系人 -->
+  <select id="findContacts" parameterType="page" resultMap="clientContact">
+  		SELECT DISTINCT
+			cc.*, c. CODE
+		FROM
+			client_contact cc
+		LEFT JOIN client c ON cc.client_id = c.id
+		<if test="userId != null">
+		LEFT JOIN authority_relation ar ON ar.CLIENT_ID = c.ID
+		WHERE ar.USER_ID = #{userId}
+		</if>
+		ORDER BY
+			c. CODE
+  </select>
+	
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			c.*, cs.
+		VALUE
+			,
+			u.user_name AS owner_name,
+			sca.
+		VALUE
+			AS ship_way_name,
+			scb.
+		VALUE
+			AS delivery,
+			sce.
+		VALUE
+			AS client_template_type_value,
+			scc.
+		VALUE
+			AS client_status_value,
+			scd.
+		VALUE
+			AS client_level_value,
+			sci.`VALUE` AS invoice_templet_value,
+			ship.`VALUE` AS SHIP_TEMPLET_VALUE,ct.VALUE CLIENT_TYPE_VALUE
+		FROM
+			client c
+		LEFT JOIN system_code ct ON (ct.ID = c.CLIENT_TYPE)
+		LEFT JOIN system_code cs ON (cs.ID = c.CURRENCY_ID)
+		LEFT JOIN t_user u ON (u.user_id = c. OWNER)
+		LEFT JOIN system_code sca ON (sca.id = c.client_ship_way)
+		LEFT JOIN system_code scb ON (scb.id = c.TERMS_OF_DELIVERY)
+		LEFT JOIN system_code scc ON (scc.id = c.CLIENT_STATUS_ID)
+		LEFT JOIN system_code scd ON (scd.id = c.CLIENT_LEVEL_ID)
+		LEFT JOIN system_code sce ON (
+			sce.id = c.CLIENT_TEMPLATE_TYPE
+		)
+		LEFT JOIN system_code sci ON (sci.ID = c.INVOICE_TEMPLET)
+		LEFT JOIN system_code ship ON (ship.ID = c.SHIP_TEMPLET)
+		<if test="userId != null">
+			LEFT JOIN authority_relation ar ON c.ID = ar.CLIENT_ID
+		</if>
+		where 1=1
+  		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+  
+  <select id="findByCode" parameterType="String" resultMap="BaseResultMap">
+  		select * from client c where c.code = #{code}
+  </select>
+  
+  <select id="getCurrencyId" parameterType="Integer" resultType="Integer">
+  		SELECT c.CURRENCY_ID from client_inquiry ci
+			LEFT JOIN client c on (c.ID = ci.CLIENT_ID)
+			where ci.id = #{id}
+  </select>
+  
+  <select id="getTemplet" parameterType="Integer" resultType="String">
+  		select sc.`VALUE` from client c LEFT JOIN system_code sc ON (
+			sc.ID = c.INVOICE_TEMPLET
+		) where c.ID = #{clientId}
+  </select>
+  
+  <select id="getUrl" resultType="String">
+  		SELECT c.URL FROM client c 
+  </select>
+  
+  <select id="getByExportPackageInstructionsNumber" parameterType="String" resultMap="BaseResultMap">
+ 		SELECT c.id,c.`CODE` FROM client c LEFT JOIN export_package_instructions epi on epi.`CODE` = c.`CODE` 
+ 			where epi.EXPORT_PACKAGE_INSTRUCTIONS_NUMBER = #{exportPackageInstructionsNumber}
+  </select>
+</mapper>

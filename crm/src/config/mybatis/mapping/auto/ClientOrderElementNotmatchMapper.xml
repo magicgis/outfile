@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientOrderElementNotmatchDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientOrderElementNotmatch" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_ORDER_ID" property="clientOrderId" jdbcType="INTEGER" />
+    <result column="CLIENT_QUOTE_ELEMENT_ID" property="clientQuoteElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="ITEM" property="item" jdbcType="INTEGER" />
+     <result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ClientOrderElement" type="com.naswork.model.ClientOrderElement" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_ORDER_ID" property="clientOrderId" jdbcType="INTEGER" />
+    <result column="CLIENT_QUOTE_ELEMENT_ID" property="clientQuoteElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="awb" property="awb" jdbcType="VARCHAR" />
+    <result column="WEIGHT" property="weight" jdbcType="DOUBLE" />
+    <result column="SIZE" property="size" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_WAY_VALUE" property="logisticsWayValue" jdbcType="VARCHAR" />
+    <result column="EXPORT_DATE" property="exportDate" jdbcType="DATE" />
+    <result column="RECEIVE_DATE" property="receiveDate" jdbcType="DATE" />
+    <result column="TOTAL" property="TOTAL" jdbcType="DOUBLE" />
+    <result column="STORAGE_STATUS" property="storageStatus" jdbcType="INTEGER" />
+   <result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+   <result column="ORDER_STATUS_ID" property="orderStatusId" jdbcType="INTEGER" />
+   <result column="BANK_CHARGES" property="bankCharges" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, CLIENT_ORDER_ID, CLIENT_QUOTE_ELEMENT_ID, AMOUNT, PRICE, LEAD_TIME, DEADLINE, 
+    CERTIFICATION_ID, FIXED_COST, REMARK, USER_ID, PART_NUMBER, DESCRIPTION, ITEM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_order_element_notmatch
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+   <select id="selectByUserId" resultMap="ClientOrderElement" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_order_element_notmatch
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  
+     <select id="listpage" resultMap="BaseResultMap" parameterType="page" >
+    select coen.id,
+   coen.ITEM,coen.DESCRIPTION,coen.PART_NUMBER,t.PART_NAME
+    from crm.client_order_element_notmatch coen
+    INNER JOIN crmstock.t_part t on t.bsn=coen.bsn
+    where USER_ID = ${userId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_order_element_notmatch
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  
+   <delete id="deleteByUserId" parameterType="java.lang.Integer" >
+    delete from client_order_element_notmatch
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientOrderElement" >
+    insert into client_order_element_notmatch (ID, CLIENT_ORDER_ID, CLIENT_QUOTE_ELEMENT_ID, 
+      AMOUNT, PRICE, LEAD_TIME, 
+      DEADLINE, CERTIFICATION_ID, FIXED_COST, 
+      REMARK, USER_ID, PART_NUMBER, 
+      DESCRIPTION, ITEM,BSN)
+    values (#{id,jdbcType=INTEGER}, #{clientOrderId,jdbcType=INTEGER}, #{clientQuoteElementId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, #{leadTime,jdbcType=VARCHAR}, 
+      #{deadline,jdbcType=DATE}, #{certificationId,jdbcType=INTEGER}, #{fixedCost,jdbcType=DOUBLE}, 
+      #{remark,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{partNumber,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{item,jdbcType=INTEGER}, #{bsn,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="add" parameterType="com.naswork.model.ClientWeatherOrderElement" >
+    insert into client_order_element_notmatch (ID, CLIENT_ORDER_ID, CLIENT_QUOTE_ELEMENT_ID, 
+      AMOUNT, PRICE, LEAD_TIME, 
+      DEADLINE, CERTIFICATION_ID, FIXED_COST, 
+      REMARK, USER_ID, PART_NUMBER, 
+      DESCRIPTION, ITEM,BSN)
+    values (#{id,jdbcType=INTEGER}, #{clientWeatherOrderId,jdbcType=INTEGER}, #{clientQuoteElementId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, #{leadTime,jdbcType=VARCHAR}, 
+      #{deadline,jdbcType=DATE}, #{certificationId,jdbcType=INTEGER}, #{fixedCost,jdbcType=DOUBLE}, 
+      #{remark,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{partNumber,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{item,jdbcType=INTEGER}, #{bsn,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientOrderElementNotmatch" >
+    insert into client_order_element_notmatch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientOrderId != null" >
+        CLIENT_ORDER_ID,
+      </if>
+      <if test="clientQuoteElementId != null" >
+        CLIENT_QUOTE_ELEMENT_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+      <if test="deadline != null" >
+        DEADLINE,
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID,
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="item != null" >
+        ITEM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientOrderId != null" >
+        #{clientOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="clientQuoteElementId != null" >
+        #{clientQuoteElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=DATE},
+      </if>
+      <if test="certificationId != null" >
+        #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="fixedCost != null" >
+        #{fixedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        #{item,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientOrderElementNotmatch" >
+    update client_order_element_notmatch
+    <set >
+      <if test="clientOrderId != null" >
+        CLIENT_ORDER_ID = #{clientOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="clientQuoteElementId != null" >
+        CLIENT_QUOTE_ELEMENT_ID = #{clientQuoteElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        DEADLINE = #{deadline,jdbcType=DATE},
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST = #{fixedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        ITEM = #{item,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientOrderElementNotmatch" >
+    update client_order_element_notmatch
+    set CLIENT_ORDER_ID = #{clientOrderId,jdbcType=INTEGER},
+      CLIENT_QUOTE_ELEMENT_ID = #{clientQuoteElementId,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      PRICE = #{price,jdbcType=DOUBLE},
+      LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      DEADLINE = #{deadline,jdbcType=DATE},
+      CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      FIXED_COST = #{fixedCost,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      ITEM = #{item,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientWeatherOrderElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientWeatherOrderElement" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_WEATHER_ORDER_ID" property="clientWeatherOrderId" jdbcType="INTEGER" />
+    <result column="CLIENT_QUOTE_ELEMENT_ID" property="clientQuoteElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="BANK_CHARGES" property="bankCharges" jdbcType="DOUBLE" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="supplier_exchange_rate" property="supplierExchangeRate" jdbcType="DOUBLE" />
+    <result column="supplier_currency_id" property="supplierCurrencyId" jdbcType="DOUBLE" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.naswork.module.marketing.controller.clientorder.ClientOrderElementVo" id="clientOrderElementVo">
+   <result column="BANK_CHARGES" property="bankCharges" jdbcType="DOUBLE" />
+   <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="FIXED_COST" property="fixedCost" jdbcType="DOUBLE" />
+   <result column="spzt" property="spzt" jdbcType="INTEGER" />
+  	<result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+  	<result column="CERTIFICATION_CODE" property="certificationCode" jdbcType="VARCHAR" />
+  	<result column="id" property="id" jdbcType="INTEGER" />
+  	<result column="client_inquiry_element_id" property="clientInquiryElementId" jdbcType="INTEGER" />
+  	<result column="item" property="item" jdbcType="INTEGER" />
+  	<result column="client_quote_id" property="clientQuoteId" jdbcType="INTEGER" />
+  	<result column="exchange_rate" property="exchangeRate" jdbcType="DOUBLE" />
+  	<result column="supplier_quote_element_id" property="supplierQuoteElementId" jdbcType="INTEGER" />
+  	<result column="lead_time" property="leadTime" jdbcType="VARCHAR" />
+  	<result column="detail" property="detail" jdbcType="VARCHAR" />
+  	<result column="client_quote_price" property="clientQuotePrice" jdbcType="DOUBLE" />
+  	<result column="supplier_quote_price" property="supplierQuotePrice" jdbcType="DOUBLE" />
+  	<result column="supplier_quote_exchange_rate" property="supplierQuoteExchangeRate" jdbcType="DOUBLE" />
+  	<result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+  	<result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+  	<result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+  	<result column="condition_id" property="conditionId" jdbcType="INTEGER" />
+  	<result column="condition_code" property="conditionCode" jdbcType="VARCHAR" />
+  	<result column="condition_value" property="conditionValue" jdbcType="VARCHAR" />
+  	<result column="certification_id" property="certificationId" jdbcType="INTEGER" />
+  	<result column="certification_code" property="certificationCode" jdbcType="VARCHAR" />
+  	<result column="certification_value" property="certificationValue" jdbcType="VARCHAR" />
+  	<result column="supplier_quote_status_id" property="supplierQuoteStatusId" jdbcType="INTEGER" />
+  	<result column="supplier_quote_status_code" property="supplierQuoteStatusCode" jdbcType="VARCHAR" />
+  	<result column="supplier_quote_status_value" property="supplierQuoteStatusValue" jdbcType="VARCHAR" />
+  	<result column="inquiry_element_id" property="inquiryElementId" jdbcType="INTEGER" />
+  	<result column="quote_element_id" property="quoteElementId" jdbcType="INTEGER" />
+  	<result column="inquiry_part_number" property="inquiryPartNumber" jdbcType="VARCHAR" />
+  	<result column="alter_part_number" property="alterPartNumber" jdbcType="VARCHAR" />
+  	<result column="quote_part_number" property="quotePartNumber" jdbcType="VARCHAR" />
+  	<result column="inquiry_unit" property="inquiryUnit" jdbcType="VARCHAR" />
+  	<result column="quote_unit" property="quoteUnit" jdbcType="VARCHAR" />
+  	<result column="inquiry_amount" property="inquiryAmount" jdbcType="DOUBLE" />
+  	<result column="supplier_quote_amount" property="supplierQuoteAmount" jdbcType="DOUBLE" />
+  	<result column="client_quote_amount" property="clientQuoteAmount" jdbcType="DOUBLE" />
+  	<result column="inquiry_description" property="inquiryDescription" jdbcType="VARCHAR" />
+  	<result column="quote_description" property="quoteDescription" jdbcType="VARCHAR" />
+  	<result column="inquiry_remark" property="inquiryRemark" jdbcType="VARCHAR" />
+  	<result column="quote_remark" property="quoteRemark" jdbcType="VARCHAR" />
+  	<result column="client_quote_remark" property="clientQuoteRemark" jdbcType="VARCHAR" />
+  	<result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+  	<result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+  	<result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+  	<result column="client_order_element_id" property="clientOrderElementId" jdbcType="INTEGER" />
+  	<result column="client_order_id" property="clientOrderId" jdbcType="INTEGER" />
+  	<result column="client_order_amount" property="clientOrderAmount" jdbcType="DOUBLE" />
+  	<result column="import_amount" property="importAmount" jdbcType="DOUBLE" />
+  	<result column="client_order_price" property="clientOrderPrice" jdbcType="DOUBLE" />
+  	<result column="client_order_lead_time" property="clientOrderLeadTime" jdbcType="VARCHAR" />
+  	<result column="client_order_deadline" property="clientOrderDeadline" jdbcType="DATE" />
+  	<result column="export_amount" property="exportAmount" jdbcType="DOUBLE" />
+  	<result column="storage_amount" property="storageAmount" jdbcType="DOUBLE" />
+  	<result column="totalprice" property="totalprice" jdbcType="DOUBLE" />
+  	<result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+  	<result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  	<result column="location" property="location" jdbcType="VARCHAR" />
+  	<result column="supplier_order_awb" property="supplierOrderAwb" jdbcType="VARCHAR" />
+  	<result column="export_package_awb" property="exportPackageAwb" jdbcType="VARCHAR" />
+  	<result column="export_date" property="exportDate" jdbcType="DATE" />
+  	<result column="total" property="total" jdbcType="DOUBLE" />
+  	<result column="receive_date" property="receiveDate" jdbcType="DATE" />
+  	<result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+  	<result column="ORDER_DATE" property="orderDate" jdbcType="DATE" />
+  	<result column="order_price" property="orderPrice" jdbcType="DOUBLE" />
+  	<result column="inquiry_part_number" property="inquiryPartNumber" jdbcType="VARCHAR" />
+  	<result column="RECEIVE_PAY_PERIOD" property="receivePayPeriod" jdbcType="INTEGER" />
+  	<result column="RECEIVE_PAY_RATE" property="receivePayRate" jdbcType="DOUBLE" />
+  	<result column="WEIGHT" property="weight" jdbcType="DOUBLE" />
+  	<result column="SIZE" property="size" jdbcType="VARCHAR" />
+  	<result column="LOGISTICS_WAY_VALUE" property="logisticsWayValue" jdbcType="VARCHAR" />
+  	<result column="destination" property="destination" jdbcType="VARCHAR" />
+  	<result column="ship_way_value" property="shipWayValue" jdbcType="VARCHAR" />
+  	<result column="supplier_order_deadline" property="supplierOrderDeadline" jdbcType="DATE" />
+  	<result column="client_quote_amount" property="clientQuoteAmount" jdbcType="DOUBLE" />
+  	<result column="client_quote_remark" property="clientQuoteRemark" jdbcType="DOUBLE" />
+  	<result column="csn" property="csn" jdbcType="INTEGER" />
+  	<result column="bsn" property="bsn" jdbcType="VARCHAR" />
+  	<result column="sp_id" property="spId" jdbcType="INTEGER" />
+  	<result column="user_name" property="userName" jdbcType="VARCHAR" />
+  	<result column="client_id" property="clientId" jdbcType="INTEGER" />
+  	<result column="unit" property="unit" jdbcType="VARCHAR" />
+  	<result column="BANK_CHARGES" property="bankCharges" jdbcType="DOUBLE" />
+  	<result column="supplier_quote_currency_id" property="supplierQuoteCurrencyId" jdbcType="INTEGER" />
+  	<result column="client_quote_element_id" property="clientQuoteElementId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_WEATHER_ORDER_ID, CLIENT_QUOTE_ELEMENT_ID, AMOUNT, PRICE, LEAD_TIME, DEADLINE, unit,
+    UPDATE_TIMESTAMP, CERTIFICATION_ID,IFNULL(FIXED_COST,0) FIXED_COST,REMARK,DESCRIPTION,IFNULL(BANK_CHARGES,0) BANK_CHARGES,PART_NUMBER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_weather_order_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_weather_order_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientWeatherOrderElement" >
+    insert into client_weather_order_element (ID, CLIENT_WEATHER_ORDER_ID, CLIENT_QUOTE_ELEMENT_ID, 
+      AMOUNT, PRICE, LEAD_TIME, 
+      DEADLINE, UPDATE_TIMESTAMP, CERTIFICATION_ID, 
+      FIXED_COST,REMARK,DESCRIPTION,UNIT,PART_NUMBER)
+    values (#{id,jdbcType=INTEGER}, #{clientWeatherOrderId,jdbcType=INTEGER}, #{clientQuoteElementId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, #{leadTime,jdbcType=VARCHAR}, 
+      #{deadline,jdbcType=DATE}, #{updateTimestamp,jdbcType=TIMESTAMP}, #{certificationId,jdbcType=INTEGER}, 
+     #{fixedCost,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{partNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientWeatherOrderElement" >
+    insert into client_weather_order_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientWeatherOrderId != null" >
+        CLIENT_WEATHER_ORDER_ID,
+      </if>
+      <if test="clientQuoteElementId != null" >
+        CLIENT_QUOTE_ELEMENT_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+      <if test="deadline != null" >
+        DEADLINE,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID,
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST,
+      </if>
+      <if test="bankCharges != null" >
+        BANK_CHARGES,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientWeatherOrderId != null" >
+        #{clientWeatherOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="clientQuoteElementId != null" >
+        #{clientQuoteElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=DATE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certificationId != null" >
+        #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="fixedCost != null" >
+        #{fixedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCharges != null" >
+        #{bankCharges,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+         #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientWeatherOrderElement" >
+    update client_weather_order_element
+    <set >
+      <if test="clientWeatherOrderId != null" >
+        CLIENT_WEATHER_ORDER_ID = #{clientWeatherOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="clientQuoteElementId != null" >
+        CLIENT_QUOTE_ELEMENT_ID = #{clientQuoteElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        DEADLINE = #{deadline,jdbcType=DATE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatusId != null" >
+      ORDER_STATUS_ID=  #{orderStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="fixedCost != null" >
+        FIXED_COST = #{fixedCost,jdbcType=DOUBLE},
+      </if>
+       <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCharges != null" >
+        BANK_CHARGES = #{bankCharges,jdbcType=DOUBLE},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientWeatherOrderElement" >
+    update client_weather_order_element
+    set CLIENT_WEATHER_ORDER_ID = #{clientWeatherOrderId,jdbcType=INTEGER},
+      CLIENT_QUOTE_ELEMENT_ID = #{clientQuoteElementId,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      PRICE = #{price,jdbcType=DOUBLE},
+      LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      DEADLINE = #{deadline,jdbcType=DATE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+    
+      FIXED_COST = #{fixedCost,jdbcType=DOUBLE},
+        REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByOrderIdPage" parameterType="page" resultMap="clientOrderElementVo">
+  select DISTINCT
+  		 cwoe.id,cwoe.amount AS client_order_amount,IFNULL(cwoe.FIXED_COST,0) FIXED_COST,
+  		cwoe.id as client_order_element_id,IFNULL(cwoe.BANK_CHARGES,0) BANK_CHARGES,
+		cwoe.price AS client_order_price,cert.code CERTIFICATION_CODE,
+		(cwoe.amount*cwoe.price) as totalprice,
+		cwoe.lead_time AS client_order_lead_time,
+		cwoe.deadline AS client_order_deadline,
+		cwoe.UPDATE_TIMESTAMP,t.user_name,
+		IFNULL(cwoe.PART_NUMBER,cie.PART_NUMBER) AS inquiry_part_number,
+		cie.ALTER_PART_NUMBER,
+		IFNULL(cwoe.DESCRIPTION,cie.DESCRIPTION) as inquiry_description,
+		cie.ITEM,cwoe.remark,IFNULL(cwoe.unit,cie.UNIT) AS unit,
+		cie.CSN,oa.spzt,oa.id sp_id,cwo.exchange_rate,cwo.currency_id,
+		s.code supplier_code,sqe.price supplier_quote_price,sq.exchange_rate supplier_quote_exchange_rate,sq.currency_id as supplier_quote_currency_id,
+		cqe.id as client_quote_element_id
+		FROM client_weather_order_element cwoe 
+		INNER JOIN client_weather_order cwo on cwo.id=cwoe.client_weather_order_id
+		left JOIN order_approval oa on oa.CLIENT_ORDER_ELEMENT_ID=cwoe.ID
+		left join jbpm4_task jt on jt.RELATION_ID=oa.ID
+		LEFT JOIN t_user t on t.user_id=jt.assignee_
+		INNER JOIN client_quote_element cqe on (cwoe.client_quote_element_id=cqe.id)
+		INNER JOIN client_inquiry_element cie ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		INNER JOIN supplier_quote_element sqe on sqe.id=cqe.supplier_quote_element_id
+		INNER JOIN supplier_quote sq on sq.id=sqe.supplier_quote_id
+		INNER JOIN supplier_inquiry si on si.id=sq.supplier_inquiry_id
+		INNER JOIN supplier s on s.id=si.supplier_id
+		LEFT JOIN system_code cert on (cert.ID = cwoe.CERTIFICATION_ID)
+		LEFT JOIN supplier_weather_order_element swoe ON swoe.CLIENT_ORDER_ELEMENT_ID = cwoe.ID
+  		where cwoe.CLIENT_WEATHER_ORDER_ID = #{id}
+
+  		<if test="orderby != null">
+			${orderby}
+		</if>	
+  </select>
+  
+   <select id="findByOrderId" parameterType="Integer" resultMap="clientOrderElementVo">
+  select DISTINCT cqe.id,cwoe.amount AS client_order_amount,
+  		cwoe.id as client_order_element_id,
+		cwoe.price AS client_order_price,
+		(cwoe.amount*cwoe.price) as totalprice,
+		cwoe.lead_time AS client_order_lead_time,
+		cwoe.deadline AS client_order_deadline
+		FROM client_weather_order_element cwoe 
+		LEFT JOIN client_quote_element cqe on (cwoe.client_quote_element_id=cqe.id)
+  		where cwoe.CLIENT_WEATHER_ORDER_ID = #{id} and cwoe.amount != 0
+  </select>
+  
+  <select id="elementList" parameterType="Integer" resultMap="clientOrderElementVo">
+  		SELECT
+			DISTINCT cqe.id,
+			cqe.client_inquiry_element_id,IFNULL(cqe.FIXED_COST,0) FIXED_COST,
+			IFNULL(cqe.BANK_CHARGES,0) BANK_CHARGES,
+			cie.item,cie.csn,
+			cqe.client_quote_id,
+			cq.exchange_rate,
+			cqe.supplier_quote_element_id,
+			sqe.lead_time,
+			CONCAT(
+				sqe.part_number,
+				sqe.description,
+				cert. CODE
+			) AS detail,
+			cqe.price AS client_quote_price,
+			sqe.price AS supplier_quote_price,
+			sq.exchange_rate AS supplier_quote_exchange_rate,
+			si.supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			sqe.condition_id,
+			cond. CODE AS condition_code,
+			cond.VALUE
+			AS condition_value,
+			sqe.certification_id,
+			cert. CODE AS certification_code,
+			cert.VALUE AS certification_value,
+			sqe.supplier_quote_status_id,
+			sqe.location,
+			sqs. CODE AS supplier_quote_status_code,
+			sqs.VALUE AS supplier_quote_status_value,
+			cie.element_id AS inquiry_element_id,
+			sqe.element_id AS quote_element_id,
+			cie.part_number AS inquiry_part_number,
+			cie.alter_part_number as alter_part_number,
+			sqe.part_number AS quote_part_number,
+			cie.unit AS inquiry_unit,
+			sqe.unit AS quote_unit,
+			cie.amount AS inquiry_amount,
+			sqe.amount AS supplier_quote_amount,
+			cqe.amount AS client_quote_amount,
+			cie.description AS inquiry_description,
+			sqe.description AS quote_description,
+			cie.remark AS inquiry_remark,
+			sqe.remark AS quote_remark,
+			cqe.remark AS client_quote_remark,
+			cu.id AS currency_id,
+			cu. CODE AS currency_code,
+			cu.VALUE AS currency_value,
+			cqe.update_timestamp
+		FROM
+			client_quote_element cqe
+		LEFT join client_weather_order_element cwoe on (cwoe.client_quote_element_id=cqe.id)
+		INNER JOIN client_quote cq ON (cqe.client_quote_id = cq.id)
+		INNER JOIN supplier_quote_element sqe ON (
+			cqe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN element e ON (sqe.element_id = e.id)
+		INNER JOIN supplier_quote sq ON (
+			sqe.supplier_quote_id = sq.id
+		)
+		INNER JOIN supplier_inquiry si ON (
+			sq.supplier_inquiry_id = si.id
+		)
+		INNER JOIN supplier s ON (si.supplier_id = s.id)
+		INNER JOIN client_inquiry_element cie ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		INNER JOIN system_code cond ON (sqe.condition_id = cond.id)
+		INNER JOIN system_code cert ON (
+			sqe.certification_id = cert.id
+		)
+		INNER JOIN system_code sqs ON (
+			sqe.supplier_quote_status_id = sqs.id
+		)
+		INNER JOIN system_code cu ON (cq.currency_id = cu.id)
+		WHERE cqe.client_quote_id =#{id} order by cie.item
+  </select>
+  
+   <select id="findItem" parameterType="Integer" resultMap="clientOrderElementVo">
+  		select cie.ITEM ,cqe.ID,sqe.part_number as inquiryPartNumber,cie.bsn from client_inquiry_element cie 
+	  		LEFT JOIN client_quote_element cqe on cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+	  		LEFT JOIN supplier_quote_element sqe ON sqe.id = cqe.SUPPLIER_QUOTE_ELEMENT_ID
+			LEFT JOIN client_weather_order cwo on cwo.CLIENT_QUOTE_ID = cqe.CLIENT_QUOTE_ID where cwo.ID = #{id}
+  </select>
+  
+    <select id="selectByForeignKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  	SELECT cie.PART_NUMBER,cwoe.ID,cwoe.CLIENT_WEATHER_ORDER_ID,cwoe.CLIENT_QUOTE_ELEMENT_ID,cwoe.AMOUNT,
+		cwoe.PRICE,cwoe.LEAD_TIME,cwoe.DEADLINE,cwoe.UPDATE_TIMESTAMP,IFNULL(cwoe.FIXED_COST,0) AS FIXED_COST,
+	IFNULL(cwoe.BANK_CHARGES,0) AS BANK_CHARGES,cie.unit
+		 FROM client_weather_order_element cwoe 
+		INNER JOIN client_quote_element cqe on cqe.ID=cwoe.CLIENT_QUOTE_ELEMENT_ID
+		INNER JOIN client_inquiry_element cie on cie.ID=cqe.CLIENT_INQUIRY_ELEMENT_ID
+		 where cwoe.CLIENT_WEATHER_ORDER_ID = #{clientOrderId,jdbcType=INTEGER}
+		ORDER BY cie.PART_NUMBER,cwoe.AMOUNT
+  </select>
+  
+  <select id="findUser" resultType="Integer" parameterType="Integer" >
+  	SELECT
+	au.USER_ID,
+	s.`CODE`
+		FROM
+			client_weather_order_element cwoe
+		INNER JOIN client_quote_element cqe ON cwoe.CLIENT_QUOTE_ELEMENT_ID = cqe.ID
+		INNER JOIN supplier_quote_element sqe ON sqe.id = cqe.SUPPLIER_QUOTE_ELEMENT_ID
+		INNER JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+		INNER JOIN supplier_inquiry si ON si.ID = sie.SUPPLIER_INQUIRY_ID
+		INNER JOIN supplier s ON s.ID = si.SUPPLIER_ID
+		INNER JOIN authority_relation au ON au.SUPPLIER_ID = s.ID
+		WHERE
+	cwoe.ID =#{clientOrderElementId} <!-- and s.`CODE`!=0091  -->
+		GROUP BY au.USER_ID
+  	</select>
+  	
+  	  <select id="findByclientOrderELementId" resultMap="clientOrderElementVo" parameterType="java.lang.Integer" >
+   SELECT cwoe.id, cwoe.client_weather_order_id client_order_id,  	cqe.client_inquiry_element_id,
+			   cwoe.client_quote_element_id, cqe.supplier_quote_element_id,  IFNULL(cwoe.FIXED_COST,0) FIXED_COST,
+			   cwo.order_date, cwo.source_number AS source_order_number, cwo.order_number, cwo.terms,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, cwo.exchange_rate,  
+			   sqe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   sqe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   sqe.part_number AS quote_part_number, e.part_number_code, sqe.price AS supplier_quote_price,
+			   sq.exchange_rate AS supplier_quote_exchange_rate,cie.item,IFNULL(cwoe.BANK_CHARGES,0) BANK_CHARGES,
+			   sqe.unit AS quote_unit, cqe.amount AS quote_amount, sqe.amount AS supplier_quote_amount,
+			   sqe.description AS quote_description, cqe.remark AS quote_remark,  ci.client_id,
+			   sqe.price AS supplier_quote_price, cqe.price AS client_quote_price,  	sqe.element_id AS quote_element_id,
+			   cwoe.amount AS client_order_amount, cwoe.price AS client_order_price,  cwoe.remark,
+			   cwoe.lead_time AS client_order_lead_time, cwoe.deadline AS client_order_deadline, cwoe.update_timestamp  
+			   FROM  client_weather_order_element cwoe  
+			   INNER JOIN  client_weather_order cwo ON (cwoe.client_weather_order_id=cwo.id)  
+			   INNER JOIN  client_quote cq ON (cwo.client_quote_id=cq.id)  
+			   INNER JOIN  client_quote_element cqe ON (cwoe.client_quote_element_id=cqe.id)  
+			   INNER JOIN client_inquiry_element cie ON (cie.id=cqe.client_inquiry_element_id)
+			   INNER JOIN client_inquiry ci ON (ci.id=cie.client_inquiry_id)
+			   INNER JOIN  supplier_quote_element sqe ON (cqe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id = sq.id)
+			   INNER JOIN  element e ON (sqe.element_id=e.id)  
+			   INNER JOIN  system_code cond ON (sqe.condition_id=cond.id)  
+			   INNER JOIN  system_code cert ON (sqe.certification_id=cert.id)  
+			   INNER JOIN  system_code cu ON (cq.currency_id=cu.id)  
+			 WHERE cwoe.id=#{clientOrderElementId} 
+  </select>
+  
+  <select id="findByOrderNumberAndItem" parameterType="String" resultType="Integer">
+	 select cwoe.ID from client_weather_order_element cwoe INNER JOIN client_quote_element cqe on cwoe.CLIENT_QUOTE_ELEMENT_ID=cqe.ID
+	INNER JOIN client_weather_order cwo on cwo.id=cwoe.CLIENT_WEATHER_ORDER_ID
+	INNER JOIN client_inquiry_element cie on cie.id=cqe.CLIENT_INQUIRY_ELEMENT_ID
+	where cwo.ORDER_NUMBER=#{0} and cie.ITEM=#{1}
+ </select>
+ 
+   	<select id="findOrderElementFinal" resultMap="clientOrderElementVo" parameterType="com.naswork.model.ClientQuote" >
+   	 		SELECT cwoe.id, cwoe.client_weather_order_id,cie.item,cie.csn,
+			   cwoe.client_quote_element_id, cqe.supplier_quote_element_id,  
+			   cwo.order_date, cwo.source_number AS source_order_number, cwo.order_number, cwo.terms,  
+			  cwo.exchange_rate,sqe.part_number AS quote_part_number,
+			  IFNULL(cwoe.PART_NUMBER,cie.PART_NUMBER) AS inquiry_part_number,
+			  IFNULL(cwoe.UNIT, cie.UNIT) AS inquiry_unit,
+			   sqe.unit AS quote_unit, cqe.amount AS client_quote_amount,  
+			   IFNULL(cwoe.description,cie.description) AS quote_description, cqe.remark AS quote_remark,  cqe.lead_time,cqe.remark client_quote_remark,
+			   sqe.price AS supplier_quote_price, cqe.price AS client_quote_price,  IFNULL(cwoe.FIXED_COST,0) FIXED_COST,
+			   cwoe.amount AS client_order_amount, cwoe.price AS client_order_price,  
+			   cwoe.lead_time AS client_order_lead_time, cwoe.deadline AS client_order_deadline, cwoe.update_timestamp,sc.code certification_code
+			   FROM  client_weather_order_element cwoe  
+			   INNER JOIN  client_weather_order cwo ON (cwoe.client_weather_order_id=cwo.id)  
+			   INNER JOIN  client_quote cq ON (cwo.client_quote_id=cq.id)  
+			   INNER JOIN  client_quote_element cqe ON (cwoe.client_quote_element_id=cqe.id)  
+			   INNER JOIN client_inquiry_element cie ON (cie.id=cqe.client_inquiry_element_id)
+			   INNER JOIN supplier_quote_element sqe ON (sqe.id=cqe.supplier_quote_element_id)
+			   LEFT JOIN system_code sc ON (sc.id=cwoe.certification_id)
+			 WHERE cwoe.id in  (${ids} )
+  	</select>
+  	
+  <select id="sumPrice" resultType="DOUBLE" parameterType="INTEGER" >
+  	select SUM(cwoe.PRICE*cwoe.AMOUNT) price from client_weather_order_element cwoe where cwoe.CLIENT_WEATHER_ORDER_ID=#{clientWeatherOrderId}
+  </select>
+  
+  <select id="getElementByIds" parameterType="page" resultMap="clientOrderElementVo">
+  		SELECT
+			cie.PART_NUMBER AS inquiry_part_number,
+			cie.DESCRIPTION AS inquiry_description,
+			cwoe.REMARK
+		FROM
+			client_weather_order cwo
+		LEFT JOIN client_weather_order_element cwoe ON cwo.ID = cwoe.CLIENT_WEATHER_ORDER_ID
+		LEFT JOIN client_quote_element cqe ON cqe.ID = cwoe.CLIENT_QUOTE_ELEMENT_ID
+		LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+		WHERE cwo.id IN (${ids}) AND cie.PART_NUMBER IS NOT NULL
+  </select>
+  
+  <select id="getRealPrice" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		s.`CODE` AS supplier_code,
+		swoe.PRICE,
+		sq.exchange_rate supplier_exchange_rate,
+		sq.CURRENCY_ID as supplier_currency_id
+	FROM
+		supplier_weather_order_element swoe
+	INNER JOIN supplier_quote_element sqe ON sqe.ID = swoe.SUPPLIER_QUOTE_ELEMENT_ID
+	INNER JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+	INNER JOIN supplier_inquiry si ON si.ID = sq.SUPPLIER_INQUIRY_ID
+	INNER JOIN supplier s ON s.ID = si.SUPPLIER_ID
+	WHERE swoe.CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId}
+  </select>
+  
+  <select id="getExecutionId" parameterType="Integer" resultType="String">
+  	SELECT
+		CONCAT(
+			"ContractreviewProcess.ORDER_APPROVAL.ID.",
+			oa.ID
+		)
+	FROM
+		client_weather_order cwo
+	LEFT JOIN client_weather_order_element cwoe ON cwo.ID = cwoe.CLIENT_WEATHER_ORDER_ID
+	LEFT JOIN order_approval oa ON oa.CLIENT_ORDER_ELEMENT_ID = cwoe.ID
+	WHERE cwo.ID = #{id}
+  </select>
+  
+  <select id="getExecutionIdByElementId" parameterType="Integer" resultType="String">
+  	SELECT
+		CONCAT(
+			"ContractreviewProcess.ORDER_APPROVAL.ID.",
+			oa.ID
+		)
+	FROM
+		client_weather_order_element cwoe
+	LEFT JOIN order_approval oa ON oa.CLIENT_ORDER_ELEMENT_ID = cwoe.ID
+	WHERE cwoe.ID = #{id}
+  </select>
+  
+  <select id="getTaskDbid" parameterType="String" resultType="Integer">
+  	select dbid_ FROM jbpm4_task WHERE execution_id_ = #{executionId}
+  </select>
+  
+  <update id="unableTask" parameterType="String">
+  	UPDATE jbpm4_task SET assignee_ = NULL WHERE execution_id_ = #{executionId}
+  </update>
+  
+  <update id="unableSpzt" parameterType="Integer">
+  	UPDATE order_approval SET SPZT = 231 WHERE CLIENT_ORDER_ID = #{id}
+  </update>
+  
+  <update id="unableSpztByElementId" parameterType="Integer">
+  	UPDATE order_approval SET SPZT = 231 WHERE CLIENT_ORDER_ELEMENT_ID = #{id}
+  </update>
+  
+  <select id="getElementIdsById" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT cwoe.ID FROM client_weather_order_element cwoe WHERE cwoe.CLIENT_WEATHER_ORDER_ID = #{id}
+  </select>
+  
+  <delete id="deleteParticipation" parameterType="String">
+  	DELETE FROM jbpm4_participation WHERE task_ in (#{ids})
+  </delete>
+  
+  <select id="getTotalPrice" parameterType="Integer" resultType="Double">
+  	SELECT
+		SUM(
+			IFNULL(cwoe.PRICE,0) * IFNULL(cwoe.AMOUNT,0)
+		) AS total
+	FROM
+	client_weather_order_element cwoe
+	WHERE cwoe.CLIENT_WEATHER_ORDER_ID = #{clientWeatherOrderId}
+	GROUP BY cwoe.CLIENT_WEATHER_ORDER_ID
+  </select>
+  
+</mapper>

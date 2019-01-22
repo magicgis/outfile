@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.HierarchicalRelationshipDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.HierarchicalRelationship" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPERIOR_USER_ID" property="superiorUserId" jdbcType="INTEGER" />
+    <result column="SUBORDINATE_USER_ID" property="subordinateUserId" jdbcType="INTEGER" />
+      <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+       <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+         <result column="email" property="email" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, SUPERIOR_USER_ID, SUBORDINATE_USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hierarchical_relationship
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hierarchical_relationship
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.HierarchicalRelationship" >
+    insert into hierarchical_relationship (ID, SUPERIOR_USER_ID, SUBORDINATE_USER_ID
+      )
+    values (#{id,jdbcType=INTEGER}, #{superiorUserId,jdbcType=INTEGER}, #{subordinateUserId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.HierarchicalRelationship" >
+    insert into hierarchical_relationship
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="superiorUserId != null" >
+        SUPERIOR_USER_ID,
+      </if>
+      <if test="subordinateUserId != null" >
+        SUBORDINATE_USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="superiorUserId != null" >
+        #{superiorUserId,jdbcType=INTEGER},
+      </if>
+      <if test="subordinateUserId != null" >
+        #{subordinateUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.HierarchicalRelationship" >
+    update hierarchical_relationship
+    <set >
+      <if test="superiorUserId != null" >
+        SUPERIOR_USER_ID = #{superiorUserId,jdbcType=INTEGER},
+      </if>
+      <if test="subordinateUserId != null" >
+        SUBORDINATE_USER_ID = #{subordinateUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.HierarchicalRelationship" >
+    update hierarchical_relationship
+    set SUPERIOR_USER_ID = #{superiorUserId,jdbcType=INTEGER},
+      SUBORDINATE_USER_ID = #{subordinateUserId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="relationListPage" parameterType="page" resultMap="BaseResultMap">
+  	select t.USER_NAME,hr.ID from hierarchical_relationship hr INNER JOIN t_user t on  
+		t.user_id=hr.SUBORDINATE_USER_ID
+		where hr.SUPERIOR_USER_ID=${userId}
+  </select>
+  
+   <select id="selectByUserId" parameterType="String" resultMap="BaseResultMap">
+  	select t.USER_NAME,hr.ID,t.USER_ID,t.email from hierarchical_relationship hr INNER JOIN t_user t on  
+		t.user_id=hr.SUBORDINATE_USER_ID
+		where hr.SUPERIOR_USER_ID=#{userId}
+  </select>
+</mapper>

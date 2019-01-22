@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientOrderElementUploadDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientOrderElementUpload" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="ITEM" property="item" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="ERROR" property="error" jdbcType="VARCHAR" />
+    <result column="LINE" property="line" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, ITEM, PART_NUMBER, ERROR
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_order_element_upload
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_order_element_upload
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientOrderElementUpload" >
+    insert into client_order_element_upload (ID, USER_ID, ITEM, 
+      PART_NUMBER, ERROR)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{item,jdbcType=INTEGER}, 
+      #{partNumber,jdbcType=VARCHAR}, #{error,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientOrderElement" >
+    insert into client_order_element_upload
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="item != null" >
+        ITEM,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="error != null" >
+        ERROR,
+      </if>
+      <if test="line != null" >
+        LINE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="item != null" >
+        #{item,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="error != null" >
+        #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="line != null" >
+        #{line,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientOrderElementUpload" >
+    update client_order_element_upload
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="item != null" >
+        ITEM = #{item,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="error != null" >
+        ERROR = #{error,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientOrderElementUpload" >
+    update client_order_element_upload
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      ITEM = #{item,jdbcType=INTEGER},
+      PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      ERROR = #{error,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		select * from client_order_element_upload coeu where coeu.USER_ID = #{userId}
+  </select>
+  
+  <delete id="deleteMessage" parameterType="Integer">
+  		DELETE from client_order_element_upload where USER_ID = #{userId}
+  </delete>
+  
+</mapper>

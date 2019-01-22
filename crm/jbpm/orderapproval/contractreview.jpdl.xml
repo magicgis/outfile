@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process key="ContractreviewProcess" name="Contractreview" xmlns="http://jbpm.org/4.4/jpdl">  
+  <start g="35,191,48,48" name="start1"> 
+    <transition g="-67,-24" name="销售上传客户预订单" to="检查是否有库存"/> 
+  </start>  
+  <end g="227,565,48,48" name="end1"/>  
+  <task form="/task/Contractreview/cgscgysydd" g="373,186,174,52" name="采购生成供应商预订单"> 
+    <transition g="-16,-21" name="完成" to="exclusive4"/> 
+  </task>  
+  <task form="/task/Contractreview/xssckhdd" g="820,191,146,52" name="销售生成客户订单"> 
+    <transition g="-58,-24" name="完成" to="exclusive1"/>
+      <transition g="675,263:-24,2" name="退回" to="采购生成供应商预订单"/> 
+  </task>  
+  <decision g="229,191,48,48" name="检查是否有库存"> 
+    <handler class="com.naswork.module.task.controller.orderapproval.TaskHandle" />  
+    <transition g="-31,-21" name="无库存" to="采购生成供应商预订单"/>  
+    <transition g="-45,5" name="有库存" to="采购审核库存"/> 
+  </decision>  
+  <task form="/task/Contractreview/cgsh" g="403,298,125,52" name="采购审核库存">  
+    <transition g="7,-11" name="不使用" to="采购生成供应商预订单"/>  
+    <transition g="-16,-21" name="使用" to="exclusive5"/>
+      <transition g="4,-18" name="提交审核" to="总经理审核库存"/> 
+  </task>  
+  <task form="/task/Contractreview/zjlsh" g="398,412,137,52" name="总经理审核库存">
+      <transition g="398,379:-70,-14" name="回馈意见" to="采购审核库存"/> 
+  </task>  
+  <decision g="1127,195,48,48" name="exclusive1"> 
+    <handler class="com.naswork.module.task.controller.orderapproval.TaskHandle" />  
+    <transition g="1160,589:10,-283" name="订单利润通过" to="end1"/>  
+    <transition g="-121,-21" name="订单利润不通过" to="采购询问供应商能否降价"/> 
+  </decision>  
+  <task form="/task/Contractreview/xszfkhdd" g="982,492,146,52" name="要求客户取消订单"> 
+    <transition g="224,-17" name="完成" to="end1"/> 
+  </task>  
+  <task form="/task/Contractreview/cgxwgysnfjj" g="966,355,190,52" name="采购询问供应商能否降价"> 
+    <transition g="-3,5" name="调整完成" to="exclusive3"/>  
+    <transition g="-25,-23" name="提交审核" to="总经理审核订单利润"/>  
+    <transition g="13,-9" name="取消合同" to="要求客户取消订单"/> 
+  </task>  
+  <decision g="847,447,48,48" name="exclusive3"> 
+    <handler class="com.naswork.module.task.controller.orderapproval.TaskHandle" />  
+    <transition g="-114,1" name="利润率低于标准" to="总经理审核订单利润"/>
+      <transition g="85,-51" name="通过" to="end1"/> 
+  </decision>  
+  <decision g="654,192,48,48" name="exclusive4"> 
+    <handler class="com.naswork.module.task.controller.orderapproval.TaskHandle" />  
+    <transition g="-39,-21" name="利润通过" to="销售生成客户订单"/>  
+    <transition g="-153,-15" name="价格上涨或利润不通过" to="销售修改或作废客户订单项价格"/> 
+  </decision>  
+  <task form="/task/Contractreview/xsxghzfkhddxjg" g="563,87,234,52" name="销售修改或作废客户订单项价格"> 
+    <transition g="-21,1" name="完成" to="exclusive2"/>
+      <transition g="460,115:-22,-25" name="退回" to="采购生成供应商预订单"/>
+      <transition g="-48,-22" name="提交审核" to="总经理审核利润"/> 
+  </task>  
+  <task form="/task/Contractreview/zjlshddlr" g="711,346,155,52" name="总经理审核订单利润">  
+    <transition g="909,326:-34,-24" name="回馈意见" to="采购询问供应商能否降价"/> 
+  </task>  
+  <task form="/task/Contractreview/zjlshjg" g="827,4,132,52" name="总经理审核利润"> 
+    <transition g="680,32:-4,-27" name="回馈意见" to="销售修改或作废客户订单项价格"/> 
+  </task>  
+  <decision g="869,90,48,48" name="exclusive2"> 
+   <handler class="com.naswork.module.task.controller.orderapproval.TaskHandle" />  
+    <transition g="7,-15" name="通过" to="销售生成客户订单"/>  
+    <transition g="5,-3" name="利润不通过" to="总经理审核利润"/> 
+  </decision>
+   <decision g="639,302,48,48" name="exclusive5">
+    <handler class="com.naswork.module.task.controller.orderapproval.TaskHandle" />  
+      <transition g="-12,7" name="库存利润低于标准" to="总经理审核库存"/>
+      <transition g="0,6" name="通过" to="销售生成客户订单"/>
+   </decision> 
+</process>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TPartUploadBackupDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TPartUploadBackup" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="PART_NUM" property="partNum" jdbcType="VARCHAR" />
+    <result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
+    <result column="CAGE_CODE" property="cageCode" jdbcType="CHAR" />
+    <result column="NSN" property="nsn" jdbcType="VARCHAR" />
+    <result column="REPLACED_NSN" property="replacedNsn" jdbcType="VARCHAR" />
+    <result column="WEIGHT" property="weight" jdbcType="VARCHAR" />
+    <result column="DIMENTIONS" property="dimentions" jdbcType="VARCHAR" />
+    <result column="COUNTRY_OF_ORIGIN" property="countryOfOrigin" jdbcType="CHAR" />
+    <result column="ECCN" property="eccn" jdbcType="VARCHAR" />
+    <result column="SCHEDULE_B_CODE" property="scheduleBCode" jdbcType="VARCHAR" />
+    <result column="SHELF_LIFE" property="shelfLife" jdbcType="SMALLINT" />
+    <result column="ATA_CHAPTER_SECTION" property="ataChapterSection" jdbcType="SMALLINT" />
+    <result column="CATEGORY_NO" property="categoryNo" jdbcType="INTEGER" />
+    <result column="USML" property="usml" jdbcType="VARCHAR" />
+    <result column="HAZMAT_CODE" property="hazmatCode" jdbcType="VARCHAR" />
+    <result column="IMG_PATH" property="imgPath" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="LINE" property="line" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, PART_NUM, PART_NAME, CAGE_CODE, NSN, REPLACED_NSN, WEIGHT, DIMENTIONS, COUNTRY_OF_ORIGIN, 
+    ECCN, SCHEDULE_B_CODE, SHELF_LIFE, ATA_CHAPTER_SECTION, CATEGORY_NO, USML, HAZMAT_CODE, 
+    IMG_PATH
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from crmstock.t_part_upload_backup
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from crmstock.t_part_upload_backup
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TPartUploadBackup" >
+    insert into crmstock.t_part_upload_backup (USER_ID, PART_NUM, PART_NAME, 
+      CAGE_CODE, NSN, REPLACED_NSN, 
+      WEIGHT, DIMENTIONS, COUNTRY_OF_ORIGIN, 
+      ECCN, SCHEDULE_B_CODE, SHELF_LIFE, 
+      ATA_CHAPTER_SECTION, CATEGORY_NO, USML, 
+      HAZMAT_CODE, IMG_PATH)
+    values (#{userId,jdbcType=INTEGER}, #{partNum,jdbcType=VARCHAR}, #{partName,jdbcType=VARCHAR}, 
+      #{cageCode,jdbcType=CHAR}, #{nsn,jdbcType=VARCHAR}, #{replacedNsn,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=VARCHAR}, #{dimentions,jdbcType=VARCHAR}, #{countryOfOrigin,jdbcType=CHAR}, 
+      #{eccn,jdbcType=VARCHAR}, #{scheduleBCode,jdbcType=VARCHAR}, #{shelfLife,jdbcType=SMALLINT}, 
+      #{ataChapterSection,jdbcType=SMALLINT}, #{categoryNo,jdbcType=INTEGER}, #{usml,jdbcType=VARCHAR}, 
+      #{hazmatCode,jdbcType=VARCHAR}, #{imgPath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TPart" >
+    insert into crmstock.t_part_upload_backup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="partNum != null" >
+        PART_NUM,
+      </if>
+      <if test="partName != null" >
+        PART_NAME,
+      </if>
+      <if test="cageCode != null" >
+        CAGE_CODE,
+      </if>
+      <if test="nsn != null" >
+        NSN,
+      </if>
+      <if test="replacedNsn != null" >
+        REPLACED_NSN,
+      </if>
+      <if test="weight != null" >
+        WEIGHT,
+      </if>
+      <if test="dimentions != null" >
+        DIMENTIONS,
+      </if>
+      <if test="countryOfOrigin != null" >
+        COUNTRY_OF_ORIGIN,
+      </if>
+      <if test="eccn != null" >
+        ECCN,
+      </if>
+      <if test="scheduleBCode != null" >
+        SCHEDULE_B_CODE,
+      </if>
+      <if test="shelfLife != null" >
+        SHELF_LIFE,
+      </if>
+      <if test="ataChapterSection != null" >
+        ATA_CHAPTER_SECTION,
+      </if>
+      <if test="categoryNo != null" >
+        CATEGORY_NO,
+      </if>
+      <if test="usml != null" >
+        USML,
+      </if>
+      <if test="hazmatCode != null" >
+        HAZMAT_CODE,
+      </if>
+      <if test="imgPath != null" >
+        IMG_PATH,
+      </if>
+      <if test="description != null" >
+       	DESCRIPTION,
+      </if>
+      <if test="line != null" >
+       	LINE
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="partNum != null" >
+        #{partNum,jdbcType=VARCHAR},
+      </if>
+      <if test="partName != null" >
+        #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="cageCode != null" >
+        #{cageCode,jdbcType=CHAR},
+      </if>
+      <if test="nsn != null" >
+        #{nsn,jdbcType=VARCHAR},
+      </if>
+      <if test="replacedNsn != null" >
+        #{replacedNsn,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="dimentions != null" >
+        #{dimentions,jdbcType=VARCHAR},
+      </if>
+      <if test="countryOfOrigin != null" >
+        #{countryOfOrigin,jdbcType=CHAR},
+      </if>
+      <if test="eccn != null" >
+        #{eccn,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleBCode != null" >
+        #{scheduleBCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfLife != null" >
+        #{shelfLife,jdbcType=SMALLINT},
+      </if>
+      <if test="ataChapterSection != null" >
+        #{ataChapterSection,jdbcType=SMALLINT},
+      </if>
+      <if test="categoryNo != null" >
+        #{categoryNo,jdbcType=INTEGER},
+      </if>
+      <if test="usml != null" >
+        #{usml,jdbcType=VARCHAR},
+      </if>
+      <if test="hazmatCode != null" >
+        #{hazmatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null" >
+        #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="line != null" >
+        #{line,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TPartUploadBackup" >
+    update crmstock.t_part_upload_backup
+    <set >
+      <if test="partNum != null" >
+        PART_NUM = #{partNum,jdbcType=VARCHAR},
+      </if>
+      <if test="partName != null" >
+        PART_NAME = #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="cageCode != null" >
+        CAGE_CODE = #{cageCode,jdbcType=CHAR},
+      </if>
+      <if test="nsn != null" >
+        NSN = #{nsn,jdbcType=VARCHAR},
+      </if>
+      <if test="replacedNsn != null" >
+        REPLACED_NSN = #{replacedNsn,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        WEIGHT = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="dimentions != null" >
+        DIMENTIONS = #{dimentions,jdbcType=VARCHAR},
+      </if>
+      <if test="countryOfOrigin != null" >
+        COUNTRY_OF_ORIGIN = #{countryOfOrigin,jdbcType=CHAR},
+      </if>
+      <if test="eccn != null" >
+        ECCN = #{eccn,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduleBCode != null" >
+        SCHEDULE_B_CODE = #{scheduleBCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfLife != null" >
+        SHELF_LIFE = #{shelfLife,jdbcType=SMALLINT},
+      </if>
+      <if test="ataChapterSection != null" >
+        ATA_CHAPTER_SECTION = #{ataChapterSection,jdbcType=SMALLINT},
+      </if>
+      <if test="categoryNo != null" >
+        CATEGORY_NO = #{categoryNo,jdbcType=INTEGER},
+      </if>
+      <if test="usml != null" >
+        USML = #{usml,jdbcType=VARCHAR},
+      </if>
+      <if test="hazmatCode != null" >
+        HAZMAT_CODE = #{hazmatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null" >
+        IMG_PATH = #{imgPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TPartUploadBackup" >
+    update crmstock.t_part_upload_backup
+    set PART_NUM = #{partNum,jdbcType=VARCHAR},
+      PART_NAME = #{partName,jdbcType=VARCHAR},
+      CAGE_CODE = #{cageCode,jdbcType=CHAR},
+      NSN = #{nsn,jdbcType=VARCHAR},
+      REPLACED_NSN = #{replacedNsn,jdbcType=VARCHAR},
+      WEIGHT = #{weight,jdbcType=VARCHAR},
+      DIMENTIONS = #{dimentions,jdbcType=VARCHAR},
+      COUNTRY_OF_ORIGIN = #{countryOfOrigin,jdbcType=CHAR},
+      ECCN = #{eccn,jdbcType=VARCHAR},
+      SCHEDULE_B_CODE = #{scheduleBCode,jdbcType=VARCHAR},
+      SHELF_LIFE = #{shelfLife,jdbcType=SMALLINT},
+      ATA_CHAPTER_SECTION = #{ataChapterSection,jdbcType=SMALLINT},
+      CATEGORY_NO = #{categoryNo,jdbcType=INTEGER},
+      USML = #{usml,jdbcType=VARCHAR},
+      HAZMAT_CODE = #{hazmatCode,jdbcType=VARCHAR},
+      IMG_PATH = #{imgPath,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByUserIdPage" parameterType="page" resultMap="BaseResultMap">
+  		select tpub.LINE,tpub.PART_NUM,tpub.PART_NAME,tpub.DESCRIPTION,
+  			tpub.CAGE_CODE,tpub.SHELF_LIFE
+			from crmstock.t_part_upload_backup tpub where tpub.USER_ID = #{userId}
+  </select>
+  
+  <delete id="delete" parameterType="Integer">
+  		delete from crmstock.t_part_upload_backup where USER_ID = #{userId}
+  </delete>
+</mapper>

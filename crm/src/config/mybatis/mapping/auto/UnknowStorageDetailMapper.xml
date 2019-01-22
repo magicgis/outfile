@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.UnknowStorageDetailDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.UnknowStorageDetail" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="USE_AMOUNT" property="useAmount" jdbcType="DOUBLE" />
+    <result column="CERTIFICATION" property="certification" jdbcType="VARCHAR" />
+    <result column="SN" property="sn" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PART_NUMBER, DESCRIPTION, AMOUNT, USE_AMOUNT, CERTIFICATION, SN, REMARK, UPDATE_TIMESTAMP,LOCATION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from unknow_storage_detail
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from unknow_storage_detail
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.UnknowStorageDetail" >
+    insert into unknow_storage_detail (ID, PART_NUMBER, DESCRIPTION, 
+      AMOUNT, USE_AMOUNT, CERTIFICATION, 
+      SN, REMARK, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DOUBLE}, #{useAmount,jdbcType=DOUBLE}, #{certification,jdbcType=VARCHAR}, 
+      #{sn,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.UnknowStorageDetail" >
+    insert into unknow_storage_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="useAmount != null" >
+        USE_AMOUNT,
+      </if>
+      <if test="certification != null" >
+        CERTIFICATION,
+      </if>
+      <if test="sn != null" >
+        SN,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="useAmount != null" >
+        #{useAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="certification != null" >
+        #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.UnknowStorageDetail" >
+    update unknow_storage_detail
+    <set >
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="useAmount != null" >
+        USE_AMOUNT = #{useAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="certification != null" >
+        CERTIFICATION = #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        SN = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.UnknowStorageDetail" >
+    update unknow_storage_detail
+    set PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      USE_AMOUNT = #{useAmount,jdbcType=DOUBLE},
+      CERTIFICATION = #{certification,jdbcType=VARCHAR},
+      SN = #{sn,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+		usd.ID,
+		usd.PART_NUMBER,
+		usd.DESCRIPTION,
+		usd.AMOUNT,
+		usd.USE_AMOUNT,
+		usd.CERTIFICATION,
+		usd.SN,
+		usd.REMARK,
+		usd.UPDATE_TIMESTAMP,
+		usd.location
+	FROM
+		unknow_storage_detail usd
+	<where>
+		${where}
+	</where>
+	<if test="orderby != null">
+		${orderby}
+	</if>
+  </select>
+  
+</mapper>

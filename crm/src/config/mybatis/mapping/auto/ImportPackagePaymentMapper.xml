@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ImportPackagePaymentDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ImportPackagePayment" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ID" property="importPackageId" jdbcType="INTEGER" />
+    <result column="PAYMENT_DATE" property="paymentDate" jdbcType="DATE" />
+    <result column="PAYMENT_NUMBER" property="paymentNumber" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="PAYMENT_PERCENTAGE" property="paymentPercentage" jdbcType="DOUBLE" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="IMPORT_NUMBER" property="importNumber" jdbcType="VARCHAR" />
+    <result column="PAYMENT_TOTAL" property="paymentTotal" jdbcType="DOUBLE" />
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="PAYMENT_TYPE" property="paymentType" jdbcType="INTEGER" />
+    <result column="payment_amount" property="paymentAmount" jdbcType="DOUBLE" />
+    <result column="order_amount" property="orderAmount" jdbcType="DOUBLE" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR"/>
+    <result column="PAYMENT_STATUS_VALUE" property="paymentStatusValue" jdbcType="VARCHAR"/>
+    <result column="should_pay" property="shouldPay" jdbcType="DOUBLE" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ORDER_ID" property="supplierOrderId" jdbcType="INTEGER" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR"/>
+    <result column="SPZT" property="spzt" jdbcType="INTEGER" />
+    <result column="PAYMENT_STATUS_ID" property="paymentStatusId" jdbcType="INTEGER" />
+    <result column="COUNTER_FEE" property="counterFee" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <resultMap id="searchVo" type="com.naswork.module.finance.controller.importpayment.SearchVo" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="import_number" property="importPackageNumber" jdbcType="VARCHAR" />
+    <result column="order_number" property="supplierOrderNumber" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="order_date" property="orderDate" jdbcType="DATE" />
+    <result column="import_date" property="importDate" jdbcType="DATE" />
+    <result column="prepay_rate" property="prepayRate" jdbcType="DOUBLE" />
+    <result column="ship_pay_rate" property="shipPayRate" jdbcType="DOUBLE" />
+    <result column="receive_pay_rate" property="receivePayRate" jdbcType="DOUBLE" />
+    <result column="receive_pay_period" property="receivePayPeriod" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_ID, PAYMENT_DATE, PAYMENT_NUMBER, REMARK, UPDATE_TIMESTAMP, PAYMENT_PERCENTAGE,SUPPLIER_ID,PAYMENT_TYPE,LEAD_TIME,PAYMENT_STATUS_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_package_payment
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from import_package_payment
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ImportPackagePayment" >
+  <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into import_package_payment (ID, IMPORT_PACKAGE_ID, PAYMENT_DATE, 
+      PAYMENT_NUMBER, REMARK, UPDATE_TIMESTAMP, 
+      PAYMENT_PERCENTAGE,PAYMENT_TYPE,SUPPLIER_ID,SUPPLIER_ORDER_ID)
+    values (#{id,jdbcType=INTEGER}, #{importPackageId,jdbcType=INTEGER}, #{paymentDate,jdbcType=DATE}, 
+      #{paymentNumber,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, CURRENT_TIMESTAMP,
+      #{paymentPercentage,jdbcType=DECIMAL},#{paymentType,jdbcType=INTEGER},#{supplierId,jdbcType=INTEGER},#{supplierOrderId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ImportPackagePayment" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into import_package_payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importPackageId != null" >
+        IMPORT_PACKAGE_ID,
+      </if>
+      <if test="paymentDate != null" >
+        PAYMENT_DATE,
+      </if>
+      <if test="paymentNumber != null" >
+        PAYMENT_NUMBER,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="paymentPercentage != null" >
+        PAYMENT_PERCENTAGE,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="paymentType != null" >
+        PAYMENT_TYPE,
+      </if>
+      <if test="supplierOrderId != null" >
+        SUPPLIER_ORDER_ID,
+      </if>
+      <if test="paymentStatusId != null" >
+        SPZT,
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageId != null" >
+        #{importPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentDate != null" >
+        #{paymentDate,jdbcType=DATE},
+      </if>
+      <if test="paymentNumber != null" >
+        #{paymentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentPercentage != null" >
+        #{paymentPercentage,jdbcType=DOUBLE},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentType != null" >
+        #{paymentType,jdbcType=INTEGER},
+      </if>
+      <if test="supplierOrderId != null" >
+        #{supplierOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentStatusId != null" >
+        #{paymentStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ImportPackagePayment" >
+    update import_package_payment
+    <set >
+      <if test="importPackageId != null" >
+        IMPORT_PACKAGE_ID = #{importPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentDate != null" >
+        PAYMENT_DATE = #{paymentDate,jdbcType=DATE},
+      </if>
+      <if test="paymentNumber != null" >
+        PAYMENT_NUMBER = #{paymentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentPercentage != null" >
+        PAYMENT_PERCENTAGE = #{paymentPercentage,jdbcType=DOUBLE},
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="spzt != null" >
+        SPZT = #{spzt,jdbcType=INTEGER},
+      </if>
+       <if test="paymentStatusId != null" >
+        PAYMENT_STATUS_ID = #{paymentStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentType != null" >
+        PAYMENT_TYPE = #{paymentType,jdbcType=INTEGER},
+      </if>
+       <if test="counterFee != null" >
+        COUNTER_FEE = #{counterFee,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ImportPackagePayment" >
+    update import_package_payment
+    set IMPORT_PACKAGE_ID = #{importPackageId,jdbcType=INTEGER},
+      PAYMENT_DATE = #{paymentDate,jdbcType=DATE},
+      PAYMENT_NUMBER = #{paymentNumber,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      PAYMENT_PERCENTAGE = #{paymentPercentage,jdbcType=DOUBLE}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findBySupplierIdPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			ipp.*, s.`CODE` AS supplier_code,
+			SUM(ippe.PAYMENT_SUM) as PAYMENT_TOTAL,
+			sta.`VALUE` AS PAYMENT_STATUS_VALUE,ipp.spzt,
+			SUM(
+				soe.PRICE * ippe.AMOUNT * ipp.PAYMENT_PERCENTAGE / 100
+			) AS should_pay
+		FROM
+			import_package_payment ipp
+		LEFT JOIN supplier s ON s.ID = ipp.SUPPLIER_ID
+		LEFT JOIN system_code sta ON sta.ID = ipp.PAYMENT_STATUS_ID
+		LEFT JOIN import_package_payment_element ippe ON ippe.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+		LEFT JOIN supplier_order_element soe ON soe.ID = ippe.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN v_payment_bill vpb ON vpb.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+		WHERE ipp.SUPPLIER_ID = #{supplierId}
+		GROUP BY ipp.ID
+  </select>
+  
+  <select id="getShouldPayByImportPackagePaymentId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			SUM(
+				soe.PRICE * ippe.AMOUNT * ipp.PAYMENT_PERCENTAGE / 100
+			) AS should_pay
+		FROM
+			import_package_payment ipp
+		LEFT JOIN supplier s ON s.ID = ipp.SUPPLIER_ID
+		LEFT JOIN system_code sta ON sta.ID = ipp.SPZT
+		LEFT JOIN import_package_payment_element ippe ON ippe.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+		LEFT JOIN supplier_order_element soe ON soe.ID = ippe.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN v_payment_bill vpb ON vpb.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+		WHERE ipp.id = #{importPackagePaymentId}
+  </select>
+  
+  <select id="getCountByImportPackageId" parameterType="Integer" resultType="Integer">
+  		SELECT COUNT(*) FROM import_package_payment ipp where ipp.SUPPLIER_ORDER_ID = #{importPackageId}
+     
+  </select>
+  
+  <select id="findBypaymentNumber" parameterType="String" resultMap="BaseResultMap">
+  		 select 
+    <include refid="Base_Column_List" />
+	    from import_package_payment
+	    where PAYMENT_NUMBER = #{paymentNumber,jdbcType=VARCHAR}
+  </select>    
+  
+  <select id="findBySupplierOrderId" parameterType="Integer" resultMap="BaseResultMap">
+  		 select 
+    <include refid="Base_Column_List" />
+	    from import_package_payment
+	    where SUPPLIER_ORDER_ID = #{supplierOrderId,jdbcType=INTEGER} AND PAYMENT_TYPE=0
+  </select>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			ipp.ID,
+			ipp.PAYMENT_NUMBER,
+			ipp.PAYMENT_DATE,
+			ipp.PAYMENT_PERCENTAGE,
+			ipp.PAYMENT_TYPE,
+			ipp.REMARK,
+			ipp.LEAD_TIME,
+			so.ORDER_NUMBER,
+			ip.IMPORT_NUMBER,
+			s.`CODE`,
+			s.id AS supplier_id,
+			ipp.SUPPLIER_ORDER_ID,
+			ipp.IMPORT_PACKAGE_ID,
+			vpb.payment_total AS should_pay,
+			SUM(ippe.PAYMENT_SUM) AS payment_total,
+			ipp.UPDATE_TIMESTAMP,
+			sta.`VALUE` AS PAYMENT_STATUS_VALUE,
+			ipp.spzt
+		FROM
+			import_package_payment ipp
+		LEFT JOIN import_package_payment_element ippe ON ippe.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+		LEFT JOIN v_payment_bill vpb on vpb.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+		LEFT JOIN import_package ip ON ip.ID = ipp.IMPORT_PACKAGE_ID
+		LEFT JOIN supplier_order so ON so.ID = ipp.SUPPLIER_ORDER_ID
+		LEFT JOIN system_code sta on sta.ID = ipp.PAYMENT_STATUS_ID
+		LEFT JOIN supplier s ON s.ID = ipp.SUPPLIER_ID
+		
+		<where>
+			${where}
+		</where>
+		<if test="userId != null">
+			and s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		GROUP BY ipp.ID
+		<if test="orderby != null">
+			${orderby}
+		</if>
+		
+  </select>
+  
+  <select id="listById" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			ipp.ID,
+			ipp.PAYMENT_NUMBER,
+			ipp.SUPPLIER_ORDER_ID,
+			ipp.PAYMENT_DATE,
+			ipp.PAYMENT_PERCENTAGE,
+			ipp.PAYMENT_TYPE,
+			ipp.REMARK,
+			so.ORDER_NUMBER,
+			ip.IMPORT_NUMBER,
+			s.`CODE`,
+			vpb.payment_total AS should_pay,
+			SUM(ippe.PAYMENT_SUM) AS payment_total,
+			ipp.UPDATE_TIMESTAMP,
+			sta.`VALUE` AS PAYMENT_STATUS_VALUE,
+			ipp.spzt,ipp.COUNTER_FEE
+		FROM
+			import_package_payment ipp
+		LEFT JOIN import_package_payment_element ippe ON ippe.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+		LEFT JOIN v_payment_bill vpb on vpb.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+		LEFT JOIN import_package ip ON ip.ID = ipp.IMPORT_PACKAGE_ID
+		LEFT JOIN supplier_order so ON so.ID = ipp.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier s ON s.ID = ipp.SUPPLIER_ID
+		LEFT JOIN system_code sta on sta.ID = ipp.PAYMENT_STATUS_ID
+		where ipp.id = #{importPackagePaymentId}
+		GROUP BY ipp.ID
+		
+  </select>
+  
+  <select id="selectByImportNumber" parameterType="page" resultMap="searchVo">
+	  SELECT ip.*,s.`CODE` AS supplier_code FROM import_package ip 
+				LEFT JOIN supplier s on s.ID = ip.SUPPLIER_ID 
+  		<where>
+  			${where}
+  		</where>
+  </select>
+  
+  
+  <select id="selectByOrderNumber" parameterType="page" resultMap="searchVo">
+  	 SELECT so.*,s.`CODE` AS supplier_code FROM supplier_order so 
+			LEFT JOIN supplier s ON s.ID = so.SUPPLIER_ID 	
+  		<where>
+  			${where}
+  		</where>
+  </select>
+  
+  <select id="getCountBySupplierOrderId" parameterType="Integer" resultType="Integer">
+  		SELECT COUNT(*) FROM import_package_payment ipp where ipp.SUPPLIER_ORDER_ID = #{supplierOrderId}
+  </select>
+ 
+ <select id="selectBySupplierOrderId" parameterType="Integer" resultMap="BaseResultMap">
+ 		SELECT
+			ipp.ID,
+			ipp.IMPORT_PACKAGE_ID,
+			ipp.PAYMENT_DATE,
+			ipp.PAYMENT_NUMBER,
+			ipp.REMARK,
+			ipp.UPDATE_TIMESTAMP,
+			ipp.PAYMENT_PERCENTAGE,
+			ipp.SUPPLIER_ID,
+			ipp.PAYMENT_TYPE,
+			ipp.LEAD_TIME,
+			ipp.PAYMENT_STATUS_ID,
+			vpb.payment_total AS PAYMENT_TOTAL
+		FROM
+			import_package_payment ipp
+		LEFT JOIN supplier_order so ON so.ID = ipp.SUPPLIER_ORDER_ID
+		LEFT JOIN v_payment_bill vpb ON vpb.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+		WHERE so.ID = #{supplierOrderId}
+ </select>
+ 
+ <select id="getShouldPrepaymentOrderPage" parameterType="page" resultMap="searchVo">
+  		SELECT DISTINCT
+			so.ID,so.ORDER_NUMBER,so.PREPAY_RATE,so.ORDER_DATE,s.`CODE` as supplier_code
+		FROM
+			supplier_order so
+		LEFT JOIN supplier s on s.ID = so.SUPPLIER_ID
+		LEFT JOIN authority_relation ar on ar.SUPPLIER_ID = s.id
+		LEFT JOIN import_package_payment aa ON aa.SUPPLIER_ORDER_ID = so.ID
+		WHERE
+			so.PREPAY_RATE > 0 
+			<if test="userId != null">
+				AND ar.USER_ID = #{userId}
+			</if>
+			<if test="where != null">
+				AND ${where}
+			</if>
+		AND so.ID NOT IN (
+			SELECT
+				b.ID
+			FROM
+				supplier_order b
+			LEFT JOIN supplier ss on ss.ID = b.SUPPLIER_ID
+			LEFT JOIN authority_relation ars on ars.SUPPLIER_ID = ss.id
+			LEFT JOIN import_package_payment bb ON bb.SUPPLIER_ORDER_ID = b.ID
+			WHERE
+				b.PREPAY_RATE > 0
+			AND bb.PAYMENT_TYPE = 0 
+			<if test="userId != null">
+				AND ars.USER_ID = #{userId}
+			</if>	
+		)
+ </select>
+ 
+ <select id="getShouldShipPaymentOrderPage" parameterType="page" resultMap="searchVo">
+ 	SELECT DISTINCT
+		so.ID,so.ORDER_NUMBER,so.ORDER_DATE,s.`CODE` as supplier_code,so.SHIP_PAY_RATE
+	FROM
+		supplier_order so
+	LEFT JOIN supplier_order_element soe ON soe.SUPPLIER_ORDER_ID = so.ID
+	LEFT JOIN supplier s on s.ID = so.SUPPLIER_ID
+	LEFT JOIN authority_relation ar on ar.SUPPLIER_ID = s.id
+	LEFT JOIN import_package_payment aa ON aa.SUPPLIER_ORDER_ID = so.ID
+	WHERE
+		so.SHIP_PAY_RATE > 0 AND DATE_ADD(soe.INVOICE_DATE, Interval 20 DAY) >= DATE(NOW())
+		<if test="userId != null">
+			AND ar.USER_ID =  #{userId}
+		</if>
+		<if test="where != null">
+			AND ${where}
+		</if>	
+		AND so.ID NOT IN (
+		SELECT
+			b.ID
+		FROM
+			supplier_order b
+		LEFT JOIN supplier ss on ss.ID = b.SUPPLIER_ID
+		LEFT JOIN authority_relation ars on ars.SUPPLIER_ID = ss.id
+		LEFT JOIN import_package_payment bb ON bb.SUPPLIER_ORDER_ID = b.ID
+		WHERE
+			b.SHIP_PAY_RATE > 0
+		AND bb.PAYMENT_TYPE = 1 
+		<if test="userId != null">	
+			AND ars.USER_ID =  #{userId}
+		</if>	
+	)
+ </select>
+ 
+ <select id="getShouldReceivePaymentOrderPage" parameterType="page" resultMap="searchVo">
+ 	SELECT DISTINCT
+		ip.ID,ip.IMPORT_NUMBER,ip.IMPORT_DATE,so.RECEIVE_PAY_RATE,so.RECEIVE_PAY_PERIOD,s.`CODE` as supplier_code
+	FROM import_package ip 
+	LEFT JOIN import_package_element ipe on ip.id = ipe.IMPORT_PACKAGE_ID
+	LEFT JOIN supplier_import_element sie on sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+	LEFT JOIN supplier_order_element soe on soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+	LEFT JOIN supplier_order so on so.ID = soe.SUPPLIER_ORDER_ID
+	LEFT JOIN supplier s on s.ID = so.SUPPLIER_ID
+	LEFT JOIN authority_relation ar on ar.SUPPLIER_ID = s.id
+	LEFT JOIN import_package_payment ipp on ipp.IMPORT_PACKAGE_ID = ip.ID
+	WHERE
+		so.RECEIVE_PAY_RATE > 0 
+		<if test="userId != null">
+			AND ar.USER_ID = #{userId} 
+		</if>
+		<if test="where != null">
+			AND ${where}
+		</if>	
+	AND ip.ID NOT IN (
+		SELECT
+			aa.ID
+		FROM import_package aa 
+		LEFT JOIN import_package_element ab on aa.id = ab.IMPORT_PACKAGE_ID
+		LEFT JOIN supplier_import_element ac on ac.IMPORT_PACKAGE_ELEMENT_ID = ab.ID
+		LEFT JOIN supplier_order_element ad on ad.ID = ac.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_order ae on ae.ID = ad.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier af on af.ID = ae.SUPPLIER_ID
+		LEFT JOIN authority_relation ag on ag.SUPPLIER_ID = af.id
+		LEFT JOIN import_package_payment ah on ah.IMPORT_PACKAGE_ID = aa.ID
+		WHERE
+			ae.RECEIVE_PAY_RATE > 0
+		AND ah.PAYMENT_TYPE = 2 and DATE(NOW()) >= DATE_SUB(DATE_ADD(ip.IMPORT_DATE,INTERVAL so.RECEIVE_PAY_PERIOD DAY),INTERVAL 7 DAY)
+		<if test="userId != null">
+			AND ag.USER_ID = #{userId} 
+		</if>
+		
+	)
+ </select>
+ 
+   <select id="findSpztById" parameterType="Integer" resultType="Integer">
+  		SELECT IFNULL(COUNT(*),0) FROM import_package_payment_element ippe where ippe.IMPORT_PACKAGE_PAYMENT_ID = #{id} AND ippe.SPZT!=235 AND ippe.SPZT!=233
+  </select>
+ 
+</mapper>

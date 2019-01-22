@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ImportStorageLocationListDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ImportStorageLocationList" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="STOREHOUSE_ADDRESS_ID" property="storehouseAddressId" jdbcType="INTEGER" />
+     <result column="SOURCE_NUMBER" property="sourceNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, LOCATION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_storage_location_list
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByLocation" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_storage_location_list
+    where LOCATION = #{location,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_storage_location_list
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from import_storage_location_list
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ImportStorageLocationList" >
+    insert into import_storage_location_list (ID, LOCATION)
+    values (#{id,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ImportStorageLocationList" >
+    insert into import_storage_location_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="storehouseAddressId != null" >
+        STOREHOUSE_ADDRESS_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="storehouseAddressId != null" >
+        #{storehouseAddressId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ImportStorageLocationList" >
+    update import_storage_location_list
+    <set >
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ImportStorageLocationList" >
+    update import_storage_location_list
+    set LOCATION = #{location,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+		isll.ID,
+		isll.LOCATION
+	FROM
+		import_storage_location_list isll
+	WHERE
+		isll.STOREHOUSE_ADDRESS_ID = #{storehouseAddressId}
+  </select>
+  
+    <select id="selectSourceNumber" resultMap="BaseResultMap" parameterType="String" >
+		 <!-- SELECT co.SOURCE_NUMBER from import_package_element ipe INNER JOIN v_storage vs 
+			ON ipe.ID=vs.id INNER JOIN import_storage_location_list isll on isll.LOCATION=ipe.LOCATION
+			INNER JOIN supplier_import_element sie on sie.IMPORT_PACKAGE_ELEMENT_ID=ipe.ID
+			INNER JOIN supplier_order_element soe on soe.ID=sie.SUPPLIER_ORDER_ELEMENT_ID
+			INNER JOIN client_order_element coe on coe.ID=soe.CLIENT_ORDER_ELEMENT_ID
+			INNER JOIN client_order co on co.ID=coe.CLIENT_ORDER_ID
+			INNER JOIN client_quote_element cqe on cqe.ID=coe.CLIENT_QUOTE_ELEMENT_ID
+			INNER JOIN client_inquiry_element cie on cie.ID=cqe.CLIENT_INQUIRY_ELEMENT_ID 
+			INNER JOIN client_inquiry ci on ci.ID=cie.CLIENT_INQUIRY_ID
+			where vs.storage_amount >0 and isll.LOCATION=#{location} AND (ci.CLIENT_ID=44 || ci.CLIENT_ID=1000012) GROUP BY co.SOURCE_NUMBER   -->
+		SELECT a.SOURCE_NUMBER FROM
+			(SELECT
+				co.SOURCE_NUMBER,
+				SUM(vs.storage_amount) AS AMOUNT
+			FROM
+				v_storage vs
+			INNER JOIN import_package_element ipe ON ipe.ID = vs.id
+			INNER JOIN import_storage_location_list isll ON isll.LOCATION = ipe.LOCATION
+			INNER JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+			INNER JOIN supplier_order_element soe ON soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+			INNER JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+			INNER JOIN client_order co ON co.ID = coe.CLIENT_ORDER_ID
+			INNER JOIN client_quote_element cqe ON cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID
+			INNER JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+			INNER JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+			LEFT JOIN export_package_element epe ON epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+			WHERE
+				isll.LOCATION = #{location}  AND (ci.CLIENT_ID=44 || ci.CLIENT_ID=1000012) GROUP BY co.SOURCE_NUMBER) a 
+			WHERE a.AMOUNT > 0
+		
+	</select>
+	
+	<select id="getLocationByInstructionsIdPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT DISTINCT
+			ipe.LOCATION
+		FROM
+			import_package_element ipe
+		LEFT JOIN export_package_instructions_element epie ON ipe.ID = epie.IMPORT_PACKAGE_ELEMENT_ID
+		WHERE
+			epie.EXPORT_PACKAGE_INSTRUCTIONS_ID = #{id}
+		<if test="where != null">
+			and ${where}
+		</if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.GyFjDao">
+	
+	<resultMap type="com.naswork.model.gy.GyFj" id="GyFj">
+		<result property="fjId" column="FJ_ID" jdbcType="VARCHAR" />
+		<result property="ywId" column="YW_ID" jdbcType="VARCHAR" />
+		<result property="ywTableName" column="YW_TABLE_NAME" jdbcType="VARCHAR" />
+		<result property="ywTablePkName" column="YW_TABLE_PK_NAME" jdbcType="VARCHAR" />
+		<result property="fjName" column="FJ_NAME" jdbcType="VARCHAR" />
+		<result property="fjPath" column="FJ_PATH" jdbcType="VARCHAR" />
+		<result property="fjType" column="FJ_TYPE" jdbcType="VARCHAR" />
+		<result property="fjLength" column="FJ_LENGTH" jdbcType="INTEGER" />
+		<result property="userId" column="USER_ID" jdbcType="VARCHAR" />
+		<result property="lrsj" column="LRSJ" jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- 根据主键查询 -->
+	<select id="findById" resultType="String" resultMap="GyFj">
+		SELECT * FROM T_GY_FJ
+		where FJ_ID = #{fjId}
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.naswork.model.gy.GyFj">
+	 <selectKey resultType="java.lang.String" order="AFTER" keyProperty="fjId">
+		SELECT LAST_INSERT_ID() AS fjId
+	 </selectKey>
+	 insert into T_GY_FJ (
+	 	  	YW_ID,
+	 	  	YW_TABLE_NAME,
+	 	  	YW_TABLE_PK_NAME,
+	 	  	FJ_NAME,
+	 	  	FJ_PATH,
+	 	  	FJ_TYPE,
+	 	  	FJ_LENGTH,
+	 	  	USER_ID,
+	 	    LRSJ,
+	 	    FILE_TYPE
+	 ) 
+	 values (
+	 	  	#{ywId,jdbcType=VARCHAR},
+	 	  	#{ywTableName,jdbcType=VARCHAR},
+	 	  	#{ywTablePkName,jdbcType=VARCHAR},
+	 	  	#{fjName,jdbcType=VARCHAR},
+	 	  	#{fjPath,jdbcType=VARCHAR},
+	 	  	#{fjType,jdbcType=VARCHAR},
+	 	  	#{fjLength,jdbcType=INTEGER},
+	 	  	#{userId,jdbcType=VARCHAR},
+	 	    #{lrsj,jdbcType=DATE},
+	 	    #{fileType,jdbcType=INTEGER}
+	 )
+   </insert>
+   
+   <!-- 更新 -->
+   <update id="update" parameterType="com.naswork.model.gy.GyFj">
+	 update T_GY_FJ
+	 <set>
+	 	<if test="ywId != null ">
+	 	 YW_ID =  #{ywId},
+	 	 </if>
+	 	<if test="ywTableName != null ">
+	 	 YW_TABLE_NAME =  #{ywTableName},
+	 	 </if>
+	 	<if test="ywTablePkName != null ">
+	 	 YW_TABLE_PK_NAME =  #{ywTablePkName},
+	 	 </if>
+	 	<if test="fjName != null ">
+	 	 FJ_NAME =  #{fjName},
+	 	 </if>
+	 	<if test="fjPath != null ">
+	 	 FJ_PATH =  #{fjPath},
+	 	 </if>
+	 	<if test="fjType != null ">
+	 	 FJ_TYPE =  #{fjType},
+	 	 </if>
+	 	<if test="fjLength != null ">
+	 	 FJ_LENGTH =  #{fjLength},
+	 	 </if>
+	 	<if test="userId != null ">
+	 	 USER_ID =  #{userId},
+	 	 </if>
+	 	<if test="lrsj != null ">
+	 	 LRSJ =  #{lrsj},
+	 	 </if>
+	 </set>
+	 where FJ_ID=#{fjId}
+   </update>
+   
+   <!-- 删除 -->
+   <delete id="delete" parameterType="String">
+   		delete from T_GY_FJ where FJ_ID=#{fjId}
+   </delete>  
+   
+    <!-- 分页查询 -->
+	<select id="findPage" parameterType="page" resultMap="GyFj">
+		select fj.* from
+			T_GY_FJ fj
+		<if test="null!=roleId">
+			INNER JOIN  system_code sc on fj.file_type=sc.id
+			inner join supplier_file_relation sfr on sfr.file_type=sc.id
+		</if>
+		<where>
+			${where}
+		</where>
+		<if test="null!=parm">
+			 ${parm}
+		</if>
+		<if test="null!=roleId">
+		and 	sfr.ROLE_ID=${roleId}
+		</if>
+		<if test="null!=importPackageId">
+		  where fj.YW_TABLE_NAME='abnormal_part' and fj.YW_ID in (
+		   select  ipe.id
+	   		from import_package ip 
+			INNER JOIN import_package_element ipe 
+			on ip.ID=ipe.IMPORT_PACKAGE_ID
+			INNER JOIN import_storage_location_list isll on isll.LOCATION=ipe.LOCATION
+			where isll.ID in (110,111) and ip.ID=#{importPackageId})
+		</if>
+		
+		<if test="null!=importPackageElementId">
+		 where fj.YW_TABLE_NAME='abnormal_part' and fj.YW_ID in (${importPackageElementId})
+		</if>
+		
+		
+		
+		<if test="orderby!=null">
+			${orderby}
+		</if>
+	</select>
+
+	<!-- 根据多个id查询集合 -->
+	<select id="findByIds" parameterType="String" resultMap="GyFj">
+		select * from
+			T_GY_FJ fj
+			where FJ_ID in (${_parameter})
+	</select>
+	
+	<!-- 根据业务ID查询附件 -->
+	<select id="findByYwid" parameterType="String" resultMap="GyFj">
+		select * from
+			T_GY_FJ fj
+			where YW_ID = #{ywid} and YW_TABLE_NAME = 'supplier'
+	</select>
+	
+	<select id="getQuoteAttach" parameterType="page" resultMap="GyFj">
+		SELECT * FROM t_gy_fj tgf WHERE tgf.YW_TABLE_NAME = 'client_quote_view' AND tgf.YW_ID = #{ywId} AND tgf.FJ_NAME LIKE ${supplier} AND tgf.FJ_NAME LIKE ${partNumber}
+	</select>
+	
+</mapper>

@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierInquiryDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierInquiry" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+    <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+    <result column="INQUIRY_DATE" property="inquiryDate" jdbcType="DATE" />
+    <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="EMAIL_STATUS" property="emailStatus" jdbcType="INTEGER" />
+  </resultMap>
+  
+    <resultMap type="com.naswork.module.purchase.controller.supplierinquirystatistic.SupplierInquiryStatistic" id="SupplierInquiryStattistic">
+  <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR"/>
+  <result column="air_type_code" property="airTypeCode" jdbcType="VARCHAR"/>
+  <result column="biz_type_code" property="bizTypeCode" jdbcType="VARCHAR"/>
+  <result column="supplier_id" property="supplierId" jdbcType="INTEGER"/>
+  <result column="air_type_id" property="airTypeId" jdbcType="INTEGER"/>
+   <result column="biz_type_id" property="bizTypeId" jdbcType="INTEGER"/>
+  <result column="supplier_inquiry_count" property="supplierInquiryCount" jdbcType="INTEGER"/>
+  <result column="supplier_quote_count" property="supplierQuoteCount" jdbcType="INTEGER"/>
+  <result column="supplier_quote_sum" property="supplierQuoteSum" jdbcType="DOUBLE"/>
+  <result column="supplier_order_count" property="supplierOrderCount" jdbcType="INTEGER"/>
+  <result column="supplier_order_sum" property="supplierOrderSum" jdbcType="DOUBLE"/>
+  <result column="supplier_import_count" property="supplierImportCount" jdbcType="INTEGER"/>
+  <result column="supplier_import_sum" property="supplierImportSum" jdbcType="DOUBLE"/>
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.purchase.controller.supplierinquiry.SupplierVo" id="supplierVo">
+  		<result column="id" property="sid" jdbcType="INTEGER" />
+  		<result column="code" property="code" jdbcType="VARCHAR" />
+  		<result column="name" property="name" jdbcType="VARCHAR" />
+  		<result column="contact-name" property="contactName" jdbcType="VARCHAR" />
+  		<result column="currency-id" property="currencyId" jdbcType="INTEGER" />
+  		<result column="currency-code" property="currencyCode" jdbcType="VARCHAR" />
+  		<result column="currency-value" property="currencyValue" jdbcType="VARCHAR" />
+  		<result column="rate" property="rate" jdbcType="DOUBLE" />
+  		<result column="post-code" property="postCode" jdbcType="VARCHAR" />
+  		<result column="address" property="address" jdbcType="VARCHAR" />
+  		<result column="phone" property="phone" jdbcType="VARCHAR" />
+  		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+  		<result column="fax" property="fax" jdbcType="VARCHAR" />
+  		<result column="email" property="email" jdbcType="VARCHAR" />
+  		<result column="remark" property="remark" jdbcType="VARCHAR" />
+  		<result column="bank" property="bank" jdbcType="VARCHAR" />
+  		<result column="bank-account-number" property="bankAccountNumber" jdbcType="VARCHAR" />
+  		<result column="tax-payer-number" property="taxPayerNumber" jdbcType="VARCHAR" />
+  		<result column="update-timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.purchase.controller.supplierinquiry.ManageVo" id="manageVo">
+  		<result column="id" property="id" jdbcType="INTEGER" />
+  		<result column="client_inquiry_id" property="clientInquiryId" jdbcType="INTEGER" />
+  		<result column="client_inquiry_quote_number" property="clientInquiryQuoteNumber" jdbcType="VARCHAR" />
+  		<result column="inquiry_status_id" property="inquiryStatusId" jdbcType="INTEGER" />
+  		<result column="client_id" property="clientId" jdbcType="INTEGER" />
+  		<result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+  		<result column="air_type_id" property="airTypeId" jdbcType="INTEGER" />
+  		<result column="air_type_code" property="airTypeCode" jdbcType="VARCHAR" />
+  		<result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+  		<result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+  		<result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+  		<result column="supplier_contact_name" property="supplierContactName" jdbcType="VARCHAR" />
+  		<result column="supplier_fax" property="supplierFax" jdbcType="VARCHAR" />
+  		<result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+  		<result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+  		<result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+  		<result column="rate" property="rate" jdbcType="DOUBLE" />
+  		<result column="supplier_inquiry_quote_number" property="supplierInquiryQuoteNumber" jdbcType="VARCHAR" />
+  		<result column="supplier_inquiry_date" property="supplierInquiryDate" jdbcType="DATE" />
+  		<result column="supplier_deadline" property="supplierDeadline" jdbcType="DATE" />
+  		<result column="remark" property="remark" jdbcType="VARCHAR" />
+  		<result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  		 <result column="supplier_quote_count" property="supplierQuoteCount" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.purchase.controller.supplierinquiry.ManageElementVo" id="manageElementVo">
+  		<result column="id" property="id" jdbcType="INTEGER" />
+  		<result column="supplier_inquiry_id" property="supplierInquiryId" jdbcType="INTEGER" />
+  		<result column="supplier_inquiry_quote_number" property="supplierInquiryQuoteNumber" jdbcType="VARCHAR" />
+  		<result column="client_inquiry_element_id" property="clientInquiryElementId" jdbcType="INTEGER" />
+  		<result column="item" property="item" jdbcType="INTEGER" />
+  		<result column="csn" property="csn" jdbcType="INTEGER" />
+  		<result column="element_id" property="elementId" jdbcType="INTEGER" />
+  		<result column="part_number" property="partNumber" jdbcType="VARCHAR" />
+  		<result column="alter_part_number" property="alterPartNumber" jdbcType="VARCHAR" />
+  		<result column="description" property="description" jdbcType="VARCHAR" />
+  		<result column="remark" property="remark" jdbcType="VARCHAR" />
+  		<result column="unit" property="unit" jdbcType="VARCHAR" />
+  		<result column="amount" property="amount" jdbcType="DOUBLE" />
+  		<result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  		<result column="CONDITION_CODE" property="conditionCode" jdbcType="VARCHAR" />
+  		<result column="bank_cost" property="bankCost" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.purchase.controller.supplierinquiry.SaveVo" id="saveVo">
+  	<result column="inquiry_element_count" property="inquiryElementCount" jdbcType="INTEGER" />
+  	<result column="quote_element_count" property="quoteElementCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.marketing.controller.clientinquiry.ClientInquiryVo" id="clientInquiryVo">
+  		 <result column="ID" property="id" jdbcType="INTEGER" />
+  		 <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+  		 <result column="BIZ_TYPE_ID" property="bizTypeId" jdbcType="INTEGER" />
+  		 <result column="AIR_TYPE_ID" property="airTypeId" jdbcType="INTEGER" />
+  		 <result column="INQUIRY_STATUS_ID" property="inquiryStatusId" jdbcType="INTEGER" />
+  		 <result column="INQUIRY_DATE" property="inquiryDate" jdbcType="DATE" />
+  		 <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+  		 <result column="SOURCE_NUMBER" property="sourceNumber" jdbcType="VARCHAR" />
+  		 <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />	
+  		 <result column="TERMS" property="terms" jdbcType="VARCHAR" />
+  		 <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  		 <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  		 <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+  		 <result column="client_name" property="clientName" jdbcType="VARCHAR" />
+  		 <result column="client_contact_id" property="clientContactId" jdbcType="INTEGER" />
+  		 <result column="client_contact_name" property="clientContactName" jdbcType="VARCHAR" />
+  		 <result column="client_contact_phone" property="clientContactPhone" jdbcType="VARCHAR" />
+         <result column="client_contact_fax" property="clientContactFax" jdbcType="VARCHAR" />
+         <result column="currency_id" property="currencyId" jdbcType="VARCHAR" />
+         <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+         <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+         <result column="rate" property="rate" jdbcType="VARCHAR" />
+         <result column="biz_type_id" property="bizTypeId" jdbcType="VARCHAR" />
+         <result column="biz_type_code" property="bizTypeCode" jdbcType="VARCHAR" />
+         <result column="biz_type_value" property="bizTypeValue" jdbcType="VARCHAR" />
+         <result column="air_type_id" property="airTypeId" jdbcType="VARCHAR" />
+         <result column="air_type_code" property="airTypeCode" jdbcType="VARCHAR" />
+         <result column="air_type_value" property="airTypeValue" jdbcType="VARCHAR" />
+         <result column="inquiry_status_id" property="inquiryStatusId" jdbcType="VARCHAR" />
+         <result column="inquiry_status_code" property="inquiryStatusCode" jdbcType="VARCHAR" />
+         <result column="inquiry_status_value" property="inquiryStatusValue" jdbcType="VARCHAR" />
+         <result column="inquiry_date" property="inquiryDate" jdbcType="DATE" />
+         <result column="deadline" property="deadline" jdbcType="DATE" />
+         <result column="source_number" property="sourceNumber" jdbcType="VARCHAR" />
+         <result column="quote_number" property="quoteNumber" jdbcType="VARCHAR" />
+         <result column="overdue" property="overdue" jdbcType="VARCHAR" />
+         <result column="terms" property="terms" jdbcType="VARCHAR" />
+         <result column="remark" property="remark" jdbcType="VARCHAR" />
+         <result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+         <result column="CRAWL_EMAIL" property="crawlEmail" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_ID, CLIENT_INQUIRY_ID, QUOTE_NUMBER, INQUIRY_DATE, DEADLINE, REMARK, 
+    UPDATE_TIMESTAMP,EMAIL_STATUS,AUTO_ADD
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from supplier_inquiry
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_inquiry
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierInquiry" >
+    insert into supplier_inquiry (ID, SUPPLIER_ID, CLIENT_INQUIRY_ID, 
+      QUOTE_NUMBER, INQUIRY_DATE, DEADLINE, 
+      REMARK, UPDATE_TIMESTAMP,AUTO_ADD)
+    values (#{id,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, #{clientInquiryId,jdbcType=INTEGER}, 
+      #{quoteNumber,jdbcType=VARCHAR}, #{inquiryDate,jdbcType=DATE}, #{deadline,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}, #{autoAdd,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierInquiry" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into supplier_inquiry
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID,
+      </if>
+      <if test="quoteNumber != null" >
+        QUOTE_NUMBER,
+      </if>
+      <if test="inquiryDate != null" >
+        INQUIRY_DATE,
+      </if>
+      <if test="deadline != null" >
+        DEADLINE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="emailStatus != null" >
+        EMAIL_STATUS,
+      </if>
+      <if test="autoAdd != null" >
+        AUTO_ADD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryId != null" >
+        #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="quoteNumber != null" >
+        #{quoteNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="inquiryDate != null" >
+        #{inquiryDate,jdbcType=DATE},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emailStatus != null" >
+        #{emailStatus,jdbcType=INTEGER},
+      </if>
+      <if test="autoAdd != null" >
+        #{autoAdd,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierInquiry" >
+    update supplier_inquiry
+    <set >
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="quoteNumber != null" >
+        QUOTE_NUMBER = #{quoteNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="inquiryDate != null" >
+        INQUIRY_DATE = #{inquiryDate,jdbcType=DATE},
+      </if>
+      <if test="deadline != null" >
+        DEADLINE = #{deadline,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emailStatus != null" >
+        EMAIL_STATUS = #{emailStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierInquiry" >
+    update supplier_inquiry
+    set SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      QUOTE_NUMBER = #{quoteNumber,jdbcType=VARCHAR},
+      INQUIRY_DATE = #{inquiryDate,jdbcType=DATE},
+      DEADLINE = #{deadline,jdbcType=DATE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 获取供应商 -->
+  <select id="listPage" parameterType="page" resultMap="supplierVo">
+  		SELECT
+  			DISTINCT
+			s.id,
+			s. CODE,
+			s. NAME,
+			s.contact_name,
+			s.currency_id,
+			cu. CODE AS currency_code,
+			cu.VALUE AS currency_value,
+			cu.rate,
+			s.post_code,
+			s.address,
+			s.phone,
+			s.mobile,
+			s.fax,
+			s.email,
+			s.remark,
+			s.bank,
+			s.bank_account_number,
+			s.tax_payer_number,
+			s.update_timestamp
+		FROM
+			supplier s
+		LEFT JOIN v_currency cu ON (s.currency_id = cu.id)
+		LEFT JOIN system_code sc ON (s.SUPPLIER_CLASSIFY_ID = sc.ID)
+		LEFT JOIN supplier_air_relation sar on s.id=sar.supplier_id
+		LEFT JOIN supplier_pn_relation spr ON spr.SUPPLIER_ID = s.ID
+		where 1=1
+		<if test="userId != null">
+			and s.id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		<if test="ability == 1">
+			AND spr.REPAIR_ABILITY = 1
+		</if>
+		<if test="ability == 2">
+			AND spr.STOCK_ABILITY = 1 
+		</if>
+		<if test="ability == 3">
+			AND spr.SUPPLY_ABILITY = 1 
+		</if>
+		<if test="ability == 4">
+			AND spr.EXCHANGE_ABILITY = 1
+		</if>
+		<if test="where != null">
+			AND ${where}
+		</if>
+		
+		ORDER BY
+			s.CODE ASC
+  </select>
+  
+  <!-- 查询记录数 -->
+  <select id="findCount" resultType="Integer">
+  		select count(1) from
+			supplier s
+		INNER JOIN v_currency cu ON (s.currency_id = cu.id)
+  </select>
+  
+  <select id="findCount2" parameterType="Integer" resultType="Integer">
+  		select count(1) from 
+  		client_inquiry_element cie
+		INNER JOIN element e ON (cie.element_id=e.id) where cie.CLIENT_INQUIRY_ID=#{id}
+  </select>
+  
+  <!-- 根据客户询价明细的ID查询 -->
+  <select id="findClientInquiryElement" parameterType="Integer" resultMap="BaseResultMap">
+  		select DISTINCT cie.client_inquiry_id,ci.quote_number,ci.inquiry_date,ci.deadline 
+  		from client_inquiry_element cie left join client_inquiry ci
+  		on cie.client_inquiry_id=ci.id where ci.id=#{id}
+  </select>
+ 
+ <!-- 获取供应商询价ID -->
+ <select id="findId" parameterType="com.naswork.model.SupplierInquiry" resultType="Integer">
+ 		select id from supplier_inquiry where quote_number = #{quoteNumber} and update_timestamp = #{updateTimestamp}
+ </select>
+ 
+ 
+ <!-- 管理列表数据 -->
+ <select id="listManagePage" parameterType="page" resultMap="manageVo">
+ 		SELECT
+ 			DISTINCT
+			si.id,
+			si.client_inquiry_id,
+			ci.quote_number AS client_inquiry_quote_number,
+			ci.inquiry_status_id,
+			ci.client_id,
+			c. CODE AS client_code,
+			ci.air_type_id,
+			AT . CODE AS air_type_code,
+			si.supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			s.contact_name AS supplier_contact_name,
+			s.fax AS supplier_fax,
+			cur.id AS currency_id,
+			cur. CODE AS currency_code,
+			cur.VALUE AS currency_value,
+			cur.rate,
+			si.quote_number AS supplier_inquiry_quote_number,
+			si.inquiry_date AS supplier_inquiry_date,
+			si.deadline AS supplier_deadline,
+			si.remark,
+			si.update_timestamp
+		FROM
+			supplier_inquiry si
+		INNER JOIN supplier s ON (si.supplier_id = s.id)
+		INNER JOIN client_inquiry ci ON (si.client_inquiry_id = ci.id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+		INNER JOIN system_code BT ON (ci.biz_type_id = BT .id)
+		INNER JOIN v_currency cur ON (s.currency_id = cur.id)
+		<if test="userId != null">
+		LEFT JOIN authority_relation ar on (ar.SUPPLIER_ID = si.SUPPLIER_ID)
+		</if>
+		where 1=1 
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+ </select>
+ 
+ <!-- 供应商管理明细 -->
+ <select id="ManageElementPage" parameterType="page" resultMap="manageElementVo">
+ 		SELECT
+			sie.id,
+			sie.supplier_inquiry_id,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sie.client_inquiry_element_id,
+			cie.item,
+			cie.csn,
+			cie.element_id,
+			cie.part_number,
+			cie.alter_part_number,
+			cie.description,
+			cie.remark,
+			cie.unit,
+			cie.amount,
+			sie.update_timestamp,
+			con.`CODE` AS CONDITION_CODE
+		FROM
+			supplier_inquiry_element sie
+		INNER JOIN supplier_inquiry si ON (
+			sie.supplier_inquiry_id = si.id
+		)
+		INNER JOIN client_inquiry ci ON (si.client_inquiry_id = ci.id)
+		INNER JOIN supplier s ON (si.supplier_id = s.id)
+		INNER JOIN client_inquiry_element cie ON (
+			sie.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN system_code con ON con.ID = cie.CONDITION_ID
+		WHERE
+			sie.supplier_inquiry_id = #{supplierInquiryId}
+		order by cie.item
+ </select>
+ 
+  <select id="ManageElement" parameterType="Integer" resultMap="manageElementVo">
+ 		SELECT
+			sie.id,
+			sie.supplier_inquiry_id,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sie.client_inquiry_element_id,
+			cie.item,
+			cie.csn,
+			cie.element_id,
+			cie.part_number,
+			cie.alter_part_number,
+			cie.description,
+			cie.remark,
+			cie.unit,
+			cie.amount,
+			sie.update_timestamp,
+			IFNULL(s.COUNTER_FEE,0) as bank_cost
+		FROM
+			supplier_inquiry_element sie
+		INNER JOIN supplier_inquiry si ON (
+			sie.supplier_inquiry_id = si.id
+		)
+		INNER JOIN client_inquiry ci ON (si.client_inquiry_id = ci.id)
+		INNER JOIN supplier s ON (si.supplier_id = s.id)
+		INNER JOIN client_inquiry_element cie ON (
+			sie.client_inquiry_element_id = cie.id
+		)
+		WHERE
+			sie.supplier_inquiry_id = #{supplierInquiryId} 
+		order by cie.item
+ </select>
+ 
+ <select id="ManageElementWhenAuto" parameterType="Integer" resultMap="manageElementVo">
+ 		SELECT
+			sie.id,
+			sie.supplier_inquiry_id,
+			si.quote_number AS supplier_inquiry_quote_number,
+			sie.client_inquiry_element_id,
+			cie.item,
+			cie.csn,
+			cie.element_id,
+			cie.part_number,
+			cie.alter_part_number,
+			cie.description,
+			cie.remark,
+			cie.unit,
+			cie.amount,
+			sie.update_timestamp
+		FROM
+			supplier_inquiry_element sie
+		INNER JOIN supplier_inquiry si ON (
+			sie.supplier_inquiry_id = si.id
+		)
+		INNER JOIN client_inquiry ci ON (si.client_inquiry_id = ci.id)
+		INNER JOIN supplier s ON (si.supplier_id = s.id)
+		INNER JOIN client_inquiry_element cie ON (
+			sie.client_inquiry_element_id = cie.id
+		)
+		WHERE
+			sie.supplier_inquiry_id = #{supplierInquiryId} AND cie.EMAIL_SEND = 0
+		order by cie.item
+ </select>
+ 
+ <!-- 获取客户询价单号 -->
+ <select id="findClientInquiryId" parameterType="Integer" resultType="Integer">
+ 		select ci.ID from client_inquiry ci LEFT JOIN supplier_inquiry si on si.CLIENT_INQUIRY_ID=ci.id where si.ID = #{id}
+ </select>
+ 
+ <!-- 获取客户询价单 -->
+ <select id="inquiryPage" parameterType="page" resultMap="clientInquiryVo">
+ 	SELECT ci.id, ci.client_id, 
+		c.code AS client_code, c.name AS client_name,
+		cc.id AS client_contact_id, cc.name AS client_contact_name,
+		cc.phone AS client_contact_phone, cc.fax AS client_contact_fax,
+		cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, cu.rate,
+		ci.biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,
+		ci.air_type_id, at.code AS air_type_code, at.value AS air_type_value,
+		ci.inquiry_status_id, sta.code AS inquiry_status_code, sta.value AS inquiry_status_value,
+		ci.inquiry_date, ci.deadline, ci.source_number, ci.quote_number,
+		DATEDIFF(ci.deadline, CURRENT_DATE()) AS overdue,
+		ci.terms, ci.remark, ci.update_timestamp,ci.REAL_DEADLINE,ci.CRAWL_EMAIL
+		FROM client_inquiry ci
+		INNER JOIN client c ON (ci.client_id=c.id)
+		INNER JOIN client_contact cc on (ci.client_contact_id=cc.id)
+		INNER JOIN v_currency cu ON (c.currency_id=cu.id)
+		INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)
+		INNER JOIN system_code at ON (ci.air_type_id=at.id)
+		INNER JOIN system_code sta ON (ci.inquiry_status_id=sta.id)
+	<!-- 	<if test="userId != null">
+		INNER JOIN supplier_air_relation sar on (sar.AIR_ID=ci.AIR_TYPE_ID)
+		INNER JOIN supplier s on (s.ID=sar.SUPPLIER_ID)
+	    INNER JOIN authority_relation ar on (ar.SUPPLIER_ID=s.ID)
+		</if> -->
+		<where>
+			${where}
+		</where>
+		<if test="userId != null">
+			and c.id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+ </select>
+ 
+<select id="getQuoteNumbers" parameterType="Integer" resultType="String">
+		select si.quote_number FROM supplier_inquiry si LEFT JOIN supplier s on (s.ID=si.SUPPLIER_ID)
+		where si.CLIENT_INQUIRY_ID=#{clientInuqiryId}
+</select>
+
+<select id="findSupplierByImportPackage" parameterType="Integer" resultMap="BaseResultMap">
+ 	SELECT si.id,  
+			   si.client_inquiry_id, ci.quote_number AS client_inquiry_quote_number, ci.inquiry_status_id,  
+			   ci.client_id, c.code AS client_code,  
+			   ci.air_type_id, at.code AS air_type_code,  
+			   si.supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   s.contact_name AS supplier_contact_name, s.fax AS supplier_fax,  
+			   cur.id AS currency_id, cur.code AS currency_code, cur.value AS currency_value, cur.rate,  
+			   si.quote_number AS supplier_inquiry_quote_number,  
+			   si.inquiry_date AS supplier_inquiry_date, si.deadline AS supplier_deadline,  
+			   si.remark, si.update_timestamp  
+			   FROM supplier_inquiry si  
+			   INNER JOIN supplier s ON (si.supplier_id=s.id)  
+			   INNER JOIN client_inquiry ci ON (si.client_inquiry_id=ci.id)  
+			   INNER JOIN client c ON (ci.client_id=c.id)  
+			   INNER JOIN system_code at ON (ci.air_type_id=at.id)  
+			   INNER JOIN v_currency cur ON (s.currency_id=cur.id)  
+			   WHERE si.client_inquiry_id=#{0} AND si.supplier_id=#{1}  
+</select>
+ 
+<select id="getEleCount" parameterType="Integer" resultMap="saveVo">
+	SELECT count(sie.id) AS inquiry_element_count, count(sqe.id) AS quote_element_count
+		FROM supplier_inquiry_element sie
+		LEFT JOIN supplier_quote_element sqe ON (sqe.supplier_inquiry_element_id=sie.id)
+		WHERE sie.supplier_inquiry_id=#{id}
+</select>
+
+<select id="supplierInquiryStat" resultMap="SupplierInquiryStattistic" parameterType="com.naswork.module.purchase.controller.supplierinquirystatistic.SupplierInquiryStatistic">
+	SELECT s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   at.id AS air_type_id, at.code AS air_type_code, at.value AS air_type_value,  
+			   bt.id AS biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,  
+			   COUNT(DISTINCT si.id) AS supplier_inquiry_count  
+			   FROM supplier_inquiry si  
+			   INNER JOIN supplier s ON (si.supplier_id=s.id)  
+			   INNER JOIN client_inquiry ci ON (si.client_inquiry_id=ci.id)  
+			   INNER JOIN system_code at ON (ci.air_type_id=at.id)  
+			   INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)  
+			      INNER JOIN authority_relation ar on (ar.SUPPLIER_ID=s.ID)
+			   WHERE
+				1 = 1
+				 <if test="userId != null">
+				AND ar.USER_ID=${userId}
+				</if>
+				<if test="supplierId!=null">
+				AND s.id=${supplierId}					
+				</if>
+				<if test="airTypeId!=null">
+				AND AT.id=${airTypeId}
+				</if>
+				<if test="bizTypeId!=null">
+				AND  BT.id=${bizTypeId}
+				</if>
+				<if test="startDate!=null">
+			AND ci.inquiry_date >=#{startDate}
+				</if>
+				<if test="endDate!=null">
+			<![CDATA[ AND ci.inquiry_date <=#{endDate}   ]]>
+				</if>
+			GROUP BY
+				s.id,
+				s. CODE,
+				s. NAME,
+				AT .id,
+				AT . CODE,
+				AT .
+			VALUE
+				,
+				bt.id,
+				bt. CODE,
+				bt.
+			VALUE
+			
+</select>
+
+ <select id="getQuoteCount" parameterType="Integer" resultType="Integer"> 
+ 		SELECT COUNT(*) FROM supplier_quote sq where sq.SUPPLIER_INQUIRY_ID = #{supplierInquiryId}
+ </select>
+
+ <select id="findByClientQuoteNumberPage" parameterType="page" resultMap="BaseResultMap">
+ 		SELECT si.* FROM supplier_inquiry si 
+			LEFT JOIN client_inquiry ci ON ci.ID = si.CLIENT_INQUIRY_ID
+			<where>
+				${where}
+			</where>
+			<if test="orderby != null">
+			${orderby}
+		</if>
+ </select>
+ 
+ <select id="getCountByCLientInuqiryId" parameterType="Integer" resultType="Integer">
+ 		SELECT COUNT(*) FROM supplier_inquiry si WHERE si.CLIENT_INQUIRY_ID = #{clientInquiryId}
+ </select>
+ 
+ <select id="findSupplierInquiry" parameterType="com.naswork.model.SupplierInquiry" resultMap="BaseResultMap">
+ 	SELECT si.id
+			   FROM supplier_inquiry si  
+			   WHERE si.client_inquiry_id=${clientInquiryId} AND si.supplier_id=${supplierId}  AND si.inquiry_date = #{inquiryDate}
+ </select>
+
+ <select id="getByInquiryIdAndSupplierId" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM supplier_inquiry si WHERE si.CLIENT_INQUIRY_ID = #{0} AND si.SUPPLIER_ID = #{1} ORDER BY si.UPDATE_TIMESTAMP DESC
+ </select>
+
+ <select id="getSupplierId" parameterType="String" resultType="Integer">
+	SELECT
+		si.SUPPLIER_ID
+	FROM
+		supplier_quote_element sqe
+	LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+	LEFT JOIN supplier_inquiry si ON si.ID = sq.SUPPLIER_INQUIRY_ID
+	WHERE sqe.ID = #{supplierQuoteElementId}
+ </select>
+ 
+ <select id="getInquiry" parameterType="String" resultMap="BaseResultMap">
+ 		SELECT
+			si.ID,
+			si.SUPPLIER_ID,
+			si.CLIENT_INQUIRY_ID,
+			si.QUOTE_NUMBER,
+			si.INQUIRY_DATE,
+			si.DEADLINE,
+			si.REMARK,
+			si.UPDATE_TIMESTAMP
+		FROM
+			supplier_inquiry si
+		WHERE
+			si.SUPPLIER_ID = #{0}
+		<!-- AND si.CLIENT_INQUIRY_ID = #{1} -->
+		AND si.INQUIRY_DATE = #{2}
+		AND si.EMAIL_STATUS = 0
+ </select>
+ 
+ <select id="getElementCount" parameterType="String" resultType="Integer">
+ 	SELECT
+		IFNULL(COUNT(sie.ID), 0)
+	FROM
+		client_inquiry_element cie
+	LEFT JOIN supplier_inquiry_element sie ON sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+	WHERE cie.PART_NUMBER = #{0}
+	AND sie.SUPPLIER_INQUIRY_ID = #{1}
+ </select>
+
+
+
+ 
+</mapper>

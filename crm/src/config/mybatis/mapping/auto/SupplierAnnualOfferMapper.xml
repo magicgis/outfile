@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierAnnualOfferDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierAnnualOffer" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="DESC" property="desc" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="MSN" property="msn" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="MOQ" property="moq" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="MAN_NAME" property="manName" jdbcType="VARCHAR" />
+    <result column="VALIDITY" property="validity" jdbcType="DATE" />
+    <result column="CONDITION_CODE" property="conditionCode" jdbcType="VARCHAR" />
+    <result column="CERTIFICATION_CODE" property="certificationCode" jdbcType="VARCHAR" />
+    <result column="BSN" property="bsn" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PART_NUMBER, `DESC`, UNIT, MSN, AMOUNT, PRICE, LEAD_TIME, CONDITION_ID, CERTIFICATION_ID, 
+    REMARK, LOCATION, MOQ,SUPPLIER_ID,VALIDITY,BSN
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_annual_offer
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectByBn" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_annual_offer
+    where BSN = #{bsn,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="selectByBnAndSupplier" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_annual_offer
+    where BSN = #{0} AND SUPPLIER_ID=#{1}
+  </select>
+  
+    <select id="annualOfferListPage" parameterType="page" resultMap="BaseResultMap">
+  		select  sao.*,tm.MAN_NAME,co.`CODE` CONDITION_CODE,ce.`CODE` CERTIFICATION_CODE
+			from supplier_annual_offer sao 
+			LEFT JOIN crmstock.t_manufactory tm ON (sao.MSN = tm.MSN)
+			INNER JOIN system_code co on co.ID=sao.CONDITION_ID
+			INNER JOIN system_code ce on ce.ID=sao.CERTIFICATION_ID
+			
+			where sao.SUPPLIER_ID = ${supplierId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_annual_offer
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierAnnualOffer" >
+    insert into supplier_annual_offer (ID, PART_NUMBER,`DESC`, 
+      UNIT, MSN, AMOUNT, 
+      PRICE, LEAD_TIME, CONDITION_ID, 
+      CERTIFICATION_ID, REMARK, LOCATION, 
+      MOQ,SUPPLIER_ID,VALIDITY,BSN)
+    values (#{id,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{msn,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, 
+      #{price,jdbcType=DOUBLE}, #{leadTime,jdbcType=VARCHAR}, #{conditionId,jdbcType=INTEGER}, 
+      #{certificationId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{moq,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, #{validity,jdbcType=DATE}, #{bsn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierAnnualOffer" >
+    insert into supplier_annual_offer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="desc != null" >
+        `DESC`,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="cageCode != null" >
+        MSN,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID,
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="moq != null" >
+        MOQ,
+      </if>
+        <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+        <if test="validity != null" >
+        VALIDITY,
+      </if>
+        <if test="bsn != null" >
+        BSN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="cageCode != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionId != null" >
+        #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null" >
+        #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="moq != null" >
+        #{moq,jdbcType=INTEGER},
+      </if>
+       <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+        <if test="validity != null" >
+       #{validity,jdbcType=DATE},
+      </if>
+      <if test="bsn != null" >
+       #{bsn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierAnnualOffer" >
+    update supplier_annual_offer
+    <set >
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        `DESC` = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="cageCode != null" >
+        MSN = #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID = #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="moq != null" >
+        MOQ = #{moq,jdbcType=INTEGER},
+      </if>
+        <if test="supplierId != null" >
+        SUPPLIER_ID=#{supplierId,jdbcType=INTEGER},
+      </if>
+        <if test="validity != null" >
+      VALIDITY= #{validity,jdbcType=DATE},
+      </if>
+       <if test="bsn != null" >
+       BSN=#{bsn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierAnnualOffer" >
+    update supplier_annual_offer
+    set PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      `DESC` = #{desc,jdbcType=VARCHAR},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      MSN = #{msn,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      PRICE = #{price,jdbcType=DOUBLE},
+      LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      CONDITION_ID = #{conditionId,jdbcType=INTEGER},
+      CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      MOQ = #{moq,jdbcType=INTEGER},
+       SUPPLIER_ID=#{supplierId,jdbcType=INTEGER},
+         VALIDITY= #{validity,jdbcType=DATE},
+           BSN=#{bsn,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

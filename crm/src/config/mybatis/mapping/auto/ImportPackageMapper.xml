@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ImportPackageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ImportPackage" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_NUMBER" property="importNumber" jdbcType="VARCHAR" />
+    <result column="IMPORT_DATE" property="importDate" jdbcType="DATE" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="SEQ" property="seq" jdbcType="INTEGER" />
+    <result column="IMPORT_STATUS" property="importStatus" jdbcType="INTEGER" />
+    <result column="WEIGHT" property="weight" jdbcType="DOUBLE" />
+    <result column="IMPORT_FEE" property="importFee" jdbcType="DOUBLE" />
+    <result column="FREIGHT" property="freight" jdbcType="DOUBLE" />
+    <result column="total_amount" property="totalAmount" jdbcType="DOUBLE" />
+    <result column="FEE_CURRENCY_ID" property="feeCurrencyId" jdbcType="INTEGER" />
+    <result column="FEE_RATE" property="feeRate" jdbcType="DOUBLE" />
+  </resultMap>
+  
+   <resultMap id="ListDateMap" type="com.naswork.module.purchase.controller.importpackage.ImportPackageListVo" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_NUMBER" property="importNumber" jdbcType="VARCHAR" />
+    <result column="IMPORT_DATE" property="importDate" jdbcType="DATE" />
+    <result column="SEQ" property="seq" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="logistics_no" property="logisticsNo" jdbcType="VARCHAR" />
+    <result column="logistics_way" property="logisticsWay" jdbcType="INTEGER" />
+    <result column="logistics_way_value" property="logisticsWayValue" jdbcType="VARCHAR" />
+    <result column="IMPORT_STATUS" property="importStatus" jdbcType="INTEGER" />
+    <result column="WEIGHT" property="weight" jdbcType="DOUBLE" />
+    <result column="IMPORT_FEE" property="importFee" jdbcType="DOUBLE" />
+    <result column="FREIGHT" property="freight" jdbcType="DOUBLE" />
+    <result column="FEE_CURRENCY_ID" property="feeCurrencyId" jdbcType="INTEGER" />
+    <result column="fee_currency_code" property="feeCurrencyCode" jdbcType="VARCHAR" />
+    <result column="fee_currency_value" property="feeCurrencyValue" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+   </resultMap>
+   
+    <resultMap id="suplierMap" type="com.naswork.module.purchase.controller.importpackage.SupplierVo" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="BANK" property="bank" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT_NUMBER" property="bankAccountNumber" jdbcType="VARCHAR" />
+    <result column="TAX_PAYER_NUMBER" property="taxPayerNumber" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+     <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
+  </resultMap>
+  
+    <resultMap id="clientContact" type="com.naswork.model.ClientContact" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="INTEGER" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="SHIP_ADDRESS" property="shipAddress" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="findListDatePage" resultMap="ListDateMap" parameterType="page" >
+  SELECT DISTINCT ip.id, ip.import_number, ip.import_date, ip.seq,  
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value,  
+			   fcu.id AS fee_currency_id, fcu.code AS fee_currency_code, fcu.value AS fee_currency_value,
+			   ip.exchange_rate, ip.remark, ip.update_timestamp,ip.logistics_no,ip.IMPORT_STATUS,ip.WEIGHT,ip.IMPORT_FEE,ip.FREIGHT,
+			   <!-- ,ip.logistics_way,
+			    lw.value AS logistics_way_value -->
+			    IF(lw.id IS NOT NULL,lw.id,mm.ID) as logistics_way,
+				IF(lw.value IS NOT NULL,lw.value,mm.`CODE`) as logistics_way_value,
+				IFNULL(tuu.login_name,tu.login_name) as CREATE_USER_NAME
+			   FROM import_package ip  
+			   INNER JOIN supplier s ON (ip.supplier_id=s.id)  
+			   INNER JOIN system_code cu ON (ip.currency_id=cu.id)
+			   LEFT JOIN system_code fcu ON (ip.FEE_CURRENCY_ID=fcu.id)
+			   <if test="orderNumber != null">
+			   		LEFT JOIN import_package_element ipe ON ipe.IMPORT_PACKAGE_ID = ip.ID
+					LEFT JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+					LEFT JOIN supplier_order_element soe ON soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+					LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+					LEFT JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+					LEFT JOIN client_order co ON co.ID = coe.CLIENT_ORDER_ID
+			   </if>
+			   <if test="userId != null">
+			   		INNER JOIN authority_relation ar on (ar.SUPPLIER_ID=s.ID)
+			   </if>
+			   LEFT JOIN system_code lw ON (ip.logistics_way=lw.id and lw.TYPE = 'LOGISTICS_WAY')  
+			   LEFT JOIN mpi_message mm ON (mm.ID = ip.logistics_way)
+			   LEFT JOIN t_user tu ON (tu.user_id = ip.CREATE_USER)
+			   LEFT JOIN t_user tuu ON (tuu.user_id = ip.LAST_UPDATE_USER)
+			   <where>
+			   	${where}
+			   </where>
+			   <if test="orderby != null">
+			   		${orderby}
+			   </if>
+  </select>
+  
+   <select id="findImportPackageDate" resultMap="ListDateMap" parameterType="String" >
+  SELECT ip.id, ip.import_number, ip.import_date, ip.seq,  ip.weight,
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value,  
+			   ip.exchange_rate, ip.remark, ip.update_timestamp,ip.logistics_no,ip.logistics_way,
+			    lw.value AS logistics_way_value,ip.IMPORT_STATUS,ip.IMPORT_FEE,ip.FREIGHT,ip.FEE_CURRENCY_ID
+			   FROM import_package ip  
+			   INNER JOIN supplier s ON (ip.supplier_id=s.id)  
+			   INNER JOIN system_code cu ON (ip.currency_id=cu.id)  
+			     LEFT JOIN system_code lw ON (ip.logistics_way=lw.id)  
+			  WHERE ip.id=#{id}
+  </select>
+  
+  <select id="findMaxOriginalNumber" resultType="Integer" parameterType="Integer" >
+  	<![CDATA[SELECT  IFNULL(MAX(original_number),0) AS max_original_number FROM import_package_element 
+			WHERE original_number > #{0} AND original_number < #{1} ]]>  
+  </select>
+  
+  <select id="findOriginalNumber" resultMap="ListDateMap" parameterType="Integer" >
+  SELECT id FROM import_package_element WHERE original_number=#{originalNumber}
+  </select>
+  
+  <select id="findmaxseq" resultType="Integer" parameterType="com.naswork.module.purchase.controller.importpackage.ImportPackageListVo" >
+  	SELECT IFNULL(MAX(seq),0) AS max_seq FROM import_package WHERE import_date=#{importDate} AND supplier_id=#{supplierId}
+  </select>
+  
+   <select id="findStorageAlertOrder" resultMap="BaseResultMap" parameterType="com.naswork.model.ImportPackage" >
+  	SELECT <include refid="Base_Column_List" />  FROM import_package WHERE import_date=#{importDate} AND supplier_id=#{supplierId} AND remark=#{remark}
+  </select>
+  
+  <select id="findsupplier" resultMap="suplierMap" parameterType="Integer" >
+ 	SELECT s.id, s.code, s.name, s.contact_name,  
+			   s.currency_id, cu.code AS currency_code, cu.value AS currency_value, cu.rate,  
+			   s.post_code, s.address, s.phone, s.mobile, s.fax, s.email, s.remark,  
+			   s.bank, s.bank_account_number, s.tax_payer_number, s.update_timestamp  
+			   FROM supplier s  
+			   INNER JOIN v_currency cu ON (s.currency_id=cu.id)  
+			 WHERE s.id=#{supplierid}
+			 </select>
+			 
+	<select id="findclient" resultMap="clientContact" parameterType="Integer" >
+			 SELECT c.id, c.code, c.name,  
+			   c.currency_id, cu.code AS currency_code, cu.value AS currency_value, cu.rate,  
+			   c.post_code, c.address, c.ship_address, c.phone, c.fax, c.email, c.remark, c.update_timestamp  
+			   FROM  client c  
+			   INNER JOIN v_currency cu ON (c.currency_id=cu.id)
+			WHERE c.id=#{clientid}
+	</select>
+  
+  <sql id="Base_Column_List" >
+    ID, IMPORT_NUMBER, IMPORT_DATE, SUPPLIER_ID, REMARK, UPDATE_TIMESTAMP, EXCHANGE_RATE, 
+    CURRENCY_ID, SEQ,IMPORT_STATUS,IMPORT_FEE,FREIGHT,FEE_CURRENCY_ID,FEE_RATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_package
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from import_package
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ImportPackage" >
+   <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into import_package (ID, IMPORT_NUMBER, IMPORT_DATE, 
+      SUPPLIER_ID, REMARK, UPDATE_TIMESTAMP, 
+      EXCHANGE_RATE, CURRENCY_ID,SEQ,logistics_way,logistics_no,supplier_order_number,import_status,weight,IMPORT_FEE,FREIGHT,
+      FEE_RATE,FEE_CURRENCY_ID,CREATE_USER
+      )
+    values (#{id,jdbcType=INTEGER}, #{importNumber,jdbcType=VARCHAR}, #{importDate,jdbcType=DATE}, 
+      #{supplierId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, CURRENT_TIMESTAMP, 
+      #{exchangeRate,jdbcType=DOUBLE}, #{currencyId,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{logisticsWay,jdbcType=INTEGER}
+      , #{logisticsNo,jdbcType=VARCHAR}  , #{supplierOrderNumber,jdbcType=VARCHAR}, #{importStatus,jdbcType=VARCHAR}, #{weight,jdbcType=DOUBLE}, #{importFee,jdbcType=DOUBLE}, #{freight,jdbcType=DOUBLE}
+      , #{feeRate,jdbcType=DOUBLE}, #{feeCurrencyId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ImportPackage" >
+    insert into import_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importNumber != null" >
+        IMPORT_NUMBER,
+      </if>
+      <if test="importDate != null" >
+        IMPORT_DATE,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE,
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="seq != null" >
+        SEQ,
+      </if>
+      <if test="importStatus != null" >
+        IMPORT_STATUS,
+      </if>
+      <if test="importFee != null" >
+        IMPORT_FEE,
+      </if>
+      <if test="freight != null" >
+        FREIGHT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importNumber != null" >
+        #{importNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="importDate != null" >
+        #{importDate,jdbcType=DATE},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangeRate != null" >
+        #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="importStatus != null" >
+        #{importStatus,jdbcType=INTEGER},
+      </if>
+      <if test="importFee != null" >
+        #{importFee,jdbcType=DOUBLE},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ImportPackage" >
+    update import_package
+    <set >
+      <if test="importNumber != null" >
+        IMPORT_NUMBER = #{importNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="importDate != null" >
+        IMPORT_DATE = #{importDate,jdbcType=DATE},
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        SEQ = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="importStatus != null" >
+        IMPORT_STATUS = #{importStatus,jdbcType=INTEGER}
+      </if>
+      <if test="importFee != null" >
+        IMPORT_FEE = #{importFee,jdbcType=DOUBLE}
+      </if>
+      <if test="freight != null" >
+        FREIGHT = #{freight,jdbcType=DOUBLE}
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ImportPackage" >
+    update import_package
+    set IMPORT_NUMBER = #{importNumber,jdbcType=VARCHAR},
+      IMPORT_DATE = #{importDate,jdbcType=DATE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = CURRENT_TIMESTAMP,
+      EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+      logistics_way = #{logisticsWay,jdbcType=INTEGER},
+      IMPORT_STATUS = #{importStatus,jdbcType=INTEGER},
+      WEIGHT = #{weight,jdbcType=DOUBLE},
+      IMPORT_FEE = #{importFee,jdbcType=DOUBLE},
+      FEE_CURRENCY_ID = #{feeCurrencyId,jdbcType=INTEGER},
+      FEE_RATE = #{feeRate,jdbcType=DOUBLE},
+      FREIGHT = #{freight,jdbcType=DOUBLE},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByImportPackageElementId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT DISTINCT ip.* FROM import_package ip 
+			LEFT JOIN import_package_element ipe on ipe.IMPORT_PACKAGE_ID = ip.ID
+			where ipe.ID = #{importPackageElementId}
+  </select>
+  
+  <update id="updateStatusByPrimaryKey" parameterType="com.naswork.model.ImportPackage" >
+    update import_package
+    set
+      IMPORT_STATUS = #{importStatus,jdbcType=INTEGER},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getFeeMessage" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		ip.ID,
+		IFNULL(ip.IMPORT_FEE, 0) AS IMPORT_FEE,
+		IFNULL(ip.FREIGHT, 0) AS FREIGHT,
+		IFNULL(SUM(ipe.AMOUNT), 0) AS total_amount,
+		ip.FEE_CURRENCY_ID as CURRENCY_ID,
+		ip.FEE_RATE AS EXCHANGE_RATE
+	FROM
+		import_package ip
+	LEFT JOIN import_package_element ipe ON ipe.IMPORT_PACKAGE_ID = ip.ID
+	WHERE ip.ID = #{importPackageId} GROUP BY ip.ID
+  </select>
+  
+</mapper>

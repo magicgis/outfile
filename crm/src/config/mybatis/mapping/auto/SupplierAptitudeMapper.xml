@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierAptitudeDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierAptitude" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="DATE" />
+    <result column="LAST_UPDATE_USER" property="lastUpdateUser" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_USER_NAME" property="lastUpdateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, EXPIRE_DATE, LAST_UPDATE_USER, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_aptitude
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_aptitude
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierAptitude" >
+    insert into supplier_aptitude (ID, NAME, EXPIRE_DATE, 
+      LAST_UPDATE_USER, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{expireDate,jdbcType=DATE}, 
+      #{lastUpdateUser,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierAptitude" >
+    insert into supplier_aptitude
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE,
+      </if>
+      <if test="lastUpdateUser != null" >
+        LAST_UPDATE_USER,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=DATE},
+      </if>
+      <if test="lastUpdateUser != null" >
+        #{lastUpdateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierAptitude" >
+    update supplier_aptitude
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE = #{expireDate,jdbcType=DATE},
+      </if>
+      <if test="lastUpdateUser != null" >
+        LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierAptitude" >
+    update supplier_aptitude
+    set NAME = #{name,jdbcType=VARCHAR},
+      EXPIRE_DATE = #{expireDate,jdbcType=DATE},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+		sa.ID,
+		sa.EXPIRE_DATE,
+		tu.login_name AS LAST_UPDATE_USER_NAME,
+		sa.`NAME`,
+		sa.UPDATE_TIMESTAMP
+	FROM
+		supplier_aptitude sa
+	LEFT JOIN t_user tu ON tu.user_id = sa.LAST_UPDATE_USER
+	WHERE sa.SUPPLIER_ID = #{supplierId}
+  </select>
+  
+  <select id="selectBySupplierQuoteElementId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT DISTINCT sa.`NAME`,sa.EXPIRE_DATE FROM supplier_quote_element sqe 
+		LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+		LEFT JOIN supplier_inquiry si ON si.ID = sq.SUPPLIER_INQUIRY_ID
+		LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+		LEFT JOIN supplier_aptitude sa ON sa.SUPPLIER_ID = s.ID
+		WHERE sqe.ID = #{supplierQuoteElementId} ORDER BY sa.EXPIRE_DATE ASC
+  </select>
+  
+</mapper>

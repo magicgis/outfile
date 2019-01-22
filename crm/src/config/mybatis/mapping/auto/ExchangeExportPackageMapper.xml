@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ExchangeExportPackageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ExchangeExportPackage" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="EXCHANGE_IMPORT_PACKAGE_ID" property="exchangeImportPackageId" jdbcType="INTEGER" />
+    <result column="SHIP_NUMBER" property="shipNumber" jdbcType="VARCHAR" />
+    <result column="EXPORT_DATE" property="exportDate" jdbcType="DATE" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, EXCHANGE_IMPORT_PACKAGE_ID, SHIP_NUMBER, EXPORT_DATE, SUPPLIER_ID, AMOUNT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from exchange_export_package
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exchange_export_package
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ExchangeExportPackage" >
+    insert into exchange_export_package (ID, EXCHANGE_IMPORT_PACKAGE_ID, SHIP_NUMBER, 
+      EXPORT_DATE, SUPPLIER_ID, AMOUNT
+      )
+    values (#{id,jdbcType=INTEGER}, #{exchangeImportPackageId,jdbcType=INTEGER}, #{shipNumber,jdbcType=VARCHAR}, 
+      #{exportDate,jdbcType=DATE}, #{supplierId,jdbcType=INTEGER}, #{amount,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ExchangeExportPackage" >
+    insert into exchange_export_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="exchangeImportPackageId != null" >
+        EXCHANGE_IMPORT_PACKAGE_ID,
+      </if>
+      <if test="shipNumber != null" >
+        SHIP_NUMBER,
+      </if>
+      <if test="exportDate != null" >
+        EXPORT_DATE,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeImportPackageId != null" >
+        #{exchangeImportPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="shipNumber != null" >
+        #{shipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="exportDate != null" >
+        #{exportDate,jdbcType=DATE},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ExchangeExportPackage" >
+    update exchange_export_package
+    <set >
+      <if test="exchangeImportPackageId != null" >
+        EXCHANGE_IMPORT_PACKAGE_ID = #{exchangeImportPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="shipNumber != null" >
+        SHIP_NUMBER = #{shipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="exportDate != null" >
+        EXPORT_DATE = #{exportDate,jdbcType=DATE},
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ExchangeExportPackage" >
+    update exchange_export_package
+    set EXCHANGE_IMPORT_PACKAGE_ID = #{exchangeImportPackageId,jdbcType=INTEGER},
+      SHIP_NUMBER = #{shipNumber,jdbcType=VARCHAR},
+      EXPORT_DATE = #{exportDate,jdbcType=DATE},
+      SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=DOUBLE}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			eep.ID,
+			eep.EXPORT_DATE,
+			eep.AMOUNT,
+			eep.SHIP_NUMBER,
+			s.`CODE` as supplier_code,
+			eep.UPDATE_TIMESTAMP,
+			eep.remark
+		FROM
+			exchange_export_package eep
+		LEFT JOIN supplier s ON s.ID = eep.SUPPLIER_ID
+		WHERE
+			eep.EXCHANGE_IMPORT_PACKAGE_ID = #{exchangeImportPackageId}
+  </select>
+  
+  <select id="sumByImportId" parameterType="Integer" resultType="Double">
+  		SELECT IFNULL(SUM(eep.AMOUNT),0) FROM exchange_export_package eep WHERE eep.EXCHANGE_IMPORT_PACKAGE_ID = #{exchangeImportPackageId} GROUP BY eep.EXCHANGE_IMPORT_PACKAGE_ID;
+  </select>
+  
+</mapper>

@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.UserDao">
+	<resultMap id="roleVo" type="com.naswork.vo.RoleVo">
+		<id column="ROLE_ID" property="roleId" jdbcType="VARCHAR"/>
+		<id column="ROLE_NAME" property="roleName" jdbcType="VARCHAR"/>
+	</resultMap>
+    <resultMap id="userVo" type="userVo">  
+        <id column="USER_ID" property="userId" jdbcType="VARCHAR"/>  
+        <id column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <id column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+        <id column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR"/>
+        <id column="INFORMATION" property="information" jdbcType="VARCHAR"/>
+        <id column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <id column="FAX" property="fax" jdbcType="VARCHAR"/>
+        <id column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <id column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <id column="EMAIL_PASSWORD" property="emailPassword" jdbcType="VARCHAR"/>
+        <id column="FULL_NAME" property="fullName" jdbcType="VARCHAR"/>
+        <id column="mobile" property="mobile" jdbcType="VARCHAR"/>
+    </resultMap>
+	<resultMap type="Menu" id="Menu">
+		<result property="menuId" column="MENU_ID" />
+		<result property="parentMenuId" column="PARENT_MENU_ID" />
+		<result property="menuName" column="MENU_NAME" />
+		<result property="menuUrl" column="MENU_URL" />
+		<result property="isLeaf" column="IS_LEAF" />
+		<result property="yxbz" column="YXBZ"/>
+		<result property="menuOrder" column="MENU_ORDER" />
+	</resultMap>
+	
+	<resultMap type="com.naswork.module.xtgl.controller.PowerVo" id="powerVo">
+		<result column="id" property="id" jdbcType="INTEGER"/>  
+        <result column="supplier_id" property="supplierId" jdbcType="INTEGER"/>
+        <result column="client_id" property="clientId" jdbcType="INTEGER"/>
+        <result column="air_type_code" property="airTypeCode" jdbcType="VARCHAR"/>
+        <result column="client_code" property="clientCode" jdbcType="VARCHAR"/>
+        <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<!-- 根据税务人员代码查询用户主身份UserVo -->
+	<select id="searchUserByLoginName" parameterType="pd" resultMap="userVo">
+	   SELECT USER_ID,USER_NAME,PASSWORD,LOGIN_NAME,EMAIL FROM T_USER
+		<where>LOGIN_NAME=#{loginName}</where> 
+	</select>
+	
+	<!-- 用户根菜单 -->
+	<select id="searchUserRootMenusByRole" parameterType="pd" resultMap="Menu">
+	SELECT 
+			T_MENU.MENU_ID AS MENU_ID,
+			T_MENU.PARENT_MENU_ID AS PARENT_MENU_ID,
+			T_MENU.MENU_NAME AS MENU_NAME,
+			T_MENU.MENU_URL AS MENU_URL,
+			T_MENU.IS_LEAF AS IS_LEAF,
+			T_MENU.YXBZ AS YXBZ,
+			T_MENU.MENU_ORDER AS MENU_ORDER,
+			T_MENU.ROOT_MENU_ID AS ROOT_MENU_ID
+    FROM T_MENU where T_MENU.parent_menu_id=0 and T_MENU.yxbz='Y'
+	     AND T_MENU.MENU_ID IN (
+	     	SELECT DISTINCT(MENU_ID) FROM R_ROLE_MENU WHERE ROLE_ID IN (${roleIdList}) 
+	     )
+	     order by T_MENU.menu_order asc
+	</select>
+	
+	<!-- 用户根菜单 -->
+	<select id="searchUserSubmenus" parameterType="pd" resultMap="Menu">
+	SELECT 
+			T_MENU.MENU_ID AS MENU_ID,
+			T_MENU.PARENT_MENU_ID AS PARENT_MENU_ID,
+			T_MENU.MENU_NAME AS MENU_NAME,
+			T_MENU.MENU_URL AS MENU_URL,
+			T_MENU.IS_LEAF AS IS_LEAF,
+			T_MENU.YXBZ AS YXBZ,
+			T_MENU.MENU_ORDER AS MENU_ORDER,
+			T_MENU.ROOT_MENU_ID AS ROOT_MENU_ID
+	FROM T_MENU WHERE T_MENU.ROOT_MENU_ID=#{menuId} and T_MENU.yxbz='Y'
+	     AND T_MENU.MENU_ID IN (
+	     	SELECT DISTINCT(MENU_ID) FROM R_ROLE_MENU WHERE ROLE_ID IN (${roleIdList}) 
+	     )
+	     
+		 ORDER BY T_MENU.MENU_ORDER ASC
+	</select>
+	
+	<!-- 修改登录密码 -->
+	<update id="updatePasswordByLoginName" parameterType="pd" >
+		update T_USER 
+		<set>
+	   	 <if test="userpassword != null ">password=#{userpassword}</if>
+		</set>
+		where LOGIN_NAME=#{loginName}
+	</update>
+	
+	<!-- 用户管理，用户列表 -->
+	<select id="findPage" parameterType="pd" resultMap="userVo">
+		SELECT USER_ID,USER_NAME,PASSWORD,LOGIN_NAME,INFORMATION,EMAIL,EMAIL_PASSWORD,FAX,PHONE,FULL_NAME,MOBILE FROM T_USER 
+		<if test="where!=null">
+		<where>
+		${where}
+		</where>
+		</if>
+	</select>
+
+	<select id="searchRoleByUserId" parameterType="String" resultMap="roleVo">
+		SELECT T_ROLE.ROLE_ID AS ROLE_ID, T_ROLE.ROLE_NAME AS ROLE_NAME FROM R_ROLE_USER , T_ROLE WHERE  R_ROLE_USER.ROLE_ID = T_ROLE.ROLE_ID AND
+		R_ROLE_USER.USER_ID=#{userId} 
+	</select>
+	
+		<select id="searchEmailByRoleName" resultMap="userVo">
+		SELECT t_user.email,t_user.USER_NAME
+		FROM
+			R_ROLE_USER INNER JOIN t_user on (R_ROLE_USER.USER_ID=t_user.user_id),
+			T_ROLE
+		WHERE
+			R_ROLE_USER.ROLE_ID = T_ROLE.ROLE_ID
+		AND T_ROLE.ROLE_NAME='物流'
+	</select>
+	
+	<select id="findUserByUserId" parameterType = "String" resultMap="userVo">
+		SELECT USER_ID,USER_NAME,PASSWORD,LOGIN_NAME,EMAIL,EMAIL_PASSWORD,FAX,PHONE,FULL_NAME,MOBILE FROM T_USER WHERE
+		USER_ID=#{userId}
+	</select>
+	<insert id="insert" parameterType="userVo">
+		INSERT INTO T_USER (USER_NAME, PASSWORD, LOGIN_NAME) VALUES(
+			#{userName, jdbcType=VARCHAR},
+			#{password, jdbcType=VARCHAR},
+			#{loginName,jdbcType=VARCHAR}
+		)	
+	</insert>
+	<update id="update" parameterType="userVo">
+		UPDATE T_USER 
+		<set>
+			<if test="userName != null ">
+			USER_NAME = #{userName},
+			</if>
+			<if test="loginName != null ">
+			LOGIN_NAME = #{loginName},
+			</if>
+			<if test="password != null ">
+			PASSWORD = #{password},
+			</if>
+			<if test="loginName != null ">
+			login_name = #{loginName},
+			</if>
+			<if test="information != null ">
+			information = #{information},
+			</if>
+			<if test="email != null ">
+			email = #{email},
+			</if>
+			<if test="fax != null ">
+			fax = #{fax},
+			</if>
+			<if test="phone != null ">
+			phone = #{phone},
+			</if>
+			<if test="emailPassword != null ">
+			email_password = #{emailPassword},
+			</if>
+			<if test="fullName != null ">
+			full_name = #{fullName},
+			</if>
+			<if test="mobile != null ">
+			mobile = #{mobile},
+			</if>
+		</set>
+		where USER_ID=#{userId}
+	</update>
+	<delete id="deleteRoleByUserId" parameterType="String">
+		DELETE FROM R_ROLE_USER WHERE USER_ID=#{userId}
+	</delete>
+	<delete id="deleteUser" parameterType="String">
+		DELETE FROM T_USER WHERE USER_ID=#{userId}
+	</delete>
+	<insert id="insertRoleByUserId" parameterType="pd">
+		INSERT INTO R_ROLE_USER (USER_ID, ROLE_ID) VALUES (#{userId}, #{roleId})
+	</insert> 
+	
+	<!-- 选择性插入 -->
+	<insert id="insertSelective" parameterType="com.naswork.vo.UserVo">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="information != null" >
+        information,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="emailPassword != null" >
+        email_password,
+      </if>
+      <if test="fullName != null" >
+        full_name,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="information != null" >
+        #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPassword != null" >
+        #{emailPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getOwner" resultMap="userVo">
+		SELECT USER_ID,USER_NAME,PASSWORD,LOGIN_NAME,INFORMATION,EMAIL,FAX,PHONE FROM T_USER 
+  </select>
+  
+  <select id="getPowerPage" parameterType="page" resultMap="powerVo">
+  		SELECT
+			ar.ID,
+			c.`CODE` AS client_code,
+			s.`CODE` AS supplier_code,
+			air.`code` AS air_type_code,
+			sa.`NAME`
+		FROM
+			authority_relation ar
+		LEFT JOIN t_user tu ON (tu.user_id = ar.USER_ID)
+		LEFT JOIN supplier s ON (ar.SUPPLIER_ID = s.ID)
+		LEFT JOIN client c ON (c.ID = ar.CLIENT_ID)
+		LEFT JOIN system_code air ON (air.ID = ar.AIR_TYPE_ID)
+		LEFT JOIN storehouse_address sa ON sa.ID = ar.STOREHOUSE_ADDRESS_ID
+		WHERE
+			tu.user_id = #{id}
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+  
+  <select id="getUsers" resultMap="userVo">
+  		SELECT * FROM T_USER 
+  </select>
+  
+  <!-- 获取身份 -->
+  <select id="getPower" parameterType="Integer" resultMap="roleVo">
+		select tr.* from t_user tu LEFT JOIN r_role_user rru ON 
+		(tu.user_id = rru.USER_ID) LEFT JOIN t_role tr ON 
+		(tr.role_id = rru.ROLE_ID) where tu.user_id = #{userId} limit 0,1
+  </select>
+  
+  <select id="findById" parameterType="Integer" resultMap="userVo">
+  		SELECT * FROM t_user tu WHERE tu.user_id = #{userId}
+  </select>
+  
+  <select id="findEmailByorderNumber" parameterType="String" resultMap="userVo">
+		  select so.SUPPLIER_ID,au.USER_ID,tu.email,tu.user_name from supplier_order so 
+		INNER JOIN supplier_order_element soe on (so.ID=soe.ID)
+		INNER JOIN authority_relation au on (au.SUPPLIER_ID=so.SUPPLIER_ID)
+		INNER JOIN t_user tu on (tu.user_id=au.USER_ID)
+		where so.ORDER_NUMBER=#{orderNumber}
+  </select>
+  
+  <select id="selectBySupplierId" parameterType="Integer" resultMap="userVo">
+  		SELECT DISTINCT tu.user_id,tu.email,tu.user_name FROM t_user tu 
+			LEFT JOIN authority_relation ar on ar.USER_ID =tu.user_id
+			WHERE ar.SUPPLIER_ID = #{supplierId} AND tu.email IS NOT NULL AND tu.email != ''
+  </select>
+  
+  <select id="getByRole" parameterType="String" resultMap="userVo">
+  		SELECT DISTINCT tu.user_id,tu.email,tu.user_name,tu.email_password FROM t_user tu 
+			LEFT JOIN r_role_user rru on rru.USER_ID = tu.user_id
+			LEFT JOIN t_role tr on tr.role_id = rru.ROLE_ID
+			WHERE tr.role_name = #{roleName}
+  </select>
+  
+  <select id="getByImportIdAndRoleName" parameterType="page" resultMap="userVo">
+  		SELECT DISTINCT tu.user_id,tu.email FROM import_package ip
+			LEFT JOIN import_package_element ipe on ipe.IMPORT_PACKAGE_ID = ip.ID
+			LEFT JOIN supplier_import_element sie on sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+			LEFT JOIN supplier_order_element soe on soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+			LEFT JOIN client_order_element coe on coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+			LEFT JOIN client_order co on co.ID = coe.CLIENT_ORDER_ID
+			LEFT JOIN client_quote cq on cq.ID = co.CLIENT_QUOTE_ID
+			LEFT JOIN client_inquiry ci on ci.ID = cq.CLIENT_INQUIRY_ID
+			LEFT JOIN authority_relation ar on ar.CLIENT_ID = ci.CLIENT_ID
+			LEFT JOIN t_user tu on tu.user_id = ar.USER_ID
+			LEFT JOIN r_role_user rru on rru.USER_ID = tu.user_id
+			LEFT JOIN t_role tr on tr.role_id = rru.ROLE_ID
+			INNER JOIN client c on ci.CLIENT_ID=c.ID
+			where c.`NAME` != 'KC'
+			<if test="where != null">
+				and ${where}
+			</if>
+				
+  </select>
+  
+  <select id="getEmailBySupplierCode" parameterType="String" resultMap="userVo">
+  		SELECT
+			ar.USER_ID,
+			tu.email,
+			tu.email_password
+		FROM
+			authority_relation ar
+		LEFT JOIN supplier s ON s.ID = ar.SUPPLIER_ID
+		LEFT JOIN t_user tu ON tu.user_id = ar.USER_ID
+		WHERE
+			s.`CODE` = #{supplierCode}
+  </select>
+  
+  <select id="getUserIdByRoleId" parameterType="String" resultMap="userVo">
+  		SELECT
+			tu.user_id,
+			tu.login_name
+		FROM
+			t_user tu
+		LEFT JOIN r_role_user rru ON rru.USER_ID = tu.user_id
+		WHERE rru.ROLE_ID = #{roleId};
+  </select>
+  
+  <select id="getLeadersByRole" parameterType="Integer" resultType="Integer">
+  	SELECT rl.T_USER_ID
+  	FROM role_leader rl
+  	WHERE rl.ROLE_ID = #{roleId}
+  </select>
+  
+</mapper>

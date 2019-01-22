@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierCageRelationDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierCageRelationKey" >
+    <id column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <id column="MSN" property="msn" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="factoryVo" type="com.naswork.module.system.controller.suppliermanage.FactoryVo" >
+    <id column="name" property="name" jdbcType="VARCHAR" />
+    <id column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.marketing.controller.partsinformation.SupplierAbilityVo" id="supplierAbilityVo">
+  	<result column="bsn" property="bsn" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="part_num" property="partNumber" jdbcType="VARCHAR" />
+    <result column="cage_code" property="cageCode" jdbcType="VARCHAR" />
+    <result column="msn" property="msn" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.SupplierCageRelationKey" >
+    delete from supplier_cage_relation
+    where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and MSN = #{msn,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierCageRelationKey" >
+    insert into supplier_cage_relation (SUPPLIER_ID, MSN)
+    values (#{supplierId,jdbcType=INTEGER}, #{msn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierCageRelationKey" >
+    insert into supplier_cage_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="msn != null" >
+        MSN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="msn != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectByPrimaryKey" parameterType="com.naswork.model.SupplierCageRelationKey" resultType="Integer">
+  		select count(*) from supplier_cage_relation where SUPPLIER_ID = #{supplierId} and MSN = #{msn}
+  </select>
+  
+  <select id="listPage" parameterType="page" resultMap="factoryVo">
+  		select tm.MSN,tm.MAN_NAME AS name,
+			tm.CAGE_CODE AS code
+			from supplier_cage_relation scr 
+			LEFT JOIN crmstock.t_manufactory tm 
+			ON (scr.MSN = tm.MSN)
+			where scr.SUPPLIER_ID = #{supplierId}
+  </select>
+  
+  <select id="listByAbilityPage" parameterType="page" resultMap="supplierAbilityVo">
+  		SELECT
+			tm.MSN,
+			tm.CAGE_CODE,
+			s.ID AS supplier_id,
+			s.`CODE` AS supplier_code
+		FROM
+			supplier_cage_relation scr
+		LEFT JOIN crmstock.t_manufactory tm ON tm.MSN = scr.MSN
+		LEFT JOIN supplier s ON s.ID = scr.SUPPLIER_ID
+		<if test="userId != null">
+			LEFT JOIN authority_relation ar on ar.CLIENT_ID = s.ID
+		</if>
+		where 1=1
+  		<if test="where != null">
+  			and ${where}
+  		</if>
+  		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+  		<if test="orderby != null">
+  			${orderby}
+  		</if>
+  </select>
+  
+  <select id="selectByMsn" parameterType="String" resultType="Integer">
+  		SELECT scr.SUPPLIER_ID FROM supplier_cage_relation scr WHERE scr.MSN = #{msn}
+  </select>
+  
+</mapper>

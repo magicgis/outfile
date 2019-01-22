@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.EmailMessageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.EmailMessage" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_INQUIRY_ID" property="supplierInquiryId" jdbcType="INTEGER" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CC" property="cc" jdbcType="VARCHAR" />
+    <result column="BCC" property="bcc" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATETIME" property="updateDatetime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_INQUIRY_ID, PART_NUMBER, EMAIL, CC, BCC, UPDATE_DATETIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from email_message
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from email_message
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.EmailMessage" >
+    insert into email_message (ID, SUPPLIER_INQUIRY_ID, PART_NUMBER, 
+      EMAIL, CC, BCC, UPDATE_DATETIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{supplierInquiryId,jdbcType=INTEGER},
+      #{email,jdbcType=VARCHAR}, #{cc,jdbcType=VARCHAR}, #{bcc,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.EmailMessage" >
+    insert into email_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierInquiryId != null" >
+        SUPPLIER_INQUIRY_ID,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="cc != null" >
+        CC,
+      </if>
+      <if test="bcc != null" >
+        BCC,
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierInquiryId != null" >
+        #{supplierInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cc != null" >
+        #{cc,jdbcType=VARCHAR},
+      </if>
+      <if test="bcc != null" >
+        #{bcc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.EmailMessage" >
+    update email_message
+    <set >
+      <if test="supplierInquiryId != null" >
+        SUPPLIER_INQUIRY_ID = #{supplierInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cc != null" >
+        CC = #{cc,jdbcType=VARCHAR},
+      </if>
+      <if test="bcc != null" >
+        BCC = #{bcc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME = #{updateDatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.EmailMessage" >
+    update email_message
+    set SUPPLIER_INQUIRY_ID = #{supplierInquiryId,jdbcType=INTEGER},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CC = #{cc,jdbcType=VARCHAR},
+      BCC = #{bcc,jdbcType=VARCHAR},
+      UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

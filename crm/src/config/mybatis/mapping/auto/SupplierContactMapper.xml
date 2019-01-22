@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierContactDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierContact" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SUR_NAME" property="surName" jdbcType="VARCHAR" />
+    <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
+    <result column="APPELLATION" property="appellation" jdbcType="VARCHAR" />
+    <result column="SEX_ID" property="sexId" jdbcType="INTEGER" />
+    <result column="POSITION" property="position" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="DEPARTMENT" property="department" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="sex_value" property="sexValue" jdbcType="VARCHAR" />
+    <result column="EMAIL_PERSON" property="emailPerson" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sc.ID, sc.SUPPLIER_ID, sc.NAME, sc.APPELLATION, sc.SEX_ID, sc.POSITION, sc.BIRTHDAY, sc.DEPARTMENT, sc.PHONE,  sc.SUR_NAME,SC.FULL_NAME,
+    sc.MOBILE, sc.FAX, sc.CREATION_DATE, sc.EMAIL, sc.REMARK,s.value as sex_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+     from supplier_contact sc INNER JOIN system_code s ON
+			(sc.SEX_ID=s.ID)
+    where sc.ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="findSupplierContactPage" resultMap="BaseResultMap" parameterType="page">
+  		select  sc.ID, sc.SUPPLIER_ID, sc.NAME, sc.APPELLATION, sc.SEX_ID, sc.POSITION,
+  		 sc.BIRTHDAY, sc.DEPARTMENT, sc.PHONE, sc.SUR_NAME,SC.FULL_NAME,
+     	sc.MOBILE, sc.FAX, sc.CREATION_DATE, sc.EMAIL, sc.REMARK,
+  		s.value as sex_value,EMAIL_PERSON
+  		from supplier_contact sc INNER JOIN system_code s ON
+			(sc.SEX_ID=s.ID)
+  		 where sc.SUPPLIER_ID=${supplierId} 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_contact
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierContact" >
+    insert into supplier_contact (ID, SUPPLIER_ID, NAME, 
+      APPELLATION, SEX_ID, POSITION, 
+      BIRTHDAY, DEPARTMENT, PHONE, 
+      MOBILE, FAX, CREATION_DATE, 
+      EMAIL, REMARK)
+    values (#{id,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{appellation,jdbcType=VARCHAR}, #{sexId,jdbcType=INTEGER}, #{position,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{department,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{creationDate,jdbcType=TIMESTAMP}, 
+      #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierContact" >
+    insert into supplier_contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+        <if test="surName != null" >
+        SUR_NAME,
+      </if>
+        <if test="fullName != null" >
+        FULL_NAME,
+      </if>
+      <if test="appellation != null" >
+        APPELLATION,
+      </if>
+      <if test="sexId != null" >
+        SEX_ID,
+      </if>
+      <if test="position != null" >
+        POSITION,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="department != null" >
+        DEPARTMENT,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="fax != null" >
+        FAX,
+      </if>
+        CREATION_DATE,
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+        <if test="surName != null" >
+        #{surName,jdbcType=VARCHAR},
+      </if>
+        <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="appellation != null" >
+        #{appellation,jdbcType=VARCHAR},
+      </if>
+      <if test="sexId != null" >
+        #{sexId,jdbcType=INTEGER},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+       CURRENT_TIMESTAMP,
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierContact" >
+    update supplier_contact
+    <set >
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+        APPELLATION = #{appellation,jdbcType=VARCHAR},
+      <if test="sexId != null" >
+        SEX_ID = #{sexId,jdbcType=INTEGER},
+      </if>
+        POSITION = #{position,jdbcType=VARCHAR},
+        BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+        DEPARTMENT = #{department,jdbcType=VARCHAR},
+        PHONE = #{phone,jdbcType=VARCHAR},
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+        FAX = #{fax,jdbcType=VARCHAR},
+        EMAIL = #{email,jdbcType=VARCHAR},
+        REMARK = #{remark,jdbcType=VARCHAR},
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierContact" >
+    update supplier_contact
+    set SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      SUR_NAME = #{surName,jdbcType=VARCHAR},
+      FULL_NAME = #{fullName,jdbcType=VARCHAR},
+      APPELLATION = #{appellation,jdbcType=VARCHAR},
+      SEX_ID = #{sexId,jdbcType=INTEGER},
+      POSITION = #{position,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      DEPARTMENT = #{department,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      FAX = #{fax,jdbcType=VARCHAR},
+      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      EMAIL_PERSON = #{emailPerson,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getEmails" parameterType="Integer" resultMap="BaseResultMap">
+  		select sc.SUR_NAME,sc.EMAIL,sc.FULL_NAME,sc.NAME from supplier_contact sc where sc.SUPPLIER_ID =  #{supplierId} limit 0,1
+  </select>
+  
+  <select id="getEmailPerson" parameterType="Integer" resultMap="BaseResultMap">
+  		select sc.SUR_NAME,sc.EMAIL,sc.FULL_NAME,sc.NAME from supplier_contact sc where sc.SUPPLIER_ID =  #{supplierId} and sc.email_person = 1
+  </select>
+  
+  <select id="findBySupplierId" parameterType="Integer" resultMap="BaseResultMap">
+  		select sc.id,sc.FULL_NAME,sc.PHONE,sc.FAX,sc.name,sc.email,sc.supplier_id,sc.sur_name,sc.appellation from supplier_contact sc where sc.SUPPLIER_ID = #{supplierId}
+  </select>
+  
+  <update id="updateEmailPersonBySupplierId" parameterType="Integer">
+  		UPDATE supplier_contact SET EMAIL_PERSON = 0 WHERE SUPPLIER_ID = #{supplierId}
+  </update>
+  
+  <select id="getEmailList" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT sc.EMAIL,sc.`NAME` FROM supplier_contact sc WHERE sc.EMAIL_PERSON = 1 AND sc.SUPPLIER_ID = #{supplierId}
+	UNION
+	SELECT sc.EMAIL,sc.`NAME` FROM supplier_contact sc WHERE sc.EMAIL_PERSON = 0 AND sc.SUPPLIER_ID = #{supplierId}
+  	
+  </select>
+  
+</mapper>

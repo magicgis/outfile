@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.AirSupplierRelationDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.AirSupplierRelationKey" >
+    <id column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <id column="AIR_ID" property="airId" jdbcType="INTEGER" />
+     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+     <result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <select id="selectByAirIdPage" resultMap="BaseResultMap" parameterType="page" >
+    select 
+   asr.SUPPLIER_ID,asr.AIR_ID,s.name,s.id,s.code
+    from air_supplier_relation asr
+    INNER JOIN SUPPLIER S ON (asr.SUPPLIER_ID=S.id)
+    where asr.AIR_ID = ${airId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.AirSupplierRelationKey" >
+    delete from air_supplier_relation
+    where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and AIR_ID = #{airId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.AirSupplierRelationKey" >
+    insert into air_supplier_relation (SUPPLIER_ID, AIR_ID)
+    values (#{supplierId,jdbcType=INTEGER}, #{airId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.AirSupplierRelationKey" >
+    insert into air_supplier_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="airId != null" >
+        AIR_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="airId != null" >
+        #{airId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

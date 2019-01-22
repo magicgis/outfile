@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ImportPackagePaymentElementPrepareDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ImportPackagePaymentElementPrepare" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="IMPORT_PACKAGE_ID" property="importPackageId" jdbcType="INTEGER" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_ID, SUPPLIER_ORDER_ELEMENT_ID, amount, UPDATE_TIMESTAMP,IMPORT_PACKAGE_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_package_payment_element_prepare
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from import_package_payment_element_prepare
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ImportPackagePaymentElementPrepare" >
+    insert into import_package_payment_element_prepare (ID, IMPORT_PACKAGE_ID, SUPPLIER_ORDER_ELEMENT_ID, 
+      amount, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{importPackageId,jdbcType=INTEGER}, #{supplierOrderElementId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DOUBLE}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ImportPackagePaymentElementPrepare" >
+    insert into import_package_payment_element_prepare
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="supplierOrderElementId != null" >
+        SUPPLIER_ORDER_ELEMENT_ID,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="importPackageId != null" >
+        IMPORT_PACKAGE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierOrderElementId != null" >
+        #{supplierOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="importPackageId != null" >
+        #{importPackageId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ImportPackagePaymentElementPrepare" >
+    update import_package_payment_element_prepare
+    <set >
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierOrderElementId != null" >
+        SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="importPackageId != null" >
+        IMPORT_PACKAGE_ID = #{importPackageId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ImportPackagePaymentElementPrepare" >
+    update import_package_payment_element_prepare
+    set IMPORT_PACKAGE_ID = #{importPackageId,jdbcType=INTEGER},
+      SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectBySupplierIdAndSupplierElementId" parameterType="com.naswork.model.ImportPackagePaymentElementPrepare" resultMap="BaseResultMap">
+  		SELECT
+			soe.PRICE,
+			soe.AMOUNT AS orderAmount,
+			ippep.ID,
+			ippep.IMPORT_PACKAGE_ID,
+			ippep.SUPPLIER_ORDER_ELEMENT_ID,
+			ippep.amount,
+			ippep.UPDATE_TIMESTAMP,
+			ippep.IMPORT_PACKAGE_ID
+		FROM
+			import_package_payment_element_prepare ippep
+		LEFT JOIN supplier_order_element soe ON soe.ID = ippep.SUPPLIER_ORDER_ELEMENT_ID 
+			where ippep.SUPPLIER_ID = #{supplierId} and ippep.SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId}
+  </select>
+  
+  <select id="selectBySupplierId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			ippep.ID,
+			ippep.AMOUNT,
+			ippep.SUPPLIER_ID,
+			ippep.SUPPLIER_ORDER_ELEMENT_ID,
+			ippep.UPDATE_TIMESTAMP,
+			so.ORDER_NUMBER,
+			sqe.PART_NUMBER,
+			soe.PRICE
+		FROM
+			import_package_payment_element_prepare ippep
+		LEFT JOIN supplier_order_element soe ON soe.ID = ippep.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_import_element sie ON sie.SUPPLIER_ORDER_ELEMENT_ID = soe.ID
+		LEFT JOIN import_package_element ipe ON ipe.ID = sie.IMPORT_PACKAGE_ELEMENT_ID
+		LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier_quote_element sqe ON sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+			where ipe.IMPORT_PACKAGE_ID = #{importPackageId}
+  </select>
+  
+  <select id="selectByImportPackageId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT ID, IMPORT_PACKAGE_ID, SUPPLIER_ORDER_ELEMENT_ID, amount, UPDATE_TIMESTAMP,IMPORT_PACKAGE_ID,SUPPLIER_ID
+  		 FROM import_package_payment_element_prepare ippep WHERE ippep.IMPORT_PACKAGE_ID = #{importPackageId}
+  </select>
+  
+  <select id="selectPrepayRateById" parameterType="Integer" resultType="Double">
+  		SELECT so.PREPAY_RATE FROM supplier_order so
+			LEFT JOIN supplier_order_element soe on soe.SUPPLIER_ORDER_ID = so.ID
+			LEFT JOIN import_package_payment_element_prepare ippep on ippep.SUPPLIER_ORDER_ELEMENT_ID = soe.ID
+			WHERE ippep.ID = #{id}
+  </select>
+  
+  <select id="getImportElementByImportId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			sqe.PART_NUMBER,
+			ippep.AMOUNT,
+			soe.id as SUPPLIER_ORDER_ELEMENT_ID
+		FROM
+			import_package_payment_element_prepare ippep
+		LEFT JOIN supplier_order_element soe ON soe.ID = ippep.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_quote_element sqe ON sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+		WHERE ippep.IMPORT_PACKAGE_ID = #{importPackageId}
+  </select>
+  
+</mapper>

@@ -1,0 +1,134 @@
+@CHARSET "UTF-8";
+/***
+ * auth: giam<giam@naswork.com>
+ * date: 2015/05/06	
+ ***/
+.form-ws{
+	display:block;
+	border: none;
+	width: 800px;
+	padding: 5px;
+	margin: 0 auto;
+}
+
+.form-ws .form-header{
+	text-align: center;
+}
+
+.form-ws .form-body,
+.form-ws .form-footer{
+	margin-top: 25px;
+	font-size: 1.2em;
+}
+
+/***== 表单头部样式  ==***/
+.form-ws .form-header .header-swjgmc,
+.form-ws .form-header .header-title{
+	margin: 5px 0;
+	font-weight: bold !important;
+}
+
+.form-ws .form-header .header-swjgmc,
+.form-ws .form-header .header-title{
+	font-size: 2.2em;
+}
+
+.form-ws .form-header .header-swjgjg{
+	font-size: 1.2em;
+}
+
+/***== 表单身体样式  ==***/
+.form-ws .form-body .body-call,
+.form-ws .form-body .body-content{
+	
+}
+
+/** 输入框样式 **/
+.form-ws .form-input,
+.form-ws .form-input{
+	border: none;
+	border-bottom: 1px solid #000000;
+	color: #000000;
+	outline: none;
+}
+
+.form-ws .form-input-450{width: 450px;}
+.form-ws .form-input-350{width: 350px;}
+.form-ws .form-input-250{width: 250px;}
+.form-ws .form-input-150{width: 150px;}
+.form-ws .form-input-100{width: 100px;}
+
+.form-ws .form-input-table{
+	border: none;
+	width: 100%;
+	text-align: center;
+}
+
+/** 时间输入框样式  **/
+.form-ws .form-input-date{text-align: center;}
+.form-ws .form-input-time{width: 200px;}/*yyyy-MM-dd hh:mm:ss*/
+.form-ws .form-input-year{width: 50px;}/*yyyy*/
+.form-ws .form-input-month,/*MM*/
+.form-ws .form-input-day,/*dd*/
+.form-ws .form-input-hour{/*hh*/
+	width: 25px;
+	}
+	
+
+
+.form-ws .form-textarea{	
+    min-height: 80px;
+    border: 1px solid #ccc;outline: 0 none;vertical-align: middle;line-height:20px;padding:5px;box-shadow: 0 0 5px #ececec inset;width: 100%;font-size: 14px;color: #545454;
+}
+
+
+/** 表单里面的table **/
+.form-ws .form-table{
+	text-align: center !important;
+	margin: 10px 0;
+	width: 100%;
+}
+
+.form-ws .form-table thead tr th,
+.form-ws .form-table thead tr td,
+.form-ws .form-table tbody tr th,
+.form-ws .form-table tbody tr td{
+	border: 1px solid #000000;
+	padding: 3px 5px;
+}
+
+/** 文本样式，段落空两个空格 **/
+.form-ws .form-body .body-content p{
+	text-align: justify;
+	text-justify: inter-ideograph;
+	text-indent: 2em;line-height:30px;
+}
+
+.no-indent{
+	text-indent: 0 !important;
+}
+
+/***== 表单脚部样式  ==***/
+.form-ws .form-footer .footer-left,
+.form-ws .form-footer .footer-right{
+	position: relative;
+	width: 100%;
+	margin: 5px 0;
+}
+
+/** 靠左 **/
+.form-ws .form-footer .footer-left{
+	text-align: left;
+}
+
+/** 靠右 **/
+.form-ws .form-footer .footer-right{
+	text-align: right;
+}
+
+/** Common **/
+.margin-top-10{
+	margin-top: 10px;
+}
+	
+}

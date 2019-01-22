@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierPaymentDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierPayment" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ID" property="importPackageId" jdbcType="INTEGER" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="PAY_DATE" property="payDate" jdbcType="DATE" />
+    <result column="PAY_SUM" property="paySum" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_ID, CURRENCY_ID, EXCHANGE_RATE, PAY_DATE, PAY_SUM, REMARK, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_payment
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_payment
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierPayment" >
+    insert into supplier_payment (ID, IMPORT_PACKAGE_ID, CURRENCY_ID, 
+      EXCHANGE_RATE, PAY_DATE, PAY_SUM, 
+      REMARK, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{importPackageId,jdbcType=INTEGER}, #{currencyId,jdbcType=INTEGER}, 
+      #{exchangeRate,jdbcType=DOUBLE}, #{payDate,jdbcType=DATE}, #{paySum,jdbcType=DOUBLE}, 
+      #{remark,jdbcType=VARCHAR}, CURRENT_TIMESTAMP)
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierPayment" >
+    insert into supplier_payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importPackageId != null" >
+        IMPORT_PACKAGE_ID,
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE,
+      </if>
+      <if test="payDate != null" >
+        PAY_DATE,
+      </if>
+      <if test="paySum != null" >
+        PAY_SUM,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageId != null" >
+        #{importPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeRate != null" >
+        #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="payDate != null" >
+        #{payDate,jdbcType=DATE},
+      </if>
+      <if test="paySum != null" >
+        #{paySum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierPayment" >
+    update supplier_payment
+    <set >
+      <if test="importPackageId != null" >
+        IMPORT_PACKAGE_ID = #{importPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="payDate != null" >
+        PAY_DATE = #{payDate,jdbcType=DATE},
+      </if>
+      <if test="paySum != null" >
+        PAY_SUM = #{paySum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierPayment" >
+    update supplier_payment
+    set IMPORT_PACKAGE_ID = #{importPackageId,jdbcType=INTEGER},
+      CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      PAY_DATE = #{payDate,jdbcType=DATE},
+      PAY_SUM = #{paySum,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

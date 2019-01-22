@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.PartTypeSubsetDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.PartTypeSubset" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PART_TYPE_PARENT_ID" property="partTypeParentId" jdbcType="INTEGER" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="VALUE" property="value" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PART_TYPE_PARENT_ID, CODE, VALUE, REMARK, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from part_type_subset
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from part_type_subset
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.PartTypeSubset" >
+    insert into part_type_subset (ID, PART_TYPE_PARENT_ID, CODE, 
+      VALUE, REMARK, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{partTypeParentId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.PartTypeSubset" >
+    insert into part_type_subset
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="partTypeParentId != null" >
+        PART_TYPE_PARENT_ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="value != null" >
+        VALUE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partTypeParentId != null" >
+        #{partTypeParentId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.PartTypeSubset" >
+    update part_type_subset
+    <set >
+      <if test="partTypeParentId != null" >
+        PART_TYPE_PARENT_ID = #{partTypeParentId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        VALUE = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.PartTypeSubset" >
+    update part_type_subset
+    set PART_TYPE_PARENT_ID = #{partTypeParentId,jdbcType=INTEGER},
+      CODE = #{code,jdbcType=VARCHAR},
+      VALUE = #{value,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			pts.ID,
+			pts.PART_TYPE_PARENT_ID,
+			pts.`CODE`,
+			pts.`VALUE`,
+			pts.REMARK,
+			pts.UPDATE_TIMESTAMP
+		FROM
+			part_type_subset pts
+		<where>
+			${where}
+		</where>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+  
+  <select id="selectByCode" parameterType="STRING" resultMap="BaseResultMap">
+  		SELECT
+			pts.ID,
+			pts.PART_TYPE_PARENT_ID,
+			pts.`CODE`,
+			pts.`VALUE`,
+			pts.REMARK,
+			pts.UPDATE_TIMESTAMP
+		FROM
+			part_type_subset pts
+		WHERE
+			pts.`CODE` = #{code}
+  </select>
+  
+  <select id="list" resultMap="BaseResultMap">
+  		SELECT
+			ID,
+			PART_TYPE_PARENT_ID,
+			`CODE`,
+			`VALUE`,
+			REMARK,
+			UPDATE_TIMESTAMP
+		FROM
+			`part_type_subset`
+  </select>
+  
+
+  
+  
+</mapper>

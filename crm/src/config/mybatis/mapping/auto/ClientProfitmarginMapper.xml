@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientProfitmarginDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientProfitmargin" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="VARCHAR" />
+    <result column="PROFIT_MARGIN" property="profitMargin" jdbcType="DOUBLE" />
+     <result column="CODE" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_ID, PROFIT_MARGIN
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_profitmargin
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectByClientId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_profitmargin
+    where CLIENT_ID = #{clientId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_profitmargin
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientProfitmargin" >
+    insert into client_profitmargin (ID, CLIENT_ID, PROFIT_MARGIN
+      )
+    values (#{id,jdbcType=INTEGER}, #{clientId,jdbcType=VARCHAR}, #{profitMargin,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientProfitmargin" >
+    insert into client_profitmargin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID,
+      </if>
+      <if test="profitMargin != null" >
+        PROFIT_MARGIN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="profitMargin != null" >
+        #{profitMargin,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientProfitmargin" >
+    update client_profitmargin
+    <set >
+      <if test="clientId != null" >
+        CLIENT_ID = #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="profitMargin != null" >
+        PROFIT_MARGIN = #{profitMargin,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientProfitmargin" >
+    update client_profitmargin
+    set CLIENT_ID = #{clientId,jdbcType=VARCHAR},
+      PROFIT_MARGIN = #{profitMargin,jdbcType=DOUBLE}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT cp.ID,cp.PROFIT_MARGIN,c.`CODE` from client_profitmargin cp INNER JOIN client c on c.ID=cp.CLIENT_ID
+  		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+</mapper>

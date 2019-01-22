@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientBankMessageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientBankMessage" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+    <result column="BANK_ACCOUNT_NUMBER" property="bankAccountNumber" jdbcType="INTEGER" />
+    <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_NAME" property="accountName" jdbcType="VARCHAR" />
+    <result column="ENGLISH_NAME" property="englishName" jdbcType="VARCHAR" />
+    <result column="BANK_ADDRESS" property="bankAddress" jdbcType="VARCHAR" />
+    <result column="BANK_PHONE_NUMBER" property="bankPhoneNumber" jdbcType="VARCHAR" />
+    <result column="REAMRK" property="reamrk" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_ID, BANK_ACCOUNT_NUMBER, BANK_NAME, ACCOUNT_NAME, ENGLISH_NAME, BANK_ADDRESS, 
+    BANK_PHONE_NUMBER, REAMRK, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_bank_message
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_bank_message
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientBankMessage" >
+    insert into client_bank_message (ID, CLIENT_ID, BANK_ACCOUNT_NUMBER, 
+      BANK_NAME, ACCOUNT_NAME, ENGLISH_NAME, 
+      BANK_ADDRESS, BANK_PHONE_NUMBER, REAMRK, 
+      UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{clientId,jdbcType=INTEGER}, #{bankAccountNumber,jdbcType=INTEGER}, 
+      #{bankName,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{englishName,jdbcType=VARCHAR}, 
+      #{bankAddress,jdbcType=VARCHAR}, #{bankPhoneNumber,jdbcType=INTEGER}, #{reamrk,jdbcType=VARCHAR}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientBankMessage" >
+    insert into client_bank_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID,
+      </if>
+      <if test="bankAccountNumber != null" >
+        BANK_ACCOUNT_NUMBER,
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME,
+      </if>
+      <if test="accountName != null" >
+        ACCOUNT_NAME,
+      </if>
+      <if test="englishName != null" >
+        ENGLISH_NAME,
+      </if>
+      <if test="bankAddress != null" >
+        BANK_ADDRESS,
+      </if>
+      <if test="bankPhoneNumber != null" >
+        BANK_PHONE_NUMBER,
+      </if>
+      <if test="reamrk != null" >
+        REAMRK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="bankAccountNumber != null" >
+        #{bankAccountNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAddress != null" >
+        #{bankAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bankPhoneNumber != null" >
+        #{bankPhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="reamrk != null" >
+        #{reamrk,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientBankMessage" >
+    update client_bank_message
+    <set >
+      <if test="clientId != null" >
+        CLIENT_ID = #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="bankAccountNumber != null" >
+        BANK_ACCOUNT_NUMBER = #{bankAccountNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        ACCOUNT_NAME = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        ENGLISH_NAME = #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAddress != null" >
+        BANK_ADDRESS = #{bankAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bankPhoneNumber != null" >
+        BANK_PHONE_NUMBER = #{bankPhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="reamrk != null" >
+        REAMRK = #{reamrk,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientBankMessage" >
+    update client_bank_message
+    set CLIENT_ID = #{clientId,jdbcType=INTEGER},
+      BANK_ACCOUNT_NUMBER = #{bankAccountNumber,jdbcType=INTEGER},
+      BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      ACCOUNT_NAME = #{accountName,jdbcType=VARCHAR},
+      ENGLISH_NAME = #{englishName,jdbcType=VARCHAR},
+      BANK_ADDRESS = #{bankAddress,jdbcType=VARCHAR},
+      BANK_PHONE_NUMBER = #{bankPhoneNumber,jdbcType=INTEGER},
+      REAMRK = #{reamrk,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		select * from client_bank_message where client_id = #{clientId}
+  </select>
+  
+</mapper>

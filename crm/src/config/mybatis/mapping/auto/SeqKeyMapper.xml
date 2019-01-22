@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SeqKeyDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SeqKey" >
+    <id column="SCHEMA_NAME" property="schemaName" jdbcType="VARCHAR" />
+    <id column="TABLE_NAME" property="tableName" jdbcType="VARCHAR" />
+    <id column="KEY_NAME" property="keyName" jdbcType="VARCHAR" />
+    <result column="SEQ" property="seq" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SCHEMA_NAME, TABLE_NAME, KEY_NAME, SEQ, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.SeqKeyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from seq_key
+    where SCHEMA_NAME = #{schemaName,jdbcType=VARCHAR}
+      and TABLE_NAME = #{tableName,jdbcType=VARCHAR}
+      and KEY_NAME = #{keyName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.SeqKeyKey" >
+    delete from seq_key
+    where SCHEMA_NAME = #{schemaName,jdbcType=VARCHAR}
+      and TABLE_NAME = #{tableName,jdbcType=VARCHAR}
+      and KEY_NAME = #{keyName,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SeqKey" >
+    insert into seq_key (SCHEMA_NAME, TABLE_NAME, KEY_NAME, 
+      SEQ, UPDATE_TIMESTAMP)
+    values (#{schemaName,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, #{keyName,jdbcType=VARCHAR}, 
+      #{seq,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SeqKey" >
+    insert into seq_key
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schemaName != null" >
+        SCHEMA_NAME,
+      </if>
+      <if test="tableName != null" >
+        TABLE_NAME,
+      </if>
+      <if test="keyName != null" >
+        KEY_NAME,
+      </if>
+      <if test="seq != null" >
+        SEQ,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schemaName != null" >
+        #{schemaName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="keyName != null" >
+        #{keyName,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SeqKey" >
+    update seq_key
+    <set >
+      <if test="seq != null" >
+        SEQ = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SCHEMA_NAME = #{schemaName,jdbcType=VARCHAR}
+      and TABLE_NAME = #{tableName,jdbcType=VARCHAR}
+      and KEY_NAME = #{keyName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SeqKey" >
+    update seq_key
+    set SEQ = #{seq,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where SCHEMA_NAME = #{schemaName,jdbcType=VARCHAR}
+      and TABLE_NAME = #{tableName,jdbcType=VARCHAR}
+      and KEY_NAME = #{keyName,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 获取最大索引 -->
+  <select id="findMaxSeq" parameterType="com.naswork.model.SeqKey" resultMap="BaseResultMap">
+ 		SELECT * FROM seq_key WHERE schema_name=#{schemaName} AND table_name=#{tableName} AND key_name=#{keyName} 
+  </select>
+</mapper>

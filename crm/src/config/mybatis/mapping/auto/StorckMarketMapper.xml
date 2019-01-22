@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.StorckMarketDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.StorckMarket" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ELEMENT_ID" property="clientInquiryElementId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="EMAIL_STATUS" property="emailStatus" jdbcType="INTEGER" />
+    <result column="UPDATE_DATETIME" property="updateDatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_INQUIRY_ID, CLIENT_INQUIRY_ELEMENT_ID, SUPPLIER_ID, EMAIL_STATUS, UPDATE_DATETIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from storck_market
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from storck_market
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.StorckMarket" >
+    insert into storck_market (ID, CLIENT_INQUIRY_ID, CLIENT_INQUIRY_ELEMENT_ID, 
+      SUPPLIER_ID, EMAIL_STATUS, UPDATE_DATETIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{clientInquiryId,jdbcType=INTEGER}, #{clientInquiryElementId,jdbcType=INTEGER}, 
+      #{supplierId,jdbcType=INTEGER}, #{emailStatus,jdbcType=INTEGER}, #{updateDatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.StorckMarket" >
+    insert into storck_market
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID,
+      </if>
+      <if test="clientInquiryElementId != null" >
+        CLIENT_INQUIRY_ELEMENT_ID,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="emailStatus != null" >
+        EMAIL_STATUS,
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryId != null" >
+        #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryElementId != null" >
+        #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="emailStatus != null" >
+        #{emailStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.StorckMarket" >
+    update storck_market
+    <set >
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryElementId != null" >
+        CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="emailStatus != null" >
+        EMAIL_STATUS = #{emailStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.StorckMarket" >
+    update storck_market
+    set CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER},
+      SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      EMAIL_STATUS = #{emailStatus,jdbcType=INTEGER},
+      UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getEmailList" resultMap="BaseResultMap">
+  	SELECT DISTINCT sm.ID,sm.SUPPLIER_ID FROM storck_market sm WHERE sm.EMAIL_STATUS = 0
+  </select>
+  
+  <select id="getRecord" parameterType="Integer" resultType="Integer">
+  	SELECT DISTINCT
+		sm.CLIENT_INQUIRY_ELEMENT_ID
+	FROM
+		storck_market sm
+	WHERE
+		sm.EMAIL_STATUS = 0
+	AND sm.SUPPLIER_ID = #{supplierId}
+  </select>
+  
+  <select id="getClientInquiryId" parameterType="Integer" resultType="Integer">
+  	SELECT DISTINCT
+		sm.CLIENT_INQUIRY_ID
+	FROM
+		storck_market sm
+	WHERE
+		sm.EMAIL_STATUS = 0
+	AND sm.SUPPLIER_ID = #{supplierId}
+	LIMIT 0,1
+  </select>
+  
+</mapper>

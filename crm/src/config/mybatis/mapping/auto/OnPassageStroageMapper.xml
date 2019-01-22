@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.OnPassageStorageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.OnPassageStorage" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+    <result column="CLIENT_ORDER_ELEMENT_ID" property="clientOrderElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="IMPORT_STATUS" property="importStatus" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+	<result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+	<result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+	<result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+	<result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+	<result column="ORDER_DATE" property="orderDate" jdbcType="DATE" />
+	<result column="price" property="price" jdbcType="DOUBLE" />
+	<result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+	<result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+	<result column="unit" property="unit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_ORDER_ELEMENT_ID, CLIENT_ORDER_ELEMENT_ID, AMOUNT, IMPORT_STATUS, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from on_passage_storage
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from on_passage_storage
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.OnPassageStorage" >
+    insert into on_passage_storage (ID, SUPPLIER_ORDER_ELEMENT_ID, CLIENT_ORDER_ELEMENT_ID, 
+      AMOUNT, IMPORT_STATUS, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{supplierOrderElementId,jdbcType=INTEGER}, #{clientOrderElementId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DOUBLE}, #{importStatus,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.OnPassageStorage" >
+    insert into on_passage_storage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierOrderElementId != null" >
+        SUPPLIER_ORDER_ELEMENT_ID,
+      </if>
+      <if test="clientOrderElementId != null" >
+        CLIENT_ORDER_ELEMENT_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="importStatus != null" >
+        IMPORT_STATUS,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierOrderElementId != null" >
+        #{supplierOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="clientOrderElementId != null" >
+        #{clientOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="importStatus != null" >
+        #{importStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.OnPassageStorage" >
+    update on_passage_storage
+    <set >
+      <if test="supplierOrderElementId != null" >
+        SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="clientOrderElementId != null" >
+        CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="importStatus != null" >
+        IMPORT_STATUS = #{importStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.OnPassageStorage" >
+    update on_passage_storage
+    set SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER},
+      CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      IMPORT_STATUS = #{importStatus,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			ops.ID,
+			ops.SUPPLIER_ORDER_ELEMENT_ID,
+			ops.CLIENT_ORDER_ELEMENT_ID,
+			soe.AMOUNT - SUM(ops.AMOUNT) AS amount,
+			ops.IMPORT_STATUS,
+			ops.UPDATE_TIMESTAMP,
+			so.ORDER_NUMBER,
+			s.`CODE` AS supplier_code,
+			sqe.PART_NUMBER,
+			soe.LEAD_TIME,
+			so.ORDER_DATE
+		FROM
+			on_passage_storage ops
+		LEFT JOIN supplier_order_element soe ON soe.ID = ops.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier s on s.ID = so.SUPPLIER_ID
+		LEFT JOIN supplier_quote_element sqe on sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+		LEFT JOIN authority_relation ar on ar.supplier_id = s.id
+		WHERE ops.IMPORT_STATUS = 0
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+		GROUP BY soe.ID
+		<if test="orderby != null">
+			${orderby}
+		</if>
+		
+  </select>
+  
+  <select id="selectBySupplierQuoteElementId" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			ops.ID,
+			ops.SUPPLIER_ORDER_ELEMENT_ID,
+			ops.CLIENT_ORDER_ELEMENT_ID,
+			IFNULL((soe.AMOUNT - SUM(ops.AMOUNT)),0) AS amount,
+			ops.IMPORT_STATUS,
+			ops.UPDATE_TIMESTAMP,
+			so.ORDER_NUMBER,
+			so.EXCHANGE_RATE,
+			s.`CODE` AS supplier_code,
+			sqe.PART_NUMBER,
+			soe.LEAD_TIME,
+			so.ORDER_DATE,so.CURRENCY_ID,
+			soe.price,
+			sqe.unit
+		FROM
+			on_passage_storage ops
+		LEFT JOIN supplier_order_element soe ON soe.ID = ops.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier s on s.ID = so.SUPPLIER_ID
+		LEFT JOIN supplier_quote_element sqe on sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+		WHERE ops.IMPORT_STATUS = 0
+		<if test="where != null">
+			and ${where}
+		</if>
+			
+			
+		GROUP BY sqe.ID,soe.ID
+  </select>
+  
+  <select id="getBySoeIdAndCoeId" parameterType="com.naswork.model.OnPassageStorage" resultMap="BaseResultMap">
+  		SELECT ID, SUPPLIER_ORDER_ELEMENT_ID, CLIENT_ORDER_ELEMENT_ID, AMOUNT, IMPORT_STATUS, UPDATE_TIMESTAMP FROM on_passage_storage
+			WHERE SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId} 
+					and CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId} 
+					and AMOUNT = #{amount} and IMPORT_STATUS = 0
+  </select>
+  
+  <update id="updateBySoeIdAndCoeId" parameterType="Integer">
+  		UPDATE on_passage_storage SET IMPORT_STATUS = 1 
+  			WHERE SUPPLIER_ORDER_ELEMENT_ID = #{0} and CLIENT_ORDER_ELEMENT_ID = #{1}
+  </update>
+  
+  <select id="selectByCoeId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			ops.ID,
+			ops.SUPPLIER_ORDER_ELEMENT_ID,
+			ops.CLIENT_ORDER_ELEMENT_ID,
+			ops.AMOUNT,
+			ops.IMPORT_STATUS,
+			ops.UPDATE_TIMESTAMP
+		FROM
+			on_passage_storage ops
+		WHERE ops.CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId}
+		AND ops.IMPORT_STATUS = 0
+  </select>
+  
+  <!-- <select id="">
+ 	DELETE
+	FROM
+		on_passage_storage
+	WHERE
+		SUPPLIER_ORDER_ELEMENT_ID IN 
+	(SELECT
+			soe.id
+		FROM
+			supplier_order_element soe
+		LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+		WHERE
+			so.ID = 1002489)
+  </select> -->
+  
+</mapper>

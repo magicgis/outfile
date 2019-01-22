@@ -1,0 +1,2971 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ImportPackageElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ImportPackageElement" >
+   <result column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="import_package_element_id" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ID" property="importPackageId" jdbcType="INTEGER" />
+    <result column="ELEMENT_ID" property="elementId" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_NUMBER" property="originalNumber" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_DATE" property="certificationDate" jdbcType="DATE" />
+    <result column="CERTIFICATION_STATUS_ID" property="certificationStatusId" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_SIGN" property="importPackageSign" jdbcType="INTEGER" />
+    <result column="COMPLETE_COMPLIANCE_CERTIFICATE" property="completeComplianceCertificate" jdbcType="INTEGER" />
+    <result column="COMPLIANCE_CERTIFICATE" property="complianceCertificate" jdbcType="INTEGER" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="IMPORT_NUMBER" property="importPackageNumber" jdbcType="VARCHAR" />
+    <result column="INSPECTION_DATE" property="inspectionDate" jdbcType="DATE" />
+    <result column="MANUFACTURE_DATE" property="manufactureDate" jdbcType="DATE" />
+    <result column="HAS_LIFE" property="hasLife" jdbcType="INTEGER" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="DATE" />
+    <result column="REST_LIFE" property="restLife" jdbcType="INTEGER" />
+    <result column="REST_LIFE_EMAIL" property="restLifeEmail" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="ElementListDateMap" type="com.naswork.module.purchase.controller.importpackage.ImportPackageElementVo" >
+   <result column="IMPORT_PACKAGE_SIGN" property="importPackageSign" jdbcType="INTEGER" />
+    <result column="ipe_supplier_order_element_id" property="ipeSupplierOrderElementId" jdbcType="INTEGER" />
+    <result column="spzt" property="spzt" jdbcType="INTEGER" />
+   <result column="CLIENT_INQUIRY_ELEMENT_ID" property="clientInquiryElementId" jdbcType="INTEGER" />
+    <result column="CLIENT_QUOTE_ELEMENT_ID" property="clientQuoteElementId" jdbcType="INTEGER" />
+  <result column="SUPPLIER_QUOTE_ELEMENT_ID" property="supplierQuoteElementId" jdbcType="INTEGER" />
+     <result column="client_order_element_id" property="clientOrderElementId" jdbcType="INTEGER" />
+  <result column="BATCH_NUMBER" property="batchNumber" jdbcType="VARCHAR" />
+   <result column="complete_compliance_certificate" property="completeComplianceCertificate" jdbcType="INTEGER" />
+    <result column="compliance_certificate" property="complianceCertificate" jdbcType="INTEGER" />
+    <result column="complete_compliance_certificate_value" property="completeComplianceCertificateValue" jdbcType="VARCHAR" />
+    <result column="compliance_certificate_value" property="complianceCertificateValue" jdbcType="VARCHAR" />
+   <result column="BOX_WEIGHT" property="boxWeight" jdbcType="DOUBLE" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+   <result column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+  <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+   <result column="status" property="status" jdbcType="INTEGER" />
+  <result column="SUPPLIER_ORDER_NUMBER" property="supplierOrderNumber" jdbcType="VARCHAR" />
+  	<result column="IMPORT_PACKAGE_ELEMENT_ID" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="location_id" property="locationId" jdbcType="INTEGER" />
+    <result column="l_location" property="lLocation" jdbcType="VARCHAR" />
+     <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ID" property="importPackageId" jdbcType="INTEGER" />
+    <result column="ELEMENT_ID" property="elementId" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_NUMBER" property="originalNumber" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_DATE" property="certificationDate" jdbcType="DATE" />
+    <result column="MANUFACTURE_DATE" property="manufactureDate" jdbcType="DATE" />
+       <result column="INSPECTION_DATE" property="inspectionDate" jdbcType="DATE" />
+    <result column="IMPORT_NUMBER" property="importNumber" jdbcType="VARCHAR" />
+    <result column="IMPORT_DATE" property="importDate" jdbcType="DATE" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="condition_code" property="conditionCode" jdbcType="VARCHAR" />
+    <result column="condition_value" property="conditionValue" jdbcType="VARCHAR" />
+    <result column="certification_code" property="certificationCode" jdbcType="VARCHAR" />
+    <result column="certification_value" property="certificationValue" jdbcType="VARCHAR" />
+    <result column="order_amount" property="orderAmount" jdbcType="DOUBLE" />
+    <result column="client_order_amount" property="clientOrderAmount" jdbcType="DOUBLE" />
+    <result column="order_price" property="orderPrice" jdbcType="DOUBLE" />
+    <result column="SO_EXCHANGE_RATE" property="soExchangeRate" jdbcType="DOUBLE" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="DATE" />
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="source_order_number" property="sourceOrderNumber" jdbcType="VARCHAR" />
+    <result column="client_order_number" property="clientOrderNumber" jdbcType="VARCHAR" />
+    <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="tax_return_value" property="taxReturnValue" jdbcType="VARCHAR" />
+    <result column="supplier_quote_id" property="supplierQuoteId" jdbcType="INTEGER" />
+    <result column="item" property="item" jdbcType="INTEGER" />
+    <result column="IP_SUPPLIER_ORDER_ELEMENT_ID" property="ipSupplierOrderElementId" jdbcType="INTEGER" />
+    <result column="SHELF_LIFE" property="shelfLife" jdbcType="INTEGER" />
+    <result column="HAS_LIFE" property="hasLife" jdbcType="INTEGER" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="DATE" />
+    <result column="REST_LIFE" property="restLife" jdbcType="INTEGER" />
+    <result column="REST_LIFE_EMAIL" property="restLifeEmail" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_NUMBER" property="certificationNumber" jdbcType="VARCHAR" />
+    <result column="order_description" property="orderDescription" jdbcType="VARCHAR" />
+   </resultMap>
+   
+   <resultMap id="SupplierOrderElementListDateMap" type="com.naswork.module.purchase.controller.importpackage.SupplierOrderElementVo" >
+    <result column="order_description" property="orderDescription" jdbcType="VARCHAR" />
+       <result column="client_order_import_amount" property="clientOrderImportAmount" jdbcType="DOUBLE" />
+       <result column="order_type" property="orderType" jdbcType="INTEGER" />
+        <result column="supplier_order_import_amount" property="supplierOrderImportAmount" jdbcType="DOUBLE" />
+    <result column="client_order_source_number" property="clientOrderSourceNumber" jdbcType="VARCHAR" />
+    <result column="BOX_WEIGHT" property="boxWeight" jdbcType="DOUBLE" />
+    <result column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+    <result column="csn" property="csn" jdbcType="INTEGER" />
+    <result column="item" property="item" jdbcType="INTEGER" />
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ORDER_ID" property="supplierOrderId" jdbcType="INTEGER" />
+    <result column="CLIENT_ORDER_ELEMENT_ID" property="clientOrderElementId" jdbcType="INTEGER" />
+      <result column="client_order_id" property="clientOrderId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_QUOTE_ELEMENT_ID" property="supplierQuoteElementId" jdbcType="INTEGER" />
+    <result column="supplier_order_amount" property="supplierOrderAmount" jdbcType="DOUBLE" />
+    <result column="supplier_order_price" property="supplierOrderPrice" jdbcType="DOUBLE" />
+    <result column="supplier_order_total_price" property="supplierOrderTotalPrice" jdbcType="DOUBLE" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="supplier_order_lead_time" property="supplierOrderLeadTime" jdbcType="VARCHAR" />
+    <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+    <result column="supplier_order_deadline" property="supplierOrderDeadline" jdbcType="DATE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="import_amount" property="importAmount" jdbcType="DOUBLE" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="DATE" />
+    <result column="supplier_order_number" property="supplierOrderNumber" jdbcType="VARCHAR" />
+    <result column="TERMS" property="terms" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="client_exchange_rate" property="clientExchangeRate" jdbcType="VARCHAR" />
+    <result column="client_order_number" property="clientOrderNumber" jdbcType="VARCHAR" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="client_name" property="clientName" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="client_order_amount" property="clientOrderAmount" jdbcType="DOUBLE" />
+    <result column="client_order_price" property="clientOrderPrice" jdbcType="DOUBLE" />
+    <result column="client_order_lead_time" property="clientOrderLeadTime" jdbcType="VARCHAR" />
+    <result column="client_order_deadline" property="clientOrderDeadline" jdbcType="DATE" />
+    <result column="quote_amount" property="quoteAmount" jdbcType="DOUBLE" />
+    <result column="quote_remark" property="quoteRemark" jdbcType="VARCHAR" />
+    <result column="client_quote_price" property="clientQuotePrice" jdbcType="VARCHAR" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="ELEMENT_ID" property="elementId" jdbcType="INTEGER" />
+    <result column="quote_description" property="quoteDescription" jdbcType="VARCHAR" />
+    <result column="quote_unit" property="quoteUnit" jdbcType="VARCHAR" />
+    <result column="supplier_quote_price" property="supplierQuotePrice" jdbcType="DOUBLE" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="quote_part_number" property="quotePartNumber" jdbcType="VARCHAR" />
+    <result column="supplier_quote_number" property="supplierQuoteNumber" jdbcType="VARCHAR" />
+    <result column="part_number_code" property="partNumberCode" jdbcType="VARCHAR" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="condition_code" property="conditionCode" jdbcType="VARCHAR" />
+    <result column="condition_value" property="conditionValue" jdbcType="VARCHAR" />
+    <result column="certification_code" property="certificationCode" jdbcType="VARCHAR" />
+    <result column="certification_value" property="certificationValue" jdbcType="VARCHAR" />
+    <result column="tax_return_value" property="taxReturnValue" jdbcType="VARCHAR" />
+    <result column="bsn" property="bsn" jdbcType="VARCHAR" />
+    <result column="SHELF_LIFE" property="shelfLife" jdbcType="VARCHAR" />
+    <result column="inquiry_part_number" property="inquiryPartNumber" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <resultMap type="com.naswork.model.ClientInquiry" id="clientInquiryVo">
+  	  <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_CONTACT_ID" property="clientContactId" jdbcType="INTEGER" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+    <result column="BIZ_TYPE_ID" property="bizTypeId" jdbcType="INTEGER" />
+    <result column="AIR_TYPE_ID" property="airTypeId" jdbcType="INTEGER" />
+    <result column="INQUIRY_DATE" property="inquiryDate" jdbcType="DATE" />
+    <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+    <result column="SOURCE_NUMBER" property="sourceNumber" jdbcType="VARCHAR" />
+    <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+    <result column="QUOTE_NUMBER_SEQ" property="quoteNumberSeq" jdbcType="INTEGER" />
+    <result column="TERMS" property="terms" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="INQUIRY_STATUS_ID" property="inquiryStatusId" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+   <resultMap id="supplierinquiryVo" type="com.naswork.module.purchase.controller.importpackage.SupplierImportElementVo" >
+    <result column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ELEMENT_ID" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="import_part_number" property="importPartNumber" jdbcType="VARCHAR" />
+    <result column="import_unit" property="importUnit" jdbcType="VARCHAR" />
+    <result column="import_amount" property="importAmount" jdbcType="DOUBLE" />
+    <result column="import_price" property="importPrice" jdbcType="DOUBLE" />
+    <result column="import_remark" property="importRemark" jdbcType="VARCHAR" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_NUMBER" property="originalNumber" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_DATE" property="certificationDate" jdbcType="DATE" />
+    <result column="IMPORT_NUMBER" property="importNumber" jdbcType="VARCHAR" />
+    <result column="IMPORT_DATE" property="importDate" jdbcType="DATE" />
+    <result column="import_exchange_rate" property="importExchangeRate" jdbcType="DOUBLE" />
+    <result column="order_amount" property="orderAmount" jdbcType="DOUBLE" />
+    <result column="order_price" property="orderPrice" jdbcType="DOUBLE" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="DEADLINE" property="deadline" jdbcType="DATE" />
+    <result column="quote_part_number" property="quotePartNumber" jdbcType="VARCHAR" />
+    <result column="quote_description" property="quoteDescription" jdbcType="VARCHAR" />
+    <result column="quote_unit" property="quoteUnit" jdbcType="VARCHAR" />
+    <result column="import_description" property="importDescription" jdbcType="VARCHAR" />
+    <result column="order_exchange_rate" property="orderExchangeRate" jdbcType="DOUBLE" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="DATE" />
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="import_condition_code" property="importConditionCode" jdbcType="VARCHAR" />
+    <result column="import_certification_code" property="importCertificationCode" jdbcType="VARCHAR" />
+    <result column="quote_condition_code" property="quoteConditionCode" jdbcType="VARCHAR" />
+    <result column="quote_certification_code" property="quoteCertificationCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.storage.controller.storagedetail.StorageDetailVo" id="storageDetailVo">
+    <result column="supplier_quote_element_id" property="supplierQuoteElementId" jdbcType="INTEGER" />
+  	<result column="supplier_order_element_id" property="supplierOrderElementId" jdbcType="INTEGER" />
+  	<result column="import_package_id" property="importPackageId" jdbcType="INTEGER" />
+  	<result column="complete_compliance_certificate" property="completeComplianceCertificate" jdbcType="INTEGER" />
+    <result column="compliance_certificate" property="complianceCertificate" jdbcType="INTEGER" />
+    <result column="complete_compliance_certificate_value" property="completeComplianceCertificateValue" jdbcType="VARCHAR" />
+    <result column="compliance_certificate_value" property="complianceCertificateValue" jdbcType="VARCHAR" />
+    <result column="BOX_WEIGHT" property="boxWeight" jdbcType="DOUBLE" />
+  	<result column="id" property="id" jdbcType="INTEGER" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="part_number" property="partNumber" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="condition_code" property="conditionCode" jdbcType="VARCHAR" />
+    <result column="certification_code" property="certificationCode" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="storage_amount" property="storageAmount" jdbcType="DOUBLE" />
+    <result column="base_price" property="basePrice" jdbcType="DOUBLE" />
+    <result column="total_base_price" property="totalBasePrice" jdbcType="DOUBLE" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="import_number" property="importNumber" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="import_date" property="importDate" jdbcType="DATE" />
+    <result column="logistics_value" property="logisticsValue" jdbcType="VARCHAR" />
+    <result column="logistics_no" property="logisticsNo" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="client_order_number" property="clientOrderNumber" jdbcType="VARCHAR" />
+    <result column="tax_value" property="taxValue" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="client_order_price" property="clientOrderPrice" jdbcType="DOUBLE" />
+    <result column="MANUFACTURE_DATE" property="manufactureDate" jdbcType="DATE" />
+    <result column="INSPECTION_DATE" property="inspectionDate" jdbcType="DATE" />
+    <result column="client_order_element_id" property="clientOrderElementId" jdbcType="INTEGER" />
+    <result column="REST_LIFE_EMAIL" property="restLifeEmail" jdbcType="INTEGER" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="DATE" />
+    <result column="REST_LIFE" property="restLife" jdbcType="INTEGER" />
+    <result column="import_amount" property="importAmount" jdbcType="DOUBLE" />
+    <result column="import_unit" property="importUnit" jdbcType="VARCHAR" />
+  </resultMap>
+  
+    <resultMap type="com.naswork.module.purchase.controller.importpackage.StorageFlowVo" id="StorageFlowVo">
+     <result column="ipe_supplier_order_element_id" property="ipeSupplierOrderElementId" jdbcType="INTEGER" />
+      <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+  	<result column="id" property="id" jdbcType="INTEGER" />
+    <result column="import_number" property="importNumber" jdbcType="VARCHAR" />
+    <result column="part_number" property="partNumber" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="condition_code" property="conditionCode" jdbcType="VARCHAR" />
+    <result column="certification_code" property="certificationCode" jdbcType="VARCHAR" />
+     <result column="condition_value" property="conditionValue" jdbcType="VARCHAR" />
+    <result column="certification_value" property="certificationValue" jdbcType="VARCHAR" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+     <result column="remark" property="remark" jdbcType="VARCHAR" />
+     <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="exchange_rate" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="base_price" property="basePrice" jdbcType="DOUBLE" />
+    <result column="total_base_price" property="totalBasePrice" jdbcType="DOUBLE" />
+    <result column="storage_amount" property="storageAmount" jdbcType="DOUBLE" />
+   <result column="certification_date" property="certificationDate" jdbcType="DATE" />
+    <result column="update_timestamp" property="updateTimestamp" jdbcType="DATE" />
+    <result column="import_date" property="importDate" jdbcType="DATE" />
+     <result column="part_number_code" property="partNumberCode" jdbcType="VARCHAR" />
+     <result column="amount" property="amount" jdbcType="DOUBLE" />
+     <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+     <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+     <result column="client_id" property="clientId" jdbcType="INTEGER" />
+     <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+     <result column="export_number" property="exportNumber" jdbcType="VARCHAR" />
+      <result column="export_date" property="exportDate" jdbcType="DATE" />
+     <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+      <result column="logistics_no" property="logisticsNo" jdbcType="VARCHAR" />
+      <result column="logistics_way" property="logisticsWay" jdbcType="INTEGER" />
+      <result column="logistics_way_value" property="logisticsWayValue" jdbcType="VARCHAR" />
+    <result column="storage_type" property="storageType" jdbcType="VARCHAR" />
+     <result column="storage_date" property="storageDate" jdbcType="DATE" />
+     <result column="import_date_start" property="importDateStart" jdbcType="DATE" />
+     <result column="import_date_end" property="importDateEnd" jdbcType="DATE" />
+ 	<result column="total_amount" property="totalAmount" jdbcType="DOUBLE" />
+ 	<result column="CLIENT_ORDER_ELEMENT_ID" property="clientOrderElementId" jdbcType="INTEGER" />
+ 	<result column="element_id" property="elementId" jdbcType="INTEGER" />
+ 	<result column="certification_id" property="certificationId" jdbcType="INTEGER" />
+ 	<result column="condition_id" property="conditionId" jdbcType="INTEGER" />
+ 	<result column="import_package_element_id" property="importPackageElementId" jdbcType="INTEGER" />
+	<result column="soe_id" property="soeId" jdbcType="INTEGER" /> 	
+	<result column="client_quote_element_id" property="clientQuoteElementId" jdbcType="INTEGER" />
+	<result column="client_inquiry_element_id" property="clientInquiryElementId" jdbcType="INTEGER" />
+	  <result column="import_package_amount" property="importPackageAmount" jdbcType="DOUBLE" />
+	  	<result column="import_package_id" property="importPackageId" jdbcType="INTEGER" />
+	<result column="supplier_order_element_id" property="supplierOrderElementId" jdbcType="INTEGER" /> 
+  </resultMap>
+  
+  <resultMap id="paymentMap" type="com.naswork.model.ImportPackagePaymentElementPrepare" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="IMPORT_PACKAGE_ID" property="importPackageId" jdbcType="INTEGER" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  
+   
+    <select id="findElementListDatePage" resultMap="ElementListDateMap" parameterType="page" >
+   SELECT ipe.id, ipe.import_package_id, ipe.element_id,isll.id as location_id,isll.LOCATION l_location,  
+			   ip.import_number, ip.import_date, ip.exchange_rate,ci.CLIENT_ID,c.code as client_code,ipe.box_weight,ipe.BATCH_NUMBER,
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  cc.value compliance_certificate_value,ipe.compliance_certificate,
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value,   ccc.value complete_compliance_certificate_value,ipe.complete_compliance_certificate,
+			   ipe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  ipe.SUPPLIER_ORDER_ELEMENT_ID IP_SUPPLIER_ORDER_ELEMENT_ID,
+			   ipe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   soe.price AS order_price, soe.amount AS order_amount, coe.amount AS client_order_amount,  sie.SUPPLIER_ORDER_ELEMENT_ID,
+			   so.order_number, so.order_date, so.exchange_rate as SO_EXCHANGE_RATE,  
+			   co.order_number AS client_order_number,  ipe.MANUFACTURE_DATE,ipe.INSPECTION_DATE,
+			   co.source_number AS source_order_number, ci.quote_number,  soe.supplier_quote_element_id,
+			   ipe.part_number, ipe.description, ipe.unit, ipe.amount, ipe.price,  
+			   ipe.original_number, ipe.serial_number, ipe.certification_date,  
+			   ipe.price*ip.exchange_rate AS base_price,tax.`VALUE` AS tax_return_value,
+			   ipe.remark, ipe.location, ipe.update_timestamp,ipe.spzt,soe.item,ipe.HAS_LIFE,ipe.EXPIRE_DATE,ipe.REST_LIFE,ipe.CERTIFICATION_NUMBER
+			   FROM import_package_element ipe  
+			   INNER JOIN import_package ip ON (ipe.import_package_id=ip.id)  
+			   INNER JOIN supplier s ON (ip.supplier_id=s.id)  
+			   INNER JOIN system_code cu ON (ip.currency_id=cu.id)  
+			   INNER JOIN system_code cond ON (ipe.condition_id=cond.id)  
+			   INNER JOIN system_code cert ON (ipe.certification_id=cert.id)  
+			   INNER JOIN system_code ccc ON (ipe.complete_compliance_certificate=ccc.id)  
+			   INNER JOIN system_code cc ON (ipe.compliance_certificate=cc.id)  
+			   LEFT JOIN supplier_import_element sie ON (sie.import_package_element_id=ipe.id)  
+			   LEFT JOIN supplier_order_element soe ON (sie.supplier_order_element_id=soe.id)  
+			   LEFT JOIN system_code tax ON (tax.ID = s.TAX_REIMBURSEMENT_ID)
+			   LEFT JOIN client_order_element coe ON (soe.client_order_element_id=coe.id)  
+			   LEFT JOIN supplier_order so ON (soe.supplier_order_id=so.id)  
+			   LEFT JOIN client_order co ON (coe.CLIENT_ORDER_ID = co.ID)  
+			   LEFT JOIN client_quote cq ON (co.client_quote_id=cq.id)  
+			   LEFT JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)  
+			   LEFT JOIN client c ON (c.id=ci.client_id)
+			   LEFT JOIN import_storage_location_list isll ON (isll.id=ipe.LOCATION)
+				WHERE ip.id='${id}'  and (ipe.SPZT!=235 or ipe.SPZT is NULL)
+				<if test="where!=null">
+				and ${where}
+				</if>
+				<if test="orderby != null">
+					${orderby}
+				</if>
+
+  </select>
+  
+   <select id="findStorageByCoeId" resultMap="ElementListDateMap" parameterType="Integer" >
+		   SELECT 
+			 ip.import_number,sum(ipe.amount) amount
+		FROM
+			import_package_element ipe
+		INNER JOIN import_package ip ON (
+			ipe.import_package_id = ip.id
+		)
+		INNER JOIN supplier s ON (ip.supplier_id = s.id)
+		INNER JOIN system_code cu ON (ip.currency_id = cu.id)
+		INNER JOIN system_code cond ON (ipe.condition_id = cond.id)
+		INNER JOIN system_code cert ON (
+			ipe.certification_id = cert.id
+		)
+		INNER JOIN system_code ccc ON (
+			ipe.complete_compliance_certificate = ccc.id
+		)
+		INNER JOIN system_code cc ON (
+			ipe.compliance_certificate = cc.id
+		)
+		LEFT JOIN supplier_import_element sie ON (
+			sie.import_package_element_id = ipe.id
+		)
+		LEFT JOIN supplier_order_element soe ON (
+			sie.supplier_order_element_id = soe.id
+		)
+		LEFT JOIN supplier_quote_element sqe ON (
+			sqe.id = soe.SUPPLIER_QUOTE_ELEMENT_ID
+		)
+		LEFT JOIN supplier_quote sq ON (
+			sqe.SUPPLIER_QUOTE_ID = sq.ID
+		)
+		LEFT JOIN client_order_element coe ON (
+			soe.client_order_element_id = coe.id
+		)
+		LEFT JOIN supplier_order so ON (
+			soe.supplier_order_id = so.id
+		)
+		LEFT JOIN client_order co ON (so.client_order_id = co.id)
+		LEFT JOIN client_quote cq ON (co.client_quote_id = cq.id)
+		LEFT JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+		INNER JOIN client c ON (c.id = ci.client_id)
+		LEFT JOIN import_storage_location_list isll ON (isll.id = ipe.LOCATION)
+		WHERE
+			coe.id=#{clientOrderElementId} and sq.QUOTE_NUMBER like 'KC-%'
+
+  </select>
+  
+    <select id="findByIpid" resultMap="ElementListDateMap" parameterType="Integer" >
+   SELECT ipe.id, ipe.import_package_id, ipe.element_id,  
+			   ip.import_number, ip.import_date, ip.exchange_rate,  
+			   s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value,  
+			   ipe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   ipe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   soe.price AS order_price, soe.amount AS order_amount, coe.amount AS client_order_amount,  
+			   so.order_number, so.order_date, so.exchange_rate as SO_EXCHANGE_RATE,  
+			   co.order_number AS client_order_number,ipe.batch_number,
+			   co.source_number AS source_order_number, ci.quote_number,  
+			   ipe.part_number, ipe.description, ipe.unit, ipe.amount, ipe.price,  
+			   ipe.original_number, ipe.serial_number, ipe.certification_date,  
+			   ipe.price*ip.exchange_rate AS base_price,  
+			   ipe.remark, ipe.location, ipe.update_timestamp ,ipe.supplier_order_element_id ipe_supplier_order_element_id
+			   FROM import_package_element ipe  
+			   INNER JOIN import_package ip ON (ipe.import_package_id=ip.id)  
+			   INNER JOIN supplier s ON (ip.supplier_id=s.id)  
+			   INNER JOIN system_code cu ON (ip.currency_id=cu.id)  
+			   INNER JOIN system_code cond ON (ipe.condition_id=cond.id)  
+			   INNER JOIN system_code cert ON (ipe.certification_id=cert.id)  
+			   LEFT JOIN  supplier_import_element sie ON (sie.import_package_element_id=ipe.id)  
+			   LEFT JOIN supplier_order_element soe ON (sie.supplier_order_element_id=soe.id)  
+			   LEFT JOIN client_order_element coe ON (soe.client_order_element_id=coe.id)  
+			   LEFT JOIN supplier_order so ON (soe.supplier_order_id=so.id)  
+			   LEFT JOIN client_order co ON (so.client_order_id=co.id)  
+			   LEFT JOIN client_quote cq ON (co.client_quote_id=cq.id)  
+			   LEFT JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)  
+				WHERE ip.id=#{id} and (ipe.SPZT!=235 or ipe.SPZT is NULL)
+  </select>
+  
+    <select id="findStock" resultType="INTEGER" parameterType="com.naswork.module.purchase.controller.importpackage.ImportPackageElementVo" >
+   SELECT IFNULL(sum(ipe.amount),0)
+			   FROM import_package_element ipe  
+			   INNER JOIN import_package ip ON (ipe.import_package_id=ip.id)  
+			   INNER JOIN supplier s ON (ip.supplier_id=s.id)  
+			   INNER JOIN system_code cu ON (ip.currency_id=cu.id)  
+			   INNER JOIN system_code cond ON (ipe.condition_id=cond.id)  
+			   INNER JOIN system_code cert ON (ipe.certification_id=cert.id)  
+			   LEFT JOIN  supplier_import_element sie ON (sie.import_package_element_id=ipe.id)  
+			   LEFT JOIN supplier_order_element soe ON (sie.supplier_order_element_id=soe.id)  
+			   LEFT JOIN client_order_element coe ON (soe.client_order_element_id=coe.id)  
+			   LEFT JOIN supplier_order so ON (soe.supplier_order_id=so.id)  
+			   LEFT JOIN client_order co ON (so.client_order_id=co.id)  
+			   LEFT JOIN client_quote cq ON (co.client_quote_id=cq.id)  
+			   LEFT JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)  
+				 WHERE ipe.ELEMENT_ID=#{elementId} and soe.ID=#{supplierOrderElementId}
+  </select>
+  
+  
+     <select id="findimportpackageelement" resultMap="ElementListDateMap" parameterType="String" >
+   SELECT
+		ipe.id,
+		ipe.import_package_id,
+		ipe.element_id,
+		isll.id AS location_id,
+		isll.LOCATION l_location,
+		ipe.BATCH_NUMBER,
+		ip.import_number,
+		ip.import_date,
+		ip.exchange_rate,
+		ipe.box_weight,
+		cc.
+	VALUE
+		compliance_certificate_value,
+		ipe.compliance_certificate,
+		s.id AS supplier_id,
+		s. CODE AS supplier_code,
+		s. NAME AS supplier_name,
+		ccc.
+	VALUE
+		complete_compliance_certificate_value,
+		ipe.complete_compliance_certificate,
+		cu.id AS currency_id,
+		cu. CODE AS currency_code,
+		cu.
+	VALUE
+		AS currency_value,
+		coe.id client_order_element_id,
+		ipe.condition_id,
+		cond. CODE AS condition_code,
+		cond.
+	VALUE
+		AS condition_value,
+		ipe.certification_id,
+		cert. CODE AS certification_code,
+		cert.
+	VALUE
+		AS certification_value,
+		soe.price AS order_price,
+		soe.amount AS order_amount,
+		coe.amount AS client_order_amount,
+		so.order_number,
+		so.order_date,
+		so.exchange_rate AS SO_EXCHANGE_RATE,
+		co.order_number AS client_order_number,
+		soe.id supplier_order_element_id,
+		co.source_number AS source_order_number,
+		ci.quote_number,
+		ip.CURRENCY_ID,
+		ipe.part_number,
+		ipe.description,
+		ipe.unit,
+		ipe.amount,
+		ipe.price,
+		ipe.original_number,
+		ipe.serial_number,
+		ipe.certification_date,
+		IF(tp.SHELF_LIFE IS NOT NULL,tp.SHELF_LIFE,tpp.SHELF_LIFE) AS SHELF_LIFE,
+		ipe.price * ip.exchange_rate AS base_price,
+		c. CODE client_code,
+		ipe.IMPORT_PACKAGE_SIGN,
+		ipe.remark,
+		ipe.location,
+		ipe.update_timestamp,
+		ipe.INSPECTION_DATE,
+		ipe.MANUFACTURE_DATE,
+		ipe.supplier_order_element_id ipe_supplier_order_element_id,
+		tp.SHELF_LIFE,
+		ipe.HAS_LIFE,
+		ipe.EXPIRE_DATE,
+		ipe.REST_LIFE,
+		ipe.REST_LIFE_EMAIL,
+		ipe.CERTIFICATION_NUMBER,
+		IFNULL(coe.DESCRIPTION,cie.DESCRIPTION) AS order_description
+	FROM
+		import_package_element ipe
+	INNER JOIN import_package ip ON (
+		ipe.import_package_id = ip.id
+	)
+	INNER JOIN supplier s ON (ip.supplier_id = s.id)
+	INNER JOIN system_code cu ON (ip.currency_id = cu.id)
+	INNER JOIN system_code cond ON (ipe.condition_id = cond.id)
+	INNER JOIN system_code cert ON (
+		ipe.certification_id = cert.id
+	)
+	INNER JOIN system_code ccc ON (
+		ipe.complete_compliance_certificate = ccc.id
+	)
+	INNER JOIN system_code cc ON (
+		ipe.compliance_certificate = cc.id
+	)
+	LEFT JOIN supplier_import_element sie ON (
+		sie.import_package_element_id = ipe.id
+	)
+	LEFT JOIN supplier_order_element soe ON (
+		sie.supplier_order_element_id = soe.id
+	)
+	LEFT JOIN client_order_element coe ON (
+		soe.client_order_element_id = coe.id
+	)
+	LEFT JOIN supplier_order so ON (
+		soe.supplier_order_id = so.id
+	)
+	LEFT JOIN client_order co ON (so.client_order_id = co.id)
+	LEFT JOIN client_quote cq ON (co.client_quote_id = cq.id)
+	LEFT JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+	LEFT JOIN import_storage_location_list isll ON (isll.id = ipe.LOCATION)
+	LEFT JOIN client c ON (ci.client_id = c.id)
+	LEFT JOIN client_quote_element cqe ON cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID
+	LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+	LEFT JOIN crmstock.t_part tp ON tp.BSN = cie.BSN
+	LEFT JOIN supplier_order_element soee ON soee.ID = ipe.SUPPLIER_ORDER_ELEMENT_ID
+	LEFT JOIN client_order_element coee ON coee.ID = soee.CLIENT_ORDER_ELEMENT_ID
+	LEFT JOIN client_quote_element cqee ON cqee.ID = coee.CLIENT_QUOTE_ELEMENT_ID
+	LEFT JOIN client_inquiry_element ciee ON ciee.ID = cqee.CLIENT_INQUIRY_ELEMENT_ID
+	LEFT JOIN crmstock.t_part tpp ON tpp.BSN = ciee.BSN 
+				WHERE ipe.id=#{importpackageelementid}
+  </select>
+  
+   <select id="findsupplierorderDatePage" resultMap="SupplierOrderElementListDateMap" parameterType="page" >
+			SELECT
+				soe.id,
+				(select sum(sie2.AMOUNT) from supplier_import_element sie2 INNER JOIN supplier_order_element soe2 on sie2.SUPPLIER_ORDER_ELEMENT_ID=soe2.ID
+INNER JOIN client_order_element coe2 on coe2.ID=soe2.CLIENT_ORDER_ELEMENT_ID
+where coe2.ID=soe.CLIENT_ORDER_ELEMENT_ID) client_order_import_amount,
+				soe.lead_time,
+				soe.deadline,
+				soe.supplier_order_id,
+				soe.client_order_element_id,
+				soe.supplier_quote_element_id,
+				tax.`VALUE` AS tax_return_value,
+				so.order_date,
+				so.terms,
+				so.remark,
+				si.quote_number AS supplier_quote_number,
+				c.id AS client_id,
+				c. CODE AS client_code,
+				c. NAME AS client_name,
+				so.supplier_id,
+				s. CODE AS supplier_code,
+				s. NAME AS supplier_name,
+				cu.id AS currency_id,
+				cu. CODE AS currency_code,
+				cu.
+			VALUE
+				AS currency_value,
+				co.exchange_rate AS client_exchange_rate,
+				so.exchange_rate,
+				co.order_number AS client_order_number,
+				so.order_number AS supplier_order_number,
+				sqe.condition_id,
+				cond. CODE AS condition_code,
+				cond.
+			VALUE
+				AS condition_value,
+				sqe.certification_id,
+				cert. CODE AS certification_code,
+				cert.
+			VALUE
+				AS certification_value,
+				CONCAT(
+					sqe.part_number,
+					'\n',
+					sqe.description,
+					'\n\t\t',
+					cert. CODE
+				) AS detail,
+				sqe.element_id,
+				sqe.part_number AS quote_part_number,
+				IFNULL(coe.PART_NUMBER,cie.part_number) AS inquiry_part_number,
+				e.part_number_code,
+				IFNULL(coe.UNIT,cie.UNIT) AS quote_unit,
+				cqe.amount AS quote_amount,
+				IFNULL(coe.DESCRIPTION,cie.description) as order_description,
+				sqe.description AS quote_description,
+				cqe.remark AS quote_remark,
+				sqe.price AS supplier_quote_price,
+				cqe.price AS client_quote_price,
+				coe.amount AS client_order_amount,
+				coe.price AS client_order_price,
+				coe.lead_time AS client_order_lead_time,
+				coe.deadline AS client_order_deadline,
+				soe.amount AS supplier_order_amount,
+				soe.price AS supplier_order_price,
+				soe.amount * soe.price AS supplier_order_total_price,
+				IFNULL(vsie.import_amount, 0) AS import_amount,
+				soe.lead_time AS supplier_order_lead_time,
+				soe.deadline AS supplier_order_deadline,
+				soe.update_timestamp,
+				so.order_type,
+				tp.SHELF_LIFE
+			FROM
+				supplier_order_element soe
+			LEFT JOIN v_supplier_import_element vsie ON (
+				soe.id = vsie.supplier_order_element_id
+			)
+			INNER JOIN supplier_order so ON (
+				soe.supplier_order_id = so.id
+			)
+			INNER JOIN client_order_element coe ON (
+				soe.client_order_element_id = coe.id
+			)
+			INNER JOIN client_order co ON (coe.CLIENT_ORDER_ID = co.ID)
+			INNER JOIN client_quote cq ON (co.client_quote_id = cq.id)
+			INNER JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+			INNER JOIN client c ON (ci.client_id = c.id)
+			INNER JOIN supplier s ON (so.supplier_id = s.id)
+			INNER JOIN client_quote_element cqe ON (
+				coe.client_quote_element_id = cqe.id
+			)
+			INNER JOIN client_inquiry_element cie ON (
+				cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+			)
+			LEFT JOIN crmstock.t_part tp ON tp.BSN = cie.BSN
+			INNER JOIN supplier_quote_element sqe ON (
+				soe.supplier_quote_element_id = sqe.id
+			)
+			INNER JOIN supplier_quote sq ON (
+				sqe.supplier_quote_id = sq.id
+			)
+			INNER JOIN supplier_inquiry si ON (
+				sq.supplier_inquiry_id = si.id
+			)
+			INNER JOIN element e ON (sqe.element_id = e.id)
+			INNER JOIN system_code cu ON (so.currency_id = cu.id)
+			INNER JOIN system_code cond ON (sqe.condition_id = cond.id)
+			INNER JOIN system_code cert ON (
+				sqe.certification_id = cert.id
+			)
+			INNER JOIN system_code bt ON (ci.biz_type_id = bt.id)
+			INNER JOIN system_code AT ON (ci.air_type_id = AT .id)
+			LEFT JOIN system_code tax ON (tax.ID = soe.TAX_REIMBURSEMENT_ID)
+			   <where>
+			     <if test="id != null" >
+			  s.id=${id}
+			  </if>
+			    <if test="where != null" >
+			    and
+			  ${where}
+			  </if>
+			   </where>
+			   and so.order_status_id != 64 and soe.ORDER_STATUS_ID!=64 ORDER BY so.order_date DESC
+   </select>
+  
+   <select id="findsupplierorderDate" resultMap="SupplierOrderElementListDateMap" parameterType="Integer" >
+   SELECT soe.id, soe.lead_time, soe.deadline, co.source_number AS client_order_source_number,
+			   soe.supplier_order_id, soe.client_order_element_id, soe.supplier_quote_element_id,  
+			   so.order_date, so.terms, so.remark, si.quote_number AS supplier_quote_number,  
+			   c.id AS client_id, c.code AS client_code, c.name AS client_name,  
+			   so.supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value,  
+			   co.exchange_rate AS client_exchange_rate, so.exchange_rate,co.id client_order_id,
+			   co.order_number AS client_order_number, so.order_number AS supplier_order_number,  
+			   sqe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   sqe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   CONCAT (sqe.part_number, '\n', sqe.description, '\n\t\t', cert.code) AS detail,  
+			   sqe.element_id, sqe.part_number AS quote_part_number, e.part_number_code,  
+			   sqe.unit AS quote_unit, cqe.amount AS quote_amount,  IFNULL(cie.csn, 0) csn,cie.item,cie.bsn,
+			   sqe.description AS quote_description, cqe.remark AS quote_remark,  
+			   sqe.price AS supplier_quote_price, cqe.price AS client_quote_price,  
+			   coe.amount AS client_order_amount, coe.price AS client_order_price,  
+			   coe.lead_time AS client_order_lead_time, coe.deadline AS client_order_deadline,  
+			   soe.amount AS supplier_order_amount, soe.price AS supplier_order_price,  
+			   soe.amount * soe.price AS supplier_order_total_price,  
+			   IFNULL(vsie.import_amount, 0) AS import_amount,  
+			   soe.lead_time AS supplier_order_lead_time, soe.deadline AS supplier_order_deadline, soe.update_timestamp  
+			   FROM supplier_order_element soe  
+			   LEFT JOIN v_supplier_import_element vsie ON (soe.id=vsie.supplier_order_element_id)  
+			   INNER JOIN supplier_order so ON (soe.supplier_order_id=so.id)  
+			   INNER JOIN client_order co ON (so.client_order_id=co.id)  
+			   INNER JOIN client_quote cq ON (co.client_quote_id=cq.id)  
+			   INNER JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)  
+			   INNER JOIN client c ON (ci.client_id=c.id)  
+			   INNER JOIN supplier s ON (so.supplier_id=s.id)  
+			   INNER JOIN client_order_element coe ON (soe.client_order_element_id=coe.id)  
+			   INNER JOIN client_quote_element cqe ON (coe.client_quote_element_id=cqe.id)  
+			   INNER JOIN supplier_quote_element sqe ON (soe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			   INNER JOIN element e ON (sqe.element_id=e.id)  
+			   INNER JOIN system_code cu ON (so.currency_id=cu.id)  
+			   INNER JOIN system_code cond ON (sqe.condition_id=cond.id)  
+			   INNER JOIN system_code cert ON (sqe.certification_id=cert.id)  
+			   INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)  
+			   INNER JOIN system_code at ON (ci.air_type_id=at.id)  
+			   INNER JOIN client_inquiry_element cie ON (cqe.client_inquiry_element_id = cie.id)
+			   WHERE soe.id=#{soeId}
+  </select>
+  
+  <select id="findBySourceNumber" resultMap="clientInquiryVo" parameterType="String" >
+  SELECT ci.id, ci.client_id,  
+			   c.code AS client_code, c.name AS client_name,  
+			   cc.id AS client_contact_id, cc.name AS client_contact_name,  
+			   cc.phone AS client_contact_phone, cc.fax AS client_contact_fax,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, cu.rate,  
+			   ci.biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,  
+			   ci.air_type_id, at.code AS air_type_code, at.value AS air_type_value,  
+			   ci.inquiry_status_id, sta.code AS inquiry_status_code, sta.value AS inquiry_status_value,  
+			   ci.inquiry_date, ci.deadline, ci.source_number, ci.quote_number,  
+			   DATEDIFF(ci.deadline, CURRENT_DATE()) AS overdue,  
+			   ci.terms, ci.remark, ci.update_timestamp  
+			   FROM client_inquiry ci  
+			   INNER JOIN client c ON (ci.client_id=c.id)  
+			   INNER JOIN client_contact cc on (ci.client_contact_id=cc.id)  
+			   INNER JOIN v_currency cu ON (c.currency_id=cu.id)  
+			   INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)  
+			   INNER JOIN system_code at ON (ci.air_type_id=at.id)  
+			   INNER JOIN system_code sta ON (ci.inquiry_status_id=sta.id)  
+			WHERE ci.quote_number=#{sourceNumber}
+  </select>
+  
+  <select id="findSupplierimportElement" resultMap="supplierinquiryVo" parameterType="Integer" >
+   SELECT sie.supplier_order_element_id,  
+			   sie.import_package_element_id, sie.amount, sie.update_timestamp,  
+			   ip.import_number, ip.import_date,  
+			   so.order_number, so.order_date,  
+			   ip.exchange_rate AS import_exchange_rate, so.exchange_rate AS order_exchange_rate,  
+			   ipe.part_number AS import_part_number, sqe.part_number AS quote_part_number,  
+			   ipe.description AS import_description, sqe.part_number AS quote_description,  
+			   ipe.unit AS import_unit, sqe.unit AS quote_unit,  
+			   ipe.amount AS import_amount, soe.amount AS order_amount,  
+			   ipe.price AS import_price, soe.price AS order_price,  
+			   cond_ipe.code AS import_condition_code, cond_sqe.code AS quote_condition_code,  
+			   cert_ipe.code AS import_certification_code, cert_sqe.code AS quote_certification_code,  
+			   ipe.original_number, ipe.serial_number, ipe.certification_date,  
+			   ipe.remark AS import_remark, soe.deadline, soe.lead_time  
+			   FROM supplier_import_element sie  
+			   INNER JOIN import_package_element ipe ON (sie.import_package_element_id=ipe.id)  
+			   INNER JOIN import_package ip ON (ipe.import_package_id=ip.id)  
+			   INNER JOIN supplier_order_element soe ON (sie.supplier_order_element_id=soe.id)  
+			   INNER JOIN supplier_quote_element sqe ON (soe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_order so ON (soe.supplier_order_id=so.id)  
+			   INNER JOIN system_code cond_ipe ON (ipe.condition_id=cond_ipe.id)  
+			   INNER JOIN system_code cert_ipe ON (ipe.certification_id=cert_ipe.id)  
+			   INNER JOIN system_code cond_sqe ON (sqe.condition_id=cond_sqe.id)  
+			   INNER JOIN system_code cert_sqe ON (sqe.certification_id=cert_sqe.id)  
+			 WHERE ipe.id=#{importpackageelementid}
+    </select>
+    
+    <select id="findImportpackageData" resultMap="ElementListDateMap" parameterType="com.naswork.module.purchase.controller.importpackage.ImportPackageElementVo">
+			    SELECT e.id elementid,
+			    c.ID clientId,
+			    c.code AS client_code,
+  				co.order_number AS client_order_number, 
+				vs.id,soe.id SUPPLIER_ORDER_ELEMENT_ID,
+				ip.import_number,
+				ip.import_date,
+				ip.exchange_rate,
+				ipe.id AS import_package_element_id,
+				ipe.part_number,
+				ipe.description,
+				ipe.unit,
+				vs.storage_amount,
+				ipe.AMOUNT,
+				ipe.price,
+				ipe.price * ip.exchange_rate AS base_price,
+				ipe.price * ip.exchange_rate * vs.storage_amount AS total_base_price,
+				ipe.condition_id,
+				cond. CODE AS condition_code,
+				cond.VALUE AS condition_value,
+				ipe.certification_id,
+				cert. CODE AS certification_code,
+				cert.VALUE AS certification_value,
+				ipe.original_number,
+				ipe.certification_date,
+				ipe.update_timestamp,
+				isll.id as location_id,isll.LOCATION l_location
+			FROM
+				v_storage vs
+			INNER JOIN import_package_element ipe ON (ipe.id = vs.id)
+			LEFT JOIN import_storage_location_list isll ON (isll.LOCATION = ipe.LOCATION)
+			INNER JOIN import_package ip ON (
+				ipe.import_package_id = ip.id
+			)
+			INNER JOIN supplier s ON (ip.supplier_id = s.id)
+			INNER JOIN system_code cu ON (ip.currency_id = cu.id)
+			INNER JOIN system_code cond ON (ipe.condition_id = cond.id)
+			INNER JOIN system_code cert ON (
+				ipe.certification_id = cert.id
+			)
+			INNER JOIN supplier_import_element sie ON (
+				sie.import_package_element_id = ipe.id
+			)
+			INNER JOIN supplier_order_element soe ON (
+				sie.supplier_order_element_id = soe.id
+			)
+			INNER JOIN supplier_quote_element sqe ON (
+				soe.supplier_quote_element_id = sqe.id
+			)
+			INNER JOIN element e ON (sqe.element_id = e.id)
+			INNER JOIN supplier_order so ON (
+				soe.supplier_order_id = so.id
+			)
+			INNER JOIN client_order co ON (so.client_order_id = co.id)
+			INNER JOIN client_quote cq ON (co.client_quote_id = cq.id)
+			INNER JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+			INNER JOIN client c ON (ci.client_id = c.id)
+			WHERE
+				ci.client_id = #{clientId} and ip.IMPORT_NUMBER=#{importNumber}
+			and e.ID=#{elementId} and soe.ID=#{supplierOrderElementId}
+			ORDER BY
+				ID ASC
+    </select>
+    
+<select id="findMAXquoteNumberSeq" resultType="Integer" parameterType="Date" >
+  SELECT IFNULL(MAX(quote_number_seq),0) AS max_seq FROM client_inquiry WHERE inquiry_date=#{date}
+
+  </select>
+  
+  <select id="findMAXid" resultType="Integer" >
+  SELECT IFNULL(MAX(id),0) AS max_id FROM import_package_element 
+  </select>
+  
+   <select id="findSupplierBySupplierOrderNumber" resultType="INTEGER" parameterType="String">
+  select IFNULL(max(so.SUPPLIER_ID),0) from supplier_order so  where  so.ORDER_NUMBER=#{orderNumber}
+  </select>
+  
+  
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_ID, ELEMENT_ID, PART_NUMBER, UNIT, AMOUNT, PRICE, REMARK, LOCATION, 
+    UPDATE_TIMESTAMP, CERTIFICATION_ID, CONDITION_ID, DESCRIPTION, SERIAL_NUMBER, ORIGINAL_NUMBER, 
+    CERTIFICATION_DATE,IMPORT_PACKAGE_SIGN,COMPLIANCE_CERTIFICATE,COMPLETE_COMPLIANCE_CERTIFICATE,SUPPLIER_ORDER_ELEMENT_ID,
+    HAS_LIFE,EXPIRE_DATE,REST_LIFE,REST_LIFE_EMAIL,MANUFACTURE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_package_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+   
+  <sql id="List" >
+   DISTINCT co.ORDER_NUMBER AS CLIENT_ORDER_NUMBER, IPE.LOCATION, ci.CLIENT_ID,
+	c.CODE,isll.ID,IFNULL(epe.STATUS,0) STATUS
+		from import_storage_location_list isll INNER JOIN 
+		import_package_element ipe  ON(isll.LOCATION=ipe.LOCATION)
+		INNER JOIN supplier_import_element sie ON
+		(sie.IMPORT_PACKAGE_ELEMENT_ID=ipe.ID)
+		INNER JOIN supplier_order_element soe ON
+		(soe.ID=sie.SUPPLIER_ORDER_ELEMENT_ID)
+		INNER JOIN supplier_order so ON
+		(so.ID=soe.SUPPLIER_ORDER_ID)
+		INNER JOIN client_order co ON
+		(co.ID=so.CLIENT_ORDER_ID)
+		INNER JOIN client_quote cq ON
+		(cq.ID=co.CLIENT_QUOTE_ID)
+		INNER JOIN client_inquiry ci ON
+		(ci.ID=cq.CLIENT_INQUIRY_ID)
+		INNER JOIN client c ON
+		(c.ID=ci.CLIENT_ID)
+		INNER JOIN supplier s ON (so.supplier_id = s.id)
+		INNER JOIN client_order_element coe ON (soe.client_order_element_id = coe.id)
+		INNER JOIN client_quote_element cqe ON (coe.client_quote_element_id = cqe.id)
+		INNER JOIN supplier_quote_element sqe ON (soe.supplier_quote_element_id = sqe.id)
+		INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id = sq.id)
+		LEFT JOIN export_package_element epe ON (epe.IMPORT_PACKAGE_ELEMENT_ID=ipe.ID)
+  </sql>
+  
+ 
+  
+   <select id="findByLocationIm" parameterType="String" resultMap="ElementListDateMap">
+   select 
+   <include refid="List" />
+		where  ipe.LOCATION=#{location} AND IFNULL(epe.STATUS,0)=0
+		ORDER BY ipe.LOCATION
+   </select>
+   
+   <select id="findByLocationEx" parameterType="String" resultMap="ElementListDateMap">
+     select 
+   <include refid="List" />
+		where  ipe.LOCATION=#{location} 
+		ORDER BY ipe.LOCATION
+   </select>
+   
+   <select id="findByLocationAndStatus" parameterType="String" resultMap="ElementListDateMap">
+     select 
+   <include refid="List" />
+		where epe.STATUS=0 and ipe.LOCATION=#{location}
+		ORDER BY ipe.LOCATION
+   </select>
+   
+    <select id="findByClientIdAndOrdernum" parameterType="String" resultMap="ElementListDateMap">
+   select DISTINCT
+   <include refid="List" />
+		where ci.CLIENT_ID=#{0} and co.ORDER_NUMBER=#{1} and IFNULL(epe.STATUS,0)!=1
+		ORDER BY ipe.LOCATION
+   </select>
+   
+   <select id="findByClientId" parameterType="String" resultMap="ElementListDateMap">
+   		SELECT DISTINCT
+			a.LOCATION,
+			a.CLIENT_ID,
+			a. CODE,
+			a.ID,
+			a.STATUS
+		FROM
+			(
+				SELECT DISTINCT
+					IPE.LOCATION,
+					ci.CLIENT_ID,
+					c. CODE,
+					isll.ID,
+					IFNULL(epe. STATUS, 0) STATUS,
+					SUM(ipe.AMOUNT) AS AMOUNT
+				FROM
+					import_storage_location_list isll
+				INNER JOIN import_package_element ipe ON (isll.LOCATION = ipe.LOCATION)
+				INNER JOIN v_storage vs ON vs.id = ipe.ID
+				LEFT JOIN export_package_element epe ON (
+					epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+				)
+				INNER JOIN supplier_import_element sie ON (
+					sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+				)
+				INNER JOIN supplier_order_element soe ON (
+					soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+				)
+				INNER JOIN client_order_element coe ON (
+					soe.client_order_element_id = coe.id
+				)
+				INNER JOIN client_quote_element cqe ON (
+					coe.client_quote_element_id = cqe.id
+				)
+				INNER JOIN client_inquiry_element cie ON (
+					cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+				)
+				INNER JOIN client_inquiry ci ON (
+					ci.ID = cie.CLIENT_INQUIRY_ID
+				)
+				INNER JOIN client c ON (c.ID = ci.CLIENT_ID)
+				WHERE
+					ci.CLIENT_ID = #{clientId}
+				AND epe.ID IS NULL
+				AND ipe.LOCATION NOT IN (
+					SELECT
+						ipe.LOCATION
+					FROM
+						import_package_element ipe
+					LEFT JOIN export_package_instructions_element ep ON ep.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+					WHERE
+						ep.EXPORT_PACKAGE_STATUS != 1
+				)
+				GROUP BY
+					IPE.LOCATION,
+					ipe.PART_NUMBER
+				ORDER BY
+					ipe.LOCATION
+			) a
+		WHERE
+			a.AMOUNT != 0
+   </select>
+   
+   <!--  <select id="findByClientId" parameterType="String" resultMap="ElementListDateMap">
+   select * from (
+		   SELECT 
+			IPE.LOCATION,
+			ci.CLIENT_ID,
+			c. CODE,count(epie.ID) e_amount,
+			isll.ID,
+			IFNULL(epe. STATUS, 0) STATUS
+		FROM
+			import_storage_location_list isll
+		INNER JOIN import_package_element ipe ON (isll.LOCATION = ipe.LOCATION)
+		INNER JOIN v_storage vs on vs.id=ipe.ID
+		LEFT JOIN export_package_element epe ON (
+			epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		)
+		LEFT JOIN export_package_instructions_element epie on (epie.IMPORT_PACKAGE_ELEMENT_ID=ipe.ID)
+		INNER JOIN supplier_import_element sie ON (
+			sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		)
+		INNER JOIN supplier_order_element soe ON (
+			soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+		)
+		INNER JOIN client_order_element coe ON (
+			soe.client_order_element_id = coe.id
+		)
+		INNER JOIN client_quote_element cqe ON (
+			coe.client_quote_element_id = cqe.id
+		)
+		INNER JOIN client_inquiry_element cie on (cie.ID=cqe.CLIENT_INQUIRY_ELEMENT_ID)
+		INNER JOIN client_inquiry ci ON (ci.ID = cie.CLIENT_INQUIRY_ID)
+		INNER JOIN client c ON (c.ID = ci.CLIENT_ID)
+		INNER JOIN supplier_quote_element sqe ON (
+			soe.supplier_quote_element_id = sqe.id
+		)
+		
+		WHERE
+			ci.CLIENT_ID =#{clientId}
+		AND IFNULL(epe. STATUS, 0) != 1
+		GROUP BY IPE.LOCATION
+		ORDER BY
+			ipe.LOCATION
+			)a where a.e_amount=0
+   </select> -->
+   
+    <!-- <select id="findByLocation"  resultMap="ElementListDateMap">
+    select l.LOCATION from import_storage_location_list l
+		where l.LOCATION not in 
+		(
+		SELECT 
+			IPE.LOCATION
+		
+		FROM
+			import_storage_location_list isll
+		INNER JOIN import_package_element ipe ON (isll.LOCATION = ipe.LOCATION)
+		LEFT JOIN export_package_element epe ON (
+			epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		)
+		
+		WHERE
+			 IFNULL(epe. STATUS, 0) = 0 and isll.ID not in (110,111)
+			 GROUP BY IPE.LOCATION
+		ORDER BY
+			ipe.LOCATION )
+
+    </select> -->
+    
+    <select id="findByLocation"  resultMap="ElementListDateMap">
+    SELECT DISTINCT
+		a.LOCATION
+	FROM
+		(
+			SELECT
+				IPE.LOCATION,
+				SUM(ipe.AMOUNT) - SUM(IFNULL(epe.AMOUNT, 0)) AS AMOUNT
+			FROM
+				import_storage_location_list isll
+			LEFT JOIN import_package_element ipe ON (isll.LOCATION = ipe.LOCATION)
+			LEFT JOIN export_package_element epe ON (
+				epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+			)
+			WHERE isll.ID NOT IN (110, 111)
+			GROUP BY
+				IPE.LOCATION
+			ORDER BY
+				ipe.LOCATION
+		) a
+	WHERE
+		a.AMOUNT = 0
+	ORDER BY
+		a.LOCATION
+
+    </select>
+    
+    <select id="getRestLocation" resultMap="ElementListDateMap">
+    	SELECT DISTINCT isll.LOCATION FROM import_storage_location_list isll
+			LEFT JOIN import_package_element ipe ON ipe.LOCATION = isll.LOCATION
+			WHERE ipe.ID is NULL
+    </select>
+    
+    <select id="getLocationInUse"  resultMap="ElementListDateMap">
+	    SELECT DISTINCT
+			a.LOCATION,
+			a.`CODE`
+		FROM
+			(
+				SELECT
+					IPE.LOCATION,
+					SUM(ipe.AMOUNT) - SUM(IFNULL(epe.AMOUNT, 0)) AS AMOUNT,
+					CONCAT(IPE.LOCATION, "-", c.`CODE`) AS location_client,
+					c.`CODE`
+				FROM
+					import_storage_location_list isll
+				INNER JOIN import_package_element ipe ON (isll.LOCATION = ipe.LOCATION)
+				LEFT JOIN export_package_element epe ON (
+					epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+				)
+				LEFT JOIN supplier_import_element sie ON (
+					sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+				)
+				LEFT JOIN supplier_order_element soe ON (
+					soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+				)
+				LEFT JOIN client_order_element coe ON (
+					coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+				)
+				LEFT JOIN client_order co ON (co.ID = coe.CLIENT_ORDER_ID)
+				LEFT JOIN client_quote cq ON (cq.ID = co.CLIENT_QUOTE_ID)
+				LEFT JOIN client_inquiry ci ON (ci.ID = cq.CLIENT_INQUIRY_ID)
+				LEFT JOIN client c ON (c.ID = ci.CLIENT_ID)
+				WHERE
+					isll.ID NOT IN (110, 111)
+				GROUP BY
+					IPE.LOCATION
+				ORDER BY
+					ipe.LOCATION
+			) a
+		WHERE
+			a.AMOUNT != 0
+		ORDER BY
+			a.LOCATION
+
+    </select>
+   
+    <select id="findexportpackage" parameterType="Integer" resultType="Integer">
+   select id from export_package_element where IMPORT_PACKAGE_ELEMENT_ID=#{importpackageelementid}
+   </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from import_package_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyProperty="ID" parameterType="com.naswork.model.ImportPackageElement" >
+  <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+    insert into import_package_element ( IMPORT_PACKAGE_ID, ELEMENT_ID, 
+      PART_NUMBER, UNIT, AMOUNT, 
+      PRICE, REMARK, LOCATION, 
+      UPDATE_TIMESTAMP, CERTIFICATION_ID, CONDITION_ID, 
+      DESCRIPTION, SERIAL_NUMBER, ORIGINAL_NUMBER, 
+      CERTIFICATION_DATE,BOX_WEIGHT,COMPLIANCE_CERTIFICATE,COMPLETE_COMPLIANCE_CERTIFICATE,BATCH_NUMBER,MANUFACTURE_DATE,
+      INSPECTION_DATE,IMPORT_PACKAGE_SIGN,SUPPLIER_ORDER_ELEMENT_ID,
+      HAS_LIFE,EXPIRE_DATE,REST_LIFE,REST_LIFE_EMAIL,CERTIFICATION_NUMBER)
+    values ( #{importPackageId,jdbcType=INTEGER}, #{elementId,jdbcType=INTEGER}, 
+      #{partNumber,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, 
+      #{price,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP}, #{certificationId,jdbcType=INTEGER}, #{conditionId,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{serialNumber,jdbcType=VARCHAR}, #{originalNumber,jdbcType=INTEGER}, 
+      #{certificationDate,jdbcType=DATE},#{boxWeight,jdbcType=DOUBLE},#{complianceCertificate,jdbcType=INTEGER},
+      #{completeComplianceCertificate,jdbcType=INTEGER}, #{batchNumber,jdbcType=VARCHAR}, #{manufactureDate,jdbcType=DATE},
+      #{inspectionDate,jdbcType=DATE},#{importPackageSign,jdbcType=INTEGER},#{supplierOrderElementId,jdbcType=INTEGER},
+      #{hasLife,jdbcType=INTEGER},#{expireDate,jdbcType=DATE},#{restLife,jdbcType=INTEGER},#{restLifeEmail,jdbcType=INTEGER},
+      #{certificationNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ImportPackageElement" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into import_package_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importPackageId != null" >
+        IMPORT_PACKAGE_ID,
+      </if>
+      <if test="elementId != null" >
+        ELEMENT_ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID,
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER,
+      </if>
+      <if test="originalNumber != null" >
+        ORIGINAL_NUMBER,
+      </if>
+      <if test="certificationDate != null" >
+        CERTIFICATION_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageId != null" >
+        #{importPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="elementId != null" >
+        #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certificationId != null" >
+        #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="conditionId != null" >
+        #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="originalNumber != null" >
+        #{originalNumber,jdbcType=INTEGER},
+      </if>
+      <if test="certificationDate != null" >
+        #{certificationDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ImportPackageElement" >
+    update import_package_element
+    <set >
+      <if test="importPackageId != null" >
+        IMPORT_PACKAGE_ID = #{importPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="elementId != null" >
+        ELEMENT_ID = #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID = #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="originalNumber != null" >
+        ORIGINAL_NUMBER = #{originalNumber,jdbcType=INTEGER},
+      </if>
+      <if test="certificationDate != null" >
+        CERTIFICATION_DATE = #{certificationDate,jdbcType=DATE},
+      </if>
+        <if test="boxWeight != null" >
+        BOX_WEIGHT = #{boxWeight,jdbcType=DOUBLE},
+      </if>
+        <if test="complianceCertificate != null" >
+         COMPLIANCE_CERTIFICATE=#{complianceCertificate,jdbcType=INTEGER},
+      </if>
+        <if test="completeComplianceCertificate != null" >
+       COMPLETE_COMPLIANCE_CERTIFICATE=#{completeComplianceCertificate,jdbcType=INTEGER},
+      </if>
+         <if test="certificationStatusId != null" >
+        CERTIFICATION_STATUS_ID = #{certificationStatusId,jdbcType=INTEGER},
+      </if>
+        <if test="manufactureDate != null" >
+        MANUFACTURE_DATE = #{manufactureDate,jdbcType=DATE},
+      </if>
+        <if test="inspectionDate != null" >
+        INSPECTION_DATE = #{inspectionDate,jdbcType=DATE},
+      </if>
+        <if test="spzt != null" >
+         SPZT=#{spzt,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+         APPROVAL_STATUS=#{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="restLifeEmail != null" >
+         REST_LIFE_EMAIL=#{restLifeEmail,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ImportPackageElement" >
+    update import_package_element
+    set 
+      UNIT = #{unit,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      PRICE = #{price,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP =CURRENT_TIMESTAMP,
+      CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      CONDITION_ID = #{conditionId,jdbcType=INTEGER},
+      SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      ORIGINAL_NUMBER = #{originalNumber,jdbcType=INTEGER},
+      CERTIFICATION_DATE = #{certificationDate,jdbcType=DATE},
+        BOX_WEIGHT = #{boxWeight,jdbcType=DOUBLE},
+        COMPLIANCE_CERTIFICATE=#{complianceCertificate,jdbcType=INTEGER},
+        COMPLETE_COMPLIANCE_CERTIFICATE=#{completeComplianceCertificate,jdbcType=INTEGER},
+          BATCH_NUMBER = #{batchNumber,jdbcType=VARCHAR},
+         MANUFACTURE_DATE=  #{manufactureDate,jdbcType=DATE},
+          <if test="supplierOrderElementId != null" >
+         SUPPLIER_ORDER_ELEMENT_ID=#{supplierOrderElementId}, 
+         </if>
+         INSPECTION_DATE=#{inspectionDate,jdbcType=DATE},
+         HAS_LIFE=#{hasLife,jdbcType=INTEGER},
+         EXPIRE_DATE=#{expireDate,jdbcType=DATE},
+         REST_LIFE=#{restLife,jdbcType=INTEGER},
+         REST_LIFE_EMAIL=#{restLifeEmail,jdbcType=INTEGER},
+         CERTIFICATION_NUMBER=#{certificationNumber,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="StoragePage" parameterType="page" resultMap="storageDetailVo">
+  		SELECT * from 
+		(SELECT
+			vs.id,soe.id supplier_order_element_id,
+			co.id AS client_order_id,soe.supplier_quote_element_id,
+			co.order_number AS client_order_number,
+			ipe.import_package_id,
+			ip.import_number,
+			ip.import_date,
+			ipe.part_number,
+			ipe.description,
+			ipe.compliance_certificate,
+			ipe.complete_compliance_certificate,
+			ipe.MANUFACTURE_DATE,
+			ipe.INSPECTION_DATE,
+			cc.value compliance_certificate_value,
+			ccc.value complete_compliance_certificate_value,
+			ipe.unit,
+			SUM(vs.storage_amount)- IFNULL(epie.amount ,0) AS storage_amount,
+			ipe.price,ipe.box_weight,
+			ipe.price * ip.exchange_rate AS base_price,
+			ipe.price * ip.exchange_rate * vs.storage_amount AS total_base_price,
+			so.order_number,
+			so.order_date,
+			so.exchange_rate,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu.id AS currency_id,
+			cu. CODE AS currency_code,
+			cu.
+		VALUE
+			AS currency_value,
+			ipe.condition_id,
+			cond. CODE AS condition_code,
+			cond.
+		VALUE
+			AS condition_value,
+			ipe.certification_id,
+			cert. CODE AS certification_code,
+			cert.
+		VALUE
+			AS certification_value,
+			ipe.original_number,
+			ipe.serial_number,
+			ipe.certification_date,
+			ipe.remark,
+			ipe.location,
+			ipe.update_timestamp,
+			logistics.value as logistics_value,
+			ip.logistics_no,
+			soe.TAX_REIMBURSEMENT_ID,
+			tax.`VALUE` AS tax_value,
+			ipe.EXPIRE_DATE,
+			ipe.REST_LIFE,
+			ip.IMPORT_STATUS
+		FROM
+			 v_storage vs
+		INNER JOIN  import_package_element ipe ON (ipe.id = vs.id)
+		INNER JOIN  import_package ip ON (
+			ipe.import_package_id = ip.id
+		)
+		LEFT JOIN v_export_package_instructions epie ON (
+			epie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		)
+		LEFT JOIN system_code logistics ON(ip.logistics_way = logistics.id)
+		INNER JOIN  supplier s ON (ip.supplier_id = s.id)
+		INNER JOIN  system_code cu ON (ip.currency_id = cu.id)
+		INNER JOIN  system_code cond ON (ipe.condition_id = cond.id)
+		INNER JOIN system_code ccc ON (ipe.complete_compliance_certificate=ccc.id)  
+			   INNER JOIN system_code cc ON (ipe.compliance_certificate=cc.id)  
+		INNER JOIN  system_code cert ON (
+			ipe.certification_id = cert.id
+		)
+		INNER JOIN  supplier_import_element sie ON (
+			sie.import_package_element_id = ipe.id
+		)
+		INNER JOIN  supplier_order_element soe ON (
+			sie.supplier_order_element_id = soe.id
+		)
+		INNER JOIN  supplier_quote_element sqe ON (
+			soe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN  element e ON (sqe.element_id = e.id)
+		INNER JOIN  supplier_order so ON (
+			soe.supplier_order_id = so.id
+		)
+		LEFT JOIN system_code tax ON (
+			tax.id = s.tax_reimbursement_id
+		)
+		LEFT JOIN  client_order_element coe ON (
+			coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+		)
+		INNER JOIN  client_order co ON (coe.client_order_id = co.id)
+		INNER JOIN  client_quote cq ON (co.client_quote_id = cq.id)
+		INNER JOIN  client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+		INNER JOIN  client c ON (ci.client_id = c.id)
+		GROUP BY soe.ID,ipe.location,ipe.BOX_WEIGHT,ipe.IMPORT_PACKAGE_SIGN) a WHERE a.storage_amount!=0 AND a.IMPORT_STATUS != 2 
+  		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and (a.client_id in (SELECT ar.CLIENT_ID from authority_relation ar WHERE ar.USER_ID = #{userId})
+			or a.supplier_id in (SELECT ar.SUPPLIER_ID from authority_relation ar WHERE ar.USER_ID = #{userId}))
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+		
+  </select>
+  
+  <select id="getHasLifeStorage" resultMap="storageDetailVo">
+  	SELECT * from 
+		(SELECT
+			vs.id,soe.id supplier_order_element_id,
+			co.id AS client_order_id,soe.supplier_quote_element_id,
+			co.order_number AS client_order_number,
+			ipe.import_package_id,
+			ip.import_number,
+			ip.import_date,
+			ipe.part_number,
+			ipe.description,
+			ipe.compliance_certificate,
+			ipe.complete_compliance_certificate,
+			ipe.MANUFACTURE_DATE,
+			ipe.INSPECTION_DATE,
+			cc.value compliance_certificate_value,
+			ccc.value complete_compliance_certificate_value,
+			ipe.unit,
+			SUM(vs.storage_amount)- IFNULL(epie.amount ,0) AS storage_amount,
+			ipe.price,ipe.box_weight,
+			ipe.price * ip.exchange_rate AS base_price,
+			ipe.price * ip.exchange_rate * vs.storage_amount AS total_base_price,
+			so.order_number,
+			so.order_date,
+			so.exchange_rate,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu.id AS currency_id,
+			cu. CODE AS currency_code,
+			cu.
+		VALUE
+			AS currency_value,
+			ipe.condition_id,
+			cond. CODE AS condition_code,
+			cond.
+		VALUE
+			AS condition_value,
+			ipe.certification_id,
+			cert. CODE AS certification_code,
+			cert.
+		VALUE
+			AS certification_value,
+			ipe.original_number,
+			ipe.serial_number,
+			ipe.certification_date,
+			ipe.remark,
+			ipe.location,
+			ipe.update_timestamp,
+			logistics.value as logistics_value,
+			ip.logistics_no,
+			soe.TAX_REIMBURSEMENT_ID,
+			tax.`VALUE` AS tax_value,
+			ipe.HAS_LIFE,
+			ipe.REST_LIFE_EMAIL,
+			ipe.EXPIRE_DATE,
+			ipe.REST_LIFE
+		FROM
+			 v_storage vs
+		INNER JOIN  import_package_element ipe ON (ipe.id = vs.id)
+		INNER JOIN  import_package ip ON (
+			ipe.import_package_id = ip.id
+		)
+		LEFT JOIN v_export_package_instructions epie ON (
+			epie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		)
+		LEFT JOIN system_code logistics ON(ip.logistics_way = logistics.id)
+		INNER JOIN  supplier s ON (ip.supplier_id = s.id)
+		INNER JOIN  system_code cu ON (ip.currency_id = cu.id)
+		INNER JOIN  system_code cond ON (ipe.condition_id = cond.id)
+		INNER JOIN system_code ccc ON (ipe.complete_compliance_certificate=ccc.id)  
+			   INNER JOIN system_code cc ON (ipe.compliance_certificate=cc.id)  
+		INNER JOIN  system_code cert ON (
+			ipe.certification_id = cert.id
+		)
+		INNER JOIN  supplier_import_element sie ON (
+			sie.import_package_element_id = ipe.id
+		)
+		INNER JOIN  supplier_order_element soe ON (
+			sie.supplier_order_element_id = soe.id
+		)
+		INNER JOIN  supplier_quote_element sqe ON (
+			soe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN  element e ON (sqe.element_id = e.id)
+		INNER JOIN  supplier_order so ON (
+			soe.supplier_order_id = so.id
+		)
+		LEFT JOIN system_code tax ON (
+			tax.id = soe.tax_reimbursement_id
+		)
+		LEFT JOIN  client_order_element coe ON (
+			coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+		)
+		INNER JOIN  client_order co ON (coe.client_order_id = co.id)
+		INNER JOIN  client_quote cq ON (co.client_quote_id = cq.id)
+		INNER JOIN  client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+		INNER JOIN  client c ON (ci.client_id = c.id)
+		GROUP BY soe.ID,ipe.location,ipe.BOX_WEIGHT,ipe.IMPORT_PACKAGE_SIGN) a WHERE a.storage_amount!=0 AND a.HAS_LIFE = 1
+  </select>
+  
+  <select id="getStorageWithTerm" parameterType="page" resultMap="storageDetailVo">
+  	SELECT * from 
+		(SELECT
+			vs.id,soe.id supplier_order_element_id,
+			co.id AS client_order_id,soe.supplier_quote_element_id,
+			co.order_number AS client_order_number,
+			ipe.import_package_id,
+			ip.import_number,
+			ip.import_date,
+			ipe.part_number,
+			ipe.description,
+			ipe.compliance_certificate,
+			ipe.complete_compliance_certificate,
+			ipe.MANUFACTURE_DATE,
+			ipe.INSPECTION_DATE,
+			cc.value compliance_certificate_value,
+			ccc.value complete_compliance_certificate_value,
+			ipe.unit,
+			SUM(vs.storage_amount)- IFNULL(epie.amount ,0) AS storage_amount,
+			ipe.price,ipe.box_weight,
+			ipe.price * ip.exchange_rate AS base_price,
+			ipe.price * ip.exchange_rate * vs.storage_amount AS total_base_price,
+			so.order_number,
+			so.order_date,
+			so.exchange_rate,
+			s.id AS supplier_id,
+			s. CODE AS supplier_code,
+			s. NAME AS supplier_name,
+			c.id AS client_id,
+			c. CODE AS client_code,
+			c. NAME AS client_name,
+			cu.id AS currency_id,
+			cu. CODE AS currency_code,
+			cu.
+		VALUE
+			AS currency_value,
+			ipe.condition_id,
+			cond. CODE AS condition_code,
+			cond.
+		VALUE
+			AS condition_value,
+			ipe.certification_id,
+			cert. CODE AS certification_code,
+			cert.
+		VALUE
+			AS certification_value,
+			ipe.original_number,
+			ipe.serial_number,
+			ipe.certification_date,
+			ipe.remark,
+			ipe.location,
+			ipe.update_timestamp,
+			logistics.value as logistics_value,
+			ip.logistics_no,
+			soe.TAX_REIMBURSEMENT_ID,
+			tax.`VALUE` AS tax_value,
+			ipe.HAS_LIFE,
+			ipe.REST_LIFE_EMAIL,
+			ipe.EXPIRE_DATE,
+			ipe.REST_LIFE
+		FROM
+			 v_storage vs
+		INNER JOIN  import_package_element ipe ON (ipe.id = vs.id)
+		INNER JOIN  import_package ip ON (
+			ipe.import_package_id = ip.id
+		)
+		LEFT JOIN v_export_package_instructions epie ON (
+			epie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		)
+		LEFT JOIN system_code logistics ON(ip.logistics_way = logistics.id)
+		INNER JOIN  supplier s ON (ip.supplier_id = s.id)
+		INNER JOIN  system_code cu ON (ip.currency_id = cu.id)
+		INNER JOIN  system_code cond ON (ipe.condition_id = cond.id)
+		INNER JOIN system_code ccc ON (ipe.complete_compliance_certificate=ccc.id)  
+			   INNER JOIN system_code cc ON (ipe.compliance_certificate=cc.id)  
+		INNER JOIN  system_code cert ON (
+			ipe.certification_id = cert.id
+		)
+		INNER JOIN  supplier_import_element sie ON (
+			sie.import_package_element_id = ipe.id
+		)
+		INNER JOIN  supplier_order_element soe ON (
+			sie.supplier_order_element_id = soe.id
+		)
+		INNER JOIN  supplier_quote_element sqe ON (
+			soe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN  element e ON (sqe.element_id = e.id)
+		INNER JOIN  supplier_order so ON (
+			soe.supplier_order_id = so.id
+		)
+		LEFT JOIN system_code tax ON (
+			tax.id = soe.tax_reimbursement_id
+		)
+		LEFT JOIN  client_order_element coe ON (
+			coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+		)
+		INNER JOIN  client_order co ON (coe.client_order_id = co.id)
+		INNER JOIN  client_quote cq ON (co.client_quote_id = cq.id)
+		INNER JOIN  client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+		INNER JOIN  client c ON (ci.client_id = c.id)
+		GROUP BY soe.ID,ipe.location,ipe.BOX_WEIGHT,ipe.IMPORT_PACKAGE_SIGN) a
+		<where>
+			${where}
+		</where>
+  </select>
+  
+    <select id="getStorageAmountByQuote" parameterType="page" resultMap="storageDetailVo">
+	  	select * from (
+	  		SELECT
+				vs.id,soe.id supplier_order_element_id,
+				co.id AS client_order_id,
+				co.order_number AS client_order_number,
+				ipe.import_package_id,
+				ip.import_number,
+				ip.import_date,
+				ipe.part_number,
+				ipe.description,
+				ipe.compliance_certificate,
+				ipe.complete_compliance_certificate,
+				cc.value compliance_certificate_value,
+				ccc.value complete_compliance_certificate_value,
+				ipe.unit,
+				SUM(vs.storage_amount) AS storage_amount,
+				ipe.price,ipe.box_weight,
+				ipe.price * ip.exchange_rate AS base_price,
+				ipe.price * ip.exchange_rate * vs.storage_amount AS total_base_price,
+				so.order_number,
+				so.order_date,
+				so.exchange_rate,
+				s.id AS supplier_id,
+				s. CODE AS supplier_code,
+				s. NAME AS supplier_name,
+				c.id AS client_id,
+				c. CODE AS client_code,
+				c. NAME AS client_name,
+				cu.id AS currency_id,
+				cu. CODE AS currency_code,
+				cu.
+			VALUE
+				AS currency_value,
+				ipe.condition_id,
+				cond. CODE AS condition_code,
+				cond.
+			VALUE
+				AS condition_value,
+				ipe.certification_id,
+				cert. CODE AS certification_code,
+				cert.
+			VALUE
+				AS certification_value,
+				ipe.original_number,
+				ipe.serial_number,
+				ipe.certification_date,
+				ipe.remark,
+				ipe.location,
+				ipe.update_timestamp,
+				logistics.value as logistics_value,
+				ip.logistics_no
+			FROM
+				 v_storage vs
+			INNER JOIN  import_package_element ipe ON (ipe.id = vs.id)
+			INNER JOIN  import_package ip ON (
+				ipe.import_package_id = ip.id
+			)
+			LEFT JOIN system_code logistics ON(ip.logistics_way = logistics.id)
+			INNER JOIN  supplier s ON (ip.supplier_id = s.id)
+			INNER JOIN  system_code cu ON (ip.currency_id = cu.id)
+			INNER JOIN  system_code cond ON (ipe.condition_id = cond.id)
+			 INNER JOIN system_code ccc ON (ipe.complete_compliance_certificate=ccc.id)  
+				   INNER JOIN system_code cc ON (ipe.compliance_certificate=cc.id)  
+			INNER JOIN  system_code cert ON (
+				ipe.certification_id = cert.id
+			)
+			INNER JOIN  supplier_import_element sie ON (
+				sie.import_package_element_id = ipe.id
+			)
+			INNER JOIN  supplier_order_element soe ON (
+				sie.supplier_order_element_id = soe.id
+			)
+			INNER JOIN  supplier_quote_element sqe ON (
+				soe.supplier_quote_element_id = sqe.id
+			)
+			INNER JOIN  element e ON (sqe.element_id = e.id)
+			INNER JOIN  supplier_order so ON (
+				soe.supplier_order_id = so.id
+			)
+			INNER JOIN  client_order co ON (so.client_order_id = co.id)
+			INNER JOIN  client_quote cq ON (co.client_quote_id = cq.id)
+			INNER JOIN  client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+			INNER JOIN  client c ON (ci.client_id = c.id)
+			where ipe.LOCATION NOT LIKE '%YC%'
+	  		<if test="where != null">
+	  			and ${where}
+	  		</if>
+			GROUP BY soe.ID,ipe.location
+			<if test="orderby != null">
+				${orderby}
+			</if>) a WHERE a.storage_amount > 0
+		
+  </select>
+  
+  <select id="ecportpackageInstructionsData" parameterType="com.naswork.module.purchase.controller.importpackage.StorageFlowVo" resultMap="storageDetailVo">
+			  	SELECT
+				*
+			FROM
+				(
+			SELECT
+			SUM(vs.storage_amount)- IFNULL(epie.amount ,0) AS storage_amount,
+				vs.id,
+				c. CODE AS client_code,
+				ipe.location,ipe.part_number,ip.import_date,ipe.compliance_certificate,
+			ipe.complete_compliance_certificate,
+				s.CODE AS supplier_code,soe.tax_reimbursement_id
+			FROM
+			 v_storage vs
+		INNER JOIN  import_package_element ipe ON (ipe.id = vs.id)
+		INNER JOIN  import_package ip ON (
+			ipe.import_package_id = ip.id
+		)
+			LEFT JOIN v_export_package_instructions epie ON (
+			epie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		)
+		LEFT JOIN system_code logistics ON(ip.logistics_way = logistics.id)
+		INNER JOIN  supplier s ON (ip.supplier_id = s.id)
+		INNER JOIN  system_code cu ON (ip.currency_id = cu.id)
+		INNER JOIN  system_code cond ON (ipe.condition_id = cond.id)
+		 INNER JOIN system_code ccc ON (ipe.complete_compliance_certificate=ccc.id)  
+			   INNER JOIN system_code cc ON (ipe.compliance_certificate=cc.id)  
+		INNER JOIN  system_code cert ON (
+			ipe.certification_id = cert.id
+		)
+		INNER JOIN  supplier_import_element sie ON (
+			sie.import_package_element_id = ipe.id
+		)
+		INNER JOIN  supplier_order_element soe ON (
+			sie.supplier_order_element_id = soe.id
+		)
+		INNER JOIN  supplier_quote_element sqe ON (
+			soe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN  element e ON (sqe.element_id = e.id)
+		INNER JOIN  supplier_order so ON (
+			soe.supplier_order_id = so.id
+		)
+		INNER JOIN  client_order co ON (so.client_order_id = co.id)
+		INNER JOIN  client_quote cq ON (co.client_quote_id = cq.id)
+		INNER JOIN  client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+		INNER JOIN  client c ON (ci.client_id = c.id)
+	<!-- 	WHERE epie.ID IS NULL -->
+			GROUP BY
+						soe.ID,
+						ipe.location,ipe.BOX_WEIGHT,ipe.IMPORT_PACKAGE_SIGN
+			) a
+		where a.storage_amount != 0
+		<if test="clientCode != null">
+		and a.client_code='${clientCode}'
+		</if>
+		<if test="supplierCode != null">
+		and a.supplier_code ='${supplierCode}'
+		</if>
+		<if test="location != null">
+		and a.location like '%${location}%'
+		</if>
+		<if test="partNumber != null">
+		and a.part_number like  '%${partNumber}%'
+		</if>
+		<if test="importDateStart != null">
+		<![CDATA[and a.import_date >= '${importDateStart}']]>  	
+		</if>
+		<if test="importDateEnd != null">
+		<![CDATA[and a.import_date <= '${importDateEnd}' ]]>  	
+		</if>
+		<if test="completeComplianceCertificate != null">
+		and a.complete_compliance_certificate='${completeComplianceCertificate}'
+		</if>
+		<if test="complianceCertificate != null">
+		and a.compliance_certificate='${complianceCertificate}'
+		</if>
+			<if test="tax != null">
+		and a.tax_reimbursement_id='${tax}'
+		</if>
+		<if test="exportpackage == 1">
+		and (a.location like 'TS%' OR a.location like '%地面%' OR a.location like '%退税%')
+		</if>
+		<if test="exportpackage == 0">
+		and (a.location not like 'TS%' AND a.location not like '%地面%' AND not a.location like '%退税%')
+		</if>
+		<if test="importPackageElementId != null">
+		and a.id = ${importPackageElementId}
+		</if>
+  </select>
+  
+   <select id="BoxWeight" parameterType="com.naswork.model.ImportPackageElement" resultMap="storageDetailVo">
+			  SELECT
+			IFNULL(SUM(BOX_WEIGHT),0) as BOX_WEIGHT,
+			IFNULL(SUM(storage_amount),0) as storage_amount,
+			IFNULL(SUM(total_base_price),0) as total_base_price,
+			IFNULL(SUM(client_order_price),0) as client_order_price
+			FROM
+				(SELECT
+				vs.id,
+				co.id AS client_order_id,
+				co.order_number AS client_order_number,
+				ipe.id import_package_element_id,
+				ip.import_number,
+				ip.import_date,
+				ipe.part_number,
+				ipe.description,
+				ipe.compliance_certificate,
+				ipe.complete_compliance_certificate,
+				cc.value compliance_certificate_value,
+				ccc.value complete_compliance_certificate_value,
+				ipe.unit,
+				SUM(vs.storage_amount)- IFNULL(epie.amount ,0) AS storage_amount,
+				ipe.price,ipe.box_weight,
+				ipe.price * ip.exchange_rate AS base_price,
+				ipe.price * ip.exchange_rate * vs.storage_amount AS total_base_price,
+				so.order_number,
+				so.order_date,
+				so.exchange_rate,
+				s.id AS supplier_id,
+				s. CODE AS supplier_code,
+				s. NAME AS supplier_name,
+				c.id AS client_id,
+				c. CODE AS client_code,
+				c. NAME AS client_name,
+				cu.id AS currency_id,
+				cu. CODE AS currency_code,
+				cu.
+			VALUE
+				AS currency_value,
+				ipe.condition_id,
+				cond. CODE AS condition_code,
+				cond.
+			VALUE
+				AS condition_value,
+				ipe.certification_id,
+				cert. CODE AS certification_code,
+				cert.
+			VALUE
+				AS certification_value,
+				ipe.original_number,
+				ipe.serial_number,
+				ipe.certification_date,
+				ipe.remark,
+				ipe.location,
+				ipe.update_timestamp,
+				logistics.value as logistics_value,
+				ip.logistics_no,
+				soe.tax_reimbursement_id,
+				tax.`VALUE` AS tax_value,coe.price*vs.storage_amount client_order_price
+			FROM
+				 v_storage vs
+			INNER JOIN  import_package_element ipe ON (ipe.id = vs.id)
+			INNER JOIN  import_package ip ON (
+				ipe.import_package_id = ip.id
+			)
+				LEFT JOIN v_export_package_instructions epie ON (
+			epie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		)
+			LEFT JOIN system_code logistics ON(ip.logistics_way = logistics.id)
+			INNER JOIN  supplier s ON (ip.supplier_id = s.id)
+			INNER JOIN  system_code cu ON (ip.currency_id = cu.id)
+			INNER JOIN  system_code cond ON (ipe.condition_id = cond.id)
+			 INNER JOIN system_code ccc ON (ipe.complete_compliance_certificate=ccc.id)  
+				   INNER JOIN system_code cc ON (ipe.compliance_certificate=cc.id)  
+			INNER JOIN  system_code cert ON (
+				ipe.certification_id = cert.id
+			)
+			INNER JOIN  supplier_import_element sie ON (
+				sie.import_package_element_id = ipe.id
+			)
+			INNER JOIN  supplier_order_element soe ON (
+				sie.supplier_order_element_id = soe.id
+			)
+			INNER JOIN client_order_element coe
+			on coe.id=soe.client_order_element_id
+			INNER JOIN  supplier_quote_element sqe ON (
+				soe.supplier_quote_element_id = sqe.id
+			)
+			INNER JOIN  element e ON (sqe.element_id = e.id)
+			INNER JOIN  supplier_order so ON (
+				soe.supplier_order_id = so.id
+			)
+			LEFT JOIN system_code tax ON (
+				tax.id = soe.tax_reimbursement_id
+			)
+			INNER JOIN  client_order co ON (so.client_order_id = co.id)
+			INNER JOIN  client_quote cq ON (co.client_quote_id = cq.id)
+			INNER JOIN  client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+			INNER JOIN  client c ON (ci.client_id = c.id)
+			GROUP BY soe.ID,ipe.location,ipe.BOX_WEIGHT,ipe.IMPORT_PACKAGE_SIGN) a
+				where a.storage_amount != 0  AND
+				${parame}
+				
+			ORDER BY
+				a.IMPORT_DATE DESC
+  </select>
+  
+  
+  <select id="getCountAndPrice" resultMap="storageDetailVo">
+  		SELECT
+			sum(vs.storage_amount) as storage_amount,
+			sum(ipe.price * ip.exchange_rate * vs.storage_amount) as total_base_price,
+			IFNULL(SUM(coe.price),0) as client_order_price
+		FROM
+			 v_storage vs
+		INNER JOIN  import_package_element ipe ON (ipe.id = vs.id)
+		INNER JOIN  import_package ip ON (
+			ipe.import_package_id = ip.id
+		)
+		LEFT JOIN system_code logistics ON(ip.logistics_way = logistics.id)
+		INNER JOIN  supplier s ON (ip.supplier_id = s.id)
+		INNER JOIN  system_code cu ON (ip.currency_id = cu.id)
+		INNER JOIN  system_code cond ON (ipe.condition_id = cond.id)
+		INNER JOIN  system_code cert ON (
+			ipe.certification_id = cert.id
+		)
+		INNER JOIN  supplier_import_element sie ON (
+			sie.import_package_element_id = ipe.id
+		)
+		INNER JOIN  supplier_order_element soe ON (
+			sie.supplier_order_element_id = soe.id
+		)
+		INNER JOIN  supplier_quote_element sqe ON (
+			soe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN client_order_element coe
+			on coe.id=soe.client_order_element_id
+		INNER JOIN  element e ON (sqe.element_id = e.id)
+		INNER JOIN  supplier_order so ON (
+			soe.supplier_order_id = so.id
+		)
+		INNER JOIN  client_order co ON (so.client_order_id = co.id)
+		INNER JOIN  client_quote cq ON (co.client_quote_id = cq.id)
+		INNER JOIN  client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+		INNER JOIN  client c ON (ci.client_id = c.id)
+  </select>
+  
+   <select id="findstorageFlowPage" parameterType="page" resultMap="StorageFlowVo">
+  		select VSJ.*,S.`VALUE` logistics_way_value  from v_storage_journal VSJ 
+			LEFT JOIN system_code S ON
+			(S.ID= VSJ.logistics_way)
+  		<where>
+			${where}
+		</where>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+  
+   <select id="findtotalList" parameterType="page" resultMap="StorageFlowVo">
+		  SELECT
+			SUM(VSJ.total_base_price) - (
+				SELECT
+					SUM(VSJ.total_base_price)
+				FROM
+					v_storage_journal VSJ
+						<where>
+						VSJ.storage_type = 'export'
+						<if test="where != null">
+						<if test="where != ''">
+						and	${where}
+						</if>
+						</if>
+						</where>
+					
+			) total_base_price,SUM(VSJ.amount) - (
+				SELECT
+					SUM(VSJ.amount)
+				FROM
+					v_storage_journal VSJ
+						<where>
+						VSJ.storage_type = 'export'
+						<if test="where != null">
+						<if test="where != ''">
+						and	${where}
+						</if>
+						</if>
+						</where>
+			) total_amount
+		FROM
+			v_storage_journal VSJ
+						<where>
+						VSJ.storage_type = 'import'
+						<if test="where != null">
+						<if test="where != ''">
+						and	${where}
+						</if>
+						</if>
+						</where>
+  </select>
+  
+  <select id="getAmountBySupplierOrderId" parameterType="Integer" resultType="Double">
+  		SELECT SUM(ipe.AMOUNT) FROM import_package_element ipe
+				LEFT JOIN supplier_import_element sie on sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+				LEFT JOIN supplier_order_element soe on soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+				where soe.SUPPLIER_ORDER_ID = #{supplierOrderId} GROUP BY soe.SUPPLIER_ORDER_ID
+  </select>
+  
+   <select id="findCertStatus" parameterType="Integer" resultMap="BaseResultMap">
+  select ipe.id  from import_package ip INNER JOIN import_package_element ipe on (ip.ID=ipe.IMPORT_PACKAGE_ID)
+	where ipe.CERTIFICATION_STATUS_ID=0 and ipe.COMPLIANCE_CERTIFICATE=300 and ip.id=#{id} 
+  </select>
+  
+  <select id="selectELementBySoe" parameterType="Integer" resultMap="SupplierOrderElementListDateMap">
+  		SELECT soe.id, soe.lead_time, soe.deadline,
+			   soe.supplier_order_id, ops.client_order_element_id, soe.supplier_quote_element_id,  
+			   so.order_date, so.terms, so.remark, si.quote_number AS supplier_quote_number,  
+			   c.id AS client_id, c.code AS client_code, c.name AS client_name,  
+			   so.supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value,  
+			   co.exchange_rate AS client_exchange_rate, so.exchange_rate,  
+			   co.order_number AS client_order_number, so.order_number AS supplier_order_number,  
+			   sqe.condition_id, cond.code AS condition_code, cond.value AS condition_value,  
+			   sqe.certification_id, cert.code AS certification_code, cert.value AS certification_value,  
+			   CONCAT (sqe.part_number, '\n', sqe.description, '\n\t\t', cert.code) AS detail,  
+			   sqe.element_id, sqe.part_number AS quote_part_number, e.part_number_code,  
+			   sqe.unit AS quote_unit, cqe.amount AS quote_amount,  
+			   sqe.description AS quote_description, cqe.remark AS quote_remark,  
+			   sqe.price AS supplier_quote_price, cqe.price AS client_quote_price,  
+			   ops.amount AS client_order_amount, coe.price AS client_order_price,  
+			   coe.lead_time AS client_order_lead_time, coe.deadline AS client_order_deadline,  
+			   ops.amount AS supplier_order_amount, soe.price AS supplier_order_price,  
+			   ops.amount * soe.price AS supplier_order_total_price, 
+			   soe.lead_time AS supplier_order_lead_time, soe.deadline AS supplier_order_deadline, soe.update_timestamp  
+			   FROM supplier_order_element soe
+				 INNER JOIN on_passage_storage ops ON (ops.SUPPLIER_ORDER_ELEMENT_ID = soe.ID)
+				 INNER JOIN client_order_element coe ON (ops.CLIENT_ORDER_ELEMENT_ID = coe.ID) 
+			   LEFT JOIN v_supplier_import_element vsie ON (soe.id=vsie.supplier_order_element_id)  
+			   INNER JOIN supplier_order so ON (soe.supplier_order_id=so.id)  
+			   INNER JOIN client_order co ON (coe.CLIENT_ORDER_ID=co.id)  
+			   INNER JOIN client_quote cq ON (co.client_quote_id=cq.id)  
+			   INNER JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)  
+			   INNER JOIN client c ON (ci.client_id=c.id)  
+			   INNER JOIN supplier s ON (so.supplier_id=s.id)  
+			   INNER JOIN client_quote_element cqe ON (coe.client_quote_element_id=cqe.id)  
+			   INNER JOIN supplier_quote_element sqe ON (soe.supplier_quote_element_id=sqe.id)  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)  
+			   INNER JOIN supplier_inquiry si ON (sq.supplier_inquiry_id=si.id)  
+			   INNER JOIN element e ON (sqe.element_id=e.id)  
+			   INNER JOIN system_code cu ON (so.currency_id=cu.id)  
+			   INNER JOIN system_code cond ON (sqe.condition_id=cond.id)  
+			   INNER JOIN system_code cert ON (sqe.certification_id=cert.id)  
+			   INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)  
+			   INNER JOIN system_code at ON (ci.air_type_id=at.id)
+			   WHERE soe.ID = #{supplierOrderElementId} and ops.IMPORT_STATUS = 0
+  </select>
+  
+  <select id="selectImportBySoeIdAndCoeId" parameterType="Integer" resultType="Double">
+  		SELECT DISTINCT IFNULL(ipe.AMOUNT,0) FROM on_passage_storage ops
+			INNER JOIN supplier_import_element sie on (sie.SUPPLIER_ORDER_ELEMENT_ID =ops.SUPPLIER_ORDER_ELEMENT_ID)
+			INNER JOIN import_package_element ipe on (ipe.ID = sie.IMPORT_PACKAGE_ELEMENT_ID) 
+			WHERE ops.SUPPLIER_ORDER_ELEMENT_ID = #{0} and ops.CLIENT_ORDER_ELEMENT_ID = #{1} and ops.AMOUNT = ipe.AMOUNT
+  </select>
+  
+  <select id="selectByExportPackageId" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			ipe.ID,
+			ipe.IMPORT_PACKAGE_ID,
+			ipe.ELEMENT_ID,
+			ipe.PART_NUMBER,
+			ipe.UNIT,
+			ipe.AMOUNT,
+			ipe.PRICE,
+			ipe.REMARK,
+			ipe.LOCATION,
+			ipe.UPDATE_TIMESTAMP,
+			ipe.CERTIFICATION_ID,
+			ipe.CONDITION_ID,
+			ipe.DESCRIPTION,
+			ipe.SERIAL_NUMBER,
+			ipe.ORIGINAL_NUMBER,
+			ipe.CERTIFICATION_DATE
+		FROM
+			export_package_instructions_element epie
+		LEFT JOIN export_package ep ON ep.EXPORT_PACKAGE_INSTRUCTIONS_ID = epie.EXPORT_PACKAGE_INSTRUCTIONS_ID
+		LEFT JOIN import_package_element ipe ON ipe.ID = epie.IMPORT_PACKAGE_ELEMENT_ID
+		LEFT JOIN import_storage_location_list isll on isll.LOCATION = ipe.LOCATION
+		WHERE
+			ep.ID = #{exportPackageId} and ${where}
+  </select>
+  
+  <select id="selectByUserId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			ipe.ID,
+			ipe.IMPORT_PACKAGE_ID,
+			ipe.ELEMENT_ID,
+			ipe.PART_NUMBER,
+			ipe.UNIT,
+			ipe.AMOUNT,
+			ipe.PRICE,
+			ipe.REMARK,
+			ipe.LOCATION,
+			ipe.UPDATE_TIMESTAMP,
+			ipe.CERTIFICATION_ID,
+			ipe.CONDITION_ID,
+			ipe.DESCRIPTION,
+			ipe.SERIAL_NUMBER,
+			ipe.ORIGINAL_NUMBER,
+			ipe.CERTIFICATION_DATE
+		FROM
+			unexport_element ue
+		LEFT JOIN import_package_element ipe ON ipe.ID = ue.IMPORT_PACKAGE_ELEMENT_ID
+		WHERE
+			ue.USER_ID = #{userId}
+  </select>
+  
+    <select id="selectStorageByImportPackageElementId" parameterType="String" resultMap="ElementListDateMap">
+  		select si.SUPPLIER_ID ,sq.CURRENCY_ID,sq.EXCHANGE_RATE,sie.AMOUNT,ipe.PRICE,ipe.ELEMENT_ID,ipe.PART_NUMBER,
+				ipe.DESCRIPTION,ipe.UNIT,ipe.CERTIFICATION_ID,ipe.CONDITION_ID,ipe.REMARK,ipe.SERIAL_NUMBER,ipe.CERTIFICATION_DATE,
+				ipe.LOCATION,ipe.ID IMPORT_PACKAGE_ELEMENT_ID,soe.ID SUPPLIER_ORDER_ELEMENT_ID,coe.ID CLIENT_ORDER_ELEMENT_ID,
+				sqe.ID SUPPLIER_QUOTE_ELEMENT_ID,cqe.ID CLIENT_QUOTE_ELEMENT_ID,cie.ID CLIENT_INQUIRY_ELEMENT_ID 
+				from 
+			import_package_element ipe 
+			INNER JOIN supplier_import_element sie on sie.IMPORT_PACKAGE_ELEMENT_ID=ipe.ID
+			INNER JOIN import_package ip on ip.ID=ipe.IMPORT_PACKAGE_ID
+			INNER JOIN supplier_order_element soe on soe.ID=sie.SUPPLIER_ORDER_ELEMENT_ID
+			INNER JOIN client_order_element coe on coe.ID=soe.CLIENT_ORDER_ELEMENT_ID
+			INNER JOIN client_quote_element cqe on cqe.ID=coe.CLIENT_QUOTE_ELEMENT_ID
+			INNER JOIN supplier_quote_element sqe on sqe.ID=cqe.SUPPLIER_QUOTE_ELEMENT_ID
+			INNER JOIN supplier_quote sq on sq.id=sqe.SUPPLIER_QUOTE_ID
+			INNER JOIN supplier_inquiry_element sie2 on sie2.ID=sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+			INNER JOIN supplier_inquiry si on si.ID=sie2.SUPPLIER_INQUIRY_ID
+			INNER JOIN client_inquiry_element cie on cie.ID=cqe.CLIENT_INQUIRY_ELEMENT_ID
+			where ipe.id=#{importPackageElementId}
+			</select>
+  <select id="getTotalAmountByOrderELementId" parameterType="Integer" resultType="Double">
+  		SELECT IFNULL(SUM(sie.AMOUNT),0) AS AMOUNT FROM supplier_import_element sie 
+			LEFT JOIN import_package_element ipe on ipe.ID = sie.IMPORT_PACKAGE_ELEMENT_ID
+			WHERE sie.SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId} and ipe.LOCATION = 'YC000'
+			GROUP BY sie.SUPPLIER_ORDER_ELEMENT_ID
+  </select>
+  
+   <select id="findImportPackageSign" parameterType="Integer" resultType="Integer">
+  		select 
+  		IFNULL(MAX(ipe.IMPORT_PACKAGE_SIGN),0) from supplier_import_element sie INNER JOIN
+		import_package_element ipe on ipe.ID=sie.IMPORT_PACKAGE_ELEMENT_ID
+		where sie.SUPPLIER_ORDER_ELEMENT_ID=#{supplierOrderElementId}
+  </select>
+  
+   <select id="findAbnormalPart" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   select  ipe.id,ipe.import_package_id,ipe.PART_NUMBER,ipe.DESCRIPTION,ipe.AMOUNT
+   		from import_package ip 
+		INNER JOIN import_package_element ipe 
+		on ip.ID=ipe.IMPORT_PACKAGE_ID
+		INNER JOIN import_storage_location_list isll on isll.LOCATION=ipe.LOCATION
+		where isll.ID in (110,111) and ip.ID=#{importPackageId}
+  </select>
+  
+   <select id="tasklistPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+  			jht.dbid_ id,
+  			ipe.id import_package_element_id,
+  			ipe.part_number,
+  			ipe.description,
+  			ipe.unit,
+  			ipe.amount,s.id supplier_id,s.CONTACT_NAME,s.ADDRESS,s.PHONE,s.MOBILE,s.`CODE`
+		FROM
+			 import_package_element ipe 
+		inner join import_package ip on ip.id=ipe.import_package_id
+		inner join supplier s on ip.supplier_id=s.id
+		<if test="null!=taskId">
+	    INNER JOIN jbpm4_hist_task jht on jht.YW_TABLE_ELEMENT_ID=ipe.id
+	    LEFT JOIN jbpm4_jbyj jj on jj.task_id=jht.dbid_
+	    WHERE
+			ipe.id in (${importPackageElementId}) and jht.execution_ like 'AbnormalpartProcess.IMPORT_PACKAGE_ELEMENT.ID.%'
+			and jht.dbid_=${taskId}
+	    </if>
+	    <if test="null==taskId">
+	    INNER JOIN jbpm4_task jht on jht.YW_TABLE_ELEMENT_ID=ipe.id
+	       LEFT JOIN jbpm4_jbyj jj on jj.task_id=jht.dbid_
+	    WHERE
+			ipe.id in (${importPackageElementId}) and jht.execution_id_ like 'AbnormalpartProcess.IMPORT_PACKAGE_ELEMENT.ID.%'
+	    </if> 
+  </select>
+  
+   <select id="findSupplierIdByIpeId" resultMap="StorageFlowVo" parameterType="java.lang.Integer" >
+   select ip.import_number,ip.ID,ipe.PART_NUMBER,ipe.AMOUNT,ipe.DESCRIPTION,s.ID SUPPLIER_ID from import_package_element ipe INNER JOIN
+		import_package ip on ipe.IMPORT_PACKAGE_ID=ip.ID
+		INNER JOIN supplier s on s.ID=ip.SUPPLIER_ID
+		where ipe.ID=#{id}
+  </select>
+  
+    <select id="findStorageByElementId" resultMap="ElementListDateMap" parameterType="java.lang.Integer" >
+		  SELECT DISTINCT
+			sqe.id  SUPPLIER_QUOTE_ELEMENT_ID,
+			sqe.supplier_quote_id,
+			s.code supplier_code,sqe.price,sqe.remark,si.quote_number
+		FROM
+			supplier_quote_element sqe
+		INNER JOIN supplier_quote sq ON (
+			sqe.supplier_quote_id = sq.id
+		)
+		INNER JOIN supplier_inquiry si ON (
+			sq.supplier_inquiry_id = si.id
+		)
+		INNER JOIN client_inquiry ci ON (si.client_inquiry_id = ci.id)
+		INNER JOIN client c on c.ID=ci.CLIENT_ID
+		INNER JOIN supplier s ON (si.supplier_id = s.id)
+		INNER JOIN supplier_inquiry_element sie ON (
+			sqe.supplier_inquiry_element_id = sie.id
+		)
+		INNER JOIN client_inquiry_element cie ON (
+			sie.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN client_inquiry_element ciie ON (ciie.ID = cie.MAIN_ID)
+		INNER JOIN element e ON (sqe.element_id = e.id)
+		LEFT JOIN client_quote_element cqe ON (
+			cqe.client_inquiry_element_id = cie.id
+		)
+		LEFT JOIN client_quote cq ON (
+			cq.client_inquiry_id = ci.id
+			AND cqe.client_quote_id = cq.id
+		)
+		WHERE
+			sqe.supplier_quote_status_id = '70'
+		AND sq.quote_status_id = 90
+		AND (
+			sqe.element_id = #{1}
+			OR cie.element_id = #{0}
+			OR ciie.element_id = #{0}
+		) and c.`NAME` = 'KC'
+		ORDER BY
+			sq.quote_date asc
+  </select>
+  
+   <select id="findStorageBySupplierQuoteElementId" resultMap="StorageFlowVo" parameterType="java.lang.Integer" >
+		  	SELECT
+		  	vs.storage_amount AS storage_amount,s.id  supplier_id,soe.CLIENT_ORDER_ELEMENT_ID,sqe.ID,ipe.PRICE,soe.AMOUNT,so.currency_id
+			,ip.CURRENCY_ID,ip.EXCHANGE_RATE,ipe.element_id,ipe.part_number,ipe.description,ipe.unit,ipe.amount import_package_amount,ipe.price,ipe.certification_id,ipe.condition_id,
+			ipe.remark,ipe.serial_number,ipe.certification_date,ipe.location,ipe.id import_package_element_id,soe.id soe_id,soe.client_order_element_id ,cqe.id client_quote_element_id,
+			cie.id client_inquiry_element_id,ip.import_number,ipe.supplier_order_element_id ipe_supplier_order_element_id,ipe.id import_package_element_id
+		FROM
+			v_storage vs
+		INNER JOIN import_package_element ipe ON (ipe.id = vs.id)
+		INNER JOIN import_package ip ON (
+			ipe.import_package_id = ip.id
+		)
+		INNER JOIN supplier s ON (ip.supplier_id = s.id)
+		INNER JOIN supplier_import_element sie ON (
+			sie.import_package_element_id = ipe.id
+		)
+		INNER JOIN supplier_order_element soe ON (
+			sie.supplier_order_element_id = soe.id
+		)
+		INNER JOIN supplier_quote_element sqe ON (
+			soe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN client_quote_element cqe on (
+			cqe.supplier_quote_element_id=sqe.id
+			)
+		INNER JOIN client_inquiry_element cie on (
+			cie.id=cqe.client_inquiry_element_id
+		)
+		INNER JOIN element e ON (sqe.element_id = e.id)
+		INNER JOIN supplier_order so ON (
+			soe.supplier_order_id = so.id
+		)
+		INNER JOIN client_order co ON (so.client_order_id = co.id)
+		INNER JOIN client_quote cq ON (co.client_quote_id = cq.id)
+		INNER JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		WHERE
+			ipe.LOCATION NOT LIKE '%YC%'
+		AND sqe.id = #{supplierQuoteElementId}
+		AND c. NAME = 'KC'
+		GROUP BY soe.ID,ipe.location,ipe.IMPORT_PACKAGE_SIGN
+		order by ipe.UPDATE_TIMESTAMP
+	</select>
+	
+	<select id="getCorrelationList" parameterType="page" resultMap="StorageFlowVo">
+		SELECT
+		  	vs.storage_amount AS storage_amount,s.id  supplier_id,soe.CLIENT_ORDER_ELEMENT_ID,sqe.ID,ipe.PRICE,soe.AMOUNT,so.currency_id
+			,ip.CURRENCY_ID,ip.EXCHANGE_RATE,ipe.element_id,ipe.part_number,ipe.description,ipe.unit,ipe.amount import_package_amount,ipe.price,ipe.certification_id,ipe.condition_id,
+			ipe.remark,ipe.serial_number,ipe.certification_date,ipe.location,ipe.id import_package_element_id,soe.id soe_id,soe.client_order_element_id ,cqe.id client_quote_element_id,
+			cie.id client_inquiry_element_id,ip.import_number,ipe.supplier_order_element_id ipe_supplier_order_element_id,ipe.id import_package_element_id
+		FROM
+			v_storage vs
+		INNER JOIN import_package_element ipe ON (ipe.id = vs.id)
+		INNER JOIN import_package ip ON (
+			ipe.import_package_id = ip.id
+		)
+		INNER JOIN supplier s ON (ip.supplier_id = s.id)
+		INNER JOIN supplier_import_element sie ON (
+			sie.import_package_element_id = ipe.id
+		)
+		INNER JOIN supplier_order_element soe ON (
+			sie.supplier_order_element_id = soe.id
+		)
+		INNER JOIN supplier_quote_element sqe ON (
+			soe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN client_quote_element cqe on (
+			cqe.supplier_quote_element_id=sqe.id
+			)
+		INNER JOIN client_inquiry_element cie on (
+			cie.id=cqe.client_inquiry_element_id
+		)
+		INNER JOIN element e ON (sqe.element_id = e.id)
+		INNER JOIN supplier_order so ON (
+			soe.supplier_order_id = so.id
+		)
+		INNER JOIN client_order co ON (so.client_order_id = co.id)
+		INNER JOIN client_quote cq ON (co.client_quote_id = cq.id)
+		INNER JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		WHERE
+			ipe.LOCATION NOT LIKE '%YC%'
+		AND c. NAME = 'KC'
+		<if test="where != null">
+			and ${where}
+		</if>
+		GROUP BY soe.ID,ipe.location,ipe.IMPORT_PACKAGE_SIGN
+		order by ipe.UPDATE_TIMESTAMP
+	</select>
+		  	
+		<select id="findStorageBySoeIdAndIpeId" resultMap="StorageFlowVo" parameterType="java.lang.Integer" >
+		  	SELECT
+			vs.storage_amount AS storage_amount,s.id  supplier_id,soe.CLIENT_ORDER_ELEMENT_ID,sqe.ID,soe.PRICE,soe.AMOUNT,so.currency_id,so.EXCHANGE_RATE
+			,ip.CURRENCY_ID,ip.EXCHANGE_RATE,ipe.element_id,ipe.part_number,ipe.description,ipe.unit,ipe.amount import_package_amount,ipe.price,ipe.certification_id,ipe.condition_id,
+			ipe.remark,ipe.serial_number,ipe.certification_date,ipe.location,ipe.id import_package_element_id,soe.id soe_id,soe.client_order_element_id ,cqe.id client_quote_element_id,
+			cie.id client_inquiry_element_id,ip.import_number,ipe.supplier_order_element_id ipe_supplier_order_element_id,ipe.id import_package_element_id
+		FROM
+			v_storage vs
+		INNER JOIN import_package_element ipe ON (ipe.id = vs.id)
+		INNER JOIN import_package ip ON (
+			ipe.import_package_id = ip.id
+		)
+		INNER JOIN supplier s ON (ip.supplier_id = s.id)
+		INNER JOIN supplier_import_element sie ON (
+			sie.import_package_element_id = ipe.id
+		)
+		INNER JOIN supplier_order_element soe ON (
+			sie.supplier_order_element_id = soe.id
+		)
+		INNER JOIN supplier_quote_element sqe ON (
+			soe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN client_quote_element cqe on (
+			cqe.supplier_quote_element_id=sqe.id
+			)
+		INNER JOIN client_inquiry_element cie on (
+			cie.id=cqe.client_inquiry_element_id
+		)
+		INNER JOIN element e ON (sqe.element_id = e.id)
+		INNER JOIN supplier_order so ON (
+			soe.supplier_order_id = so.id
+		)
+		INNER JOIN client_order co ON (so.client_order_id = co.id)
+		INNER JOIN client_quote cq ON (co.client_quote_id = cq.id)
+		INNER JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+		INNER JOIN client c ON (ci.client_id = c.id)
+		WHERE
+			ipe.LOCATION NOT LIKE '%YC%'
+		AND sqe.id = #{0} and ipe.id=#{1}
+		AND c. NAME = 'KC'
+		GROUP BY soe.ID,ipe.location,ipe.IMPORT_PACKAGE_SIGN
+		order by ipe.UPDATE_TIMESTAMP
+		  	</select>
+		  	
+		  	 <select id="findsupplierorderImportAmount" resultType="Double" parameterType="Integer" >
+		  	select IFNULL(SUM(ipe.AMOUNT),0) from import_package_element ipe where ipe.SUPPLIER_ORDER_ELEMENT_ID=#{supplierOrderELementId}
+ 		 </select>
+ 		 
+ 	<select id="getImportCountByCoeId" parameterType="Integer" resultType="Integer">
+ 		SELECT
+			COUNT(sie.IMPORT_PACKAGE_ELEMENT_ID)
+		FROM
+			client_order_element coe
+		LEFT JOIN supplier_order_element soe ON soe.CLIENT_ORDER_ELEMENT_ID = coe.ID
+		LEFT JOIN supplier_import_element sie ON sie.SUPPLIER_ORDER_ELEMENT_ID = soe.ID
+		WHERE coe.ID = #{clientOrderElementId}	
+ 	</select>
+ 	
+ 	<select id="getPaymentList" parameterType="Integer" resultMap="paymentMap">
+ 			SELECT
+				soe.ID,
+				so.SUPPLIER_ID,
+				soe.ID AS SUPPLIER_ORDER_ELEMENT_ID,
+				so.ORDER_NUMBER,
+				ipe.PART_NUMBER,
+				ipe.AMOUNT,
+				soe.PRICE
+			FROM
+				import_package ip
+			LEFT JOIN import_package_element ipe ON ip.ID = ipe.IMPORT_PACKAGE_ID
+			LEFT JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+			LEFT JOIN supplier_order_element soe ON soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+			LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+			WHERE ipe.IMPORT_PACKAGE_ID = #{importPackageId}
+			GROUP BY soe.ID
+ 	</select>
+ 	
+ 	<select id="getIdByLocation" parameterType="String" resultType="Integer">
+ 			SELECT ipe.ID FROM import_package_element ipe WHERE ipe.LOCATION = #{location}
+ 	</select>
+ 	
+ 	<select id="getUnchangeLocationPage" parameterType="page" resultMap="storageDetailVo">
+		SELECT
+			a.import_package_id,
+			a.import_number,
+			a.part_number,
+			a.location,
+			a.client_code ,
+			a.id,a.supplier_quote_element_id,
+			a.client_id,a.client_order_number,a.supplier_id,a.import_amount,a.import_unit
+		FROM
+			(
+				SELECT
+					vs.id,
+					soe.id supplier_order_element_id,
+					co.id AS client_order_id,
+					soe.supplier_quote_element_id,
+					co.order_number AS client_order_number,
+					ipe.import_package_id,
+					ip.import_number,
+					ip.import_date,
+					ipe.part_number,
+					ipe.description,
+					ipe.compliance_certificate,
+					ipe.complete_compliance_certificate,
+					ipe.unit,
+					SUM(vs.storage_amount) - IFNULL(epie.amount, 0) AS storage_amount,
+					ipe.price,
+					ipe.box_weight,
+					ipe.price * ip.exchange_rate AS base_price,
+					ipe.price * ip.exchange_rate * vs.storage_amount AS total_base_price,
+					so.order_number,
+					so.order_date,
+					so.exchange_rate,
+					s.id AS supplier_id,
+					s. CODE AS supplier_code,
+					s. NAME AS supplier_name,
+					c.id AS client_id,
+					c. CODE AS client_code,
+					c. NAME AS client_name,
+					ipe.condition_id,
+					ipe.certification_id,
+					
+					ipe.original_number,
+					ipe.serial_number,
+					ipe.certification_date,
+					ipe.remark,
+					ipe.location,
+					ipe.update_timestamp,
+					ip.logistics_no,
+					soe.TAX_REIMBURSEMENT_ID,
+					co.ORDER_STATUS_ID,
+					coe.ORDER_STATUS_ID AS ORDER_ELEMENT_STATUS_ID,
+					epe.ID AS EXPORT_PACKAGE_ID,
+					ipe.amount as import_amount,
+					ipe.unit as import_unit
+				FROM
+					v_storage vs
+				INNER JOIN import_package_element ipe ON (ipe.id = vs.id)
+				INNER JOIN import_package ip ON (
+					ipe.import_package_id = ip.id
+				)
+				LEFT JOIN v_export_package_instructions epie ON (
+					epie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+				)
+				INNER JOIN supplier s ON (ip.supplier_id = s.id)
+				INNER JOIN supplier_import_element sie ON (
+					sie.import_package_element_id = ipe.id
+				)
+				INNER JOIN supplier_order_element soe ON (
+					sie.supplier_order_element_id = soe.id
+				)
+				INNER JOIN supplier_quote_element sqe ON (
+					soe.supplier_quote_element_id = sqe.id
+				)
+				INNER JOIN element e ON (sqe.element_id = e.id)
+				INNER JOIN supplier_order so ON (
+					soe.supplier_order_id = so.id
+				)
+				
+				LEFT JOIN client_order_element coe ON (
+					coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+				)
+				INNER JOIN client_order co ON (coe.client_order_id = co.id)
+				INNER JOIN client_quote cq ON (co.client_quote_id = cq.id)
+				INNER JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+				INNER JOIN client c ON (ci.client_id = c.id)
+				LEFT JOIN export_package_element epe ON (
+					epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+				)
+				GROUP BY
+					soe.ID,
+					ipe.location,
+					ipe.BOX_WEIGHT,
+					ipe.IMPORT_PACKAGE_SIGN
+				ORDER BY 	ipe.location
+			) a
+		WHERE
+			a.storage_amount != 0
+		AND a.client_name != 'KC'
+		AND a.location NOT LIKE '%TS%'
+		AND UPPER(a.LOCATION) NOT LIKE '%HK%'
+		AND a.LOCATION NOT LIKE '%地面%'
+		AND a.LOCATION NOT LIKE '%退税%'
+		AND UPPER(a.LOCATION) NOT LIKE '%YC%'
+		AND UPPER(a.LOCATION) NOT LIKE '%异常%'
+		AND a.EXPORT_PACKAGE_ID IS NULL
+		AND a.ORDER_STATUS_ID != 64
+		AND a.ORDER_ELEMENT_STATUS_ID != 64
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+ 	</select>
+ 	
+ 	 <select id="findByApprovalStatus" parameterType="Integer" resultMap="ElementListDateMap">
+ 	SELECT  
+ 	<include refid="Base_Column_List" />
+ 	 FROM `import_package_element` ipe where ipe.IMPORT_PACKAGE_ID=#{0} and ipe.APPROVAL_STATUS=#{1};
+ 	 </select>
+ 	 
+ 	  <select id="findSupplierQuoteElementId" parameterType="Integer" resultType="Integer">
+ 	 select sqe.ID from import_package_element ipe INNER JOIN supplier_import_element sie on sie.IMPORT_PACKAGE_ELEMENT_ID=ipe.ID
+		INNER JOIN supplier_order_element soe on soe.ID=sie.SUPPLIER_ORDER_ELEMENT_ID 
+		INNER JOIN supplier_quote_element sqe on sqe.ID=soe.SUPPLIER_QUOTE_ELEMENT_ID
+		where ipe.ID=#{importPackageElementId};
+		</select>
+ 	 
+ 	 <select id="findImportPackageElementId" parameterType="Integer" resultMap="StorageFlowVo">
+ 	 SELECT * FROM (
+		SELECT sqe.ID,ipe.ID import_package_element_id,soe.id supplier_order_element_id,ipe.import_package_id,vs.storage_amount,ipe.part_number
+		 from supplier_quote_element sqe 
+		INNER JOIN client_quote_element cqe on cqe.SUPPLIER_QUOTE_ELEMENT_ID=sqe.ID
+		INNER JOIN client_order_element coe on coe.CLIENT_QUOTE_ELEMENT_ID=cqe.ID
+		INNER JOIN client_inquiry_element cie on cie.ID=cqe.CLIENT_INQUIRY_ELEMENT_ID
+		INNER JOIN supplier_order_element soe on soe.CLIENT_ORDER_ELEMENT_ID=coe.ID
+		INNER JOIN supplier_import_element sie on sie.SUPPLIER_ORDER_ELEMENT_ID=soe.ID
+		INNER JOIN import_package_element ipe on ipe.ID=sie.IMPORT_PACKAGE_ELEMENT_ID
+		INNER JOIN v_storage vs on vs.id=ipe.ID
+		INNER JOIN client_inquiry ci on ci.ID=cie.CLIENT_INQUIRY_ID
+		INNER JOIN client c on c.ID=ci.CLIENT_ID
+		where sqe.ID=#{supplierQuoteElementId} and c.`NAME`='KC' and vs.storage_amount>0 ORDER BY ipe.UPDATE_TIMESTAMP DESC
+		)a GROUP BY a.ID
+ 	</select>
+ 	
+ 	<select id="findSign" parameterType="Integer" resultMap="BaseResultMap">
+  		select 
+  		ipe.amount,ipe.IMPORT_PACKAGE_SIGN from supplier_import_element sie INNER JOIN
+		import_package_element ipe on ipe.ID=sie.IMPORT_PACKAGE_ELEMENT_ID
+		where sie.SUPPLIER_ORDER_ELEMENT_ID=#{supplierOrderElementId}
+  </select>
+  
+  <select id="exportLotsExcelElement" parameterType="page" resultMap="BaseResultMap">
+  		SELECT DISTINCT
+			ip.IMPORT_NUMBER,
+			ipe.PART_NUMBER,
+			ipe.DESCRIPTION,
+			coe.REMARK
+		FROM
+			import_package ip
+		LEFT JOIN import_package_element ipe ON ipe.IMPORT_PACKAGE_ID = ip.ID
+		LEFT JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		LEFT JOIN supplier_order_element soe ON soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_quote_element sqe ON sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+		LEFT JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+		LEFT JOIN client_quote_element cqe ON cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID
+		LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+		LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		WHERE ip.ID IN (${ids}) AND ipe.PART_NUMBER IS NOT NULL
+  </select>
+  
+  <select id="selectByLocation" parameterType="String" resultMap="BaseResultMap">
+  		SELECT * FROM import_package_element ipe WHERE ipe.LOCATION = #{location}
+  </select>
+  
+  <select id="selectByLocationId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		ipe.id,
+		ipe.INSPECTION_DATE,
+		ipe.MANUFACTURE_DATE,
+		(ipe.AMOUNT - IFNULL(epe.AMOUNT,0)) as AMOUNT,
+		sie.SUPPLIER_ORDER_ELEMENT_ID,
+		ipe.IMPORT_PACKAGE_ID,
+		ipe.PART_NUMBER,
+		ipe.COMPLIANCE_CERTIFICATE,
+		ipe.SERIAL_NUMBER,
+		ipe.DESCRIPTION,
+		ipe.LOCATION
+	FROM
+		import_package_element ipe
+	LEFT JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+	LEFT JOIN import_storage_location_list isll ON isll.LOCATION = ipe.LOCATION
+	LEFT JOIN export_package_element epe ON epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+	WHERE isll.ID = #{locationId} AND (ipe.AMOUNT - IFNULL(epe.AMOUNT,0)) >0
+  </select>
+  
+  <select id="getByInstructionsId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		epie.ID,
+		epie.AMOUNT,
+		sie.SUPPLIER_ORDER_ELEMENT_ID,
+		ipe.IMPORT_PACKAGE_ID,
+		ipe.INSPECTION_DATE,
+		ipe.MANUFACTURE_DATE,
+		ipe.PART_NUMBER,
+		ipe.DESCRIPTION,
+		ipe.COMPLETE_COMPLIANCE_CERTIFICATE,
+		ipe.SERIAL_NUMBER,
+		ipe.LOCATION,
+		ipe.id as import_package_element_id
+	FROM
+		export_package_instructions epi
+	LEFT JOIN export_package_instructions_element epie ON epi.ID = epie.EXPORT_PACKAGE_INSTRUCTIONS_ID
+	LEFT JOIN import_package_element ipe ON ipe.ID = epie.IMPORT_PACKAGE_ELEMENT_ID
+	LEFT JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+	WHERE epi.ID = #{id}
+  	
+  </select>
+  
+  <select id="getByLocation" parameterType="String" resultType="Integer">
+  		SELECT DISTINCT
+			ipe.ID
+		FROM
+			import_package_element ipe
+		LEFT JOIN export_package_element epe ON epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		LEFT JOIN export_package_instructions_element epie ON epie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+		WHERE epe.ID IS NULL AND ipe.LOCATION = #{0} and epie.EXPORT_PACKAGE_INSTRUCTIONS_ID = #{1}
+  </select>
+  
+  <select id="getNotInInstructionsPage" parameterType="Integer" resultMap="storageDetailVo">
+  	SELECT
+		*
+	FROM
+		(
+			SELECT
+				vs.id,
+				soe.id supplier_order_element_id,
+				co.id AS client_order_id,
+				soe.supplier_quote_element_id,
+				soe.client_order_element_id,
+				co.order_number AS client_order_number,
+				ipe.import_package_id,
+				ip.import_number,
+				ip.import_date,
+				ipe.part_number,
+				ipe.description,
+				ipe.compliance_certificate,
+				ipe.complete_compliance_certificate,
+				ipe.MANUFACTURE_DATE,
+				ipe.INSPECTION_DATE,
+				cc.
+			VALUE
+				compliance_certificate_value,
+				ccc.
+			VALUE
+				complete_compliance_certificate_value,
+				ipe.unit,
+				SUM(vs.storage_amount) - IFNULL(epie.amount, 0) AS storage_amount,
+				ipe.price,
+				ipe.box_weight,
+				ipe.price * ip.exchange_rate AS base_price,
+				ipe.price * ip.exchange_rate * vs.storage_amount AS total_base_price,
+				so.order_number,
+				so.order_date,
+				so.exchange_rate,
+				s.id AS supplier_id,
+				s. CODE AS supplier_code,
+				s. NAME AS supplier_name,
+				c.id AS client_id,
+				c. CODE AS client_code,
+				c. NAME AS client_name,
+				cu.id AS currency_id,
+				cu. CODE AS currency_code,
+				cu.
+			VALUE
+				AS currency_value,
+				ipe.condition_id,
+				cond. CODE AS condition_code,
+				cond.
+			VALUE
+				AS condition_value,
+				ipe.certification_id,
+				cert. CODE AS certification_code,
+				cert.
+			VALUE
+				AS certification_value,
+				ipe.original_number,
+				ipe.serial_number,
+				ipe.certification_date,
+				ipe.remark,
+				ipe.location,
+				ipe.update_timestamp,
+				logistics.
+			VALUE
+				AS logistics_value,
+				ip.logistics_no,
+				soe.TAX_REIMBURSEMENT_ID,
+				tax.`VALUE` AS tax_value
+			FROM
+				v_storage vs
+			INNER JOIN import_package_element ipe ON (ipe.id = vs.id)
+			INNER JOIN import_package ip ON (
+				ipe.import_package_id = ip.id
+			)
+			LEFT JOIN v_export_package_instructions epie ON (
+				epie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+			)
+			LEFT JOIN system_code logistics ON (
+				ip.logistics_way = logistics.id
+			)
+			INNER JOIN supplier s ON (ip.supplier_id = s.id)
+			INNER JOIN system_code cu ON (ip.currency_id = cu.id)
+			INNER JOIN system_code cond ON (ipe.condition_id = cond.id)
+			INNER JOIN system_code ccc ON (
+				ipe.complete_compliance_certificate = ccc.id
+			)
+			INNER JOIN system_code cc ON (
+				ipe.compliance_certificate = cc.id
+			)
+			INNER JOIN system_code cert ON (
+				ipe.certification_id = cert.id
+			)
+			INNER JOIN supplier_import_element sie ON (
+				sie.import_package_element_id = ipe.id
+			)
+			INNER JOIN supplier_order_element soe ON (
+				sie.supplier_order_element_id = soe.id
+			)
+			INNER JOIN supplier_quote_element sqe ON (
+				soe.supplier_quote_element_id = sqe.id
+			)
+			INNER JOIN element e ON (sqe.element_id = e.id)
+			INNER JOIN supplier_order so ON (
+				soe.supplier_order_id = so.id
+			)
+			LEFT JOIN system_code tax ON (
+				tax.id = s.tax_reimbursement_id
+			)
+			LEFT JOIN client_order_element coe ON (
+				coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+			)
+			INNER JOIN client_order co ON (coe.client_order_id = co.id)
+			INNER JOIN client_quote cq ON (co.client_quote_id = cq.id)
+			INNER JOIN client_inquiry ci ON (cq.client_inquiry_id = ci.id)
+			INNER JOIN client c ON (ci.client_id = c.id)
+			GROUP BY
+				soe.ID,
+				ipe.location,
+				ipe.BOX_WEIGHT,
+				ipe.IMPORT_PACKAGE_SIGN
+		) a
+	WHERE
+		a.storage_amount != 0 AND a.location in
+	(SELECT DISTINCT ipe.LOCATION FROM export_package_instructions_element epie LEFT JOIN import_package_element ipe ON ipe.ID = epie.IMPORT_PACKAGE_ELEMENT_ID
+	WHERE epie.EXPORT_PACKAGE_INSTRUCTIONS_ID = #{exportPackageInstructionsId} GROUP BY ipe.LOCATION) <if test="orderby != null">${orderby}</if>
+  </select>
+  
+  <select id="getBySoeId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		ipe.*
+	FROM
+		import_package_element ipe
+	LEFT JOIN supplier_import_element sie ON ipe.ID = sie.IMPORT_PACKAGE_ELEMENT_ID
+	LEFT JOIN supplier_order_element soe ON sie.SUPPLIER_ORDER_ELEMENT_ID = soe.ID
+	WHERE soe.ID = #{supplierOrderElementId}
+  </select>
+  
+  <select id="getLockStorageAmount" parameterType="Integer" resultType="Double">
+  	SELECT
+		IFNULL(SUM(oa.AMOUNT),0)
+	FROM
+		order_approval oa
+	INNER JOIN jbpm4_task jt ON oa.ID = jt.RELATION_ID
+	WHERE
+		oa.SUPPLIER_QUOTE_ELEMENT_ID=#{0}  and oa.IMPORT_PACKAGE_ELEMENT_ID=#{1}
+	AND oa.`occupy` != 2
+	AND oa.SPZT = 232
+  </select>
+  
+  <select id="getListHasLife" resultMap="BaseResultMap">
+  	SELECT
+		ip.IMPORT_NUMBER,
+		ipe.PART_NUMBER,
+		ipe.DESCRIPTION,
+		ipe.LOCATION,
+		ipe.MANUFACTURE_DATE,
+		ipe.EXPIRE_DATE,
+		ipe.REST_LIFE
+	FROM
+		import_package_element ipe
+	LEFT JOIN import_package ip ON ip.ID = ipe.IMPORT_PACKAGE_ID
+	WHERE
+		ipe.REST_LIFE IS NOT NULL
+	AND ipe.HAS_LIFE = 1
+  </select>
+  
+  <select id="getImportPackageElementByLocationAndCoeId" parameterType="page" resultMap="BaseResultMap">
+ 			SELECT DISTINCT
+				ipe.ID,
+				ipe.AMOUNT
+			FROM
+				import_package_element ipe
+			LEFT JOIN export_package_element epe ON epe.IMPORT_PACKAGE_ELEMENT_ID = ipe.id
+			INNER JOIN supplier_import_element sie ON ipe.ID = sie.IMPORT_PACKAGE_ELEMENT_ID
+			INNER JOIN supplier_order_element soe ON sie.SUPPLIER_ORDER_ELEMENT_ID = soe.ID
+			INNER JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+			INNER JOIN import_storage_location_list isll ON isll.LOCATION = ipe.LOCATION
+			WHERE coe.ID = #{clientOrderElementId} and ipe.IMPORT_PACKAGE_ID = #{importPackageId}
+			<if test="locationId != null">
+				AND isll.id = #{locationId}
+			</if>
+			<if test="locationId != null">
+				AND isll.location = #{location}
+			</if>
+			<if test="sequence != null">
+				and ipe.IMPORT_PACKAGE_SIGN = #{sequence}
+			</if>
+			and ipe.AMOUNT > 0
+ </select>
+  
+</mapper>

@@ -1,0 +1,45 @@
+﻿.l-button { 
+	height: 27px;
+	overflow: hidden;
+	width: 50px;
+	line-height: 25px;
+	cursor: pointer;
+	position: relative;  text-align:center;
+	border:1px solid #0072c6; color:#FFF;
+	background:#0072c6;text-decoration: none;
+}
+.l-button:hover,.l-filter-group .addgroup:hover,.l-filter-group .addrule:hover{
+	background: #025693;
+	border:1px solid #025693; 
+	color:#FFF;
+	height: 27px;
+	overflow: hidden;
+	line-height: 25px;
+	cursor: pointer;
+	position: relative;  text-align:center;}
+.l-button-over {
+	background-color: #025693; border-color:#D3D3D3;
+}
+.l-button-disabled {
+	background-image:url('../images/ui/button-disabled.gif'); color:#9D9D9E;
+}
+.l-button-submit{background:#0072c6;}
+.l-filter-group .addgroup{
+	height: 27px;
+	overflow: hidden;
+	width: 60px;
+	line-height: 25px;
+	cursor: pointer;
+	border:1px solid #0072c6; color:#FFF;
+	background:#0072c6;text-decoration: none; margin-left:5px; margin-right:5px;
+}
+.l-filter-group .addrule{
+	height: 27px;
+	overflow: hidden;
+	width: 60px;
+	line-height: 25px;
+	cursor: pointer;
+	border:1px solid #60bbff; color:#FFF;
+	background:#60bbff;text-decoration: none; margin-left:5px; margin-right:5px;
+}
+

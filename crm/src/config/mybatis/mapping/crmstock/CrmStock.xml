@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.CrmStockDao">
+	<resultMap id="cageInfoVo" type="com.naswork.model.rfqstock.nsncenter.CageInfo">
+		<id column="CAGE_ID" property="cageId" jdbcType="CHAR"/>
+		<id column="CAGE_NAME" property="cageName" jdbcType="VARCHAR"/>
+		<id column="ADDITIONAL_INFO" property="additionalInfo" jdbcType="VARCHAR"/>		
+	</resultMap>
+	<resultMap id="stockInfoVo" type="com.naswork.model.CrmStock">
+	  	<id column="BSN" property="bsn" jdbcType="VARCHAR" />
+    	<result column="MSN" property="msn" jdbcType="VARCHAR" />
+        <result column="PART_NUM" property="partNum" jdbcType="VARCHAR" />
+    	<result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
+        <result column="CAGE_CODE" property="cageCode" jdbcType="CHAR" />
+   		<result column="NSN" property="nsn" jdbcType="VARCHAR" />
+    	<result column="SHELF_LIFE" property="shelfLife" jdbcType="SMALLINT" />
+     	<result column="MAN_NAME" property="manName" jdbcType="VARCHAR" />
+     	<result column="CAP_MAN" property="capMan" jdbcType="CHAR" />
+	    <result column="CAP_INSPECTION" property="capInspection" jdbcType="CHAR" />
+	    <result column="CAP_REPAIR" property="capRepair" jdbcType="CHAR" />
+	    <result column="CAP_MODIFICATION" property="capModification" jdbcType="CHAR" />
+	    <result column="CAP_OVERHAUL" property="capOverhaul" jdbcType="CHAR" />
+	    <result column="IS_BLACKLIST" property="isBlacklist" jdbcType="INTEGER" />   
+	    <result column="PART_TYPE" property="partType" jdbcType="INTEGER" />
+	    <result column="CODE" property="code" jdbcType="VARCHAR" />
+	    <result column="WEIGHT" property="weight" jdbcType="VARCHAR" />
+	    <result column="DIMENTIONS" property="dimentions" jdbcType="VARCHAR" />
+	    <result column="COUNTRY_OF_ORIGIN" property="countryOfOrigin" jdbcType="CHAR" />
+	    <result column="ECCN" property="eccn" jdbcType="VARCHAR" />
+	    <result column="SCHEDULE_B_CODE" property="scheduleBCode" jdbcType="VARCHAR" />
+	    <result column="ATA_CHAPTER_SECTION" property="ataChapterSection" jdbcType="SMALLINT" />
+	    <result column="CATEGORY_NO" property="categoryNo" jdbcType="INTEGER" />
+	    <result column="USML" property="usml" jdbcType="VARCHAR" />
+	    <result column="HAZMAT_CODE" property="hazmatCode" jdbcType="VARCHAR" />
+	    <result column="IMG_PATH" property="imgPath" jdbcType="VARCHAR" />
+	    <result column="HS_CODE" property="hsCode" jdbcType="VARCHAR" />
+	    <result column="CORRELATION_MARK" property="correlationMark" jdbcType="INTEGER" />
+	    <result column="remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="have_attachment" property="haveAttachment" jdbcType="VARCHAR" />
+	    <result column="is_blacklist_value" property="isBlacklistValue" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMap" type="com.naswork.model.TPart" >
+	    <id column="BSN" property="bsn" jdbcType="VARCHAR" />
+	    <result column="MSN" property="msn" jdbcType="VARCHAR" />
+	    <result column="MSN_FLAG" property="msnFlag" jdbcType="CHAR" />
+	    <result column="PART_NUM" property="partNum" jdbcType="VARCHAR" />
+	    <result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
+	    <result column="SHORT_PART_NUM" property="shortPartNum" jdbcType="VARCHAR" />
+	    <result column="CAGE_CODE" property="cageCode" jdbcType="CHAR" />
+	    <result column="NSN" property="nsn" jdbcType="VARCHAR" />
+	    <result column="REPLACED_NSN" property="replacedNsn" jdbcType="VARCHAR" />
+	    <result column="WEIGHT" property="weight" jdbcType="VARCHAR" />
+	    <result column="DIMENTIONS" property="dimentions" jdbcType="VARCHAR" />
+	    <result column="COUNTRY_OF_ORIGIN" property="countryOfOrigin" jdbcType="CHAR" />
+	    <result column="ECCN" property="eccn" jdbcType="VARCHAR" />
+	    <result column="SCHEDULE_B_CODE" property="scheduleBCode" jdbcType="VARCHAR" />
+	    <result column="SHELF_LIFE" property="shelfLife" jdbcType="SMALLINT" />
+	    <result column="ATA_CHAPTER_SECTION" property="ataChapterSection" jdbcType="SMALLINT" />
+	    <result column="CATEGORY_NO" property="categoryNo" jdbcType="INTEGER" />
+	    <result column="USML" property="usml" jdbcType="VARCHAR" />
+	    <result column="HAZMAT_CODE" property="hazmatCode" jdbcType="VARCHAR" />
+	    <result column="IMG_PATH" property="imgPath" jdbcType="VARCHAR" />
+	    <result column="IS_BLACKLIST" property="isBlacklist" jdbcType="INTEGER" />
+	    <result column="PART_TYPE" property="partType" jdbcType="INTEGER" />
+	    <result column="value" property="value" jdbcType="VARCHAR" />
+	    <result column="MAN_NAME" property="manName" jdbcType="VARCHAR" />
+	    <result column="CODE" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	<resultMap id="liluVo" type="com.naswork.module.crmstock.controller.LiluVo">
+	  	<result column="sn" property="sn" jdbcType="VARCHAR" />
+    	<result column="part" property="part" jdbcType="VARCHAR" />
+        <result column="short" property="shortPart" jdbcType="VARCHAR" />
+    	<result column="if_double" property="ifDouble" jdbcType="VARCHAR" />
+        <result column="desc" property="desc" jdbcType="VARCHAR" />
+   		<result column="unit" property="unit" jdbcType="VARCHAR" />
+    	<result column="amount" property="amount" jdbcType="VARCHAR" />
+     	<result column="price" property="price" jdbcType="VARCHAR" />
+     	<result column="leadtime" property="leadtime" jdbcType="VARCHAR" />
+	    <result column="con" property="con" jdbcType="VARCHAR" />
+	    <result column="cer" property="cer" jdbcType="VARCHAR" />
+	    <result column="remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="moq" property="moq" jdbcType="VARCHAR" />
+	    <result column="address" property="address" jdbcType="VARCHAR" />   
+	    <result column="oem" property="oem" jdbcType="VARCHAR" />
+	    <result column="black" property="black" jdbcType="VARCHAR" />
+	    <result column="type" property="type" jdbcType="VARCHAR" />
+	    <result column="if_con" property="ifCon" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="findStockPage" parameterType="page" resultMap="stockInfoVo">
+		SELECT
+			t.BSN,
+			t.MSN,
+			tm.MAN_NAME,
+			t.PART_NUM,
+			t.PART_NAME,
+			t.CAGE_CODE,
+			t.NSN,
+			t.SHELF_LIFE,
+			t.IS_BLACKLIST,
+			t.PART_TYPE,
+			t.ATA_CHAPTER_SECTION,
+			t.WEIGHT,
+			t.DIMENTIONS,
+			t.CATEGORY_NO,
+			t.COUNTRY_OF_ORIGIN,
+			t.ECCN,
+			t.HAZMAT_CODE,
+			t.SCHEDULE_B_CODE,
+			t.USML,
+			pts.`CODE`
+		
+		FROM
+			crmstock.t_part t
+		LEFT JOIN crmstock.t_manufactory tm ON (t.msn = tm.msn)
+		LEFT JOIN crm.part_type_subset pts ON (pts.ID = t.PART_TYPE)
+		<where>
+			 ${where}
+		</where>  	
+	</select>
+	
+	<select id="getDataOnce" parameterType="page" resultMap="stockInfoVo">
+		SELECT
+			t.BSN,
+			t.MSN,
+			tm.MAN_NAME,
+			t.PART_NUM,
+			t.PART_NAME,
+			t.CAGE_CODE,
+			t.NSN,
+			IFNULL(t.SHELF_LIFE,0) AS SHELF_LIFE,
+			IF(t.IS_BLACKLIST = 0,'否','是') AS is_blacklist_value,
+			t.PART_TYPE,
+			t.ATA_CHAPTER_SECTION,
+			CONCAT(t.WEIGHT,IFNULL(weight.`VALUE`,'')) AS WEIGHT,
+			CONCAT(t.DIMENTIONS,IFNULL(DIMENTIONS.`VALUE`,'')) AS DIMENTIONS,
+			t.CATEGORY_NO,
+			t.COUNTRY_OF_ORIGIN,
+			t.ECCN,
+			t.HAZMAT_CODE,
+			t.SCHEDULE_B_CODE,
+			t.USML,
+			pts.`CODE`,
+			t.IS_BLACKLIST,
+			t.HS_CODE,
+			t.CORRELATION_MARK,
+			t.remark,
+			IF((select COUNT(*) from T_GY_FJ fj where YW_ID = t.BSN and YW_TABLE_NAME = 'supplier') > 0,
+				'1',
+		     	'0') AS have_attachment
+		FROM
+			crmstock.t_part t
+		LEFT JOIN crmstock.t_manufactory tm ON (t.msn = tm.msn)
+		LEFT JOIN crm.part_type_subset pts ON (pts.ID = t.PART_TYPE)
+		LEFT JOIN crmstock.system_code weight ON weight.ID = t.WEIGHT_UNIT_ID
+		LEFT JOIN crmstock.system_code DIMENTIONS ON DIMENTIONS.ID = t.DIMENTIONS_UNIT_ID
+		<where>
+			 ${where}
+		</where>
+		limit 0,5000
+	</select>
+	
+	<select id="findCagePage" parameterType="page" resultMap="stockInfoVo">
+		select tm.MSN,tm.MAN_NAME,tm.CAGE_CODE, CAP_MAN, CAP_INSPECTION, CAP_REPAIR, CAP_MODIFICATION, 
+    CAP_OVERHAUL from crmstock.t_manufactory tm
+		  	<where>
+			   ${where}
+			</where>
+	</select>
+	
+	<select id="searchPageByNsnPart" parameterType="page" resultMap="stockInfoVo">
+		select a.cage_id as cage_id, b.cage_name as cage_name,IS_BLACKLIST,
+		 fsg_id, fsc_id, nsn_id, part_num, nsn_name from
+		rfqstock.r_cage_nsn_part as a
+		left join rfqstock.t_cage_info as b on (a.cage_id=b.cage_id)
+		where 1=1 
+			  <if test="cageId!=null and cageId!=''">
+			  	<choose>
+			  	<when test="fuzzySearchForCage!=null">
+			  		AND a.cage_id like concat(#{cageId,jdbcType=CHAR},'%')
+			  	</when>
+			  	<otherwise >
+			  		AND a.cage_id =#{cageId,jdbcType=CHAR}
+			  	</otherwise>
+			  	</choose>
+			  	 
+			  </if>
+			  <if test="nsnId!=null and nsnId!=''">
+			  	AND nsn_id like concat(#{nsnId,jdbcType=CHAR},'%')
+			  </if>
+			  <if test="partNum!=null and partNum!=''">
+			  	AND part_num like concat(#{partNum,jdbcType=CHAR},'%')
+			  </if>
+	 	  <if test="orderby!=null">
+				${orderby}
+		  </if>
+		
+	</select>
+	<select id="findReplaceNsn" parameterType="pd" resultType="hashmap">
+		select cage_id, nsn_id, part_num, replacedby_nsn_id from rfqstock.r_nsn_replace
+		where 1=0 
+		${where}
+	</select>
+	
+	<select id="getLiluList" resultMap="liluVo">
+		SELECT
+			a.`﻿序号` AS sn,
+			IF(LENGTH(a.`件号`) > 10 and a.`件号` REGEXP '^[0-9]+$',CONCAT('科学',a.`件号`),a.`件号`) AS part,
+			IF(LENGTH(a.`短件号`) > 10 and a.`短件号` REGEXP '^[0-9]+$',CONCAT('科学',a.`短件号`),a.`短件号`) AS short,
+			a.`是否重复` AS if_double,
+			a.`名称` AS `desc`,
+			a.`单位` AS unit,
+			a.`数量` AS amount,
+			a.`单价` AS price,
+			a.`周期` AS leadtime,
+			a.`状态` AS con,
+			a.`证书` AS cer,
+			a.`备注` AS remark,
+			a.MOQ,
+			a.`供货地址` AS address,
+			a.`生产厂` AS oem,
+			a.`黑名单` AS black,
+			a.`类型` AS type,
+			a.`不能合并` AS if_con
+			FROM
+			`lilu_stock_and_ba_stock_merge_2` a
+			WHERE
+			a.`是否重复` != 1 AND a.`件号` NOT LIKE '%E+%'
+	</select>
+	
+	<select id="findByBsn" parameterType="String" resultMap="stockInfoVo">
+	SELECT 	t.BSN,
+			t.MSN,
+			t.PART_NUM,
+			t.PART_NAME,
+			t.CAGE_CODE
+			 from crmstock.t_part t where t.BSN=#{bsn}
+	</select>
+	
+	 <update id="updateByBsn" parameterType="com.naswork.model.TPart" >
+    update crmstock.t_part
+    set
+      PART_NAME = #{partName,jdbcType=VARCHAR}
+    where BSN = #{bsn,jdbcType=VARCHAR}
+  </update>
+	
+</mapper>
+

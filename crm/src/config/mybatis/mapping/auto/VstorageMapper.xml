@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.VstorageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.Vstorage" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="storage_amount" property="storageAmount" jdbcType="DOUBLE" />
+  </resultMap>
+  <insert id="insert" parameterType="com.naswork.model.Vstorage" >
+    insert into v_storage (id, storage_amount)
+    values (#{id,jdbcType=INTEGER}, #{storageAmount,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.Vstorage" >
+    insert into v_storage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="storageAmount != null" >
+        storage_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="storageAmount != null" >
+        #{storageAmount,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+</mapper>

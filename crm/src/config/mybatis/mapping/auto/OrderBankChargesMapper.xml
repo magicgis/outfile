@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.OrderBankChargesDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.OrderBankCharges" >
+   <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+    <result column="ORDER_PRICE_ABOVE" property="orderPriceAbove" jdbcType="DOUBLE" />
+    <result column="ORDER_PRICE_FOLLOWING" property="orderPriceFollowing" jdbcType="DOUBLE" />
+    <result column="BANK_CHARGES" property="bankCharges" jdbcType="DOUBLE" />
+     <result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.naswork.model.OrderBankCharges" >
+    insert into order_bank_charges (CLIENT_ID, ORDER_PRICE_ABOVE, ORDER_PRICE_FOLLOWING, 
+      BANK_CHARGES)
+    values (#{clientId,jdbcType=INTEGER}, #{orderPriceAbove,jdbcType=DOUBLE}, #{orderPriceFollowing,jdbcType=DOUBLE}, 
+      #{bankCharges,jdbcType=DOUBLE})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.OrderBankCharges" >
+    update order_bank_charges
+    set 
+    ORDER_PRICE_ABOVE= #{orderPriceAbove},
+    ORDER_PRICE_FOLLOWING=#{orderPriceFollowing},
+        BANK_CHARGES= #{bankCharges}
+    where ID = #{id}
+  </update>
+  
+  <insert id="insertSelective" parameterType="com.naswork.model.OrderBankCharges" >
+    insert into order_bank_charges
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clientId != null" >
+        CLIENT_ID,
+      </if>
+      <if test="orderPriceAbove != null" >
+        ORDER_PRICE_ABOVE,
+      </if>
+      <if test="orderPriceFollowing != null" >
+        ORDER_PRICE_FOLLOWING,
+      </if>
+      <if test="bankCharges != null" >
+        BANK_CHARGES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="orderPriceAbove != null" >
+        #{orderPriceAbove,jdbcType=DOUBLE},
+      </if>
+      <if test="orderPriceFollowing != null" >
+        #{orderPriceFollowing,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCharges != null" >
+        #{bankCharges,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  
+   <select id="orderBankChargesPage" parameterType="page" resultMap="BaseResultMap">
+  		select c.code,oc.* from order_bank_charges oc
+  		inner join client  c on oc.client_id=c.id
+  </select>
+  
+   <select id="orderBankChargesByClientId" parameterType="String" resultMap="BaseResultMap">
+  		select * from order_bank_charges oc
+  		where oc.client_id=#{clientId}
+  </select>
+</mapper>

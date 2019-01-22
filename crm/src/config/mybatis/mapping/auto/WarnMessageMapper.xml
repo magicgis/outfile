@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.WarnMessageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.WarnMessage" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="READ_STATUS" property="readStatus" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_INQUIRY_ID, PART_NUMBER, READ_STATUS, UPDATE_TIMESTAMP,CLIENT_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from warn_message
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from warn_message
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.WarnMessage" >
+    insert into warn_message (ID, CLIENT_INQUIRY_ID, PART_NUMBER, 
+      READ_STATUS, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{clientInquiryId,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, 
+      #{readStatus,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.WarnMessage" >
+    insert into warn_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="readStatus != null" >
+        READ_STATUS,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryId != null" >
+        #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="readStatus != null" >
+        #{readStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.WarnMessage" >
+    update warn_message
+    <set >
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="readStatus != null" >
+        READ_STATUS = #{readStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID = #{clientId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.WarnMessage" >
+    update warn_message
+    set CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      READ_STATUS = #{readStatus,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByUserId" parameterType="Integer" resultType="Integer">
+  		SELECT DISTINCT
+			wm.CLIENT_INQUIRY_ID
+		FROM
+			warn_message wm
+		WHERE
+			wm.CLIENT_ID IN (
+				SELECT
+					ar.CLIENT_ID
+				FROM
+					authority_relation ar
+				LEFT JOIN r_role_user rru ON rru.USER_ID = ar.USER_ID
+				LEFT JOIN t_role tr ON tr.role_id = rru.ROLE_ID
+				WHERE
+					ar.USER_ID = #{userId}
+				AND tr.role_name != '国内采购'
+				AND tr.role_name != '国外采购'
+			)
+		AND wm.READ_STATUS = 0
+  </select>
+  
+  <select id="getMessage" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT ID, CLIENT_INQUIRY_ID, PART_NUMBER, READ_STATUS, UPDATE_TIMESTAMP,CLIENT_ID
+  			 FROM warn_message wm WHERE wm.CLIENT_INQUIRY_ID = #{clientInquiryId} AND wm.READ_STATUS=0
+  </select>
+  
+  <select id="updateStatus" parameterType="Integer">
+  		UPDATE warn_message SET READ_STATUS = 1 WHERE CLIENT_INQUIRY_ID = #{clientInquiryId} and READ_STATUS = 0
+  </select>
+  
+</mapper>

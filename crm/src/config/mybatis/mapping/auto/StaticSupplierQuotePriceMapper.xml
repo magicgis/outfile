@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.StaticSupplierQuotePriceDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.StaticSupplierQuotePrice" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_QUOTE_ELEMENT_ID" property="supplierQuoteElementId" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="YEAR" property="year" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+	<result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+	<result column="condition_value" property="conditionValue" jdbcType="VARCHAR" />
+	<result column="certification_value" property="certificationValue" jdbcType="VARCHAR" />
+	<result column="LEAD_TIME" property="leadTime" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_ID, SUPPLIER_QUOTE_ELEMENT_ID, PART_NUMBER, 
+    PRICE, YEAR, UPDATE_TIMESTAMP,CONDITION_ID,CERTIFICATION_ID,LEAD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from static_supplier_quote_price
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from static_supplier_quote_price
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.StaticSupplierQuotePrice" >
+    insert into static_supplier_quote_price (ID, SUPPLIER_ID, STATIC_CLIENT_QUOTE_PRICE_ID, 
+      SUPPLIER_QUOTE_ELEMENT_ID, PART_NUMBER, PRICE, 
+      YEAR, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, 
+      #{supplierQuoteElementId,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{year,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.StaticSupplierQuotePrice" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into static_supplier_quote_price
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="supplierQuoteElementId != null" >
+        SUPPLIER_QUOTE_ELEMENT_ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="year != null" >
+        YEAR,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID,
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID,
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierQuoteElementId != null" >
+        #{supplierQuoteElementId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="conditionId != null" >
+        #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null" >
+        #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.StaticSupplierQuotePrice" >
+    update static_supplier_quote_price
+    <set >
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierQuoteElementId != null" >
+        SUPPLIER_QUOTE_ELEMENT_ID = #{supplierQuoteElementId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="year != null" >
+        YEAR = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID = #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.StaticSupplierQuotePrice" >
+    update static_supplier_quote_price
+    set SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      SUPPLIER_QUOTE_ELEMENT_ID = #{supplierQuoteElementId,jdbcType=INTEGER},
+      PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=DOUBLE},
+      YEAR = #{year,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+  			ssqp.id,
+			ssqp.PART_NUMBER,
+			ssqp.PRICE,
+			ssqp.`YEAR`,
+			ssqp.UPDATE_TIMESTAMP,
+			s.`CODE`,
+			currency.`VALUE` AS currency_value,
+			con.`VALUE` AS condition_value,
+			cer.`VALUE` AS certification_value,
+			ssqp.LEAD_TIME
+		FROM
+			static_supplier_quote_price ssqp
+		LEFT JOIN supplier s ON s.ID = ssqp.SUPPLIER_ID
+		LEFT JOIN system_code currency ON currency.ID = ssqp.CURRENCY_ID
+		LEFT JOIN system_code con ON con.ID = ssqp.CONDITION_ID
+		LEFT JOIN system_code cer ON cer.ID = ssqp.CERTIFICATION_ID
+		<where>
+			${where}
+		</where>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+  
+  <select id="findByPart" parameterType="String" resultMap="BaseResultMap">
+  		SELECT
+			ssqp.ID,
+			ssqp.SUPPLIER_ID,
+			ssqp.SUPPLIER_QUOTE_ELEMENT_ID,
+			ssqp.PART_NUMBER,
+			ssqp.PRICE,
+			ssqp.`YEAR`,
+			ssqp.UPDATE_TIMESTAMP,
+			ssqp.CONDITION_ID,
+			ssqp.CERTIFICATION_ID,
+			ssqp.LEAD_TIME
+		FROM
+			static_supplier_quote_price ssqp
+		WHERE
+			ssqp.PART_NUMBER = #{partNumber}
+  </select>
+  
+  
+</mapper>

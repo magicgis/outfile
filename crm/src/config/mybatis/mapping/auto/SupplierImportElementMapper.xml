@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierImportElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierImportElement" >
+    <id column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+    <id column="IMPORT_PACKAGE_ELEMENT_ID" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.purchase.controller.supplierinquirystatistic.SupplierInquiryStatistic" id="SupplierInquiryStattistic">
+  <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR"/>
+  <result column="air_type_code" property="airTypeCode" jdbcType="VARCHAR"/>
+  <result column="biz_type_code" property="bizTypeCode" jdbcType="VARCHAR"/>
+  <result column="supplier_id" property="supplierId" jdbcType="INTEGER"/>
+  <result column="air_type_id" property="airTypeId" jdbcType="INTEGER"/>
+   <result column="biz_type_id" property="bizTypeId" jdbcType="INTEGER"/>
+  <result column="supplier_inquiry_count" property="supplierInquiryCount" jdbcType="INTEGER"/>
+  <result column="supplier_quote_count" property="supplierQuoteCount" jdbcType="INTEGER"/>
+  <result column="supplier_quote_sum" property="supplierQuoteSum" jdbcType="DOUBLE"/>
+  <result column="supplier_order_count" property="supplierOrderCount" jdbcType="INTEGER"/>
+  <result column="supplier_order_sum" property="supplierOrderSum" jdbcType="DOUBLE"/>
+  <result column="supplier_import_count" property="supplierImportCount" jdbcType="INTEGER"/>
+  <result column="supplier_import_sum" property="supplierImportSum" jdbcType="DOUBLE"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    SUPPLIER_ORDER_ELEMENT_ID, IMPORT_PACKAGE_ELEMENT_ID, AMOUNT, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.naswork.model.SupplierImportElementKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_import_element
+    where SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER}
+      and IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Integer" >
+    delete from supplier_import_element
+    where  IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierImportElement" >
+    insert into supplier_import_element (SUPPLIER_ORDER_ELEMENT_ID, IMPORT_PACKAGE_ELEMENT_ID, 
+      AMOUNT, UPDATE_TIMESTAMP)
+    values (#{supplierOrderElementId,jdbcType=INTEGER}, #{importPackageElementId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DOUBLE}, CURRENT_TIMESTAMP)
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierImportElement" >
+    insert into supplier_import_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierOrderElementId != null" >
+        SUPPLIER_ORDER_ELEMENT_ID,
+      </if>
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierOrderElementId != null" >
+        #{supplierOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageElementId != null" >
+        #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierImportElement" >
+    update supplier_import_element
+    <set >
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER}
+      and IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierImportElement" >
+    update supplier_import_element
+    set AMOUNT = #{amount,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER}
+      and IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="supplierImportStat" resultMap="SupplierInquiryStattistic">
+  			 SELECT s.id AS supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   at.id AS air_type_id, at.code AS air_type_code, at.value AS air_type_value,  
+			   bt.id AS biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,  
+			   COUNT(DISTINCT ip.id) AS supplier_import_count,  
+			   SUM(ipb.import_package_price*ip.exchange_rate/er_usd.rate) AS supplier_import_sum  
+			   FROM import_package ip  
+			   INNER JOIN supplier s ON (ip.supplier_id=s.id)  
+			   INNER JOIN system_code at ON (at.id=123)  
+			   INNER JOIN system_code bt ON (bt.id=120)  
+			   INNER JOIN exchange_rate er_usd ON (er_usd.currency_id=11)  
+			   LEFT OUTER JOIN v_import_package_bill ipb ON (ip.id=ipb.import_package_id)  
+			  	 INNER JOIN authority_relation ar on (ar.SUPPLIER_ID=s.ID)
+			   WHERE
+				1 = 1
+				 <if test="userId != null">
+				AND ar.USER_ID=${userId}
+				</if>
+				<if test="supplierId!=null">
+				AND s.id=${supplierId}					
+				</if>
+				<if test="airTypeId!=null">
+				AND AT.id=${airTypeId}
+				</if>
+				<if test="bizTypeId!=null">
+				AND  BT.id=${bizTypeId}
+				</if>
+				<if test="startDate!=null">
+			AND ip.import_date >=#{startDate}
+				</if>
+				<if test="endDate!=null">
+		<![CDATA[	AND ip.import_date <=#{endDate}]]>
+				</if>
+				
+			GROUP BY
+				s.id,
+				s. CODE,
+				s. NAME,
+				AT .id,
+				AT . CODE,
+				AT .
+			VALUE
+				,
+				bt.id,
+				bt. CODE,
+				bt.
+			VALUE
+  </select>
+  
+  <select id="selectBySupplierOrderId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT sie.SUPPLIER_ORDER_ELEMENT_ID, sie.IMPORT_PACKAGE_ELEMENT_ID, sie.AMOUNT, sie.UPDATE_TIMESTAMP
+  			FROM import_package_payment ipp
+			LEFT JOIN supplier_order so on so.ID = ipp.SUPPLIER_ORDER_ID
+			LEFT JOIN supplier_order_element soe on soe.SUPPLIER_ORDER_ID = so.ID
+			LEFT JOIN supplier_import_element sie on sie.SUPPLIER_ORDER_ELEMENT_ID = soe.ID
+			WHERE so.ID = #{supplierOrderId} and ipp.PAYMENT_TYPE = 0
+  </select>
+  
+  <select id="getClientByImportElementId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT ci.CLIENT_ID FROM supplier_import_element sie 
+		LEFT JOIN supplier_order_element soe ON soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+		LEFT JOIN client_order co ON co.ID = coe.CLIENT_ORDER_ID
+		LEFT JOIN client_quote cq ON cq.ID = co.CLIENT_QUOTE_ID
+		LEFT JOIN client_inquiry ci ON ci.ID = cq.CLIENT_INQUIRY_ID
+		WHERE sie.IMPORT_PACKAGE_ELEMENT_ID = #{id} limit 0,1
+  </select>
+  
+</mapper>

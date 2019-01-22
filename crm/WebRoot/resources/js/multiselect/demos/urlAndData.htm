@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery MultiSelect Widget Demo</title>
+
+<link rel="stylesheet" type="text/css" href="../jquery.multiselect.css" />
+<link rel="stylesheet" type="text/css" href="../jquery.multiselect.filter.css" />
+<link rel="stylesheet" type="text/css" href="assets/style.css" />
+<link rel="stylesheet" type="text/css" href="assets/prettify.css" />
+<link rel="stylesheet" type="text/css" href="../../jquery-ui/css/custom-theme/jquery-ui.custom.css" />
+<script type="text/javascript" src="../../jquery-ui/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../../jquery-ui/js/jquery-ui.custom.js"></script>
+<script type="text/javascript" src="ui/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="../src/jquery.multiselect.js"></script>
+<script type="text/javascript" src="assets/prettify.js"></script>
+
+<script type="text/javascript" src="../src/jquery.multiselect.filter.js"></script>
+
+
+<script type="text/javascript">
+$(function(){
+	$("select").multiselect({
+	   header: "Select an option",
+	   url:'/jcsjfxpt/testController/multiselectTest.do',
+	   classes:'select',
+	   data:[{'text':'飞','value':'9'},{'text':'发','value':'10'},{'text':'放','value':'13'}],
+	   executeMessage:"加载中...",
+	   successMessage:'数据加载完成'
+	}).multiselectfilter({//设置过滤器属性
+		label:'主键:'
+	});
+	 var el = $("select").multiselect(),
+		disabled = $('#disabled'),
+		selected = $('#selected'),
+		newItem = $('#newItem');
+	
+	$("#add").click(function(){
+		var v = newItem.val(), opt = $('<option />', {
+			value: v,
+			text: v
+		});
+		
+		if(disabled.is(':checked')){
+			opt.attr('disabled','disabled');
+		}
+		if(selected.is(':checked')){
+			opt.attr('selected','selected');
+		}
+		
+		opt.appendTo( el );
+		el.multiselect('refresh');
+	});
+		
+	var flag=false;
+	$("#del").click(function(){
+		var enable=flag?'enable':'disable';
+		$("select").multiselect(enable);
+		flag=!flag;
+		
+	});
+
+});
+</script>
+
+</head>
+<body id="test">
+
+<h2>file urlAndData.htm</h2>
+
+
+<div style=" width:325px">
+	<h3 style="margin-top:0">Add an item:</h3>
+	<p>Type in the text of a new option tag to add dynamically.</p>
+	<input type="text" id="newItem" />
+	<input type="button" id="add" value="Add" />
+	<p>
+		<label style="margin-right:8px"><input type="checkbox" id="selected" /> Selected?</label>
+		<label><input type="checkbox" id="disabled" /> Disabled?</label>
+	</p>
+</div>
+
+<div>
+	<select title="Refresh Exanmple" id = 'sel' name="example-refresh"  multiple="multiple" size="5">
+	<option class='one' value="foo">foo</option>
+	<option class='two' value="bar">bar</option>
+	<option class='three' value="baz">baz</option>
+	</select>
+</div>
+<input type='button' id='del' value='disable'/>
+<pre class="prettyprint" >
+$("select").multiselect({
+	   header: "Select an option",
+	   url:'/jcsjfxpt/test/multiselectTest.do',
+	   classes:'select',
+	   data:[{'text':'飞','value':'9'},{'text':'发','value':'10'},{'text':'放','value':'13'}],
+	   executeMessage:"加载中...",
+	   successMessage:'数据加载完成'
+	}).multiselectfilter({//设置过滤器属性
+		label:'主键:'
+	});
+	 var el = $("select").multiselect(),
+		disabled = $('#disabled'),
+		selected = $('#selected'),
+		newItem = $('#newItem');
+	
+	$("#add").click(function(){
+		var v = newItem.val(), opt = $('&ltoption /&gt', {
+			value: v,
+			text: v
+		});
+		
+		if(disabled.is(':checked')){
+			opt.attr('disabled','disabled');
+		};
+		if(selected.is(':checked')){
+			opt.attr('selected','selected');
+		};
+		
+		opt.appendTo( el );
+		el.multiselect('refresh');
+	});
+		
+	var flag=false;
+	$("#del").click(function(){
+		var enable=flag?'enable':'disable';
+		$("select").multiselect(enable);
+		flag=!flag;
+		
+	});
+</pre>
+
+
+</body>

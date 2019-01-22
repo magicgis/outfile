@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ArrearsUseDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ArrearsUse" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_PAYMENT_ID" property="importPackagePaymentId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_CODE" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="TOTAL" property="total" jdbcType="DOUBLE" />
+    <result column="COUNTER_FEE" property="counterFee" jdbcType="DOUBLE" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="IMPORT_PACKAGE_PAYMENT_ELEMENT_ID" property="importPackagePaymentElementId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_PAYMENT_ID, SUPPLIER_CODE, TOTAL, COUNTER_FEE, UPDATE_TIMESTAMP,IMPORT_PACKAGE_PAYMENT_ELEMENT_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from arrears_use
+    where IMPORT_PACKAGE_PAYMENT_ID = #{importPackagePaymentId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByElementId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from arrears_use
+    where IMPORT_PACKAGE_PAYMENT_ELEMENT_ID = #{importPackagePaymentElementId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectTotalBySupplierCode" resultType="Double" parameterType="String" >
+  select IFNULL(SUM(au.TOTAL),0) from arrears_use au where au.SUPPLIER_CODE=#{supplierCode}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from arrears_use
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  
+   <delete id="deleteByElementId" parameterType="com.naswork.model.ArrearsUse" >
+    delete from arrears_use
+    where IMPORT_PACKAGE_PAYMENT_ELEMENT_ID in (${importPackagePaymentElementId})
+  </delete>
+  
+  <insert id="insert" parameterType="com.naswork.model.ArrearsUse" >
+    insert into arrears_use (ID, IMPORT_PACKAGE_PAYMENT_ID, SUPPLIER_CODE, 
+      TOTAL, COUNTER_FEE, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{importPackagePaymentId,jdbcType=INTEGER}, #{supplierCode,jdbcType=VARCHAR}, 
+      #{total,jdbcType=DOUBLE}, #{counterFee,jdbcType=DOUBLE}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ArrearsUse" >
+    insert into arrears_use
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importPackagePaymentId != null" >
+        IMPORT_PACKAGE_PAYMENT_ID,
+      </if>
+      <if test="supplierCode != null" >
+        SUPPLIER_CODE,
+      </if>
+      <if test="total != null" >
+        TOTAL,
+      </if>
+      <if test="counterFee != null" >
+        COUNTER_FEE,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+       <if test="importPackagePaymentElementId != null" >
+        IMPORT_PACKAGE_PAYMENT_ELEMENT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importPackagePaymentId != null" >
+        #{importPackagePaymentId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierCode != null" >
+        #{supplierCode,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="counterFee != null" >
+        #{counterFee,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+       <if test="importPackagePaymentElementId != null" >
+        #{importPackagePaymentElementId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ArrearsUse" >
+    update arrears_use
+    <set >
+      <if test="importPackagePaymentId != null" >
+        IMPORT_PACKAGE_PAYMENT_ID = #{importPackagePaymentId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierCode != null" >
+        SUPPLIER_CODE = #{supplierCode,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        TOTAL = #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="counterFee != null" >
+        COUNTER_FEE = #{counterFee,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ArrearsUse" >
+    update arrears_use
+    set IMPORT_PACKAGE_PAYMENT_ID = #{importPackagePaymentId,jdbcType=INTEGER},
+      SUPPLIER_CODE = #{supplierCode,jdbcType=VARCHAR},
+      TOTAL = #{total,jdbcType=DOUBLE},
+      COUNTER_FEE = #{counterFee,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

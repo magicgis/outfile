@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.ApprovalDao">
+	<resultMap id="approvalVo" type="com.naswork.model.Approval">
+		<id column="APPROVAL_ID" property="approvalId" jdbcType="VARCHAR"/>
+		<id column="APPROVAL_NAME" property="approvalName" jdbcType="VARCHAR"/>
+		<id column="APPROVAL_TYPE" property="approvalType" jdbcType="VARCHAR"/>
+		<id column="ASSOCIATION_KEY" property="associationKey" jdbcType="VARCHAR"/>
+		<id column="REQUESTER_ID" property="requesterId" jdbcType="VARCHAR"/>
+		<id column="REQUESTER_NAME" property="requesterName" jdbcType="VARCHAR"/>
+		<id column="APPROVER_ID" property="approverId" jdbcType="VARCHAR"/>
+		<id column="APPROVER_NAME" property="approverName" jdbcType="VARCHAR"/>
+		<id column="APPROVER_ROLE_ID" property="approverRoleId" jdbcType="VARCHAR"/>
+		<id column="APPROVER_ROLE_NAME" property="approverRoleName" jdbcType="VARCHAR"/>
+		<id column="APPROVAL_STATUS" property="approvalStatus" jdbcType="INTEGER"/>
+		<id column="CREATE_DATETIME" property="createDatetime" jdbcType="TIMESTAMP"/>
+		<id column="UPDATE_DATETIME" property="updateDatetime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<resultMap id="approvalDetailVo" type="com.naswork.model.ApprovalDetail">
+		<id column="APPROVAL_ID" property="approvalId" jdbcType="VARCHAR"/>
+		<id column="APPROVAL_DETAIL_ID" property="approvalDetailId" jdbcType="VARCHAR"/>
+		<id column="UPDATER_ID" property="updaterId" jdbcType="VARCHAR"/>
+		<id column="UPDATER_NAME" property="updaterName" jdbcType="VARCHAR"/>
+		<id column="UPDATE_DATETIME" property="updateDatetime" jdbcType="TIMESTAMP"/>
+		<id column="APPROVAL_STATUS" property="approvalStatus" jdbcType="INTEGER"/>
+		<id column="COMMENT" property="comment" jdbcType="VARCHAR"/>
+	</resultMap>
+	<select id="fetchApprovalDetailPage" parameterType="page" resultMap="approvalDetailVo">
+		SELECT APPROVAL_ID, APPROVAL_DETAIL_ID,UPDATER_ID,UPDATER_NAME,
+			UPDATE_DATETIME, APPROVAL_STATUS,COMMENT
+		FROM T_APPROVAL_DETAIL
+		WHERE APPROVAL_ID=#{approvalId}
+		ORDER BY UPDATE_DATETIME DESC 	
+	</select>
+	
+	<select id="getApprovalByType" parameterType="pd" resultMap="approvalVo">
+		SELECT APPROVAL_ID, APPROVAL_NAME, APPROVAL_TYPE,ASSOCIATION_KEY,
+				REQUESTER_ID,REQUESTER_NAME,APPROVER_ROLE_ID,APPROVER_ROLE_NAME,
+				APPROVER_ID,APPROVER_NAME,APPROVAL_STATUS,CREATE_DATETIME,UPDATE_DATETIME
+		FROM T_APPROVAL
+		WHERE APPROVAL_TYPE = #{approvalType} AND ASSOCIATION_KEY = #{associationKey}
+	</select>
+	<select id="getApprovalById"  parameterType="String" resultMap="approvalVo">
+		SELECT APPROVAL_ID, APPROVAL_NAME, APPROVAL_TYPE,ASSOCIATION_KEY,
+				REQUESTER_ID,REQUESTER_NAME,APPROVER_ROLE_ID,APPROVER_ROLE_NAME,
+				APPROVER_ID,APPROVER_NAME,APPROVAL_STATUS,CREATE_DATETIME,UPDATE_DATETIME
+		FROM T_APPROVAL
+		WHERE APPROVAL_ID = #{approvalId}
+	</select>
+	<insert id="addApproval" parameterType="com.naswork.model.Approval">
+		<selectKey resultType="java.lang.String" order="AFTER" keyProperty="approvalId">
+		SELECT LAST_INSERT_ID() AS approvalId
+		</selectKey>
+		INSERT INTO T_APPROVAL(
+			APPROVAL_NAME,
+			APPROVAL_TYPE,
+			ASSOCIATION_KEY,
+			REQUESTER_ID,
+			REQUESTER_NAME,
+			APPROVER_ROLE_ID,
+			APPROVER_ROLE_NAME,
+			APPROVAL_STATUS			
+		)
+		VALUES(
+			#{approvalName},
+			#{approvalType},
+			#{associationKey},
+			#{requesterId},
+			#{requesterName},
+			#{approverRoleId},
+			#{approverRoleName},
+			#{approvalStatus}
+		)
+	</insert>
+	<insert id="addApprovalDetail" parameterType="com.naswork.model.ApprovalDetail">
+		INSERT INTO T_APPROVAL_DETAIL(
+			APPROVAL_ID,
+			UPDATER_ID,
+			UPDATER_NAME,
+			APPROVAL_STATUS,
+			COMMENT
+		)VALUES(
+			#{approvalId},
+			#{updaterId},
+			#{updaterName},
+			#{approvalStatus},
+			#{comment}
+		)
+	</insert>
+	
+	<update id="updateApproval" parameterType="com.naswork.model.Approval">
+		UPDATE T_APPROVAL SET
+			<if test="approverId!=null">
+			APPROVER_ID=#{approverId},
+			</if>
+			<if test="approverName!=null">
+			APPROVER_NAME=#{approverName},
+			</if>
+			<if test="approvalStatus!=null">
+			APPROVAL_STATUS=#{approvalStatus}
+			</if>
+			
+		WHERE
+		    APPROVAL_ID=#{approvalId}
+	</update>
+
+</mapper>

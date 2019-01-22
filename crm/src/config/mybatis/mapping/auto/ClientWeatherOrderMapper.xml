@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientWeatherOrderDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientWeatherOrder" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_QUOTE_ID" property="clientQuoteId" jdbcType="INTEGER" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+    <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="SOURCE_NUMBER" property="sourceNumber" jdbcType="VARCHAR" />
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="SEQ" property="seq" jdbcType="INTEGER" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="DATE" />
+    <result column="TERMS" property="terms" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ORDER_STATUS_ID" property="orderStatusId" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="PREPAY_RATE" property="prepayRate" jdbcType="DOUBLE" />
+    <result column="SHIP_PAY_RATE" property="shipPayRate" jdbcType="DOUBLE" />
+    <result column="SHIP_PAY_PERIOD" property="shipPayPeriod" jdbcType="INTEGER" />
+    <result column="RECEIVE_PAY_RATE" property="receivePayRate" jdbcType="DOUBLE" />
+    <result column="RECEIVE_PAY_PERIOD" property="receivePayPeriod" jdbcType="INTEGER" />
+    <result column="LC" property="lc" jdbcType="VARCHAR" />
+    <result column="IMPORTERS_REGISTRATION" property="importersRegistration" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="INTEGER" />
+    <result column="PURCHASE_APPLY" property="purchaseApply" jdbcType="INTEGER" />
+    <result column="CERTIFICATION" property="certification" jdbcType="VARCHAR" />
+    <result column="URGENT_LEVEL_ID" property="urgentLevelId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.marketing.controller.clientorder.ClientOrderVo" id="clientOrderVo">
+   <result column="certification" property="certification" jdbcType="VARCHAR" />
+  	 <result column="id" property="id" jdbcType="INTEGER" />
+  	 <result column="prepay_rate" property="prepayRate" jdbcType="DOUBLE" />
+  	 <result column="ship_pay_rate" property="shipPayRate" jdbcType="DOUBLE" />
+  	 <result column="ship_pay_period" property="shipPayPeriod" jdbcType="INTEGER" />
+  	 <result column="receive_pay_rate" property="receivePayRate" jdbcType="DOUBLE" />
+  	 <result column="receive_pay_period" property="receivePayPeriod" jdbcType="INTEGER" />
+  	 <result column="client_quote_id" property="clientQuoteId" jdbcType="INTEGER" />
+  	 <result column="client_inquiry_id" property="clientInquiryId" jdbcType="INTEGER" />
+  	 <result column="client_id" property="clientId" jdbcType="INTEGER" />
+  	 <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+  	 <result column="client_name" property="clientName" jdbcType="VARCHAR" />
+  	 <result column="address" property="address" jdbcType="VARCHAR" />
+  	 <result column="ship_address" property="shipAddress" jdbcType="VARCHAR" />
+  	 <result column="contact_address" property="contactAddress" jdbcType="VARCHAR" />	 
+  	 <result column="contact_ship_address" property="contactShipAddress" jdbcType="VARCHAR" />
+  	 <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+  	 <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+  	 <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+  	 <result column="exchange_rate" property="exchangeRate" jdbcType="VARCHAR" /> 
+  	 <result column="biz_type_id" property="bizTypeId" jdbcType="INTEGER" />
+  	 <result column="biz_type_code" property="bizTypeCode" jdbcType="VARCHAR" />
+  	 <result column="biz_type_value" property="bizTypeValue" jdbcType="VARCHAR" />
+  	 <result column="air_type_id" property="airTypeId" jdbcType="INTEGER" />
+  	 <result column="air_type_code" property="airTypeCode" jdbcType="VARCHAR" />
+  	 <result column="air_type_value" property="airTypeValue" jdbcType="VARCHAR" />
+  	 <result column="order_status_id" property="orderStatusId" jdbcType="INTEGER" />
+  	 <result column="order_status_code" property="orderStatusCode" jdbcType="VARCHAR" />
+  	 <result column="order_status_value" property="orderStatusValue" jdbcType="VARCHAR" />
+  	 <result column="seq" property="seq" jdbcType="INTEGER" />
+  	 <result column="quote_number" property="quoteNumber" jdbcType="VARCHAR" />
+  	 <result column="order_date" property="orderDate" jdbcType="DATE" />
+  	 <result column="source_order_number" property="sourceOrderNumber" jdbcType="VARCHAR" />
+  	 <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+  	 <result column="terms" property="terms" jdbcType="INTEGER" />
+  	 <result column="terms_1" property="terms_1" jdbcType="INTEGER" />
+  	 <result column="remark" property="remark" jdbcType="VARCHAR" />
+  	 <result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  	 <result column="NAME" property="contactName" jdbcType="VARCHAR" />
+  	 <result column="ITEM" property="inquiryItem" jdbcType="INTEGER" />
+  	 <result column="CSN" property="InquiryCsn" jdbcType="INTEGER" />
+  	 <result column="PART_NUMBER" property="inquiryPartNumber" jdbcType="VARCHAR" />
+  	 <result column="ELEMENT_ID" property="inquiryElementId" jdbcType="INTEGER" />
+  	 <result column="DESCRIPTION" property="inquiryDescription" jdbcType="VARCHAR" />
+  	 <result column="UNIT" property="inquiryUnit" jdbcType="VARCHAR" />
+  	 <result column="AMOUNT" property="OrderAmount" jdbcType="DOUBLE" />
+  	 <result column="CREATE_USER_ID" property="createUserId" jdbcType="INTEGER" />
+  	 <result column="IMPORTERS_REGISTRATION" property="importersRegistration" jdbcType="VARCHAR" />
+  	 <result column="LC" property="lc" jdbcType="VARCHAR" />
+  	 <result column="PURCHASE_APPLY" property="purchaseApply" jdbcType="INTEGER" />
+  	 <result column="URGENT_LEVEL_ID" property="urgentLevelId" jdbcType="INTEGER" />
+  	 <result column="URGENT_LEVEL_VALUE" property="urgentLevelValue" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, CLIENT_QUOTE_ID, CURRENCY_ID, EXCHANGE_RATE, SOURCE_NUMBER, ORDER_NUMBER, SEQ, 
+    ORDER_DATE, TERMS, REMARK, ORDER_STATUS_ID, UPDATE_TIMESTAMP, PREPAY_RATE, SHIP_PAY_RATE, 
+    SHIP_PAY_PERIOD, RECEIVE_PAY_RATE, RECEIVE_PAY_PERIOD, LC, IMPORTERS_REGISTRATION, 
+    CREATE_USER_ID, PURCHASE_APPLY, CERTIFICATION,URGENT_LEVEL_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_weather_order
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_weather_order
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientWeatherOrder" >
+    insert into client_weather_order (ID, CLIENT_QUOTE_ID, CURRENCY_ID, 
+      EXCHANGE_RATE, SOURCE_NUMBER, ORDER_NUMBER, 
+      SEQ, ORDER_DATE, TERMS, 
+      REMARK, ORDER_STATUS_ID, UPDATE_TIMESTAMP, 
+      PREPAY_RATE, SHIP_PAY_RATE, SHIP_PAY_PERIOD, 
+      RECEIVE_PAY_RATE, RECEIVE_PAY_PERIOD, LC, 
+      IMPORTERS_REGISTRATION, CREATE_USER_ID,
+      URGENT_LEVEL_ID,CERTIFICATION)
+    values (#{id,jdbcType=INTEGER}, #{clientQuoteId,jdbcType=INTEGER}, #{currencyId,jdbcType=INTEGER}, 
+      #{exchangeRate,jdbcType=DOUBLE}, #{sourceNumber,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{seq,jdbcType=INTEGER}, #{orderDate,jdbcType=DATE}, #{terms,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{orderStatusId,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP}, 
+      #{prepayRate,jdbcType=DOUBLE}, #{shipPayRate,jdbcType=DOUBLE}, #{shipPayPeriod,jdbcType=INTEGER}, 
+      #{receivePayRate,jdbcType=DOUBLE}, #{receivePayPeriod,jdbcType=INTEGER}, #{lc,jdbcType=VARCHAR}, 
+      #{importersRegistration,jdbcType=VARCHAR}, #{createUserId,jdbcType=INTEGER}, 
+      #{urgentLevelId,jdbcType=INTEGER},#{certification,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientWeatherOrder" >
+    insert into client_weather_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientQuoteId != null" >
+        CLIENT_QUOTE_ID,
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID,
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE,
+      </if>
+      <if test="sourceNumber != null" >
+        SOURCE_NUMBER,
+      </if>
+      <if test="orderNumber != null" >
+        ORDER_NUMBER,
+      </if>
+      <if test="seq != null" >
+        SEQ,
+      </if>
+      <if test="orderDate != null" >
+        ORDER_DATE,
+      </if>
+      <if test="terms != null" >
+        TERMS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="orderStatusId != null" >
+        ORDER_STATUS_ID,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="prepayRate != null" >
+        PREPAY_RATE,
+      </if>
+      <if test="shipPayRate != null" >
+        SHIP_PAY_RATE,
+      </if>
+      <if test="shipPayPeriod != null" >
+        SHIP_PAY_PERIOD,
+      </if>
+      <if test="receivePayRate != null" >
+        RECEIVE_PAY_RATE,
+      </if>
+      <if test="receivePayPeriod != null" >
+        RECEIVE_PAY_PERIOD,
+      </if>
+      <if test="lc != null" >
+        LC,
+      </if>
+      <if test="importersRegistration != null" >
+        IMPORTERS_REGISTRATION,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="purchaseApply != null" >
+        PURCHASE_APPLY,
+      </if>
+      <if test="certification != null" >
+        CERTIFICATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientQuoteId != null" >
+        #{clientQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeRate != null" >
+        #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="sourceNumber != null" >
+        #{sourceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=DATE},
+      </if>
+      <if test="terms != null" >
+        #{terms,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusId != null" >
+        #{orderStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prepayRate != null" >
+        #{prepayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayRate != null" >
+        #{shipPayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayPeriod != null" >
+        #{shipPayPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="receivePayRate != null" >
+        #{receivePayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receivePayPeriod != null" >
+        #{receivePayPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lc != null" >
+        #{lc,jdbcType=VARCHAR},
+      </if>
+      <if test="importersRegistration != null" >
+        #{importersRegistration,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseApply != null" >
+        #{purchaseApply,jdbcType=INTEGER},
+      </if>
+      <if test="certification != null" >
+        #{certification,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientWeatherOrder" >
+    update client_weather_order
+    <set >
+      <if test="clientQuoteId != null" >
+        CLIENT_QUOTE_ID = #{clientQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="currencyId != null" >
+        CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeRate != null" >
+        EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="sourceNumber != null" >
+        SOURCE_NUMBER = #{sourceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        ORDER_NUMBER = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        SEQ = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="orderDate != null" >
+        ORDER_DATE = #{orderDate,jdbcType=DATE},
+      </if>
+      <if test="terms != null" >
+        TERMS = #{terms,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusId != null" >
+        ORDER_STATUS_ID = #{orderStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prepayRate != null" >
+        PREPAY_RATE = #{prepayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayRate != null" >
+        SHIP_PAY_RATE = #{shipPayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="shipPayPeriod != null" >
+        SHIP_PAY_PERIOD = #{shipPayPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="receivePayRate != null" >
+        RECEIVE_PAY_RATE = #{receivePayRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receivePayPeriod != null" >
+        RECEIVE_PAY_PERIOD = #{receivePayPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lc != null" >
+        LC = #{lc,jdbcType=VARCHAR},
+      </if>
+      <if test="importersRegistration != null" >
+        IMPORTERS_REGISTRATION = #{importersRegistration,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseApply != null" >
+        PURCHASE_APPLY = #{purchaseApply,jdbcType=INTEGER},
+      </if>
+      <if test="certification != null" >
+        CERTIFICATION = #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentLevelId != null" >
+        URGENT_LEVEL_ID = #{urgentLevelId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientWeatherOrder" >
+    update client_weather_order
+    set CLIENT_QUOTE_ID = #{clientQuoteId,jdbcType=INTEGER},
+      CURRENCY_ID = #{currencyId,jdbcType=INTEGER},
+      EXCHANGE_RATE = #{exchangeRate,jdbcType=DOUBLE},
+      SOURCE_NUMBER = #{sourceNumber,jdbcType=VARCHAR},
+      ORDER_NUMBER = #{orderNumber,jdbcType=VARCHAR},
+      SEQ = #{seq,jdbcType=INTEGER},
+      ORDER_DATE = #{orderDate,jdbcType=DATE},
+      TERMS = #{terms,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      ORDER_STATUS_ID = #{orderStatusId,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      PREPAY_RATE = #{prepayRate,jdbcType=DOUBLE},
+      SHIP_PAY_RATE = #{shipPayRate,jdbcType=DOUBLE},
+      SHIP_PAY_PERIOD = #{shipPayPeriod,jdbcType=INTEGER},
+      RECEIVE_PAY_RATE = #{receivePayRate,jdbcType=DOUBLE},
+      RECEIVE_PAY_PERIOD = #{receivePayPeriod,jdbcType=INTEGER},
+      LC = #{lc,jdbcType=VARCHAR},
+      IMPORTERS_REGISTRATION = #{importersRegistration,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=INTEGER},
+      PURCHASE_APPLY = #{purchaseApply,jdbcType=INTEGER},
+      CERTIFICATION = #{certification,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="listPage" parameterType="page" resultMap="clientOrderVo">
+  SELECT DISTINCT cwo.id, cwo.client_quote_id,
+  			cwo.prepay_rate,cwo.ship_pay_rate,cwo.ship_pay_period,
+  			cwo.receive_pay_rate,cwo.receive_pay_period,
+			c.id AS client_id, c.code AS client_code, c.name AS client_name,cwo.certification,
+			cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, cwo.exchange_rate,
+			bt.id AS biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,
+			at.id AS air_type_id, at.code AS air_type_code, at.value AS air_type_value,
+			sta.id AS order_status_id, sta.code AS order_status_code, sta.value AS order_status_value,
+			 cwo.order_date, cwo.source_number AS source_order_number, cwo.order_number,
+			cwo.terms, 100-cwo.terms AS terms_1, cwo.remark, cwo.update_timestamp,cwo.URGENT_LEVEL_ID,sc.`VALUE` as URGENT_LEVEL_VALUE
+			FROM client_weather_order cwo
+			INNER JOIN client_quote cq ON (cwo.client_quote_id=cq.id)
+			INNER JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)
+			INNER JOIN client c ON (ci.client_id=c.id)
+			INNER JOIN client_contact cc ON (ci.client_contact_id=cc.id)
+			INNER JOIN system_code cu ON (cwo.currency_id=cu.id)
+			INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)
+			INNER JOIN system_code at ON (ci.air_type_id=at.id)
+			INNER JOIN system_code sta ON (cwo.order_status_id=sta.id)
+			LEFT JOIN system_code sc ON sc.ID = cwo.URGENT_LEVEL_ID
+			<if test="userId != null">
+			LEFT JOIN authority_relation ar on ar.CLIENT_ID = c.ID
+			</if>
+			where 1=1 
+			<if test="where != null">
+				and ${where}
+			</if>
+			<if test="userId != null">
+				and ar.USER_ID = #{userId}
+			</if>
+			<if test="orderby != null">
+				${orderby}
+			</if>
+  </select>
+  
+   <!-- 根据id查询 -->
+  <select id="findById" parameterType="Integer" resultMap="clientOrderVo">
+  		SELECT cwo.id, cwo.client_quote_id, cq.client_inquiry_id,
+  			cwo.prepay_rate,cwo.ship_pay_rate,cwo.ship_pay_period,
+  			cwo.receive_pay_rate,cwo.receive_pay_period,
+			c.id AS client_id, c.code AS client_code, c.name AS client_name,cwo.certification,
+			cu.id AS currency_id, cu.code AS currency_code, cu.value AS currency_value, cwo.exchange_rate,
+			bt.id AS biz_type_id, bt.code AS biz_type_code, bt.value AS biz_type_value,
+			at.id AS air_type_id, at.code AS air_type_code, at.value AS air_type_value,
+			sta.id AS order_status_id, sta.code AS order_status_code, sta.value AS order_status_value,
+			 cwo.order_date, cwo.source_number AS source_order_number, cwo.order_number,
+			cwo.terms, 100-cwo.terms AS terms_1, cwo.remark, cwo.update_timestamp,cwo.URGENT_LEVEL_ID
+			FROM client_weather_order cwo
+			INNER JOIN client_quote cq ON (cwo.client_quote_id=cq.id)
+			INNER JOIN client_inquiry ci ON (cq.client_inquiry_id=ci.id)
+			INNER JOIN client c ON (ci.client_id=c.id)
+			INNER JOIN client_contact cc ON (ci.client_contact_id=cc.id)
+			INNER JOIN system_code cu ON (cwo.currency_id=cu.id)
+			INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)
+			INNER JOIN system_code at ON (ci.air_type_id=at.id)
+			INNER JOIN system_code sta ON (cwo.order_status_id=sta.id)
+			where cwo.id=#{id}
+  </select>
+  
+   <select id="getClientOrder" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT DISTINCT cwo.* FROM client_weather_order cwo LEFT JOIN client_weather_order_element cwoe on (cwoe.CLIENT_WEATHER_ORDER_ID = cwo.ID) where cwoe.ID = #{clientWeatherOrderElementId}
+  </select>
+  
+   <select id="findseq" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+   SELECT MAX(c.SEQ)   FROM client_weather_order c WHERE c.client_quote_id=#{id}
+  </select>
+  
+</mapper>

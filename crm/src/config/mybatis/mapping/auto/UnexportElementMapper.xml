@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.UnexportElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.UnexportElement" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ELEMENT_ID" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_ELEMENT_ID, USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from unexport_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from unexport_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.UnexportElement" >
+    insert into unexport_element (ID, IMPORT_PACKAGE_ELEMENT_ID, USER_ID
+      )
+    values (#{id,jdbcType=INTEGER}, #{importPackageElementId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.UnexportElement" >
+    insert into unexport_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageElementId != null" >
+        #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.UnexportElement" >
+    update unexport_element
+    <set >
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.UnexportElement" >
+    update unexport_element
+    set IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="deleteByUserId" parameterType="Integer">
+  		DELETE FROM unexport_element WHERE USER_ID = #{userId}
+  </delete>
+  
+</mapper>

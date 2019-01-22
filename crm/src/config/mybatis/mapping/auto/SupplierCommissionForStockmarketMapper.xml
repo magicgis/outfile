@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierCommissionForStockmarketDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierCommissionForStockmarket" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="NUMBER" property="number" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="AIR_TYPE_ID" property="airTypeId" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+    <result column="SALE_STATUS" property="saleStatus" jdbcType="INTEGER" />
+    <result column="CRAWL_STATUS" property="crawlStatus" jdbcType="INTEGER" />
+    <result column="CRAWL_STORAGE_STATUS" property="crawlStorageStatus" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="AIR_VALUE" property="airValue" jdbcType="VARCHAR" />
+    <result column="AIR_CODE" property="airCode" jdbcType="VARCHAR" />
+    <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_CODE" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+    <result column="INQUIRY_AIR_TYPE_ID" property="inquiryAirTypeId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, CREATE_DATE, NUMBER, SUPPLIER_ID, AIR_TYPE_ID, REMARK, CLIENT_INQUIRY_ID, SALE_STATUS, 
+    CRAWL_STATUS, CRAWL_STORAGE_STATUS, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_commission_for_stockmarket
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_commission_for_stockmarket
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierCommissionForStockmarket" >
+    insert into supplier_commission_for_stockmarket (ID, CREATE_DATE, NUMBER, 
+      SUPPLIER_ID, AIR_TYPE_ID, REMARK, 
+      CLIENT_INQUIRY_ID, SALE_STATUS, CRAWL_STATUS, 
+      CRAWL_STORAGE_STATUS, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{createDate,jdbcType=DATE}, #{number,jdbcType=VARCHAR}, 
+      #{supplierId,jdbcType=INTEGER}, #{airTypeId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{clientInquiryId,jdbcType=INTEGER}, #{saleStatus,jdbcType=INTEGER}, #{crawlStatus,jdbcType=INTEGER}, 
+      #{crawlStorageStatus,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierCommissionForStockmarket" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into supplier_commission_for_stockmarket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="number != null" >
+        NUMBER,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="airTypeId != null" >
+        AIR_TYPE_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID,
+      </if>
+      <if test="saleStatus != null" >
+        SALE_STATUS,
+      </if>
+      <if test="crawlStatus != null" >
+        CRAWL_STATUS,
+      </if>
+      <if test="crawlStorageStatus != null" >
+        CRAWL_STORAGE_STATUS,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="airTypeId != null" >
+        #{airTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="clientInquiryId != null" >
+        #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="saleStatus != null" >
+        #{saleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="crawlStatus != null" >
+        #{crawlStatus,jdbcType=INTEGER},
+      </if>
+      <if test="crawlStorageStatus != null" >
+        #{crawlStorageStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierCommissionForStockmarket" >
+    update supplier_commission_for_stockmarket
+    <set >
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="number != null" >
+        NUMBER = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="airTypeId != null" >
+        AIR_TYPE_ID = #{airTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="saleStatus != null" >
+        SALE_STATUS = #{saleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="crawlStatus != null" >
+        CRAWL_STATUS = #{crawlStatus,jdbcType=INTEGER},
+      </if>
+      <if test="crawlStorageStatus != null" >
+        CRAWL_STORAGE_STATUS = #{crawlStorageStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierCommissionForStockmarket" >
+    update supplier_commission_for_stockmarket
+    set CREATE_DATE = #{createDate,jdbcType=DATE},
+      NUMBER = #{number,jdbcType=VARCHAR},
+      SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      AIR_TYPE_ID = #{airTypeId,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      SALE_STATUS = #{saleStatus,jdbcType=INTEGER},
+      CRAWL_STATUS = #{crawlStatus,jdbcType=INTEGER},
+      CRAWL_STORAGE_STATUS = #{crawlStorageStatus,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT DISTINCT
+		scfs.ID,
+		scfs.CREATE_DATE,
+		scfs.NUMBER,
+		scfs.SUPPLIER_ID,
+		scfs.AIR_TYPE_ID,
+		scfs.REMARK,
+		scfs.CLIENT_INQUIRY_ID,
+		scfs.SALE_STATUS,
+		scfs.CRAWL_STATUS,
+		scfs.CRAWL_STORAGE_STATUS,
+		scfs.UPDATE_TIMESTAMP,
+		air.`VALUE` AS AIR_VALUE,
+		air.`CODE` AS AIR_CODE,
+		ci.QUOTE_NUMBER,
+		s.`CODE` AS SUPPLIER_CODE,
+		ci.CLIENT_ID,
+		ci.AIR_TYPE_ID AS INQUIRY_AIR_TYPE_ID
+	FROM
+		supplier_commission_for_stockmarket scfs
+		LEFT JOIN system_code air ON air.ID = scfs.AIR_TYPE_ID
+		LEFT JOIN supplier s ON s.ID = scfs.SUPPLIER_ID
+		LEFT JOIN client_inquiry ci ON ci.ID = scfs.CLIENT_INQUIRY_ID
+		<if test="partNumber != null">
+			LEFT JOIN supplier_commission_for_stockmarket_element scfse ON scfse.SUPPLIER_COMMISSION_FOR_STOCKMARKET_ID = scfs.ID
+		</if>
+	<where>
+		${where}
+	</where>
+	<if test="orderby != null">
+		${orderby}	
+	</if>
+  </select>
+  
+  <select id="getCrawlStockList" resultMap="BaseResultMap">
+  	SELECT
+		scs.ID,
+		scs.CREATE_DATE,
+		scs.NUMBER,
+		scs.SUPPLIER_ID,
+		scs.AIR_TYPE_ID,
+		scs.REMARK,
+		scs.CLIENT_INQUIRY_ID,
+		scs.SALE_STATUS,
+		scs.CRAWL_STATUS,
+		scs.CRAWL_STORAGE_STATUS,
+		scs.UPDATE_TIMESTAMP
+	FROM
+		supplier_commission_for_stockmarket scs
+	WHERE
+		scs.CRAWL_STORAGE_STATUS = 1
+	ORDER BY
+		scs.CREATE_DATE ASC
+  </select>
+  
+</mapper>

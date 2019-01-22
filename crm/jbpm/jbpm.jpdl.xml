@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="jbpm" xmlns="http://jbpm.org/4.4/jpdl">
+   <state name="客户询价" g="161,40,92,52">
+      <transition name="询价明细" to="供应商询价" g="-87,-24"/>
+      <transition name="询价明细" to="爬虫" g="-31,2"/>
+   </state>
+   <state name="入库" g="646,376,92,52">
+      <transition name="显示库存" to="销售出库指令" g="-54,-25"/>
+   </state>
+   <state name="客户报价" g="159,153,92,52">
+      <transition name="生成客户预订单" to="客户预订单" g="-71,-1"/>
+      <transition name="生成客户订单" to="客户订单" g="-90,-6"/>
+   </state>
+   <state name="客户订单" g="160,272,92,52">
+      <transition name="提交订单" to="供应商订单" g="-70,-26"/>
+   </state>
+   <state name="供应商询价" g="627,36,92,52">
+      <transition name="生成报价" to="供应商报价" g="3,-18"/>
+   </state>
+   <state name="爬虫" g="392,81,92,52">
+      <transition name="生成报价" to="供应商报价" g="-44,-26"/>
+   </state>
+   <state name="state7" g="360,334,7,5"/>
+   <state name="出库" g="156,380,92,52"/>
+   <state name="state9" g="407,268,14,5"/>
+   <state name="客户预订单" g="429,203,92,52">
+      <transition name="生成客户订单" to="客户订单" g="-52,-22"/>
+   </state>
+   <state name="供应商报价" g="632,141,92,52">
+      <transition name="报价" to="客户报价" g="-74,-24"/>
+   </state>
+   <state name="供应商订单" g="642,267,92,52">
+      <transition name="货物到达" to="入库" g="-60,-14"/>
+   </state>
+   <state name="销售出库指令" g="379,376,112,52">
+      <transition name="安排出库" to="出库" g="-19,-24"/>
+   </state>
+   <state name="state14" g="1003,427,92,52"/>
+</process>

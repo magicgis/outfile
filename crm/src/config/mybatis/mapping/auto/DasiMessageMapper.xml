@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.DasiMessageDao">
+  <resultMap id="BaseResultMap" type="com.naswork.model.DasiMessage">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DASI_ID" jdbcType="INTEGER" property="dasiId" />
+    <result column="PART_NUMBER" jdbcType="VARCHAR" property="partNumber" />
+    <result column="STORAGE_AMOUNT" jdbcType="VARCHAR" property="storageAmount" />
+    <result column="UPDATE_TIMESTAMP" jdbcType="TIMESTAMP" property="updateTimestamp" />
+    <result column="CLIENT_INQUIRY_ELEMENT_ID" jdbcType="INTEGER" property="clientInquiryElementId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DASI_ID, PART_NUMBER, STORAGE_AMOUNT, UPDATE_TIMESTAMP, CLIENT_INQUIRY_ELEMENT_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dasi_message
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dasi_message
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.DasiMessage">
+    insert into dasi_message (ID, DASI_ID, PART_NUMBER, 
+      STORAGE_AMOUNT, UPDATE_TIMESTAMP, CLIENT_INQUIRY_ELEMENT_ID
+      )
+    values (#{id,jdbcType=INTEGER}, #{dasiId,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, 
+      #{storageAmount,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}, #{clientInquiryElementId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.DasiMessage">
+    insert into dasi_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="dasiId != null">
+        DASI_ID,
+      </if>
+      <if test="partNumber != null">
+        PART_NUMBER,
+      </if>
+      <if test="storageAmount != null">
+        STORAGE_AMOUNT,
+      </if>
+      <if test="updateTimestamp != null">
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="clientInquiryElementId != null">
+        CLIENT_INQUIRY_ELEMENT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dasiId != null">
+        #{dasiId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null">
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="storageAmount != null">
+        #{storageAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null">
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientInquiryElementId != null">
+        #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.DasiMessage">
+    update dasi_message
+    <set>
+      <if test="dasiId != null">
+        DASI_ID = #{dasiId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null">
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="storageAmount != null">
+        STORAGE_AMOUNT = #{storageAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null">
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientInquiryElementId != null">
+        CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.DasiMessage">
+    update dasi_message
+    set DASI_ID = #{dasiId,jdbcType=INTEGER},
+      PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      STORAGE_AMOUNT = #{storageAmount,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getCrawlMessage" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		sm.PART_NUMBER,
+		SUM(sm.STORAGE_AMOUNT) as STORAGE_AMOUNT
+	FROM
+		dasi_message sm
+	WHERE
+		sm.DASI_ID = #{dasiId}
+	GROUP BY
+		sm.CLIENT_INQUIRY_ELEMENT_ID
+  </select>
+  
+</mapper>

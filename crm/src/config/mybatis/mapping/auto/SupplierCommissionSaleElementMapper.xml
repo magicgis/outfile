@@ -1,0 +1,1093 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierCommissionSaleElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierCommissionSaleElement" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_COMMISSION_SALE_ID" property="supplierCommissionSaleId" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="TSN" property="tsn" jdbcType="INTEGER" />
+    <result column="CSN" property="csn" jdbcType="INTEGER" />
+    <result column="VALIDITY" property="validity" jdbcType="DATE" />
+    <result column="ALT" property="alt" jdbcType="VARCHAR" />
+    <result column="CONDITION_CODE" property="conditionCode" jdbcType="VARCHAR" />
+    <result column="CERTIFICATION_CODE" property="certificationCode" jdbcType="VARCHAR" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="FEE_FOR_EXCHANGE_BILL" property="feeForExchangeBill" jdbcType="DOUBLE" />
+    <result column="BANK_COST" property="bankCost" jdbcType="DOUBLE" />
+    <result column="HAZMAT_FEE" property="hazmatFee" jdbcType="DOUBLE" />
+    <result column="OTHER_FEE" property="otherFee" jdbcType="DOUBLE" />
+    <result column="TAG_SRC" property="tagSrc" jdbcType="VARCHAR" />
+    <result column="TAG_DATE" property="tagDate" jdbcType="VARCHAR" />
+    <result column="TRACE" property="trace" jdbcType="VARCHAR" />
+    <result column="WARRANTY" property="warranty" jdbcType="VARCHAR" />
+    <result column="SHORT_PART_NUMBER" property="shortPartNumber" jdbcType="VARCHAR" />
+    <result column="CORE_CHARGE" property="coreCharge" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="QUOTE_FEE_FOR_EXCHANGE_BILL" property="quoteFeeForExchangeBill" jdbcType="VARCHAR" />
+    <result column="QUOTE_BANK_COST" property="quoteBankCost" jdbcType="VARCHAR" />
+    <result column="QUOTE_HAZMAT_FEE" property="quoteHazmatFee" jdbcType="VARCHAR" />
+    <result column="QUOTE_OTHER_FEE" property="quoteOtherFee" jdbcType="VARCHAR" />
+    <result column="moq" property="moq" jdbcType="INTEGER" />
+    <result column="inquiry_count" property="inquiryCount" jdbcType="VARCHAR" />
+    <result column="inquiry_amount" property="inquiryAmount" jdbcType="VARCHAR" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="average" property="average" jdbcType="VARCHAR" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="supplier_name_in_stockmarket" property="supplierNameInStockmarket" jdbcType="VARCHAR" />
+    <result column="AIR_TYPE" property="airType" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.storage.controller.suppliercommissionsale.CountStockMarketVo" id="countStockMarketVo">
+  	<result column="id" property="id" jdbcType="INTEGER" />
+  	<result column="CRAWL_DATE" property="crawlDate" jdbcType="VARCHAR" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="AR" property="ar" jdbcType="DOUBLE" />
+    <result column="SV" property="sv" jdbcType="DOUBLE" />
+    <result column="OH" property="oh" jdbcType="DOUBLE" />
+    <result column="NE" property="ne" jdbcType="DOUBLE" />
+    <result column="COMPLETE" property="complete" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="CONDITION_VALUE" property="conditionValue" jdbcType="DOUBLE" />
+    <result column="SUPPLIER_CODE" property="supplierCode" jdbcType="DOUBLE" />
+    <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_COMMISSION_SALE_ID, REMARK, UPDATE_TIMESTAMP,PART_NUMBER,AMOUNT,DESCRIPTION,CONDITION_ID,CERTIFICATION_ID,PRICE,UNIT,SERIAL_NUMBER,TSN,CSN,VALIDITY,ALT,LEAD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_commission_sale_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_commission_sale_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierCommissionSaleElement" >
+    insert into supplier_commission_sale_element (ID, SUPPLIER_COMMISSION_SALE_ID, REMARK, 
+      UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{supplierCommissionSaleId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierCommissionSaleElement" >
+    insert into supplier_commission_sale_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierCommissionSaleId != null" >
+        SUPPLIER_COMMISSION_SALE_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID,
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER,
+      </if>
+      <if test="tsn != null" >
+        TSN,
+      </if>
+      <if test="csn != null" >
+        CSN,
+      </if>
+      <if test="validity != null" >
+        VALIDITY,
+      </if>
+      <if test="alt != null" >
+        ALT,
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+      <if test="feeForExchangeBill != null" >
+        FEE_FOR_EXCHANGE_BILL,
+      </if>
+      <if test="bankCost != null" >
+        BANK_COST,
+      </if>
+      <if test="hazmatFee != null" >
+        HAZMAT_FEE,
+      </if>
+      <if test="otherFee != null" >
+        OTHER_FEE,
+      </if>
+      <if test="tagSrc != null" >
+        TAG_SRC,
+      </if>
+      <if test="tagDate != null" >
+        TAG_DATE,
+      </if>
+      <if test="trace != null" >
+        TRACE,
+      </if>
+      <if test="warranty != null" >
+        WARRANTY,
+      </if>
+      <if test="shortPartNumber != null" >
+        SHORT_PART_NUMBER,
+      </if>
+      <if test="coreCharge != null" >
+        CORE_CHARGE,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="moq != null" >
+        MOQ,
+      </if>
+      <if test="airType != null">
+          AIR_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierCommissionSaleId != null" >
+        #{supplierCommissionSaleId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionId != null" >
+        #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null" >
+        #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tsn != null" >
+        #{tsn,jdbcType=INTEGER},
+      </if>
+      <if test="csn != null" >
+        #{csn,jdbcType=INTEGER},
+      </if>
+      <if test="validity != null" >
+        #{validity,jdbcType=DATE},
+      </if>
+      <if test="alt != null" >
+        #{alt,jdbcType=VARCHAR},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="feeForExchangeBill != null" >
+        #{feeForExchangeBill,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCost != null" >
+        #{bankCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hazmatFee != null" >
+        #{hazmatFee,jdbcType=DOUBLE},
+      </if>
+      <if test="otherFee != null" >
+        #{otherFee,jdbcType=DOUBLE},
+      </if>
+      <if test="tagSrc != null" >
+        #{tagSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="tagDate != null" >
+        #{tagDate,jdbcType=VARCHAR},
+      </if>
+      <if test="trace != null" >
+        #{trace,jdbcType=VARCHAR},
+      </if>
+      <if test="warranty != null" >
+        #{warranty,jdbcType=VARCHAR},
+      </if>
+      <if test="shortPartNumber != null" >
+        #{shortPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="coreCharge != null" >
+        #{coreCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="moq != null" >
+        #{moq,jdbcType=INTEGER},
+      </if>
+      <if test="airType != null">
+          #{airType,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierCommissionSaleElement" >
+    update supplier_commission_sale_element
+    <set >
+      <if test="supplierCommissionSaleId != null" >
+        SUPPLIER_COMMISSION_SALE_ID = #{supplierCommissionSaleId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID = #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tsn != null" >
+        TSN = #{tsn,jdbcType=INTEGER},
+      </if>
+      <if test="csn != null" >
+        CSN = #{csn,jdbcType=INTEGER},
+      </if>
+      <if test="validity != null" >
+        VALIDITY = #{validity,jdbcType=DATE},
+      </if>
+      <if test="alt != null" >
+        ALT = #{alt,jdbcType=VARCHAR},
+      </if>
+      <if test="feeForExchangeBill != null" >
+        FEE_FOR_EXCHANGE_BILL = #{feeForExchangeBill,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCost != null" >
+        BANK_COST = #{bankCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hazmatFee != null" >
+        HAZMAT_FEE = #{hazmatFee,jdbcType=DOUBLE},
+      </if>
+      <if test="otherFee != null" >
+        OTHER_FEE = #{otherFee,jdbcType=DOUBLE},
+      </if>
+      <if test="tagSrc != null" >
+        TAG_SRC = #{tagSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="tagDate != null" >
+        TAG_DATE = #{tagDate,jdbcType=VARCHAR},
+      </if>
+      <if test="trace != null" >
+        TRACE = #{trace,jdbcType=VARCHAR},
+      </if>
+      <if test="warranty != null" >
+        WARRANTY = #{warranty,jdbcType=VARCHAR},
+      </if>
+      <if test="shortPartNumber != null" >
+        SHORT_PART_NUMBER = #{shortPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="coreCharge != null" >
+        CORE_CHARGE = #{coreCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierCommissionSaleElement" >
+    update supplier_commission_sale_element
+    set SUPPLIER_COMMISSION_SALE_ID = #{supplierCommissionSaleId,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			scie.ID,
+			scie.SUPPLIER_COMMISSION_SALE_ID,
+			scie.REMARK,
+			scie.UPDATE_TIMESTAMP,
+			scie.PART_NUMBER,
+			scie.AMOUNT,
+			cond.ID AS CONDITION_ID,
+			cond.`VALUE` AS CONDITION_VALUE,
+			cond.`CODE` AS CONDITION_CODE,
+			cert.ID AS CERTIFICATION_ID,
+			cert.`VALUE` AS CERTIFICATION_VALUE,
+			cert.`CODE` AS CERTIFICATION_CODE,
+			scie.ALT,
+			scie.CSN,
+			scie.DESCRIPTION,
+			scie.PRICE,
+			scie.SERIAL_NUMBER,
+			scie.TSN,
+			scie.UNIT,
+			scie.LEAD_TIME,
+			scie.BANK_COST as QUOTE_BANK_COST,
+			scie.CORE_CHARGE,
+			scie.FEE_FOR_EXCHANGE_BILL as QUOTE_FEE_FOR_EXCHANGE_BILL,
+			scie.HAZMAT_FEE as QUOTE_HAZMAT_FEE,
+			scie.OTHER_FEE as QUOTE_OTHER_FEE,
+			scie.TAG_DATE,
+			scie.TAG_SRC,
+			scie.WARRANTY,
+			scie.TRACE,
+			scie.LOCATION,
+			scie.moq,
+			scie.AIR_TYPE
+		FROM
+			supplier_commission_sale_element scie
+		LEFT JOIN system_code cond ON cond.ID = scie.CONDITION_ID
+		LEFT JOIN system_code cert ON cert.ID = scie.CERTIFICATION_ID
+		WHERE scie.SUPPLIER_COMMISSION_SALE_ID = #{supplierCommissionSaleId}
+  </select>
+  
+  <select id="selectBySupplierCommissionSaleId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			*
+		FROM
+			supplier_commission_sale_element scie
+		WHERE scie.SUPPLIER_COMMISSION_SALE_ID = #{supplierCommissionSaleId}
+  </select>
+  
+  <select id="getDistinctWithSaleId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT DISTINCT scse.PART_NUMBER,scse.DESCRIPTION,scse.UNIT FROM supplier_commission_sale_element scse
+	WHERE scse.SUPPLIER_COMMISSION_SALE_ID = #{supplierCommissionSaleId}
+  </select>
+  
+  <select id="getCountMessageAverage" parameterType="String" resultType="Double">
+  	<!-- SELECT
+		SUM(IFNULL(sqe.PRICE,0))/COUNT(sqe.ID) AS average
+		FROM
+		client_inquiry_element cie
+		LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		LEFT JOIN client c ON (c.ID = ci.CLIENT_ID and c.`CODE` != 197 AND c.`CODE` != 199 AND c.`CODE` != "-1"  AND c.`CODE` != 998 )
+		LEFT JOIN supplier_inquiry_element sie ON sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		LEFT JOIN supplier_quote_element sqe ON (sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID AND sqe.CONDITION_ID in (40,41,42,43,44)) 
+		WHERE cie.PART_NUMBER = #{partNumber}
+		GROUP BY
+		cie.PART_NUMBER -->
+		
+		SELECT DISTINCT sqe.PRICE
+		FROM
+		(select * from 
+			supplier_quote_element sqe where sqe.PART_NUMBER = #{partNumber}) sqe
+		INNER JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+		INNER JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+		INNER JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		INNER JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		INNER JOIN client c ON c.ID = ci.CLIENT_ID
+		WHERE
+			sqe.CONDITION_ID IN (43, 44)
+		AND sqe.PART_NUMBER = #{partNumber}
+		AND sqe.supplier_quote_status_id != '72'
+		AND sqe.supplier_quote_status_id != '73'
+		AND sq.quote_status_id != 91 AND sqe.PRICE > 0
+		AND c.`CODE` != '-1' AND c.`CODE` != '198'
+		ORDER BY sqe.PRICE
+		
+  </select>
+  
+  <select id="getCountMessage" parameterType="String" resultMap="BaseResultMap">
+  	SELECT
+		COUNT(cie.ID) AS inquiry_count,
+		SUM(cie.AMOUNT) AS inquiry_amount,
+		GROUP_CONCAT(DISTINCT c.`CODE`) AS client_code
+		FROM
+		(select * from client_inquiry_element cie where cie.PART_NUMBER = #{partNumber}) cie
+		INNER JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		INNER JOIN client c ON (c.ID = ci.CLIENT_ID)
+		WHERE cie.PART_NUMBER = #{partNumber}
+		AND c.`CODE` != '197' AND c.`CODE` != '199' AND c.`CODE` != "-1" AND c.`CODE` != '198' AND c.`CODE` != '998' AND ci.INQUIRY_STATUS_ID != 34
+		GROUP BY
+		cie.PART_NUMBER
+  </select>
+  
+  <select id="getSourcePrice" parameterType="String" resultMap="BaseResultMap">
+  	SELECT DISTINCT
+		sqe.PRICE,
+		cie.ID
+	FROM
+		supplier_quote_element sqe
+	LEFT JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+	LEFT JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+	LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+	WHERE
+		ci.ID = #{0}
+	AND cie.PART_NUMBER = #{1}
+	LIMIT 0,
+	 1
+  </select>
+  
+  <select id="getCrawlSupplierList" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+		'' AS ID,
+		s.`CODE` AS supplier_code,
+		s.`NAME` AS supplier_name,
+		s.NAME_IN_STOCKMARKET AS supplier_name_in_stockmarket
+	FROM
+		supplier_commission_for_stockmarket_element scse
+	LEFT JOIN supplier_commission_for_stockmarket scs ON scs.ID = scse.SUPPLIER_COMMISSION_FOR_STOCKMARKET_ID
+	LEFT JOIN stock_market_supplier_map smsm ON smsm.AIR_TYPE_ID = scs.AIR_TYPE_ID
+	LEFT JOIN supplier s ON s.ID = smsm.SUPPLIER_ID
+	WHERE scse.ID = #{id} AND smsm.ID IS NOT NULL
+	UNION
+		SELECT
+			smas.ID,
+			s.`CODE` AS supplier_code,
+			s.`NAME` AS supplier_name,
+			s.NAME_IN_STOCKMARKET AS supplier_name_in_stockmarket
+		FROM
+			supplier_commission_for_stockmarket_element scse
+		LEFT JOIN stock_market_add_supplier smas ON smas.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = scse.ID
+		LEFT JOIN supplier s ON s.ID = smas.SUPPLIER_ID
+		WHERE scse.ID = #{id}  AND smas.ID IS NOT NULL
+  </select>
+  
+  <select id="checkRecord" parameterType="Integer" resultType="Integer">
+  	SELECT count(*) FROM stock_market_add_supplier smas WHERE smas.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{0} AND smas.SUPPLIER_ID = #{1}
+  </select>
+  
+  <select id="getSuppliers" parameterType="Integer" resultType="String">
+  	SELECT DISTINCT smcm.SUPPLIER_CODE FROM stock_market_crawl_message smcm WHERE smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{id}
+  </select>
+  
+  <select id="stockMarketCountMessage" parameterType="page" resultType="java.util.HashMap">
+  	SELECT
+		smc.CRAWL_DATE as crawlDate,
+		smcm.PART_NUMBER as partNumber,
+		<if test="supplier != null">
+			${supplier}
+		</if>
+		SUM(IF(smcm.CONDITION_VALUE = 'AR',smcm.AMOUNT,0)) AS 'ar',
+		SUM(IF(smcm.CONDITION_VALUE = 'SV',smcm.AMOUNT,0)) AS 'sv',
+		SUM(IF(smcm.CONDITION_VALUE = 'OH',smcm.AMOUNT,0)) AS 'oh',
+		SUM(IF(smcm.CONDITION_VALUE = 'NE',smcm.AMOUNT,0)) AS 'ne'
+	FROM
+		stock_market_crawl_message smcm
+	LEFT JOIN stock_market_crawl smc ON smc.ID = smcm.STOCK_MARKET_CRAWL_ID
+	WHERE smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{id}
+	GROUP BY
+		smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID,smc.CRAWL_DATE
+  </select>
+  
+  <select id="getArAmount" parameterType="page" resultMap="countStockMarketVo">
+  	SELECT
+		SUM(IF(smcm.CONDITION_VALUE = 'AR',smcm.AMOUNT,0)) AS 'AR',smc.CRAWL_DATE
+	FROM
+		stock_market_crawl_message smcm
+	LEFT JOIN stock_market_crawl smc ON smc.ID = smcm.STOCK_MARKET_CRAWL_ID
+	WHERE smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{id}
+	<if test="supplier != null">
+		AND smcm.SUPPLIER_CODE = #{supplier}
+	</if>
+	GROUP BY
+		smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID,smc.CRAWL_DATE
+	ORDER BY smc.CRAWL_DATE;
+  </select>
+  
+  <select id="getSvAmount" parameterType="page" resultMap="countStockMarketVo">
+  	SELECT
+		SUM(IF(smcm.CONDITION_VALUE = 'SV',smcm.AMOUNT,0)) AS 'SV',smc.CRAWL_DATE
+	FROM
+		stock_market_crawl_message smcm
+	LEFT JOIN stock_market_crawl smc ON smc.ID = smcm.STOCK_MARKET_CRAWL_ID
+	WHERE smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{id}
+	<if test="supplier != null">
+		AND smcm.SUPPLIER_CODE = #{supplier}
+	</if>
+	GROUP BY
+		smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID,smc.CRAWL_DATE
+	ORDER BY smc.CRAWL_DATE;
+  </select>
+  
+  <select id="getOhAmount" parameterType="page" resultMap="countStockMarketVo">
+  	SELECT
+		SUM(IF(smcm.CONDITION_VALUE = 'OH',smcm.AMOUNT,0)) AS 'OH',smc.CRAWL_DATE
+	FROM
+		stock_market_crawl_message smcm
+	LEFT JOIN stock_market_crawl smc ON smc.ID = smcm.STOCK_MARKET_CRAWL_ID
+	WHERE smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{id}
+	<if test="supplier != null">
+		AND smcm.SUPPLIER_CODE = #{supplier}
+	</if>
+	GROUP BY
+		smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID,smc.CRAWL_DATE
+	ORDER BY smc.CRAWL_DATE;
+  </select>
+  
+  <select id="getNeAmount" parameterType="page" resultMap="countStockMarketVo">
+  	SELECT
+		SUM(IF(smcm.CONDITION_VALUE = 'NE',smcm.AMOUNT,0)) AS 'NE',smc.CRAWL_DATE
+	FROM
+		stock_market_crawl_message smcm
+	LEFT JOIN stock_market_crawl smc ON smc.ID = smcm.STOCK_MARKET_CRAWL_ID
+	WHERE smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{id}
+	<if test="supplier != null">
+		AND smcm.SUPPLIER_CODE = #{supplier}
+	</if>
+	GROUP BY
+		smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID,smc.CRAWL_DATE
+	ORDER BY smc.CRAWL_DATE;
+  </select>
+  
+  <select id="getDateAmount" parameterType="page" resultType="String">
+  	SELECT
+		smc.CRAWL_DATE
+	FROM
+		stock_market_crawl_message smcm
+	LEFT JOIN stock_market_crawl smc ON smc.ID = smcm.STOCK_MARKET_CRAWL_ID
+	WHERE smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{id} AND smc.CRAWL_DATE IS NOT NULL
+	GROUP BY
+		smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID,smc.CRAWL_DATE
+	ORDER BY smc.CRAWL_DATE;
+  </select>
+  
+  <select id="getSupplierList" parameterType="Integer" resultType="String">
+  	SELECT
+		DISTINCT smcm.SUPPLIER_CODE
+	FROM
+		stock_market_crawl_message smcm
+	WHERE smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{id}
+  </select>
+  
+  <select id="checkCrawlRecord" parameterType="Integer" resultType="Integer">
+  	SELECT
+		COUNT(*)
+	FROM
+		stock_market_crawl smc
+	WHERE
+		DATEDIFF(NOW(), smc.UPDATE_TIMESTAMP) &gt;= 7 AND smc.SUPPLIER_COMMISSION_SALE_ID = #{id}
+	AND smc.UPDATE_TIMESTAMP = (
+		SELECT
+			MAX(smc.UPDATE_TIMESTAMP)
+		FROM
+			stock_market_crawl smc where smc.SUPPLIER_COMMISSION_SALE_ID = #{id}
+	) AND smc.COMPLETE = 1;
+  </select>
+  
+  <select id="checkCrawlRecordById" parameterType="Integer" resultType="Integer">
+  	SELECT COUNT(*) FROM stock_market_crawl smc WHERE smc.SUPPLIER_COMMISSION_SALE_ID = #{id}
+  </select>
+  
+  <select id="getStockCrawlListPage" parameterType="page" resultMap="countStockMarketVo">
+  	SELECT
+		smc.id,
+		smc.CRAWL_DATE,
+		smc.COMPLETE,
+		smc.UPDATE_TIMESTAMP,
+		scs.NUMBER AS QUOTE_NUMBER,
+		s.`CODE` AS supplier_code
+	FROM
+		stock_market_crawl smc
+	LEFT JOIN supplier_commission_for_stockmarket scs ON scs.ID = smc.SUPPLIER_COMMISSION_SALE_ID
+	LEFT JOIN supplier s ON s.ID = scs.SUPPLIER_ID
+	<where>
+		${where}
+	</where>
+  	<if test="orderby != null">
+  		${orderby}
+  	</if>
+  </select>
+  
+  <select id="getStockCrawlElementPage" parameterType="page" resultMap="countStockMarketVo">
+  	SELECT
+		smcm.PART_NUMBER,
+		smcm.AMOUNT,
+		smcm.CONDITION_VALUE,
+		smcm.SUPPLIER_CODE,
+		smc.CRAWL_DATE
+	FROM
+		stock_market_crawl_message smcm
+	LEFT JOIN stock_market_crawl smc ON smc.ID = smcm.STOCK_MARKET_CRAWL_ID
+	LEFT JOIN supplier_commission_for_stockmarket scs ON scs.ID = smc.SUPPLIER_COMMISSION_SALE_ID
+	WHERE
+		smcm.STOCK_MARKET_CRAWL_ID = #{stockMarketCrawlId}
+	<if test="where != null">
+		and ${where}
+	</if>
+	<if test="orderby != null">
+		${orderby}
+	</if>
+  </select>
+  
+  <insert id="insertStockMarket" parameterType="String">
+  	insert into stock_market_crawl(COMPLETE,EXCEL_CONPLETE,CRAWL_DATE,SUPPLIER_COMMISSION_SALE_ID) values(0, 0, #{0}, #{1})
+  </insert>
+  
+  <select id="getStockLastInsert" resultType="Integer">
+  	SELECT MAX(smc.ID) FROM stock_market_crawl smc
+  </select>
+  
+  <select id="getDataForPie" parameterType="page" resultType="Double">
+  	SELECT
+		SUM(IF(smcm.CONDITION_VALUE = #{condition,jdbcType=VARCHAR},smcm.AMOUNT,0)) as amount
+	FROM
+		stock_market_crawl_message smcm
+	LEFT JOIN stock_market_crawl smc ON smc.ID = smcm.STOCK_MARKET_CRAWL_ID
+	WHERE 
+		smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{id} AND smcm.CONDITION_VALUE = #{condition,jdbcType=VARCHAR} 
+		<if test="time != null">
+			AND smc.CRAWL_DATE = #{time,jdbcType=VARCHAR} 
+		</if>
+		<if test="supplierCode != null">
+			AND smcm.SUPPLIER_CODE = #{supplierCode,jdbcType=VARCHAR}
+		</if>
+		
+	GROUP BY
+			smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID,smc.CRAWL_DATE
+  </select>
+  
+  <select id="getSupplierCodeByCrawlMessageId" parameterType="Integer" resultType="String">
+  	SELECT DISTINCT smcm.SUPPLIER_CODE FROM stock_market_crawl_message smcm
+		WHERE smcm.STOCK_MARKET_CRAWL_ID = #{id} ORDER BY smcm.SUPPLIER_CODE
+  </select>
+  
+  <select id="getCommissionElementByCrawlMessageId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		scse.ID,
+		scse.PART_NUMBER,
+		scse.AMOUNT,
+		scse.DESCRIPTION
+	FROM
+		stock_market_crawl smc
+	LEFT JOIN supplier_commission_sale scs ON scs.ID = smc.SUPPLIER_COMMISSION_SALE_ID
+	LEFT JOIN supplier_commission_sale_element scse ON scse.SUPPLIER_COMMISSION_SALE_ID = scs.ID
+	WHERE smc.ID = #{id}
+  </select>
+  
+  <select id="getCrawlAmountBySupplier" parameterType="page" resultType="Double">
+  	SELECT
+		SUM(smcm.AMOUNT)
+	FROM
+		stock_market_crawl_message smcm
+	WHERE
+		smcm.STOCK_MARKET_CRAWL_ID = #{crawlId}
+	<if test="supplierCode != null">
+		AND smcm.SUPPLIER_CODE = #{supplierCode}
+	</if>
+	AND smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{supplierCommissionSaleElementId}
+	<if test="condition != null">
+		AND smcm.CONDITION_VALUE = #{condition}
+	</if>
+	<if test="supplierCode != null">
+		GROUP BY smcm.SUPPLIER_CODE
+	</if>
+	<if test="supplierCode == null">
+		GROUP BY smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID
+	</if>
+  </select>
+  
+  <select id="getCountMessageForExcel" parameterType="page" resultType="java.util.HashMap">
+  SELECT a.*,
+	FORMAT((a.ar/a.total*100),2) AS AR_PER,
+	FORMAT((a.sv/a.total*100),2) AS SV_PER,
+	FORMAT((a.oh/a.total*100),2) AS OH_PER,
+	FORMAT((a.ne/a.total*100),2) AS NE_PER,
+	FORMAT(((a.oh + a.sv) / a.total * 100), 2) AS OH_SV_PER,
+	(
+		SELECT GROUP_CONCAT(price ORDER BY price) From
+			(SELECT sqe.PRICE,sqe.PART_NUMBER
+				FROM
+					supplier_quote_element sqe
+				INNER JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+				INNER JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+				INNER JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+				INNER JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+				INNER JOIN client c ON c.ID = ci.CLIENT_ID
+				WHERE
+					sqe.CONDITION_ID IN (1000136,1000137,1000141,43,44)
+				AND sqe.supplier_quote_status_id != '72'
+				AND sqe.supplier_quote_status_id != '73'
+				AND sq.quote_status_id != 91 AND sqe.PRICE > 0
+-- 				AND c.`CODE` != '-1'
+--                 AND c.`CODE` != '198'
+				UNION ALL
+				SELECT scse.PRICE,scse.PART_NUMBER FROM supplier_commission_sale_element scse 
+				LEFT JOIN supplier_commission_sale scs ON scs.ID = scse.SUPPLIER_COMMISSION_SALE_ID
+				WHERE scse.PRICE > 1 AND (scse.CONDITION_ID in (43,44)) AND scs.SALE_STATUS = 1 
+			) price WHERE price.PART_NUMBER = a.PART_NUMBER ORDER BY price.PRICE
+	) AS prices_old,
+	(
+		SELECT GROUP_CONCAT(sqe2.PRICE)
+		FROM
+			client_inquiry_element cie2
+		LEFT JOIN client_inquiry_element ciie2 ON ciie2.main_id = cie2.id
+		INNER JOIN supplier_inquiry_element sie2 ON ciie2.ID = sie2.CLIENT_INQUIRY_ELEMENT_ID
+		INNER JOIN supplier_quote_element sqe2 ON sie2.ID = sqe2.SUPPLIER_INQUIRY_ELEMENT_ID
+		INNER JOIN supplier_quote sq2 ON sq2.ID = sqe2.SUPPLIER_QUOTE_ID
+		INNER JOIN client_inquiry ci2 ON ci2.ID = ciie2.CLIENT_INQUIRY_ID
+		INNER JOIN client c2 ON c2.ID = ci2.CLIENT_ID
+		WHERE
+			sqe2.CONDITION_ID IN (1000136,1000137,1000141,43,44)
+		AND sqe2.supplier_quote_status_id != '72'
+		AND sqe2.supplier_quote_status_id != '73'
+		AND sq2.quote_status_id != 91 AND sqe2.PRICE > 0
+-- 		AND c2.`CODE` != '-1'
+--         AND c2.`CODE` != '198'
+		AND cie2.PART_NUMBER = a.PART_NUMBER AND ciie2.PART_NUMBER != a.PART_NUMBER
+		GROUP BY cie2.PART_NUMBER
+	) AS prices_old_main,
+-- 	(
+-- 		SELECT GROUP_CONCAT(sqe2.PRICE)
+-- 		FROM
+-- 			client_inquiry_element cie2
+-- 		LEFT JOIN client_inquiry_element ciie2 ON ciie2.main_id = cie2.id
+-- 		INNER JOIN supplier_inquiry_element sie2 ON cie2.ID = sie2.CLIENT_INQUIRY_ELEMENT_ID
+-- 		INNER JOIN supplier_quote_element sqe2 ON sie2.ID = sqe2.SUPPLIER_INQUIRY_ELEMENT_ID
+-- 		INNER JOIN supplier_quote sq2 ON sq2.ID = sqe2.SUPPLIER_QUOTE_ID
+-- 		INNER JOIN client_inquiry ci2 ON ci2.ID = ciie2.CLIENT_INQUIRY_ID
+-- 		INNER JOIN client c2 ON c2.ID = ci2.CLIENT_ID
+-- 		WHERE
+-- 			sqe2.CONDITION_ID IN (1000136,1000137,1000141,43,44)
+-- 		AND sqe2.supplier_quote_status_id != '72'
+-- 		AND sqe2.supplier_quote_status_id != '73'
+-- 		AND sq2.quote_status_id != 91 AND sqe2.PRICE > 0
+-- 		AND c2.`CODE` != '-1' AND c2.`CODE` != '198'
+-- 		AND ciie2.PART_NUMBER = a.PART_NUMBER AND cie2.PART_NUMBER != a.PART_NUMBER
+-- 		GROUP BY ciie2.PART_NUMBER
+-- 	) AS prices_old_alter,
+	(
+		SELECT GROUP_CONCAT(sqe.PRICE ORDER BY sqe.PRICE)
+		FROM
+			supplier_quote_element sqe
+		INNER JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+		INNER JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+		INNER JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+		INNER JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		INNER JOIN client c ON c.ID = ci.CLIENT_ID
+		WHERE
+			sqe.CONDITION_ID IN (40,41,42)
+		AND sqe.PART_NUMBER = a.PART_NUMBER
+		AND sqe.supplier_quote_status_id != '72'
+		AND sqe.supplier_quote_status_id != '73'
+		AND sq.quote_status_id != 91 AND sqe.PRICE > 1
+		AND ci.ID != #{clientInquiryId}
+		<!-- AND c.`CODE` != '-1' AND c.`CODE` != '198' -->
+		GROUP BY sqe.PART_NUMBER
+		ORDER BY sqe.PRICE
+	) AS prices_new,
+	(
+		SELECT GROUP_CONCAT(sqe2.PRICE ORDER BY sqe2.PRICE)
+		FROM
+			client_inquiry_element cie2
+		LEFT JOIN client_inquiry_element ciie2 ON ciie2.main_id = cie2.id
+		INNER JOIN supplier_inquiry_element sie2 ON ciie2.ID = sie2.CLIENT_INQUIRY_ELEMENT_ID
+		INNER JOIN supplier_quote_element sqe2 ON sie2.ID = sqe2.SUPPLIER_INQUIRY_ELEMENT_ID
+		INNER JOIN supplier_quote sq2 ON sq2.ID = sqe2.SUPPLIER_QUOTE_ID
+		INNER JOIN client_inquiry ci2 ON ci2.ID = ciie2.CLIENT_INQUIRY_ID
+		INNER JOIN client c2 ON c2.ID = ci2.CLIENT_ID
+		WHERE
+			sqe2.CONDITION_ID IN (40, 41, 42)
+		AND sqe2.supplier_quote_status_id != '72'
+		AND sqe2.supplier_quote_status_id != '73'
+		AND sq2.quote_status_id != 91 AND sqe2.PRICE > 1
+-- 		AND c2.`CODE` != '-1'
+--         AND c2.`CODE` != '198'
+		AND cie2.PART_NUMBER = a.PART_NUMBER AND ciie2.PART_NUMBER != a.PART_NUMBER
+		GROUP BY cie2.PART_NUMBER
+	) AS prices_new_main,
+-- 	(
+-- 		SELECT GROUP_CONCAT(sqe2.PRICE ORDER BY sqe2.PRICE)
+-- 		FROM
+-- 			client_inquiry_element cie2
+-- 		LEFT JOIN client_inquiry_element ciie2 ON ciie2.main_id = cie2.id
+-- 		INNER JOIN supplier_inquiry_element sie2 ON cie2.ID = sie2.CLIENT_INQUIRY_ELEMENT_ID
+-- 		INNER JOIN supplier_quote_element sqe2 ON sie2.ID = sqe2.SUPPLIER_INQUIRY_ELEMENT_ID
+-- 		INNER JOIN supplier_quote sq2 ON sq2.ID = sqe2.SUPPLIER_QUOTE_ID
+-- 		INNER JOIN client_inquiry ci2 ON ci2.ID = ciie2.CLIENT_INQUIRY_ID
+-- 		INNER JOIN client c2 ON c2.ID = ci2.CLIENT_ID
+-- 		WHERE
+-- 			sqe2.CONDITION_ID IN (40, 41, 42)
+-- 		AND sqe2.supplier_quote_status_id != '72'
+-- 		AND sqe2.supplier_quote_status_id != '73'
+-- 		AND sq2.quote_status_id != 91 AND sqe2.PRICE > 1
+-- 		AND c2.`CODE` != '-1' AND c2.`CODE` != '198'
+-- 		AND ciie2.PART_NUMBER = a.PART_NUMBER AND cie2.PART_NUMBER != a.PART_NUMBER
+-- 		GROUP BY ciie2.PART_NUMBER
+-- 	) AS prices_new_alter,
+	(SELECT
+      GROUP_CONCAT(sqe.PRICE ORDER BY sqe.PRICE)
+        FROM
+            supplier_quote_element sqe
+        INNER JOIN supplier_quote sq ON sq.id = sqe.supplier_quote_id
+        INNER JOIN supplier_inquiry_element sie ON sie.id = sqe.supplier_inquiry_element_id
+        INNER JOIN client_inquiry_element cie ON cie.id = sie.client_inquiry_element_id
+        INNER JOIN client_inquiry ci ON ci.id = cie.client_inquiry_id
+        INNER JOIN client c ON c.ID = ci.client_id
+        WHERE
+            sqe.condition_id = 1000138
+        AND sqe.part_number = a.PART_NUMBER
+        AND sqe.supplier_quote_status_id != '72'
+        AND sqe.supplier_quote_status_id != '73'
+        AND sq.quote_status_id != 91
+        AND sqe.price > 1
+--         AND c.`CODE` != '-1'
+--         AND c.`CODE` != '198'
+    ) as mro_overhaul,
+    (SELECT
+        GROUP_CONCAT(sqe.PRICE ORDER BY sqe.PRICE)
+        FROM
+            supplier_quote_element sqe
+        INNER JOIN supplier_quote sq ON sq.id = sqe.supplier_quote_id
+        INNER JOIN supplier_inquiry_element sie ON sie.id = sqe.supplier_inquiry_element_id
+        INNER JOIN client_inquiry_element cie ON cie.id = sie.client_inquiry_element_id
+        INNER JOIN client_inquiry ci ON ci.id = cie.client_inquiry_id
+        INNER JOIN client c ON c.ID = ci.client_id
+        WHERE
+            sqe.condition_id = 1000139
+        AND sqe.part_number = a.PART_NUMBER
+        AND sqe.supplier_quote_status_id != '72'
+        AND sqe.supplier_quote_status_id != '73'
+        AND sq.quote_status_id != 91
+        AND sqe.price > 1
+--         AND c.`CODE` != '-1'
+--         AND c.`CODE` != '198'
+    ) as mro_repair,
+      (SELECT
+      GROUP_CONCAT(sqe.PRICE ORDER BY sqe.PRICE)
+      FROM
+      supplier_quote_element sqe
+      INNER JOIN supplier_quote sq ON sq.id = sqe.supplier_quote_id
+      INNER JOIN supplier_inquiry_element sie ON sie.id = sqe.supplier_inquiry_element_id
+      INNER JOIN client_inquiry_element cie ON cie.id = sie.client_inquiry_element_id
+      INNER JOIN client_inquiry ci ON ci.id = cie.client_inquiry_id
+      INNER JOIN client c ON c.ID = ci.client_id
+      WHERE
+      sqe.condition_id = 1000141
+      AND sqe.part_number = a.PART_NUMBER
+      AND sqe.supplier_quote_status_id != '72'
+      AND sqe.supplier_quote_status_id != '73'
+      AND sq.quote_status_id != 91
+      AND sqe.price > 1
+--       AND c.`CODE` != '-1'
+--       AND c.`CODE` != '198'
+      ) as test_inspected,
+      (SELECT
+      GROUP_CONCAT(sqe.PRICE ORDER BY sqe.PRICE)
+      FROM
+      supplier_quote_element sqe
+      INNER JOIN supplier_quote sq ON sq.id = sqe.supplier_quote_id
+      INNER JOIN supplier_inquiry_element sie ON sie.id = sqe.supplier_inquiry_element_id
+      INNER JOIN client_inquiry_element cie ON cie.id = sie.client_inquiry_element_id
+      INNER JOIN client_inquiry ci ON ci.id = cie.client_inquiry_id
+      INNER JOIN client c ON c.ID = ci.client_id
+      WHERE
+      sqe.condition_id IN (1000136)
+      AND sqe.part_number = a.PART_NUMBER
+      AND sqe.supplier_quote_status_id != '72'
+      AND sqe.supplier_quote_status_id != '73'
+      AND sq.quote_status_id != 91
+      AND sqe.price > 1
+--       AND c.`CODE` != '-1'
+--       AND c.`CODE` != '198'
+      ) as price_sv,
+      (SELECT
+      GROUP_CONCAT(sqe.PRICE ORDER BY sqe.PRICE)
+      FROM
+      supplier_quote_element sqe
+      INNER JOIN supplier_quote sq ON sq.id = sqe.supplier_quote_id
+      INNER JOIN supplier_inquiry_element sie ON sie.id = sqe.supplier_inquiry_element_id
+      INNER JOIN client_inquiry_element cie ON cie.id = sie.client_inquiry_element_id
+      INNER JOIN client_inquiry ci ON ci.id = cie.client_inquiry_id
+      INNER JOIN client c ON c.ID = ci.client_id
+      WHERE
+      sqe.condition_id = 1000137
+      AND sqe.part_number = a.PART_NUMBER
+      AND sqe.supplier_quote_status_id != '72'
+      AND sqe.supplier_quote_status_id != '73'
+      AND sq.quote_status_id != 91
+      AND sqe.price > 1
+--       AND c.`CODE` != '-1'
+--       AND c.`CODE` != '198'
+      ) as price_oh,
+      (SELECT
+      GROUP_CONCAT(sqe.PRICE ORDER BY sqe.PRICE)
+      FROM
+      supplier_quote_element sqe
+      INNER JOIN supplier_quote sq ON sq.id = sqe.supplier_quote_id
+      INNER JOIN supplier_inquiry_element sie ON sie.id = sqe.supplier_inquiry_element_id
+      INNER JOIN client_inquiry_element cie ON cie.id = sie.client_inquiry_element_id
+      INNER JOIN client_inquiry ci ON ci.id = cie.client_inquiry_id
+      INNER JOIN client c ON c.ID = ci.client_id
+      WHERE
+      sqe.condition_id = 48
+      AND sqe.part_number = a.PART_NUMBER
+      AND sqe.supplier_quote_status_id != '72'
+      AND sqe.supplier_quote_status_id != '73'
+      AND sq.quote_status_id != 91
+      AND sqe.price > 1
+--       AND c.`CODE` != '-1'
+--       AND c.`CODE` != '198'
+      ) as mro_test,
+	(
+		SELECT CONCAT(MAX(sqe.PRICE),",",MIN(sqe.PRICE)) FROM client_inquiry ci
+			LEFT JOIN client_inquiry_element cie ON cie.CLIENT_INQUIRY_ID = ci.ID
+			LEFT JOIN supplier_inquiry_element sie ON sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+			LEFT JOIN supplier_quote_element sqe ON sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+			WHERE sqe.PART_NUMBER = a.PART_NUMBER AND ci.ID = #{clientInquiryId} GROUP BY ci.ID
+	) AS MAX_AND_MIN,
+	b.inquiry_amount,
+	b.inquiry_count,
+	b.client_code
+	FROM (
+		SELECT
+			scse.ID,
+			scse.ITEM,
+			scse.IS_REPLACE,
+			scse.PART_NUMBER AS PART_NUMBER,
+			scse.DESCRIPTION,
+			scse.AMOUNT,
+			scse.SERIAL_NUMBER,
+			scse.DOM,
+			scse.CONDITION_VALUE,
+			scse.MANUFACTURER,
+			scse.AR_PRICE,
+            scse.TSN,
+            scse.CSN,
+            scse.ATA,
+            scse.ALT,
+            scse.AR_SALE_PRICE,
+			countMessage.*
+		FROM
+			(SELECT * FROM supplier_commission_for_stockmarket_element scfse WHERE scfse.SUPPLIER_COMMISSION_FOR_STOCKMARKET_ID = #{assetId}) scse
+		LEFT JOIN (
+		  	SELECT
+				smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID,
+				<if test="append != null">
+					${append}
+				</if>
+				SUM(IF(smcm.CONDITION_VALUE = 'AR',smcm.AMOUNT,0)) AS 'ar',
+				SUM(IF(smcm.CONDITION_VALUE = 'SV',smcm.AMOUNT,0)) AS 'sv',
+				SUM(IF(smcm.CONDITION_VALUE = 'OH',smcm.AMOUNT,0)) AS 'oh',
+				SUM(IF(smcm.CONDITION_VALUE = 'NE',smcm.AMOUNT,0)) AS 'ne',
+				SUM(smcm.AMOUNT) AS total
+			FROM
+				stock_market_crawl_message smcm
+			LEFT JOIN stock_market_crawl smc ON smc.ID = smcm.STOCK_MARKET_CRAWL_ID
+			WHERE smc.ID = #{id}
+			GROUP BY
+				smcm.SUPPLIER_COMMISSION_SALE_ELEMENT_ID) countMessage ON countMessage.SUPPLIER_COMMISSION_SALE_ELEMENT_ID = scse.ID ORDER BY scse.IS_REPLACE,scse.ITEM
+	) a
+	LEFT JOIN (
+		SELECT
+			COUNT(cie.ID) AS inquiry_count,
+			SUM(cie.AMOUNT) AS inquiry_amount,
+			GROUP_CONCAT(DISTINCT c.`CODE`) AS client_code,
+			cie.PART_NUMBER,
+			scfse.id
+		FROM
+			(
+				SELECT
+					*
+				FROM
+					supplier_commission_for_stockmarket_element sc
+				WHERE
+					sc.SUPPLIER_COMMISSION_FOR_STOCKMARKET_ID = #{assetId}
+			) scfse
+		LEFT JOIN client_inquiry_element cie ON scfse.PART_NUMBER = cie.PART_NUMBER
+		INNER JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		INNER JOIN client c ON (c.ID = ci.CLIENT_ID)
+		AND c.`CODE` != '197'
+		AND c.`CODE` != '199'
+		AND c.`CODE` != "-1"
+		AND c.`CODE` != '198'
+		AND c.`CODE` != '998'
+		AND ci.INQUIRY_STATUS_ID != 34
+		AND scfse.SUPPLIER_COMMISSION_FOR_STOCKMARKET_ID = #{assetId}
+		GROUP BY
+			cie.PART_NUMBER,scfse.id
+	) b ON a.PART_NUMBER = b.PART_NUMBER AND b.id = a.id
+  </select>
+  
+  <select id="getTotalBySupplier" parameterType="Integer" resultType="java.util.HashMap">
+  	SELECT
+		SUM(smcm.AMOUNT) as AMOUNT,
+		smcm.SUPPLIER_CODE
+	FROM
+		stock_market_crawl_message smcm
+	WHERE
+		smcm.STOCK_MARKET_CRAWL_ID = #{id}
+	GROUP BY
+		smcm.SUPPLIER_CODE
+	ORDER BY
+		smcm.SUPPLIER_CODE
+  </select>
+  
+  <select id="getSubTotalBySupplier" parameterType="page" resultType="java.util.HashMap">
+  	SELECT
+		<if test="append != null">
+			${append}
+		</if>
+	FROM
+		stock_market_crawl_message smcm
+	WHERE
+		smcm.STOCK_MARKET_CRAWL_ID = #{id}
+	GROUP BY
+		smcm.SUPPLIER_CODE
+  </select>
+  
+</mapper>

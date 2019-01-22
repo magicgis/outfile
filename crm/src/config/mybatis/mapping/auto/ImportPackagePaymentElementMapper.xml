@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ImportPackagePaymentElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ImportPackagePaymentElement" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_PAYMENT_ID" property="importPackagePaymentId" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_PAYMENT_ELEMENT_ID" property="importPackagePaymentElementId" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ELEMENT_ID" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="PAYMENT_SUM" property="paymentSum" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="should_pay" property="shouldPay" jdbcType="DOUBLE" />
+    <result column="PAYMENT_PERCENTAGE" property="paymentPercentage" jdbcType="DOUBLE" />
+    <result column="SPZT" property="spzt" jdbcType="INTEGER" />
+    <result column="jbyj" property="jbyj" jdbcType="VARCHAR" />
+    <result column="arrears_total" property="arrearsTotal" jdbcType="DOUBLE" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="IMPORT_DATE" property="importDate" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+    <result column="PAYMENT_NUMBER" property="paymentNumber" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_PAYMENT_ID, IMPORT_PACKAGE_ELEMENT_ID, PAYMENT_SUM, REMARK, UPDATE_TIMESTAMP, 
+    SUPPLIER_ORDER_ELEMENT_ID,AMOUNT,PAYMENT_PERCENTAGE,SPZT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_package_payment_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from import_package_payment_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ImportPackagePaymentElement" >
+    insert into import_package_payment_element (ID, IMPORT_PACKAGE_PAYMENT_ID, IMPORT_PACKAGE_ELEMENT_ID, 
+      PAYMENT_SUM, REMARK, UPDATE_TIMESTAMP, 
+      SUPPLIER_ORDER_ELEMENT_ID)
+    values (#{id,jdbcType=INTEGER}, #{importPackagePaymentId,jdbcType=INTEGER}, #{importPackageElementId,jdbcType=INTEGER}, 
+      #{paymentSum,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}, 
+      #{supplierOrderElementId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ImportPackagePaymentElement" >
+    insert into import_package_payment_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importPackagePaymentId != null" >
+        IMPORT_PACKAGE_PAYMENT_ID,
+      </if>
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID,
+      </if>
+      <if test="paymentSum != null" >
+        PAYMENT_SUM,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="supplierOrderElementId != null" >
+        SUPPLIER_ORDER_ELEMENT_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="paymentPercentage != null" >
+        PAYMENT_PERCENTAGE,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importPackagePaymentId != null" >
+        #{importPackagePaymentId,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageElementId != null" >
+        #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentSum != null" >
+        #{paymentSum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplierOrderElementId != null" >
+        #{supplierOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="paymentPercentage != null" >
+        #{paymentPercentage,jdbcType=DOUBLE},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ImportPackagePaymentElement" >
+    update import_package_payment_element
+    <set >
+      <if test="importPackagePaymentId != null" >
+        IMPORT_PACKAGE_PAYMENT_ID = #{importPackagePaymentId,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentSum != null" >
+        PAYMENT_SUM = #{paymentSum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplierOrderElementId != null" >
+        SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="paymentPercentage != null" >
+        PAYMENT_PERCENTAGE = #{paymentPercentage,jdbcType=DOUBLE},
+      </if>
+        <if test="spzt != null" >
+        SPZT = #{spzt,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ImportPackagePaymentElement" >
+    update import_package_payment_element
+    set IMPORT_PACKAGE_PAYMENT_ID = #{importPackagePaymentId,jdbcType=INTEGER},
+      IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      PAYMENT_SUM = #{paymentSum,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER}
+        SPZT = #{spzt,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+   <update id="updateBySupplierOrderElementId" parameterType="com.naswork.model.ImportPackagePaymentElement" >
+    update import_package_payment_element
+    set  AMOUNT = #{amount,jdbcType=DOUBLE}
+    where  SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			ippe.ID,
+			ippe.IMPORT_PACKAGE_PAYMENT_ID,
+			ippe.IMPORT_PACKAGE_ELEMENT_ID,
+			ippe.PAYMENT_SUM,
+			ippe.REMARK,t.user_name,
+			ippe.UPDATE_TIMESTAMP,
+			ippe.SUPPLIER_ORDER_ELEMENT_ID,
+			ippe.AMOUNT,
+			ippe.PAYMENT_PERCENTAGE,
+			ippe.SPZT,
+			(ippe.AMOUNT * ippe.PAYMENT_PERCENTAGE * soe.PRICE)/100 AS should_pay,
+			so.ORDER_NUMBER,
+			sqe.PART_NUMBER
+		FROM
+			import_package_payment_element ippe
+		LEFT JOIN import_package_element ipe ON ipe.ID = ippe.IMPORT_PACKAGE_ELEMENT_ID
+		LEFT JOIN supplier_order_element soe ON soe.ID = ippe.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier_quote_element sqe ON sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+		LEFT JOIN jbpm4_task jt on jt.RELATION_ID=ippe.ID
+	 	LEFT JOIN t_user t on t.user_id=jt.assignee_
+		WHERE
+			ippe.IMPORT_PACKAGE_PAYMENT_ID = #{importPackagePaymentId}
+  </select>
+  
+   <select id="tasklistPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+  			jht.dbid_ id,
+  			ippe.IMPORT_PACKAGE_PAYMENT_ID,
+			ippe.ID IMPORT_PACKAGE_PAYMENT_ELEMENT_ID,
+			ippe.IMPORT_PACKAGE_ELEMENT_ID,
+			ippe.PAYMENT_SUM,
+			ippe.REMARK,
+			ippe.UPDATE_TIMESTAMP,
+			ippe.SUPPLIER_ORDER_ELEMENT_ID,
+			ippe.AMOUNT,
+			ippe.PAYMENT_PERCENTAGE,
+			ippe.SPZT,
+			au.TOTAL arrears_total,
+			(ippe.AMOUNT * ippe.PAYMENT_PERCENTAGE * soe.PRICE)/100 AS should_pay,
+			so.ORDER_NUMBER,jj.jbyj,
+			sqe.PART_NUMBER,ip.import_date
+		FROM
+			import_package_payment_element ippe
+		LEFT JOIN supplier_order_element soe ON soe.ID = ippe.SUPPLIER_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_import_element sie ON sie.supplier_order_element_id=soe.id
+		LEFT JOIN import_package_element ipe ON  sie.import_package_element_id=ipe.id
+		LEFT JOIN import_package ip ON ip.id=ipe.import_package_id
+		LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+		LEFT JOIN supplier_quote_element sqe ON sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+		LEFT JOIN arrears_use au ON au.IMPORT_PACKAGE_PAYMENT_ELEMENT_ID=ippe.id
+		<if test="null!=taskId">
+	    INNER JOIN jbpm4_hist_task jht on jht.YW_TABLE_ELEMENT_ID=ippe.id
+	    LEFT JOIN jbpm4_jbyj jj on jj.task_id=jht.dbid_
+	    WHERE
+			ippe.id in (${importPackagePaymentElementId}) and jht.execution_ like 'PaymentProcess.IMPORT_PACKAGE_PAYMENT_ELEMENT.ID.%'
+			and jht.dbid_=${taskId}
+	    </if>
+	    <if test="null==taskId">
+	    INNER JOIN jbpm4_task jht on jht.YW_TABLE_ELEMENT_ID=ippe.id
+	       LEFT JOIN jbpm4_jbyj jj on jj.task_id=jht.dbid_
+	    WHERE
+			ippe.id in (${importPackagePaymentElementId}) and jht.execution_id_ like 'PaymentProcess.IMPORT_PACKAGE_PAYMENT_ELEMENT.ID.%'
+	    </if> 
+	    group by ippe.id
+	    order by ip.import_date desc
+  </select>
+  
+  <select id="elementList" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT ippe.*,so.ORDER_NUMBER,sqe.PART_NUMBER,sqe.DESCRIPTION,sqe.UNIT,soe.PRICE,
+  		ipe.SERIAL_NUMBER,ippe.REMARK,ci.quote_number, ipp.PAYMENT_NUMBER,
+			(soe.PRICE*ippe.AMOUNT*ippe.PAYMENT_PERCENTAGE/100) AS should_pay,
+			ippe.PAYMENT_SUM
+			FROM import_package_payment_element ippe 
+			LEFT JOIN import_package_payment ipp on ipp.ID = ippe.IMPORT_PACKAGE_PAYMENT_ID
+			LEFT JOIN import_package_element ipe on ipe.ID = ippe.IMPORT_PACKAGE_ELEMENT_ID
+			LEFT JOIN supplier_order_element soe on soe.ID = ippe.SUPPLIER_ORDER_ELEMENT_ID
+			LEFT JOIN supplier_order so on so.ID = soe.SUPPLIER_ORDER_ID
+			LEFT JOIN supplier_quote_element sqe on sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+			LEFT JOIN client_order_element coe on coe.id=soe.client_order_element_id
+			LEFT JOIN client_quote_element cqe on cqe.id=coe.client_quote_element_id
+			LEFT JOIN client_inquiry_element cie on cie.id=cqe.client_inquiry_element_id
+			LEFT JOIN client_inquiry ci on ci.id=cie.client_inquiry_id
+			where ippe.IMPORT_PACKAGE_PAYMENT_ID = #{importPackagePaymentId}
+  </select>
+  
+   <select id="elementData" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT ippe.*,so.ORDER_NUMBER,sqe.PART_NUMBER,
+			(soe.PRICE*ippe.AMOUNT*ippe.PAYMENT_PERCENTAGE/100) AS should_pay
+			FROM import_package_payment_element ippe 
+			LEFT JOIN import_package_payment ipp on ipp.ID = ippe.IMPORT_PACKAGE_PAYMENT_ID
+			LEFT JOIN import_package_element ipe on ipe.ID = ippe.IMPORT_PACKAGE_ELEMENT_ID
+			LEFT JOIN supplier_order_element soe on soe.ID = ippe.SUPPLIER_ORDER_ELEMENT_ID
+			LEFT JOIN supplier_order so on so.ID = soe.SUPPLIER_ORDER_ID
+			LEFT JOIN supplier_quote_element sqe on sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+			where ippe.ID = #{importPackagePaymentElementId}
+  </select>
+  
+  <select id="selectBySupplierOrderElementId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			ippe.AMOUNT,
+			ippe.PAYMENT_PERCENTAGE
+		FROM
+			import_package_payment_element ippe
+		WHERE
+			ippe.SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId};
+  </select>
+  
+  <select id="selectByImportPackagePaymentId" parameterType="Integer" resultMap="BaseResultMap">
+ 	 SELECT SUM(au.TOTAL) arrears_total,au.supplier_code FROM import_package_payment_element ippe INNER JOIN
+		arrears_use au on au.IMPORT_PACKAGE_PAYMENT_ELEMENT_ID=ippe.ID
+		where ippe.IMPORT_PACKAGE_PAYMENT_ID= #{importPackagePaymentId}
+  </select>
+  
+  <select id="getPaymentRecord" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT
+		ippe.*,
+		soe.PRICE * soe.AMOUNT as total
+	FROM
+		import_package_payment_element ippe
+	LEFT JOIN import_package_payment ipp ON ippe.IMPORT_PACKAGE_PAYMENT_ID = ipp.ID
+	LEFT JOIN supplier_order_element soe ON ippe.SUPPLIER_ORDER_ELEMENT_ID = soe.ID
+	WHERE ippe.SUPPLIER_ORDER_ELEMENT_ID = #{supplierOrderElementId}  AND ipp.PAYMENT_TYPE = 0;
+  </select>
+  
+</mapper>

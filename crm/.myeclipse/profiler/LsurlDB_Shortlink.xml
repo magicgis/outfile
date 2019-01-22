@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="app_preset_prof_preset_name">LsurlDB_Shortlink Launch Configuration</entry>
+<entry key="profiler.settings.sampling.interval">10</entry>
+<entry key="app_preset_prof_preset_filter_s"/>
+<entry key="app_preset_prof_preset_filter_p">com.naswork.codegenerator.*,&#13;
+com.naswork.common.constants.*,&#13;
+com.naswork.common.controller.*,&#13;
+com.naswork.common.exception.*,&#13;
+com.naswork.common.init.*,&#13;
+com.naswork.common.tag.*,&#13;
+com.naswork.dao.*,&#13;
+com.naswork.filter.*,&#13;
+com.naswork.interceptor.*,&#13;
+com.naswork.model.*,&#13;
+com.naswork.module.crmstock.controller.*,&#13;
+com.naswork.module.finance.controller.clientinvoice.*,&#13;
+com.naswork.module.finance.controller.clientreceipt.*,&#13;
+com.naswork.module.finance.controller.importpayment.*,&#13;
+com.naswork.module.gy.controller.*,&#13;
+com.naswork.module.home.controller.*,&#13;
+com.naswork.module.marketing.controller.clientinquiry.*,&#13;
+com.naswork.module.marketing.controller.clientorder.*,&#13;
+com.naswork.module.marketing.controller.clientquote.*,&#13;
+com.naswork.module.marketing.controller.clientweatherorder.*,&#13;
+com.naswork.module.marketing.controller.dueremind.*,&#13;
+com.naswork.module.marketing.controller.historicalorderprice.*,&#13;
+com.naswork.module.marketing.controller.partsinformation.*,&#13;
+com.naswork.module.purchase.controller.importpackage.*,&#13;
+com.naswork.module.purchase.controller.supplierinquiry.*,&#13;
+com.naswork.module.purchase.controller.supplierorder.*,&#13;
+com.naswork.module.purchase.controller.supplierquote.*,&#13;
+com.naswork.module.rfqstock.controller.*,&#13;
+com.naswork.module.statistics.controller.*,&#13;
+com.naswork.module.storage.controller.clientship.*,&#13;
+com.naswork.module.storage.controller.exchangeimport.*,&#13;
+com.naswork.module.storage.controller.exportpackage.*,&#13;
+com.naswork.module.storage.controller.onpassagestorage.*,&#13;
+com.naswork.module.storage.controller.storagedetail.*,&#13;
+com.naswork.module.storage.controller.storehouseaddress.*,&#13;
+com.naswork.module.storage.controller.suppliercommissionsale.*,&#13;
+com.naswork.module.system.controller.airmanage.*,&#13;
+com.naswork.module.system.controller.businessmanage.*,&#13;
+com.naswork.module.system.controller.clientmanage.*,&#13;
+com.naswork.module.system.controller.competitormanage.*,&#13;
+com.naswork.module.system.controller.exchangerate.*,&#13;
+com.naswork.module.system.controller.orderbankcharges.*,&#13;
+com.naswork.module.system.controller.parttype.*,&#13;
+com.naswork.module.system.controller.quotebankcharges.*,&#13;
+com.naswork.module.system.controller.staticprice.*,&#13;
+com.naswork.module.system.controller.suppliermanage.*,&#13;
+com.naswork.module.system.controller.supplierpnmanage.*,&#13;
+com.naswork.module.task.controller.abnormalpart.*,&#13;
+com.naswork.module.task.controller.ask4leave.*,&#13;
+com.naswork.module.task.controller.contractreview.*,&#13;
+com.naswork.module.task.controller.orderapproval.*,&#13;
+com.naswork.module.task.controller.payment.*,&#13;
+com.naswork.module.workflow.constants.*,&#13;
+com.naswork.module.workflow.controller.*,&#13;
+com.naswork.module.workflow.utils.*,&#13;
+com.naswork.module.workflow.vo.*,&#13;
+com.naswork.module.xtgl.controller.*,&#13;
+com.naswork.pdf.*,&#13;
+com.naswork.service.*,&#13;
+com.naswork.utils.*,&#13;
+com.naswork.vo.*,&#13;
+config.mybatis.auto.*</entry>
+<entry key="profiler.settings.n.profiled.threads.limit">32</entry>
+<entry key="app_preset_prof_preset_alloc_p">10</entry>
+<entry key="profiler.settings.instrument.method.invoke">true</entry>
+<entry key="app_preset_"/>
+<entry key="profiler.settings.obj.alloc.stack.sampling.depth">0</entry>
+<entry key="app_preset_prof_preset_samplingRefreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_stacks_p">false</entry>
+<entry key="app_preset_prof_preset_roots_p">com.naswork.codegenerator.**
+com.naswork.common.constants.**
+com.naswork.common.controller.**
+com.naswork.common.exception.**
+com.naswork.common.init.**
+com.naswork.common.tag.**
+com.naswork.dao.**
+com.naswork.filter.**
+com.naswork.interceptor.**
+com.naswork.model.**
+com.naswork.module.crmstock.controller.**
+com.naswork.module.finance.controller.clientinvoice.**
+com.naswork.module.finance.controller.clientreceipt.**
+com.naswork.module.finance.controller.importpayment.**
+com.naswork.module.gy.controller.**
+com.naswork.module.home.controller.**
+com.naswork.module.marketing.controller.clientinquiry.**
+com.naswork.module.marketing.controller.clientorder.**
+com.naswork.module.marketing.controller.clientquote.**
+com.naswork.module.marketing.controller.clientweatherorder.**
+com.naswork.module.marketing.controller.dueremind.**
+com.naswork.module.marketing.controller.historicalorderprice.**
+com.naswork.module.marketing.controller.partsinformation.**
+com.naswork.module.purchase.controller.importpackage.**
+com.naswork.module.purchase.controller.supplierinquiry.**
+com.naswork.module.purchase.controller.supplierorder.**
+com.naswork.module.purchase.controller.supplierquote.**
+com.naswork.module.rfqstock.controller.**
+com.naswork.module.statistics.controller.**
+com.naswork.module.storage.controller.clientship.**
+com.naswork.module.storage.controller.exchangeimport.**
+com.naswork.module.storage.controller.exportpackage.**
+com.naswork.module.storage.controller.onpassagestorage.**
+com.naswork.module.storage.controller.storagedetail.**
+com.naswork.module.storage.controller.storehouseaddress.**
+com.naswork.module.storage.controller.suppliercommissionsale.**
+com.naswork.module.system.controller.airmanage.**
+com.naswork.module.system.controller.businessmanage.**
+com.naswork.module.system.controller.clientmanage.**
+com.naswork.module.system.controller.competitormanage.**
+com.naswork.module.system.controller.exchangerate.**
+com.naswork.module.system.controller.orderbankcharges.**
+com.naswork.module.system.controller.parttype.**
+com.naswork.module.system.controller.quotebankcharges.**
+com.naswork.module.system.controller.staticprice.**
+com.naswork.module.system.controller.suppliermanage.**
+com.naswork.module.system.controller.supplierpnmanage.**
+com.naswork.module.task.controller.abnormalpart.**
+com.naswork.module.task.controller.ask4leave.**
+com.naswork.module.task.controller.contractreview.**
+com.naswork.module.task.controller.orderapproval.**
+com.naswork.module.task.controller.payment.**
+com.naswork.module.workflow.constants.**
+com.naswork.module.workflow.controller.**
+com.naswork.module.workflow.utils.**
+com.naswork.module.workflow.vo.**
+com.naswork.module.xtgl.controller.**
+com.naswork.pdf.**
+com.naswork.service.**
+com.naswork.utils.**
+com.naswork.vo.**
+config.mybatis.auto.**
+</entry>
+<entry key="profiler.settings.instrument.empty.methods">false</entry>
+<entry key="myeclipse.profiling.mode">0</entry>
+<entry key="profiler.settings.istrument.getter.setter.methods">false</entry>
+<entry key="app_preset_prof_preset_samplingRate_s">100</entry>
+<entry key="profiler.settings.instr.scheme">1</entry>
+<entry key="profiler.settings.cpu.profiling.type">0</entry>
+<entry key="app_preset_prof_preset_selector"/>
+<entry key="app_preset_prof_preset_filterMode_s">true</entry>
+<entry key="app_preset_prof_preset_runnables_p">true</entry>
+<entry key="app_preset_prof_preset_refreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_filterMode_p">false</entry>
+<entry key="app_preset_prof_preset_memoryMode_p">true</entry>
+</properties>

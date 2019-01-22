@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.CheckStorageByLocationDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.CheckStorageByLocation" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ELEMENT_ID" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="importPackageElement" type="com.naswork.model.ImportPackageElement" >
+    <result column="SUPPLIER_ORDER_ELEMENT_ID" property="supplierOrderElementId" jdbcType="INTEGER" />
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="import_package_element_id" property="importPackageElementId" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_ID" property="importPackageId" jdbcType="INTEGER" />
+    <result column="ELEMENT_ID" property="elementId" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_NUMBER" property="originalNumber" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_DATE" property="certificationDate" jdbcType="DATE" />
+    <result column="CERTIFICATION_STATUS_ID" property="certificationStatusId" jdbcType="INTEGER" />
+    <result column="IMPORT_PACKAGE_SIGN" property="importPackageSign" jdbcType="INTEGER" />
+    <result column="COMPLETE_COMPLIANCE_CERTIFICATE" property="completeComplianceCertificate" jdbcType="INTEGER" />
+    <result column="COMPLIANCE_CERTIFICATE" property="complianceCertificate" jdbcType="INTEGER" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="IMPORT_NUMBER" property="importPackageNumber" jdbcType="VARCHAR" />
+    <result column="INSPECTION_DATE" property="inspectionDate" jdbcType="DATE" />
+    <result column="MANUFACTURE_DATE" property="manufactureDate" jdbcType="DATE" />
+    <result column="HAS_LIFE" property="hasLife" jdbcType="INTEGER" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="DATE" />
+    <result column="REST_LIFE" property="restLife" jdbcType="INTEGER" />
+    <result column="REST_LIFE_EMAIL" property="restLifeEmail" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, IMPORT_PACKAGE_ELEMENT_ID, LOCATION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from check_storage_by_location
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from check_storage_by_location
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.CheckStorageByLocation" >
+    insert into check_storage_by_location (ID, IMPORT_PACKAGE_ELEMENT_ID, LOCATION
+      )
+    values (#{id,jdbcType=INTEGER}, #{importPackageElementId,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.CheckStorageByLocation" >
+    insert into check_storage_by_location
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="importPackageElementId != null" >
+        #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.CheckStorageByLocation" >
+    update check_storage_by_location
+    <set >
+      <if test="importPackageElementId != null" >
+        IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.CheckStorageByLocation" >
+    update check_storage_by_location
+    set IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId,jdbcType=INTEGER},
+      LOCATION = #{location,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByLocation" parameterType="String" resultMap="BaseResultMap">
+  	SELECT * FROM check_storage_by_location csbl WHERE csbl.LOCATION = #{location}
+  </select>
+  
+  <select id="selectByImportPackageElementId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT * FROM check_storage_by_location csbl WHERE csbl.IMPORT_PACKAGE_ELEMENT_ID = #{importPackageElementId}
+  </select>
+  
+  <select id="listPage" parameterType="page" resultMap="importPackageElement">
+  	SELECT
+		ipe.ID,
+		ipe.PART_NUMBER,
+		ipe.DESCRIPTION,
+		ipe.AMOUNT,
+		ipe.LOCATION,
+		ip.IMPORT_NUMBER,
+		s.`CODE` AS supplier_code
+	FROM
+		check_storage_by_location csbl
+	LEFT JOIN import_package_element ipe ON ipe.ID = csbl.IMPORT_PACKAGE_ELEMENT_ID
+	LEFT JOIN import_package ip ON ip.ID = ipe.IMPORT_PACKAGE_ID
+	LEFT JOIN supplier s ON s.ID = ip.SUPPLIER_ID
+	WHERE ipe.LOCATION = #{location}
+  </select>
+  
+</mapper>

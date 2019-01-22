@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.StockMarketSupplierMapDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.StockMarketSupplierMap" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="AIR_TYPE_ID" property="airTypeId" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_ID, AIR_TYPE_ID, UPDATE_TIMESTAMP, CREATE_USER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock_market_supplier_map
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stock_market_supplier_map
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.StockMarketSupplierMap" >
+    insert into stock_market_supplier_map (ID, SUPPLIER_ID, AIR_TYPE_ID, 
+      UPDATE_TIMESTAMP, CREATE_USER)
+    values (#{id,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, #{airTypeId,jdbcType=INTEGER}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.StockMarketSupplierMap" >
+    insert into stock_market_supplier_map
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="airTypeId != null" >
+        AIR_TYPE_ID,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="airTypeId != null" >
+        #{airTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.StockMarketSupplierMap" >
+    update stock_market_supplier_map
+    <set >
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="airTypeId != null" >
+        AIR_TYPE_ID = #{airTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.StockMarketSupplierMap" >
+    update stock_market_supplier_map
+    set SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      AIR_TYPE_ID = #{airTypeId,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+		smsm.ID,
+		tu.login_name AS user_name,
+		s.`CODE` as supplier_code,
+		s.`NAME` as supplier_name,
+		smsm.UPDATE_TIMESTAMP
+	FROM
+		stock_market_supplier_map smsm
+	LEFT JOIN supplier s ON s.ID = smsm.SUPPLIER_ID
+	LEFT JOIN t_user tu ON tu.user_id = smsm.CREATE_USER
+	WHERE smsm.AIR_TYPE_ID = #{airId}
+	<if test="orderby != null">
+		${orderby}
+	</if>
+  </select>
+  
+  <select id="checkRecord" parameterType="com.naswork.model.StockMarketSupplierMap" resultMap="BaseResultMap">
+  	SELECT * FROM stock_market_supplier_map smsm WHERE smsm.AIR_TYPE_ID = #{airTypeId} AND smsm.SUPPLIER_ID = #{supplierId} LIMIT 0,1
+  </select>
+
+  <select id="getSupplierIdByAirTypeId"  resultMap="BaseResultMap">
+    SELECT *
+    FROM stock_market_supplier_map
+    WHERE air_type_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

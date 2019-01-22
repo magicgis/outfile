@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.VstorageJournalDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.VstorageJournal" >
+    <result column="part_number" property="partNumber" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="exchange_rate" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="base_price" property="basePrice" jdbcType="DOUBLE" />
+    <result column="total_base_price" property="totalBasePrice" jdbcType="DOUBLE" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="import_number" property="importNumber" jdbcType="VARCHAR" />
+    <result column="import_date" property="importDate" jdbcType="DATE" />
+    <result column="export_number" property="exportNumber" jdbcType="VARCHAR" />
+    <result column="export_date" property="exportDate" jdbcType="DATE" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="storage_type" property="storageType" jdbcType="VARCHAR" />
+    <result column="storage_date" property="storageDate" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.naswork.model.VstorageJournal" extends="BaseResultMap" >
+    <result column="part_number_code" property="partNumberCode" jdbcType="VARBINARY" />
+  </resultMap>
+  <sql id="Blob_Column_List" >
+    part_number_code
+  </sql>
+  <insert id="insert" parameterType="com.naswork.model.VstorageJournal" >
+    insert into v_storage_journal (part_number, description, unit, 
+      amount, price, location, 
+      exchange_rate, base_price, total_base_price, 
+      supplier_id, supplier_code, client_id, 
+      client_code, import_number, import_date, 
+      export_number, export_date, order_number, 
+      storage_type, storage_date, part_number_code
+      )
+    values (#{partNumber,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, #{location,jdbcType=VARCHAR}, 
+      #{exchangeRate,jdbcType=DOUBLE}, #{basePrice,jdbcType=DOUBLE}, #{totalBasePrice,jdbcType=DOUBLE}, 
+      #{supplierId,jdbcType=INTEGER}, #{supplierCode,jdbcType=VARCHAR}, #{clientId,jdbcType=INTEGER}, 
+      #{clientCode,jdbcType=VARCHAR}, #{importNumber,jdbcType=VARCHAR}, #{importDate,jdbcType=DATE}, 
+      #{exportNumber,jdbcType=VARCHAR}, #{exportDate,jdbcType=DATE}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{storageType,jdbcType=VARCHAR}, #{storageDate,jdbcType=DATE}, #{partNumberCode,jdbcType=VARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.VstorageJournal" >
+    insert into v_storage_journal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partNumber != null" >
+        part_number,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="exchangeRate != null" >
+        exchange_rate,
+      </if>
+      <if test="basePrice != null" >
+        base_price,
+      </if>
+      <if test="totalBasePrice != null" >
+        total_base_price,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="supplierCode != null" >
+        supplier_code,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="clientCode != null" >
+        client_code,
+      </if>
+      <if test="importNumber != null" >
+        import_number,
+      </if>
+      <if test="importDate != null" >
+        import_date,
+      </if>
+      <if test="exportNumber != null" >
+        export_number,
+      </if>
+      <if test="exportDate != null" >
+        export_date,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="storageType != null" >
+        storage_type,
+      </if>
+      <if test="storageDate != null" >
+        storage_date,
+      </if>
+      <if test="partNumberCode != null" >
+        part_number_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeRate != null" >
+        #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="basePrice != null" >
+        #{basePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="totalBasePrice != null" >
+        #{totalBasePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierCode != null" >
+        #{supplierCode,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="clientCode != null" >
+        #{clientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="importNumber != null" >
+        #{importNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="importDate != null" >
+        #{importDate,jdbcType=DATE},
+      </if>
+      <if test="exportNumber != null" >
+        #{exportNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="exportDate != null" >
+        #{exportDate,jdbcType=DATE},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="storageType != null" >
+        #{storageType,jdbcType=VARCHAR},
+      </if>
+      <if test="storageDate != null" >
+        #{storageDate,jdbcType=DATE},
+      </if>
+      <if test="partNumberCode != null" >
+        #{partNumberCode,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+</mapper>

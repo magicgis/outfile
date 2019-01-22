@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="orderapproval" xmlns="http://jbpm.org/4.4/jpdl">
+   <start g="69,222,48,48" name="start1">
+      <transition g="-63,-25" name="利润率低于标准" to="财务审核"/>
+   </start>
+   <task g="270,220,92,52" name="财务审核">
+      <transition g="-13,-31" name="通过" to="end1"/>
+      <transition g="-59,-15" name="不通过" to="采购询问供应商能否降价"/>
+   </task>
+   <end g="493,224,48,48" name="end1"/>
+   <task g="130,341,197,52" name="采购询问供应商能否降价">
+      <transition g="-69,-7" name="不能降价" to="总经理审核"/>
+      <transition g="-1,5" name="已降价" to="end1"/>
+   </task>
+   <task g="341,474,92,52" name="总经理审核">
+      <transition g="18,1" name="不通过，此项目作废" to="exclusive2"/>
+      <transition g="-35,-15" name="通过" to="exclusive1"/>
+   </task>
+   <decision g="488,371,48,48" name="exclusive2">
+      <transition to="end1"/>
+   </decision>
+   <decision g="409,358,48,48" name="exclusive1">
+      <transition to="end1"/>
+   </decision>
+</process>

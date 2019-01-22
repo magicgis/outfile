@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.AviallQuoteElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.AviallQuoteElement" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="UNIT_PRICE" property="unitPrice" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="CERTIFICATION" property="certification" jdbcType="VARCHAR" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="AVIALL_QUOTE_ID" property="aviallQuoteId" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ELEMENT_ID" property="clientInquiryElementId" jdbcType="INTEGER" />
+    <result column="STOCK_MESSAGE" property="stockMessage" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATETIME" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="IF_DANGER" property="ifDanger" jdbcType="INTEGER" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PART_NUMBER, DESCRIPTION, UNIT_PRICE, CURRENCY, CERTIFICATION, LEAD_TIME, AVIALL_QUOTE_ID, 
+    CLIENT_INQUIRY_ELEMENT_ID, STOCK_MESSAGE, UPDATE_DATETIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from aviall_quote_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from aviall_quote_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.AviallQuoteElement" >
+    insert into aviall_quote_element (ID, PART_NUMBER, DESCRIPTION, 
+      UNIT_PRICE, CURRENCY, CERTIFICATION, 
+      LEAD_TIME, AVIALL_QUOTE_ID, CLIENT_INQUIRY_ELEMENT_ID, 
+      STOCK_MESSAGE, UPDATE_DATETIME)
+    values (#{id,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{unitPrice,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, #{certification,jdbcType=VARCHAR}, 
+      #{leadTime,jdbcType=VARCHAR}, #{aviallQuoteId,jdbcType=INTEGER}, #{clientInquiryElementId,jdbcType=INTEGER}, 
+      #{stockMessage,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.AviallQuoteElement" >
+    insert into aviall_quote_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="unitPrice != null" >
+        UNIT_PRICE,
+      </if>
+      <if test="currency != null" >
+        CURRENCY,
+      </if>
+      <if test="certification != null" >
+        CERTIFICATION,
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+      <if test="aviallQuoteId != null" >
+        AVIALL_QUOTE_ID,
+      </if>
+      <if test="clientInquiryElementId != null" >
+        CLIENT_INQUIRY_ELEMENT_ID,
+      </if>
+      <if test="stockMessage != null" >
+        STOCK_MESSAGE,
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="certification != null" >
+        #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="aviallQuoteId != null" >
+        #{aviallQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryElementId != null" >
+        #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="stockMessage != null" >
+        #{stockMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.AviallQuoteElement" >
+    update aviall_quote_element
+    <set >
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        UNIT_PRICE = #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        CURRENCY = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="certification != null" >
+        CERTIFICATION = #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="aviallQuoteId != null" >
+        AVIALL_QUOTE_ID = #{aviallQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryElementId != null" >
+        CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="stockMessage != null" >
+        STOCK_MESSAGE = #{stockMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.AviallQuoteElement" >
+    update aviall_quote_element
+    set PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      UNIT_PRICE = #{unitPrice,jdbcType=VARCHAR},
+      CURRENCY = #{currency,jdbcType=VARCHAR},
+      CERTIFICATION = #{certification,jdbcType=VARCHAR},
+      LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      AVIALL_QUOTE_ID = #{aviallQuoteId,jdbcType=INTEGER},
+      CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER},
+      STOCK_MESSAGE = #{stockMessage,jdbcType=VARCHAR},
+      UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getByClientInquiryElementId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT <include refid="Base_Column_List" /> FROM aviall_quote_element aqe WHERE aqe.CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId}
+  </select>
+  
+  <select id="selectByClientInquiryId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT aqe.* FROM aviall_quote_element aqe LEFT JOIN aviall_quote aq ON aq.ID = aqe.AVIALL_QUOTE_ID WHERE aq.CLIENT_INQUIRY_ID = #{0} and aq.id = #{1} and aqe.UNIT_PRICE IS NOT NULL and aqe.UNIT_PRICE != "" and aqe.UNIT_PRICE != 0
+  </select>
+  
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.HighPriceCrawlQuoteDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.HighPriceCrawlQuote" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_QUOTE_ID" property="supplierQuoteId" jdbcType="INTEGER" />
+    <result column="IS_SEND" property="isSend" jdbcType="INTEGER" />
+    <result column="PERSON" property="person" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_QUOTE_ID, IS_SEND,PERSON
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from high_price_crawl_quote
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from high_price_crawl_quote
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.HighPriceCrawlQuote" >
+    insert into high_price_crawl_quote (ID, SUPPLIER_QUOTE_ID, IS_SEND
+      )
+    values (#{id,jdbcType=INTEGER}, #{supplierQuoteId,jdbcType=INTEGER}, #{isSend,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.HighPriceCrawlQuote" >
+    insert into high_price_crawl_quote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierQuoteId != null" >
+        SUPPLIER_QUOTE_ID,
+      </if>
+      <if test="isSend != null" >
+        IS_SEND,
+      </if>
+      <if test="person != null" >
+        PERSON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierQuoteId != null" >
+        #{supplierQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="isSend != null" >
+        #{isSend,jdbcType=INTEGER},
+      </if>
+      <if test="person != null" >
+        #{person,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.HighPriceCrawlQuote" >
+    update high_price_crawl_quote
+    <set >
+      <if test="supplierQuoteId != null" >
+        SUPPLIER_QUOTE_ID = #{supplierQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="isSend != null" >
+        IS_SEND = #{isSend,jdbcType=INTEGER},
+      </if>
+      <if test="person != null" >
+        PERSON = #{person,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.HighPriceCrawlQuote" >
+    update high_price_crawl_quote
+    set SUPPLIER_QUOTE_ID = #{supplierQuoteId,jdbcType=INTEGER},
+      IS_SEND = #{isSend,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getUnFinishList" resultMap="BaseResultMap">
+  	SELECT * FROM high_price_crawl_quote hpcq WHERE hpcq.IS_SEND = 0
+  </select>
+  
+  <select id="getBySupplierQuoteId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT * FROM high_price_crawl_quote hpcq WHERE hpcq.SUPPLIER_QUOTE_ID = #{supplierQuoteId} and hpcq.IS_SEND != 1
+  </select>
+  
+</mapper>

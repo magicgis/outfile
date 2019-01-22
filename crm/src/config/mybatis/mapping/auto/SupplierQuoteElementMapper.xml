@@ -1,0 +1,1244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierQuoteElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierQuoteElement" >
+    <result column="condition_value" property="conditionValue" jdbcType="VARCHAR" />
+    <result column="condition_code" property="conditionCode" jdbcType="VARCHAR" />
+     <result column="certification_code" property="certificationCode" jdbcType="VARCHAR" />
+    <result column="certification_value" property="certificationValue" jdbcType="VARCHAR" />
+    <result column="supplier_quote_status_value" property="supplierQuoteStatusValue" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_QUOTE_ID" property="supplierQuoteId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_INQUIRY_ELEMENT_ID" property="supplierInquiryElementId" jdbcType="INTEGER" />
+    <result column="ELEMENT_ID" property="elementId" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="ALTER_PART_NUMBER" property="alterPartNumber" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+    <result column="CONDITION_ID" property="conditionId" jdbcType="INTEGER" />
+    <result column="CERTIFICATION_ID" property="certificationId" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_QUOTE_STATUS_ID" property="supplierQuoteStatusId" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="moq" property="moq" jdbcType="INTEGER" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="supplier_inquiry_number" property="supplierInquiryNumber" jdbcType="VARCHAR" />
+    <result column="client_inquiry_number" property="clientInquiryNumber" jdbcType="VARCHAR" />
+    <result column="QUOTE_DATE" property="quoteDate" jdbcType="DATE" />
+      <result column="validity" property="validity" jdbcType="DATE" />
+      <result column="warranty" property="warranty" jdbcType="VARCHAR" />
+     <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+     <result column="tag_src" property="tagSrc" jdbcType="VARCHAR" />
+     <result column="tag_date" property="tagDate" jdbcType="VARCHAR" />
+     <result column="trace" property="trace" jdbcType="VARCHAR" />
+      <result column="EXCHANGE_RATE" property="exchangeRate" jdbcType="DOUBLE" />
+       <result column="supplier_inquiry_quote_number" property="supplierInquiryQuoteNumber" jdbcType="VARCHAR" />
+      <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+      <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+      <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+       <result column="COUNTER_FEE" property="counterFee" jdbcType="DOUBLE" />
+        <result column="freight" property="freight" jdbcType="DOUBLE" />
+      <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+      <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+      <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+      <result column="AVAILABLE_QTY" property="availableQty" jdbcType="DOUBLE" />
+      <result column="QUOTE_NUMBER" property="quoteNumber" jdbcType="VARCHAR" />
+      <result column="CORE_CHARGE" property="coreCharge" jdbcType="VARCHAR" />
+      <result column="FEE_FOR_EXCHANGE_BILL" property="feeForExchangeBill" jdbcType="VARCHAR" />
+      <result column="BANK_COST" property="bankCost" jdbcType="DOUBLE" />
+      <result column="HAZMAT_FEE" property="hazmatFee" jdbcType="DOUBLE" />
+      <result column="OTHER_FEE" property="otherFee" jdbcType="DOUBLE" />
+      <result column="IS_AGENT_VALUE" property="isAgentValue" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ListDateMap" type="com.naswork.module.purchase.controller.supplierquote.SupplierQuoteVo" >
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+    <result column="cie_client_inquiry_id" property="cieClientInquiryId" jdbcType="INTEGER" />
+    <result column="supplier_inquiry_quote_number" property="supplierInquiryQuoteNumber" jdbcType="VARCHAR" />
+    <result column="supplier_inquiry_date" property="supplierInquiryDate" jdbcType="DATE" />
+    <result column="supplier_deadline" property="supplierDeadline" jdbcType="DATE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+ 	<result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_INQUIRY_ID" property="supplierInquiryId" jdbcType="INTEGER" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+  
+    <result column="QUOTE_DATE" property="quoteDate" jdbcType="DATE" />
+ 	<result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="supplier_contact_name" property="supplierContactName" jdbcType="VARCHAR" />
+    <result column="supplier_fax" property="supplierFax" jdbcType="VARCHAR" />
+ 	<result column="client_inquiry_quote_number" property="clientInquiryQuoteNumber" jdbcType="VARCHAR" />
+ 	<result column="INQUIRY_STATUS_ID" property="inquiryStatusId" jdbcType="INTEGER" />
+ 	<result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+ 	<result column="AIR_TYPE_ID" property="airTypeId" jdbcType="INTEGER" />
+ 	<result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+ 	<result column="air_type_code" property="airTypeCode" jdbcType="VARCHAR" />
+ 	<result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+ 	<result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+ 	<result column="rate" property="rate" jdbcType="DOUBLE" />
+ 	<result column="item" property="item" jdbcType="INTEGER" />
+ 	<result column="quote_part_number" property="quotePartNumber" jdbcType="VARCHAR" />
+ 	<result column="quote_description" property="quoteDescription" jdbcType="VARCHAR" />
+ 	<result column="quote_amount" property="quoteAmount" jdbcType="DOUBLE" />
+ 	<result column="quote_unit" property="quoteUnit" jdbcType="VARCHAR" />
+ 	<result column="price" property="price" jdbcType="DOUBLE" />
+ 	<result column="LEAD_TIME" property="leadTime" jdbcType="VARCHAR" />
+ 	<result column="condition_code" property="conditionCode" jdbcType="VARCHAR" />
+ 	<result column="certification_code" property="certificationCode" jdbcType="VARCHAR" />
+ 	<result column="supplier_quote_status_value" property="supplierQuoteStatusValue" jdbcType="VARCHAR" />
+ 	<result column="quote_remark" property="quoteRemark" jdbcType="VARCHAR" />
+ 	<result column="condition_value" property="conditionValue" jdbcType="VARCHAR" />
+ 	<result column="certification_value" property="certificationValue" jdbcType="VARCHAR" />
+ 	<result column="supplier_quote_status_code" property="supplierQuoteStatusCode" jdbcType="VARCHAR" />
+ 	<result column="supplier_quote_status_id" property="supplierQuoteStatusId" jdbcType="INTEGER" />
+ 	<result column="certification_id" property="certificationId" jdbcType="INTEGER" />
+ 	<result column="condition_id" property="conditionId" jdbcType="INTEGER" />
+    <result column="source_number" property="sourceNumber" jdbcType="VARCHAR"></result>
+  </resultMap>
+  
+   <resultMap id="InquiryDateMap" type="com.naswork.module.purchase.controller.supplierquote.SupplierInquiryEmelentVo" >
+    <result column="csn" property="csn" jdbcType="INTEGER" />
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_INQUIRY_ID" property="supplierInquiryId" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ELEMENT_ID" property="clientInquiryElementId" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+	<result column="supplier_inquiry_quote_number" property="supplierInquiryQuoteNumber" jdbcType="VARCHAR" />
+	<result column="ELEMENT_ID" property="elementId" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="ITEM" property="item" jdbcType="INTEGER" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="validity" property="validity" jdbcType="DOUBLE" />
+    <result column="t_part_remark" property="tPartRemark" jdbcType="VARCHAR" />
+    <result column="bank_cost" property="bankCost" jdbcType="DOUBLE" />
+ </resultMap>
+  
+  
+  
+    <select id="findMaxItem" parameterType="Integer" resultType="java.lang.Integer">
+  		 SELECT  IFNULL(max(cie.item),0)
+			   FROM supplier_quote_element sqe  
+			   INNER JOIN supplier_quote sq ON (sqe.supplier_quote_id=sq.id)   
+			   INNER JOIN supplier_inquiry_element sie ON (sqe.supplier_inquiry_element_id=sie.id)  
+			   INNER JOIN client_inquiry_element cie ON (sie.client_inquiry_element_id=cie.id)  
+			 WHERE sq.id=#{id}
+  </select>
+  
+  <select id="findsupplierquote" parameterType="Integer" resultMap="ListDateMap">
+  		SELECT sq.id, sq.supplier_inquiry_id, sq.quote_date,  
+			   si.client_inquiry_id, ci.quote_number AS client_inquiry_quote_number, ci.inquiry_status_id,  
+			   ci.client_id, c.code AS client_code,  
+			   ci.air_type_id, at.code AS air_type_code,  
+			   si.supplier_id, s.code AS supplier_code, s.name AS supplier_name,  
+			   s.contact_name AS supplier_contact_name, s.fax AS supplier_fax,  
+			   si.quote_number AS supplier_inquiry_quote_number,  
+			   si.inquiry_date AS supplier_inquiry_date, si.deadline AS supplier_deadline,  
+			   sq.currency_id, cu.code AS currency_code, cu.value AS currency_value, cu.rate,  
+			   sq.exchange_rate, si.remark, si.update_timestamp  
+			   FROM supplier_inquiry si  
+			   INNER JOIN supplier_quote sq ON (si.id=sq.supplier_inquiry_id)  
+			   INNER JOIN supplier s ON (si.supplier_id=s.id)  
+			   INNER JOIN client_inquiry ci ON (si.client_inquiry_id=ci.id)  
+			   INNER JOIN client c ON (ci.client_id=c.id)  
+			   INNER JOIN system_code at ON (ci.air_type_id=at.id)  
+			   INNER JOIN system_code bt ON (ci.biz_type_id=bt.id)  
+			   INNER JOIN v_currency cu ON (sq.currency_id=cu.id) 
+				WHERE sq.id=#{id}			   
+    </select>
+    
+    <select id="findsupplierinquiryelement" parameterType="Integer" resultMap="InquiryDateMap">
+     		SELECT
+				sie.id,
+				cie.csn,
+				sie.supplier_inquiry_id,
+				si.quote_number AS supplier_inquiry_quote_number,
+				sie.client_inquiry_element_id,
+				cie.item,
+				cie.element_id,
+				cie.part_number,
+				cie.description,
+				cie.remark,
+				cie.unit,
+				cie.amount,
+				sie.update_timestamp,
+				sq.validity,
+				tp.REMARK AS t_part_remark,
+				s.COUNTER_FEE AS bank_cost
+			FROM
+				supplier_inquiry_element sie
+			INNER JOIN supplier_inquiry si ON (
+				sie.supplier_inquiry_id = si.id
+			)
+			INNER JOIN client_inquiry ci ON (si.client_inquiry_id = ci.id)
+			INNER JOIN supplier s ON (si.supplier_id = s.id)
+			INNER JOIN client_inquiry_element cie ON (
+				sie.client_inquiry_element_id = cie.id
+			)
+			INNER JOIN supplier_quote sq ON (
+				sq.SUPPLIER_INQUIRY_ID = si.id
+			)
+			LEFT JOIN crmstock.t_part tp ON tp.BSN = cie.BSN
+			WHERE
+				sie.supplier_inquiry_id = #{0} and sq.id=#{1}
+  	</select>
+  
+  <sql id="Base_Column_List" >
+    sqe.ID, sqe.SUPPLIER_QUOTE_ID,sqe.SUPPLIER_INQUIRY_ELEMENT_ID, sqe.ELEMENT_ID, sqe.PART_NUMBER, sqe.DESCRIPTION, si.quote_number AS supplier_inquiry_quote_number,IFNULL(sqe.bank_cost,0) bank_cost,IFNULL(sqe.HAZMAT_FEE,0) as HAZMAT_FEE,
+    sqe.AMOUNT, sqe.UNIT, sqe.PRICE, sqe.LEAD_TIME, sqe.CONDITION_ID, sqe.CERTIFICATION_ID, sqe.REMARK, sqe.SUPPLIER_QUOTE_STATUS_ID, si.SUPPLIER_ID,IFNULL(sqe.freight,0) freight,sqe.AVAILABLE_QTY,
+    sqe.UPDATE_TIMESTAMP,a.value as condition_value,a.code as condition_code,b.code as certification_code,sqe.tag_src,sqe.tag_date,sqe.trace,sq.currency_id,CORE_CHARGE,IFNULL(sqe.FEE_FOR_EXCHANGE_BILL,0) FEE_FOR_EXCHANGE_BILL,
+    b.value as certification_value,c.value as supplier_quote_status_value,sqe.location,sqe.moq,sqe.validity,sqe.warranty,sqe.serial_number,s.code,sq.EXCHANGE_RATE,IFNULL(s.COUNTER_FEE,0) COUNTER_FEE,IFNULL(sqe.OTHER_FEE,0) OTHER_FEE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_quote_element sqe
+    INNER JOIN supplier_quote sq on sq.id=sqe.supplier_quote_id
+     INNER JOIN system_code a ON (sqe.CONDITION_ID=a.id)  
+      INNER JOIN system_code b ON (sqe.CERTIFICATION_ID=b.id)  
+       INNER JOIN system_code c ON (sqe.SUPPLIER_QUOTE_STATUS_ID=c.id)  
+       INNER JOIN supplier_inquiry_element sie on sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID 
+		INNER JOIN supplier_inquiry si on si.ID = sie.SUPPLIER_INQUIRY_ID
+		INNER JOIN supplier s on s.ID = si.SUPPLIER_ID
+    where sqe.ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_quote_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierQuoteElement" >
+   <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into supplier_quote_element (ID, SUPPLIER_QUOTE_ID, SUPPLIER_INQUIRY_ELEMENT_ID, 
+      ELEMENT_ID, PART_NUMBER, DESCRIPTION, 
+      AMOUNT, UNIT, PRICE,CORE_CHARGE, 
+      LEAD_TIME, CONDITION_ID, CERTIFICATION_ID, 
+      REMARK, SUPPLIER_QUOTE_STATUS_ID, UPDATE_TIMESTAMP,location,bank_cost,HAZMAT_FEE
+      )
+    values (#{id,jdbcType=INTEGER}, #{supplierQuoteId,jdbcType=INTEGER}, #{supplierInquiryElementId,jdbcType=INTEGER}, 
+      #{elementId,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DOUBLE}, #{unit,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{coreCharge,jdbcType=VARCHAR},
+      #{leadTime,jdbcType=VARCHAR}, #{conditionId,jdbcType=INTEGER}, #{certificationId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{supplierQuoteStatusId,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP}, #{location,jdbcType=VARCHAR}, #{bankCost,jdbcType=DOUBLE}, #{hazmatFee,jdbcType=DOUBLE}
+      )
+  </insert>
+  
+   <insert id="insertelement" parameterType="com.naswork.model.SupplierQuoteElement" >
+   	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+  INSERT INTO element (part_number_code,update_timestamp) VALUES (#{partNumber,jdbcType=VARCHAR},CURRENT_TIMESTAMP) 
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierQuoteElement" >
+   	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+    insert into supplier_quote_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierQuoteId != null" >
+        SUPPLIER_QUOTE_ID,
+      </if>
+      <if test="supplierInquiryElementId != null" >
+        SUPPLIER_INQUIRY_ELEMENT_ID,
+      </if>
+      <if test="elementId != null" >
+        ELEMENT_ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+       <if test="alterPartNumber != null" >
+        ALTER_PART_NUMBER,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+       <if test="location != null" >
+        location,
+      </if>
+       <if test="moq != null" >
+        moq,
+      </if>
+        <if test="leadTime != null" >
+        LEAD_TIME,
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID,
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="supplierQuoteStatusId != null" >
+        SUPPLIER_QUOTE_STATUS_ID,
+      </if>
+          <if test="validity != null" >
+        VALIDITY,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="warranty != null" >
+        WARRANTY,
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER,
+      </if>
+      <if test="tagSrc != null" >
+        TAG_SRC,
+      </if>
+      <if test="tagDate != null" >
+        TAG_DATE,
+      </if>
+      <if test="trace != null" >
+        TRACE,
+      </if>
+      <if test="availableQty != null" >
+        AVAILABLE_QTY,
+      </if>
+      <if test="coreCharge != null" >
+        CORE_CHARGE,
+      </if>
+      <if test="shortPartNumber != null" >
+        SHORT_PART_NUMBER,
+      </if>
+      <if test="feeForExchangeBill != null" >
+        FEE_FOR_EXCHANGE_BILL,
+      </if>
+      <if test="bankCost != null" >
+        bank_cost,
+      </if>
+      <if test="hazmatFee != null" >
+        HAZMAT_FEE,
+      </if>
+      <if test="otherFee != null" >
+        OTHER_FEE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierQuoteId != null" >
+        #{supplierQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierInquiryElementId != null" >
+        #{supplierInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="elementId != null" >
+        #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="alterPartNumber != null" >
+        #{alterPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+       <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="moq != null" >
+        #{moq,jdbcType=INTEGER},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionId != null" >
+        #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null" >
+        #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierQuoteStatusId != null" >
+        #{supplierQuoteStatusId,jdbcType=INTEGER},
+      </if>
+       <if test="validity != null" >
+        #{validity,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+        <if test="warranty != null" >
+        #{warranty,jdbcType=VARCHAR},
+      </if>
+        <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+        <if test="tagSrc != null" >
+        #{tagSrc,jdbcType=VARCHAR},
+      </if>
+        <if test="tagDate != null" >
+        #{tagDate,jdbcType=VARCHAR},
+      </if>
+        <if test="trace != null" >
+        #{trace,jdbcType=VARCHAR},
+      </if>
+      <if test="availableQty != null" >
+        #{availableQty,jdbcType=DOUBLE},
+      </if>
+      <if test="coreCharge != null" >
+        #{coreCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="shortPartNumber != null" >
+        #{shortPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="feeForExchangeBill != null" >
+        #{feeForExchangeBill,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCost != null" >
+        #{bankCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hazmatFee != null" >
+        #{hazmatFee,jdbcType=DOUBLE},
+      </if>
+      <if test="otherFee != null" >
+        #{otherFee,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierQuoteElement" >
+    update supplier_quote_element
+    <set >
+      <if test="supplierQuoteId != null" >
+        SUPPLIER_QUOTE_ID = #{supplierQuoteId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierInquiryElementId != null" >
+        SUPPLIER_INQUIRY_ELEMENT_ID = #{supplierInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="elementId != null" >
+        ELEMENT_ID = #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="leadTime != null" >
+        LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionId != null" >
+        CONDITION_ID = #{conditionId,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null" >
+        CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierQuoteStatusId != null" >
+        SUPPLIER_QUOTE_STATUS_ID = #{supplierQuoteStatusId,jdbcType=INTEGER},
+      </if>
+        <if test="validity != null" >
+        VALIDITY = #{validity,jdbcType=TIMESTAMP},
+       </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freight != null" >
+       	FREIGHT = #{freight,jdbcType=INTEGER},
+      </if>
+      <if test="moq != null" >
+       	MOQ = #{moq,jdbcType=INTEGER},
+      </if>
+      <if test="coreCharge != null" >
+        CORE_CHARGE = #{coreCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="feeForExchangeBill != null" >
+        FEE_FOR_EXCHANGE_BILL = #{feeForExchangeBill,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCost != null" >
+        bank_cost = #{bankCost,jdbcType=DOUBLE},
+      </if>
+      <if test="location != null" >
+          location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="hazmatFee != null" >
+        HAZMAT_FEE = #{hazmatFee,jdbcType=DOUBLE},
+      </if>
+      <if test="otherFee != null" >
+        OTHER_FEE = #{otherFee,jdbcType=DOUBLE},
+      </if>
+      <if test="availableQty != null" >
+        AVAILABLE_QTY = #{availableQty,jdbcType=DOUBLE},
+      </if>
+       WARRANTY= #{warranty,jdbcType=VARCHAR},
+       SERIAL_NUMBER= #{serialNumber,jdbcType=VARCHAR},
+      TAG_SRC=  #{tagSrc,jdbcType=VARCHAR},
+      TAG_DATE=  #{tagDate,jdbcType=VARCHAR},
+       TRACE= #{trace,jdbcType=VARCHAR}
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <update id="updateBySupplierQuoteId" parameterType="com.naswork.model.SupplierQuoteElement" >
+    update supplier_quote_element
+    <set >
+    
+      <if test="supplierQuoteStatusId != null" >
+        SUPPLIER_QUOTE_STATUS_ID = #{supplierQuoteStatusId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where  SUPPLIER_QUOTE_ID = #{supplierQuoteId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierQuoteElement" >
+    update supplier_quote_element
+    set 
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=DOUBLE},
+      LEAD_TIME = #{leadTime,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      moq=#{moq,jdbcType=INTEGER},
+      CONDITION_ID = #{conditionId,jdbcType=INTEGER},
+      CERTIFICATION_ID = #{certificationId,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      SUPPLIER_QUOTE_STATUS_ID = #{supplierQuoteStatusId,jdbcType=INTEGER},
+      FREIGHT = #{freight,jdbcType=INTEGER},
+      VALIDITY = #{validity,jdbcType=TIMESTAMP},
+      CORE_CHARGE = #{coreCharge,jdbcType=VARCHAR},
+      bank_cost = #{bankCost,jdbcType=DOUBLE},
+      HAZMAT_FEE = #{hazmatFee,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = CURRENT_TIMESTAMP
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listByPartNumberPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT 
+				sqe.ID,
+				sqe.PART_NUMBER,
+				sqe.ELEMENT_ID,
+				sqe.DESCRIPTION,
+				sqe.PRICE,
+				sqe.unit,
+				sqe.CERTIFICATION_ID,
+				sqe.CONDITION_ID,
+				si.QUOTE_NUMBER as supplier_inquiry_number,
+				ci.QUOTE_NUMBER as client_inquiry_number,
+				sq.QUOTE_DATE,
+				sqe.LEAD_TIME,
+				con.`CODE` AS CONDITION_CODE,
+				cer.`CODE` AS CERTIFICATION_CODE,
+				sqe.REMARK,
+				sqe.UPDATE_TIMESTAMP
+			FROM
+				supplier_quote_element sqe
+			LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+			LEFT JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+			LEFT JOIN supplier_inquiry si ON si.ID = sie.SUPPLIER_INQUIRY_ID
+			LEFT JOIN client_inquiry ci ON ci.ID = si.CLIENT_INQUIRY_ID
+			LEFT JOIN system_code con ON con.ID = sqe.CONDITION_ID
+			LEFT JOIN system_code cer ON cer.ID = sqe.CERTIFICATION_ID
+			where sqe.SHORT_PART_NUMBER = #{partCode}
+  			<if test="supplierId != null">
+  				and si.SUPPLIER_ID = ${supplierId}
+  			</if>
+  			
+  </select>
+  
+  <select id="repairListByPartNumberPage" parameterType="page" resultMap="BaseResultMap">
+	  	SELECT DISTINCT
+			sqe.ID,
+			sqe.PART_NUMBER,
+			sqe.ELEMENT_ID,
+			sqe.DESCRIPTION,
+			sqe.PRICE,
+			sqe.unit,
+			sqe.CERTIFICATION_ID,
+			sqe.CONDITION_ID,
+			ci.QUOTE_NUMBER AS client_inquiry_number,
+			sq.QUOTE_DATE,
+			sqe.LEAD_TIME,
+			con.`CODE` AS CONDITION_CODE,
+			cer.`CODE` AS CERTIFICATION_CODE,
+			sqe.REMARK,
+			sqe.UPDATE_TIMESTAMP
+		FROM
+			exchange_import_package eip
+		LEFT JOIN client_order_element coe ON coe.ID = eip.CLIENT_ORDER_ELEMENT_ID
+		LEFT JOIN client_order co ON co.ID = coe.CLIENT_ORDER_ID
+		LEFT JOIN client_quote_element cqe ON cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID
+		LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+		LEFT JOIN supplier_inquiry_element sie ON sie.CLIENT_INQUIRY_ELEMENT_ID = cie.ID
+		LEFT JOIN supplier_quote_element sqe ON sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+		LEFT JOIN system_code cer ON cer.ID = eip.CERTIFICATION_ID
+		LEFT JOIN system_code con ON con.ID = eip.CONDITION_ID
+		LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+		LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+		LEFT JOIN supplier_inquiry si ON si.ID = sie.SUPPLIER_INQUIRY_ID
+		LEFT JOIN client c ON c.ID = ci.CLIENT_ID
+		LEFT JOIN system_code biz ON biz.ID = ci.BIZ_TYPE_ID
+		where biz.`CODE` = 4 and sqe.SHORT_PART_NUMBER = ${partCode} and si.SUPPLIER_ID = #{supplierId}
+  </select>
+  
+  <select id="findByClientInquiryElementId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT s.`CODE`,sqe.REMARK from supplier_quote_element sqe
+			LEFT JOIN supplier_inquiry_element sie on sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID 
+			LEFT JOIN supplier_inquiry si on si.ID = sie.SUPPLIER_INQUIRY_ID
+			LEFT JOIN supplier s on s.ID = si.SUPPLIER_ID
+			where sie.CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId}
+  </select>
+  
+  <select id="selectBySupplierOrderElementId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT sqe.* FROM supplier_order_element soe
+			LEFT JOIN supplier_quote_element sqe on sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+			WHERE soe.ID = #{supplierOrderElementId}
+  </select>
+  
+   <select id="selectQuoteByElementId" parameterType="Integer" resultMap="BaseResultMap">
+	  select * from supplier_quote_element sqe INNER JOIN
+	supplier_quote sq on sq.ID=sqe.SUPPLIER_QUOTE_ID
+	where sq.SUPPLIER_INQUIRY_ID=#{0} and sqe.ELEMENT_ID=#{1} and sqe.AMOUNT=0
+  </select>
+  
+  <select id="getTaxReimbursementId" parameterType="Integer" resultType="Integer">
+  		SELECT DISTINCT
+			s.TAX_REIMBURSEMENT_ID
+		FROM
+			supplier_quote sq
+		LEFT JOIN supplier_quote_element sqe ON sqe.SUPPLIER_QUOTE_ID = sqe.ID
+		LEFT JOIN supplier_inquiry si ON si.ID = sq.SUPPLIER_INQUIRY_ID
+		LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+		WHERE
+			sqe.ID = #{supplierQuoteElementId}
+  </select>
+  
+  <select id="getLatestPrice" parameterType="String" resultType="Double">
+  		SELECT MIN(sqe.PRICE) FROM supplier_quote_element sqe WHERE DATEDIFF(sqe.UPDATE_TIMESTAMP,CURDATE()) &lt; 365 AND sqe.PART_NUMBER = #{partNumber}
+  </select>
+  
+     <select id="findSupplierQuoteElement" parameterType="com.naswork.model.SupplierQuoteElement" resultMap="BaseResultMap">
+	  select * from supplier_quote_element sqe 
+	where  
+        sqe.SUPPLIER_QUOTE_ID = #{supplierQuoteId} AND
+        sqe.SUPPLIER_INQUIRY_ELEMENT_ID = #{supplierInquiryElementId}
+  </select>
+  
+  <select id="getByShortPartForHis" parameterType="page" resultMap="BaseResultMap">
+		select * from (
+			SELECT DISTINCT
+				sqe.id,
+			
+			IF (
+				cie.MAIN_ID IS NOT NULL,
+				ciie.PART_NUMBER,
+				sqe.PART_NUMBER
+			) AS PART_NUMBER,
+			
+			IF (
+				cie.MAIN_ID IS NOT NULL,
+				sqe.PART_NUMBER,
+				''
+			) AS ALTER_PART_NUMBER,
+			 sqe.AMOUNT,
+			 cond.id AS CONDITION_ID,
+			 cond.`CODE` AS CONDITION_CODE,
+			 cert.id AS CERTIFICATION_ID,
+			 cert.`CODE` AS CERTIFICATION_CODE,
+			 sqe.DESCRIPTION,
+			 sqe.PRICE,
+			 sqe.LOCATION,
+			 sqe.MOQ,
+			 sqe.LEAD_TIME,
+			 sqe.SERIAL_NUMBER,
+			 sqe.TAG_DATE,
+			 sqe.TAG_SRC,
+			 sqe.TRACE,
+			 sqe.UNIT,
+			 sqe.VALIDITY,
+			 sqe.WARRANTY,
+			 sqe.CORE_CHARGE, 
+			 sqe.remark,
+			 sq.QUOTE_DATE,
+			 s.`NAME` AS supplier_name,
+			 s.`CODE` AS supplier_code,
+			 s.id AS supplier_id,
+			 currency.ID AS CURRENCY_ID,
+			 currency.`VALUE` AS CURRENCY_VALUE,
+			 sq.id AS supplier_quote_id,
+			 si.CLIENT_INQUIRY_ID,
+			 ci.QUOTE_NUMBER,
+			 sqe.HAZMAT_FEE,
+			 sqe.FEE_FOR_EXCHANGE_BILL,
+			 sqe.BANK_COST,
+			 sqe.OTHER_FEE,
+ 			 agent.`VALUE` AS IS_AGENT_VALUE
+			FROM
+				supplier_quote_element sqe
+			LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+			INNER JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+			INNER JOIN supplier_inquiry si ON si.ID = sie.SUPPLIER_INQUIRY_ID
+			LEFT JOIN system_code cond ON cond.ID = sqe.CONDITION_ID
+			LEFT JOIN system_code cert ON cert.ID = sqe.CERTIFICATION_ID
+			LEFT JOIN authority_relation ar ON ar.SUPPLIER_ID = si.SUPPLIER_ID
+			LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+			LEFT JOIN system_code currency ON currency.ID = sq.CURRENCY_ID
+			INNER JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+			LEFT JOIN client_inquiry_element ciie ON ciie.ID = cie.MAIN_ID
+			LEFT JOIN client_inquiry ci ON ci.ID = si.CLIENT_INQUIRY_ID
+			LEFT JOIN system_code agent ON agent.ID = s.IS_AGENT_ID
+			WHERE
+				sqe.SHORT_PART_NUMBER = #{partNumberCode}
+				AND (
+					sqe.supplier_quote_status_id != '72' AND sqe.supplier_quote_status_id != '73'
+				)
+				AND sq.quote_status_id != 91 and sqe.price > 0
+			<if test="userId != null">
+				and ar.USER_ID = #{userId}
+			</if>
+			UNION
+				SELECT DISTINCT
+					sqe.id,
+					ciie.PART_NUMBER AS PART_NUMBER,
+			
+				IF (
+					cie.MAIN_ID IS NOT NULL,
+					sqe.PART_NUMBER,
+					''
+				) AS ALTER_PART_NUMBER,
+				sqe.AMOUNT,
+				cond.id AS CONDITION_ID,
+				cond.`CODE` AS CONDITION_CODE,
+				cert.id AS CERTIFICATION_ID,
+				cert.`CODE` AS CERTIFICATION_CODE,
+				sqe.DESCRIPTION,
+				sqe.PRICE,
+				sqe.LOCATION,
+				sqe.MOQ,
+				sqe.LEAD_TIME,
+				sqe.SERIAL_NUMBER,
+				sqe.TAG_DATE,
+				sqe.TAG_SRC,
+				sqe.TRACE,
+				sqe.UNIT,
+				sqe.VALIDITY,
+				sqe.WARRANTY,
+				sqe.CORE_CHARGE,
+				sqe.remark,
+				sq.QUOTE_DATE,
+				s.`NAME` AS supplier_name,
+				s.`CODE` AS supplier_code,
+				s.id AS supplier_id,
+				currency.ID AS CURRENCY_ID,
+				currency.`VALUE` AS CURRENCY_VALUE,
+				sq.id AS supplier_quote_id,
+				si.CLIENT_INQUIRY_ID,
+			 	ci.QUOTE_NUMBER,
+			 	sqe.HAZMAT_FEE,
+			 	sqe.FEE_FOR_EXCHANGE_BILL,
+			 	sqe.BANK_COST,
+			 	sqe.OTHER_FEE,
+ 			    agent.`VALUE` AS IS_AGENT_VALUE
+			FROM
+				supplier_quote_element sqe
+			LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+			INNER JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+			INNER JOIN supplier_inquiry si ON si.ID = sie.SUPPLIER_INQUIRY_ID
+			LEFT JOIN system_code cond ON cond.ID = sqe.CONDITION_ID
+			LEFT JOIN system_code cert ON cert.ID = sqe.CERTIFICATION_ID
+			LEFT JOIN authority_relation ar ON ar.SUPPLIER_ID = si.SUPPLIER_ID
+			LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+			LEFT JOIN system_code currency ON currency.ID = sq.CURRENCY_ID
+			INNER JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+			INNER JOIN client_inquiry_element ciie ON ciie.ID = cie.MAIN_ID
+			LEFT JOIN client_inquiry ci ON ci.ID = si.CLIENT_INQUIRY_ID
+			LEFT JOIN system_code agent ON agent.ID = s.IS_AGENT_ID
+			WHERE
+				ciie.SHORT_PART_NUMBER = #{partNumberCode}
+				AND (
+				sqe.supplier_quote_status_id != '72' AND sqe.supplier_quote_status_id != '73'
+				)
+				AND sq.quote_status_id != 91 and sqe.price > 0
+			<if test="userId != null">
+				and ar.USER_ID = #{userId}
+			</if>
+			union
+			SELECT DISTINCT
+				vs.id,
+				vs.PART_NUMBER AS PART_NUMBER,
+				'' AS ALTER_PART_NUMBER,
+				vs.AMOUNT,
+				'' AS CONDITION_ID,
+				vs.ABILITY AS CONDITION_CODE,
+				'' AS CERTIFICATION_ID,
+				'' AS CERTIFICATION_CODE,
+				vs.DESCRIPTION,
+				'' as PRICE,
+				'' as LOCATION,
+				'' as MOQ,
+				'' as LEAD_TIME,
+				'' as SERIAL_NUMBER,
+				'' as TAG_DATE,
+				'' as TAG_SRC,
+				'' as TRACE,
+				'' as UNIT,
+				null as VALIDITY,
+				'' as WARRANTY,
+				'' as CORE_CHARGE,
+				vs.remark,
+				vs.CREATE_TIMESTAMP as QUOTE_DATE,
+				'' AS supplier_name,
+				'1444' as  supplier_code,
+				'' as  supplier_id,
+				'' as  CURRENCY_ID,
+				'' as  CURRENCY_VALUE,
+				'' as  supplier_quote_id,
+				'' as CLIENT_INQUIRY_ID,
+				'VAS库存' as QUOTE_NUMBER,
+			 	'' as HAZMAT_FEE,
+			 	'' as FEE_FOR_EXCHANGE_BILL,
+				'' as BANK_COST,
+			 	'' as OTHER_FEE,
+			 	'' as IS_AGENT_VALUE
+			FROM
+				vas_stroge vs
+			where vs.SHORT_PART_NUMBER = #{partNumberCode}
+			) a 
+			<if test="orderby != null">
+				${orderby}
+			</if>
+  </select>
+  
+  <select id="getStorage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+				*
+			FROM
+				(
+					SELECT DISTINCT
+						sqe.ID,
+						ipe.PART_NUMBER,
+						"" AS ALTER_PART_NUMBER,
+						SUM(vs.storage_amount) - IFNULL(epie.amount, 0) AS AMOUNT,
+						ipe.condition_id,
+						cond. CODE AS condition_code,
+						ipe.certification_id,
+						cert. CODE AS certification_code,
+						ipe.DESCRIPTION,
+						ipe.PRICE,
+						"" AS LOCATION,
+						"" AS MOQ,
+						"" AS LEAD_TIME,
+						"" AS SERIAL_NUMBER,
+						"" AS TAG_DATE,
+						"" AS TAG_SRC,
+						"" AS TRACE,
+						ipe.UNIT,
+						NULL AS VALIDITY,
+						"" AS WARRANTY,
+						"" AS CORE_CHARGE,
+						"" AS remark,
+						NULL AS QUOTE_DATE,
+						"KC" AS supplier_name,
+						"KC" AS supplier_code,
+						"" AS supplier_id,
+						cu.id AS currency_id,
+						cu.
+					VALUE
+						AS currency_value,
+						"" AS supplier_quote_id,
+						"" AS CLIENT_INQUIRY_ID,
+						"" AS QUOTE_NUMBER,
+						"" AS HAZMAT_FEE,
+						"" AS FEE_FOR_EXCHANGE_BILL,
+						"" AS BANK_COST,
+						"" AS OTHER_FEE,
+						c.name as client_name
+					FROM
+						v_storage vs
+					INNER JOIN import_package_element ipe ON (ipe.id = vs.id)
+					INNER JOIN import_package ip ON (
+						ipe.import_package_id = ip.id
+					)
+					LEFT JOIN v_export_package_instructions epie ON (
+						epie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+					)
+					INNER JOIN supplier s ON (ip.supplier_id = s.id)
+					INNER JOIN system_code cu ON (ip.currency_id = cu.id)
+					INNER JOIN system_code cond ON (ipe.condition_id = cond.id)
+					INNER JOIN system_code ccc ON (
+						ipe.complete_compliance_certificate = ccc.id
+					)
+					INNER JOIN system_code cc ON (
+						ipe.compliance_certificate = cc.id
+					)
+					INNER JOIN system_code cert ON (
+						ipe.certification_id = cert.id
+					)
+					INNER JOIN supplier_import_element sie ON (
+						sie.import_package_element_id = ipe.id
+					)
+					INNER JOIN supplier_order_element soe ON (
+						sie.supplier_order_element_id = soe.id
+					)
+					INNER JOIN supplier_quote_element sqe ON (
+						soe.supplier_quote_element_id = sqe.id
+					)
+					LEFT JOIN authority_relation ar ON ar.SUPPLIER_ID = s.ID 
+					<if test="userId != null">
+						and ar.USER_ID = #{userId}
+					</if>
+					LEFT JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+					LEFT JOIN client_quote_element cqe ON cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID
+					LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+					LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+					LEFT JOIN client c ON c.ID = ci.CLIENT_ID
+					GROUP BY
+						soe.ID,
+						ipe.location,
+						ipe.BOX_WEIGHT,
+						ipe.IMPORT_PACKAGE_SIGN
+				) a
+			WHERE
+				a.amount != 0
+			AND a.part_number = #{partNumber} and a.client_name = 'KC'
+			UNION
+			SELECT DISTINCT
+				"" AS ID,
+				eip.PART_NUMBER,
+				"" AS ALTER_PART_NUMBER,
+				IFNULL((eip.AMOUNT - IFNULL(eep.AMOUNT,0)),0) AS AMOUNT,
+				con.id AS CONDITION_ID,
+				con.`CODE` AS CONDITION_CODE,
+				cert.id AS CERTIFICATION_ID,
+				cert.`CODE` AS CERTIFICATION_CODE,	
+				eip.DESCRIPTION,
+				"" AS PRICE,
+				"" AS LOCATION,
+				"" AS MOQ,
+				"" AS LEAD_TIME,
+				"" AS SERIAL_NUMBER,
+				"" AS TAG_DATE,
+				"" AS TAG_SRC,
+				"" AS TRACE,
+				cie.UNIT,
+				null AS VALIDITY,
+				"" AS WARRANTY,
+				"" AS CORE_CHARGE, 
+				"" AS remark,
+				null AS QUOTE_DATE,
+				"WXC" AS supplier_name,
+				"WXC" AS supplier_code,
+				"" AS supplier_id,
+				"" AS CURRENCY_ID,
+				"" AS CURRENCY_VALUE,
+				"" AS supplier_quote_id,
+				"" AS CLIENT_INQUIRY_ID,
+				"" AS QUOTE_NUMBER,
+				"" AS HAZMAT_FEE,
+				"" AS FEE_FOR_EXCHANGE_BILL,
+				"" AS BANK_COST,
+				"" AS OTHER_FEE,
+				"" as client_name
+			FROM
+				exchange_import_package eip
+			LEFT JOIN client_order_element coe ON coe.ID = eip.CLIENT_ORDER_ELEMENT_ID
+			LEFT JOIN client_quote_element cqe ON cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID
+			LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+			LEFT JOIN system_code con ON con.ID = eip.CONDITION_ID
+			LEFT JOIN system_code cert ON cert.ID = eip.CERTIFICATION_ID
+			LEFT JOIN exchange_export_package eep ON eep.EXCHANGE_IMPORT_PACKAGE_ID = eip.ID
+			WHERE eip.part_number = #{partNumber} and eip.REPAIR_TYPE = 1000058 AND (eip.AMOUNT - IFNULL(eep.AMOUNT,0)) > 0
+  </select>
+  
+  <select id="getByShortPart" parameterType="page" resultMap="BaseResultMap">
+		select * from (
+			SELECT DISTINCT
+				sqe.id,
+			
+			IF (
+				cie.MAIN_ID IS NOT NULL,
+				ciie.PART_NUMBER,
+				sqe.PART_NUMBER
+			) AS PART_NUMBER,
+			
+			IF (
+				cie.MAIN_ID IS NOT NULL,
+				sqe.PART_NUMBER,
+				''
+			) AS ALTER_PART_NUMBER,
+			 sqe.AMOUNT,
+			 cond.id AS CONDITION_ID,
+			 cond.`CODE` AS CONDITION_CODE,
+			 cert.id AS CERTIFICATION_ID,
+			 cert.`CODE` AS CERTIFICATION_CODE,
+			 sqe.DESCRIPTION,
+			 sqe.PRICE,
+			 sqe.LOCATION,
+			 sqe.MOQ,
+			 sqe.LEAD_TIME,
+			 sqe.SERIAL_NUMBER,
+			 sqe.TAG_DATE,
+			 sqe.TAG_SRC,
+			 sqe.TRACE,
+			 sqe.UNIT,
+			 sqe.VALIDITY,
+			 sqe.WARRANTY,
+			 sqe.CORE_CHARGE, 
+			 sqe.remark,
+			 sq.QUOTE_DATE,
+			 s.`NAME` AS supplier_name,
+			 s.`CODE` AS supplier_code,
+			 s.id AS supplier_id,
+			 currency.ID AS CURRENCY_ID,
+			 currency.`VALUE` AS CURRENCY_VALUE,
+			 sq.id AS supplier_quote_id,
+			 si.CLIENT_INQUIRY_ID,
+			 ci.QUOTE_NUMBER,
+			 sqe.FEE_FOR_EXCHANGE_BILL
+			FROM
+				supplier_quote_element sqe
+			LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+			INNER JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+			INNER JOIN supplier_inquiry si ON si.ID = sie.SUPPLIER_INQUIRY_ID
+			LEFT JOIN system_code cond ON cond.ID = sqe.CONDITION_ID
+			LEFT JOIN system_code cert ON cert.ID = sqe.CERTIFICATION_ID
+			LEFT JOIN authority_relation ar ON ar.SUPPLIER_ID = si.SUPPLIER_ID
+			LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+			LEFT JOIN system_code currency ON currency.ID = sq.CURRENCY_ID
+			INNER JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+			LEFT JOIN client_inquiry_element ciie ON ciie.ID = cie.MAIN_ID
+			LEFT JOIN client_inquiry ci ON ci.ID = si.CLIENT_INQUIRY_ID
+			WHERE
+				cie.SHORT_PART_NUMBER = #{partNumberCode}
+				AND (
+					sqe.supplier_quote_status_id != '72' AND sqe.supplier_quote_status_id != '73'
+				)
+				AND sq.quote_status_id != 91
+			<if test="userId != null">
+				and ar.USER_ID = #{userId}
+			</if>
+			UNION
+				SELECT DISTINCT
+					sqe.id,
+					ciie.PART_NUMBER AS PART_NUMBER,
+			
+				IF (
+					cie.MAIN_ID IS NOT NULL,
+					sqe.PART_NUMBER,
+					''
+				) AS ALTER_PART_NUMBER,
+				sqe.AMOUNT,
+				cond.id AS CONDITION_ID,
+				cond.`CODE` AS CONDITION_CODE,
+				cert.id AS CERTIFICATION_ID,
+				cert.`CODE` AS CERTIFICATION_CODE,
+				sqe.DESCRIPTION,
+				sqe.PRICE,
+				sqe.LOCATION,
+				sqe.MOQ,
+				sqe.LEAD_TIME,
+				sqe.SERIAL_NUMBER,
+				sqe.TAG_DATE,
+				sqe.TAG_SRC,
+				sqe.TRACE,
+				sqe.UNIT,
+				sqe.VALIDITY,
+				sqe.WARRANTY,
+				sqe.CORE_CHARGE,
+				sqe.remark,
+				sq.QUOTE_DATE,
+				s.`NAME` AS supplier_name,
+				s.`CODE` AS supplier_code,
+				s.id AS supplier_id,
+				currency.ID AS CURRENCY_ID,
+				currency.`VALUE` AS CURRENCY_VALUE,
+				sq.id AS supplier_quote_id,
+				si.CLIENT_INQUIRY_ID,
+			 	ci.QUOTE_NUMBER,
+			 	sqe.FEE_FOR_EXCHANGE_BILL
+			FROM
+				supplier_quote_element sqe
+			LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+			INNER JOIN supplier_inquiry_element sie ON sie.ID = sqe.SUPPLIER_INQUIRY_ELEMENT_ID
+			INNER JOIN supplier_inquiry si ON si.ID = sie.SUPPLIER_INQUIRY_ID
+			LEFT JOIN system_code cond ON cond.ID = sqe.CONDITION_ID
+			LEFT JOIN system_code cert ON cert.ID = sqe.CERTIFICATION_ID
+			LEFT JOIN authority_relation ar ON ar.SUPPLIER_ID = si.SUPPLIER_ID
+			LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+			LEFT JOIN system_code currency ON currency.ID = sq.CURRENCY_ID
+			INNER JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+			INNER JOIN client_inquiry_element ciie ON ciie.ID = cie.MAIN_ID
+			LEFT JOIN client_inquiry ci ON ci.ID = si.CLIENT_INQUIRY_ID
+			WHERE
+				ciie.SHORT_PART_NUMBER = #{partNumberCode}
+				AND (
+				sqe.supplier_quote_status_id != '72' AND sqe.supplier_quote_status_id != '73'
+				)
+				AND sq.quote_status_id != 91
+			<if test="userId != null">
+				and ar.USER_ID = #{userId}
+			</if>) a 
+			<if test="orderby != null">
+				${orderby}
+			</if>
+			
+		
+  </select>
+  
+  <select id="getByOrderELementId" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			sqe.PART_NUMBER,
+			sqe.DESCRIPTION,
+			sqe.REMARK
+		FROM
+			supplier_order_element soe
+		LEFT JOIN supplier_quote_element sqe ON sqe.ID = soe.SUPPLIER_QUOTE_ELEMENT_ID
+		WHERE
+			soe.ID IN (${ids})
+  </select>
+  
+  <select id="getByPartInTwoWeeks" parameterType="String" resultType="Integer">
+  		SELECT
+			COUNT(a.id)
+		FROM
+			(
+				SELECT
+					sqe.ID
+				FROM
+					supplier_inquiry si
+				LEFT JOIN supplier_inquiry_element sie ON sie.SUPPLIER_INQUIRY_ID = si.ID
+				LEFT JOIN supplier_quote sq ON sq.SUPPLIER_INQUIRY_ID = si.ID
+				LEFT JOIN supplier_quote_element sqe ON sqe.SUPPLIER_INQUIRY_ELEMENT_ID = sie.ID
+				WHERE
+					sqe.SUPPLIER_QUOTE_STATUS_ID = 70
+				AND sq.QUOTE_STATUS_ID = 90
+				AND date_add(
+					sqe.UPDATE_TIMESTAMP,
+					INTERVAL 14 DAY
+				) > NOW()
+				AND sqe.PART_NUMBER = #{0}
+				AND si.SUPPLIER_ID = #{1}
+				UNION
+					SELECT
+						cie.ID
+					FROM
+						supplier_inquiry si
+					LEFT JOIN supplier_inquiry_element sie ON sie.SUPPLIER_INQUIRY_ID = si.ID
+					LEFT JOIN client_inquiry_element cie ON cie.ID = sie.CLIENT_INQUIRY_ELEMENT_ID
+					WHERE
+						si.SUPPLIER_ID = #{1}
+					AND cie.PART_NUMBER = #{0}
+					AND si.AUTO_ADD = 1
+					AND date_add(
+						sie.UPDATE_TIMESTAMP,
+						INTERVAL 14 DAY
+					) > NOW()
+			) a
+  </select>
+  
+  <select id="getCompetitorPrice" parameterType="String" resultMap="BaseResultMap">
+  	SELECT
+		cqe.id,
+		cie.PART_NUMBER,
+		cie.AMOUNT,
+		cie.UNIT,
+		cq.QUOTE_DATE,
+		CONCAT("竞争对手",c.`CODE`) AS DESCRIPTION,
+		s.`NAME` AS supplier_name,
+		s.`CODE` AS supplier_code,
+		s.id AS supplier_id,
+		currency.ID AS CURRENCY_ID,
+		currency.`VALUE` AS CURRENCY_VALUE,
+		ci.ID AS CLIENT_INQUIRY_ID,
+		ci.QUOTE_NUMBER,
+		cqe.PRICE
+	FROM
+		competitor_quote_element cqe
+	LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+	LEFT JOIN competitor_quote cq ON cq.ID = cqe.COMPETITOR_QUOTE_ID
+	LEFT JOIN client_inquiry ci ON ci.ID = cie.CLIENT_INQUIRY_ID
+	LEFT JOIN competitor_supplier cs ON cs.CLIENT_ID = ci.CLIENT_ID
+	AND cs.COMPETITOR_ID = cq.COMPETITOR_ID
+	LEFT JOIN supplier s ON s.ID = cs.SUPPLIER_ID
+	LEFT JOIN system_code currency ON currency.ID = cq.CURRENCY_ID
+	LEFT JOIN competitor c ON c.ID = cq.COMPETITOR_ID
+	WHERE
+		s.ID IS NOT NULL AND ci.CLIENT_ID = #{0} AND cie.SHORT_PART_NUMBER = #{1}
+  </select>
+  
+  <select id="getCountByQuoteId" parameterType="Integer" resultType="Double">
+  	SELECT SUM(sqe.AMOUNT) FROM supplier_quote_element sqe WHERE sqe.SUPPLIER_QUOTE_STATUS_ID = 70 AND sqe.SUPPLIER_QUOTE_ID = #{quoteId}  GROUP BY sqe.SUPPLIER_QUOTE_ID
+  </select>
+  
+  <select id="getBySupplierQuoteId" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT * FROM supplier_quote_element sqe WHERE sqe.SUPPLIER_QUOTE_ID = #{supplierQuoteId}
+  </select>
+  
+  <select id="getTotalByQuoteId" parameterType="Integer" resultType="Double">
+  	SELECT
+		SUM(
+			IFNULL(sqe.PRICE, 0) * IFNULL(sqe.AMOUNT, 0)
+		) AS total
+	FROM
+		supplier_quote_element sqe
+	WHERE
+		sqe.SUPPLIER_QUOTE_ID = #{supplierQuoteId}
+	GROUP BY
+		sqe.SUPPLIER_QUOTE_ID
+  </select>
+  
+  <select id="getHighPriceCrawlPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+		sqe.*,
+		sq.QUOTE_NUMBER,
+		sq.QUOTE_DATE,
+		cur.`VALUE` AS CURRENCY_VALUE
+	FROM
+		supplier_quote_element sqe
+	LEFT JOIN supplier_quote sq ON sq.ID = sqe.SUPPLIER_QUOTE_ID
+	LEFT JOIN supplier_inquiry si ON si.ID = sq.SUPPLIER_INQUIRY_ID
+	LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+	LEFT JOIN system_code cur ON cur.ID = sq.CURRENCY_ID
+	WHERE
+		sqe.PRICE > 5000
+	AND s.`CODE` IN (1077, 1003, 1005, 1006, 6012)
+	AND sqe.SUPPLIER_QUOTE_STATUS_ID = 70 AND sq.QUOTE_STATUS_ID = 90
+	<if test="orderby != null">
+		${orderby}
+	</if>
+  </select>
+  
+</mapper>

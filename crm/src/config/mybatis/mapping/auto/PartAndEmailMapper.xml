@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.PartAndEmailDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.PartAndEmail" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ID" property="clientInquiryId" jdbcType="INTEGER" />
+    <result column="CLIENT_INQUIRY_ELEMENT_ID" property="clientInquiryElementId" jdbcType="INTEGER" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="EMAIL_STATUS" property="emailStatus" jdbcType="INTEGER" />
+    <result column="UPDATE_DATETIME" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="ITEM" property="item" jdbcType="INTEGER" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="SEND_TIME" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="SUPPLIER_CODE" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="cancel" property="cancel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CLIENT_INQUIRY_ID, CLIENT_INQUIRY_ELEMENT_ID, EMAIL, EMAIL_STATUS, UPDATE_DATETIME, 
+    PART_NUMBER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from part_and_email
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from part_and_email
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.PartAndEmail" >
+    insert into part_and_email (ID, CLIENT_INQUIRY_ID, CLIENT_INQUIRY_ELEMENT_ID, 
+      EMAIL, EMAIL_STATUS, UPDATE_DATETIME, 
+      PART_NUMBER)
+    values (#{id,jdbcType=INTEGER}, #{clientInquiryId,jdbcType=INTEGER}, #{clientInquiryElementId,jdbcType=INTEGER}, 
+      #{email,jdbcType=VARCHAR}, #{emailStatus,jdbcType=INTEGER}, #{updateDatetime,jdbcType=TIMESTAMP}, 
+      #{partNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.PartAndEmail" >
+    insert into part_and_email
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID,
+      </if>
+      <if test="clientInquiryElementId != null" >
+        CLIENT_INQUIRY_ELEMENT_ID,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="emailStatus != null" >
+        EMAIL_STATUS,
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryId != null" >
+        #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryElementId != null" >
+        #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailStatus != null" >
+        #{emailStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.PartAndEmail" >
+    update part_and_email
+    <set >
+      <if test="clientInquiryId != null" >
+        CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryElementId != null" >
+        CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailStatus != null" >
+        EMAIL_STATUS = #{emailStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.PartAndEmail" >
+    update part_and_email
+    set CLIENT_INQUIRY_ID = #{clientInquiryId,jdbcType=INTEGER},
+      CLIENT_INQUIRY_ELEMENT_ID = #{clientInquiryElementId,jdbcType=INTEGER},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      EMAIL_STATUS = #{emailStatus,jdbcType=INTEGER},
+      UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},
+      PART_NUMBER = #{partNumber,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getSupplierList" resultType="Integer">
+  		SELECT DISTINCT
+			pae.SUPPLIER_ID
+		FROM
+			part_and_email pae
+		WHERE
+			pae.EMAIL_STATUS = 0 AND pae.SUPPLIER_ID IS NOT NULL AND pae.SOURCE = 'stockmarket' AND pae.cancel != 1
+		GROUP BY
+			pae.SUPPLIER_ID
+  </select>
+  
+  <select id="getEmailList" resultType="String">
+  		SELECT DISTINCT
+			pae.EMAIL
+		FROM
+			part_and_email pae
+		WHERE
+			pae.EMAIL_STATUS = 0 AND pae.SUPPLIER_ID IS NULL AND pae.SOURCE = 'stockmarket' AND pae.cancel != 1
+		GROUP BY
+			pae.EMAIL
+  </select>
+  
+  <select id="getBySupplierIdOrEmail" parameterType="page" resultMap="BaseResultMap">
+ 		SELECT DISTINCT
+ 			pae.id,
+			pae.EMAIL,
+			pae.EMAIL_STATUS,
+			pae.PART_NUMBER,
+			cie.DESCRIPTION,
+			cie.ITEM,
+			cie.UNIT,
+			cie.AMOUNT,
+			cie.REMARK
+		FROM
+			part_and_email pae
+		LEFT JOIN client_inquiry_element cie ON cie.ID = pae.CLIENT_INQUIRY_ELEMENT_ID
+		WHERE
+			pae.EMAIL_STATUS = 0 
+		<if test="supplierId != null">
+			AND pae.SUPPLIER_ID = #{supplierId}
+		</if>
+		<if test="email != null">
+			AND pae.email = #{email}
+		</if>
+		
+ 		 
+  </select>
+  
+  <select id="getElement" parameterType="page" resultMap="BaseResultMap">
+ 		SELECT DISTINCT
+	 		<if test="email != null">
+				pae.EMAIL,
+			</if>
+			pae.EMAIL_STATUS,
+			pae.PART_NUMBER,
+			cie.DESCRIPTION,
+			cie.UNIT,
+			max(cie.AMOUNT) as AMOUNT,
+			cie.REMARK
+		FROM
+			part_and_email pae
+		LEFT JOIN client_inquiry_element cie ON cie.ID = pae.CLIENT_INQUIRY_ELEMENT_ID
+		WHERE
+			pae.EMAIL_STATUS = 0
+		<if test="supplierId != null">
+			AND pae.SUPPLIER_ID = #{supplierId}
+		</if>
+		<if test="email != null">
+			AND pae.email = #{email}
+		</if>
+		group by pae.PART_NUMBER
+ 		 
+  </select>
+  
+  <select id="getCountByTime" parameterType="String" resultType="Integer">
+  	SELECT COUNT(*) FROM part_and_email pae WHERE pae.SEND_TIME LIKE #{time} AND pae.EMAIL_STATUS = 1;
+  </select>
+  
+  <select id="getPrepareEmailPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT DISTINCT
+		pae.PART_NUMBER,
+		s.`CODE` AS SUPPLIER_CODE,
+		s.ID AS supplier_id,
+		pae.cancel
+	FROM
+		part_and_email pae
+	LEFT JOIN supplier s ON s.ID = pae.SUPPLIER_ID
+	WHERE
+		pae.SOURCE = 'stockmarket'
+	AND pae.EMAIL_STATUS = 0
+	<if test="where != null">
+		and ${where}
+	</if>
+  </select>
+  
+  <update id="cancelRecord" parameterType="com.naswork.model.PartAndEmail">
+  	UPDATE part_and_email SET cancel = 1 WHERE PART_NUMBER = #{partNumber} AND SUPPLIER_ID = #{supplierId}
+  </update>
+  
+</mapper>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierWeatherOrderDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierWeatherOrder" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="CLIENT_WEATHER_ORDER_ID" property="clientWeatherOrderId" jdbcType="INTEGER" />
+    <result column="BANK_COST" property="bankCost" jdbcType="DOUBLE" />
+    <result column="FEE_FOR_EXCHANGE_BILL" property="feeForExchangeBill" jdbcType="DOUBLE" />
+    <result column="OTHER_FEE" property="otherFee" jdbcType="DOUBLE" />
+    <result column="supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_ID, CLIENT_WEATHER_ORDER_ID, BANK_COST, FEE_FOR_EXCHANGE_BILL, OTHER_FEE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_weather_order
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier_weather_order
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierWeatherOrder" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into supplier_weather_order (ID, SUPPLIER_ID, CLIENT_WEATHER_ORDER_ID, 
+      BANK_COST, FEE_FOR_EXCHANGE_BILL, OTHER_FEE
+      )
+    values (#{id,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, #{clientWeatherOrderId,jdbcType=INTEGER}, 
+      #{bankCost,jdbcType=DOUBLE}, #{feeForExchangeBill,jdbcType=DOUBLE}, #{otherFee,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierWeatherOrder" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into supplier_weather_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="clientWeatherOrderId != null" >
+        CLIENT_WEATHER_ORDER_ID,
+      </if>
+      <if test="bankCost != null" >
+        BANK_COST,
+      </if>
+      <if test="feeForExchangeBill != null" >
+        FEE_FOR_EXCHANGE_BILL,
+      </if>
+      <if test="otherFee != null" >
+        OTHER_FEE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="clientWeatherOrderId != null" >
+        #{clientWeatherOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="bankCost != null" >
+        #{bankCost,jdbcType=DOUBLE},
+      </if>
+      <if test="feeForExchangeBill != null" >
+        #{feeForExchangeBill,jdbcType=DOUBLE},
+      </if>
+      <if test="otherFee != null" >
+        #{otherFee,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SupplierWeatherOrder" >
+    update supplier_weather_order
+    <set >
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="clientWeatherOrderId != null" >
+        CLIENT_WEATHER_ORDER_ID = #{clientWeatherOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="bankCost != null" >
+        BANK_COST = #{bankCost,jdbcType=DOUBLE},
+      </if>
+      <if test="feeForExchangeBill != null" >
+        FEE_FOR_EXCHANGE_BILL = #{feeForExchangeBill,jdbcType=DOUBLE},
+      </if>
+      <if test="otherFee != null" >
+        OTHER_FEE = #{otherFee,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SupplierWeatherOrder" >
+    update supplier_weather_order
+    set SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      CLIENT_WEATHER_ORDER_ID = #{clientWeatherOrderId,jdbcType=INTEGER},
+      BANK_COST = #{bankCost,jdbcType=DOUBLE},
+      FEE_FOR_EXCHANGE_BILL = #{feeForExchangeBill,jdbcType=DOUBLE},
+      OTHER_FEE = #{otherFee,jdbcType=DOUBLE}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByOrderIdAndSupplier" parameterType="Integer" resultMap="BaseResultMap">
+  	SELECT * FROM supplier_weather_order swo WHERE swo.CLIENT_WEATHER_ORDER_ID = #{orderId} AND swo.SUPPLIER_ID = #{supplierId}
+  </select>
+  
+  <select id="getFeeInfo" parameterType="page" resultMap="BaseResultMap">
+		SELECT distinct
+			swo.ID,
+			swo.BANK_COST,
+			cwo.ID AS client_weather_order_id,
+			swo.FEE_FOR_EXCHANGE_BILL,
+			swo.OTHER_FEE,
+			s.ID AS SUPPLIER_ID,
+			s.`CODE` AS supplier_code
+		FROM
+			`order_approval` oa
+		INNER JOIN client_weather_order_element cwoe ON cwoe.ID = oa.CLIENT_ORDER_ELEMENT_ID
+		LEFT JOIN supplier_weather_order_element swoe ON oa.supplier_weather_order_element_id = swoe.id
+		INNER JOIN client_weather_order cwo ON cwo.id = cwoe.client_weather_order_id
+		INNER JOIN client_quote_element cqe ON cqe.ID = cwoe.CLIENT_QUOTE_ELEMENT_ID
+		INNER JOIN client_quote cq ON cq.id = cqe.client_quote_id
+		INNER JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+		LEFT JOIN system_code sw ON (sw.id = swoe.SHIP_WAY_ID)
+		LEFT JOIN system_code d ON (d.id = swoe.DESTINATION)
+		INNER JOIN supplier_quote_element sqe ON (
+			cqe.supplier_quote_element_id = sqe.id
+		)
+		INNER JOIN supplier_quote sq ON (
+			sqe.supplier_quote_id = sq.id
+		)
+		LEFT JOIN system_code con ON con.ID = sqe.CONDITION_ID
+		LEFT JOIN system_code cer ON cer.ID = sqe.CERTIFICATION_ID
+		INNER JOIN system_code cu ON (cq.currency_id = cu.id)
+		LEFT JOIN jbpm4_task jht ON jht.RELATION_ID = oa.id
+		LEFT JOIN jbpm4_jbyj jj ON jj.task_id = jht.dbid_
+		LEFT JOIN supplier_quote_element sqee ON sqee.ID = swoe.SUPPLIER_QUOTE_ELEMENT_ID
+		LEFT JOIN supplier_quote sqq ON sqq.ID = sqee.SUPPLIER_QUOTE_ID
+		LEFT JOIN supplier_inquiry si ON si.ID = sqq.SUPPLIER_INQUIRY_ID
+		LEFT JOIN supplier_weather_order swo ON swo.CLIENT_WEATHER_ORDER_ID = cwo.ID AND swo.SUPPLIER_ID = si.SUPPLIER_ID
+		LEFT JOIN supplier s ON s.ID = si.SUPPLIER_ID
+		WHERE
+			oa.CLIENT_ORDER_ELEMENT_ID IN (${clientOrderElementId})
+		AND jht.execution_id_ LIKE 'ContractreviewProcess.ORDER_APPROVAL.ID.%'
+		AND jht.taskdefname_ = '${taskdefname}'
+		AND oa.TASK_ID IS NOT NULL
+		ORDER BY
+			cwoe.id
+	</select>
+	
+	<select id="getByOrderIdAndSupplier" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM supplier_weather_order swo WHERE swo.CLIENT_WEATHER_ORDER_ID = #{0} AND swo.SUPPLIER_ID = #{1}
+	</select>
+  
+</mapper>

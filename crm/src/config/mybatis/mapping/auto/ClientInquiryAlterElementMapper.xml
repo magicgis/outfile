@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientInquiryAlterElementDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientInquiryAlterElement" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="client_inquiry_element_id" property="clientInquiryElementId" jdbcType="INTEGER" />
+    <result column="alter_part_number" property="alterPartNumber" jdbcType="VARCHAR" />
+    <result column="element_id" property="elementId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, client_inquiry_element_id, alter_part_number, element_id, description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_inquiry_alter_element
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_inquiry_alter_element
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientInquiryAlterElement" >
+    insert into client_inquiry_alter_element (ID, client_inquiry_element_id, alter_part_number, 
+      element_id, description)
+    values (#{id,jdbcType=INTEGER}, #{clientInquiryElementId,jdbcType=INTEGER}, #{alterPartNumber,jdbcType=VARCHAR}, 
+      #{elementId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientInquiryAlterElement" >
+    insert into client_inquiry_alter_element
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clientInquiryElementId != null" >
+        client_inquiry_element_id,
+      </if>
+      <if test="alterPartNumber != null" >
+        alter_part_number,
+      </if>
+      <if test="elementId != null" >
+        element_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientInquiryElementId != null" >
+        #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="alterPartNumber != null" >
+        #{alterPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="elementId != null" >
+        #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientInquiryAlterElement" >
+    update client_inquiry_alter_element
+    <set >
+      <if test="clientInquiryElementId != null" >
+        client_inquiry_element_id = #{clientInquiryElementId,jdbcType=INTEGER},
+      </if>
+      <if test="alterPartNumber != null" >
+        alter_part_number = #{alterPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="elementId != null" >
+        element_id = #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientInquiryAlterElement" >
+    update client_inquiry_alter_element
+    set client_inquiry_element_id = #{clientInquiryElementId,jdbcType=INTEGER},
+      alter_part_number = #{alterPartNumber,jdbcType=VARCHAR},
+      element_id = #{elementId,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

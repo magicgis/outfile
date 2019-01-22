@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ExportPackageInstructionsDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ExportPackageInstructions" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="EXPORT_PACKAGE_INSTRUCTIONS_NUMBER" property="exportPackageInstructionsNumber" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    epi.ID, epi.EXPORT_PACKAGE_INSTRUCTIONS_NUMBER, epi.REMARK, epi.CREAT_DATE,epi.CODE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from export_package_instructions epi
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="flowLlistDataPage" resultMap="BaseResultMap" parameterType="page" >
+    select 
+    <include refid="Base_Column_List" />
+    from export_package_instructions epi
+    INNER JOIN client c on (c.code=epi.code)
+    <if test="userId != null">
+	INNER JOIN authority_relation ar on (ar.CLIENT_ID=c.ID)
+	</if>
+  				 <if test="where!=null">
+  				 <where>
+  				  ${where}
+  				 </where>
+				</if>
+				<if test="orderby != null">
+					${orderby}
+				</if>
+  </select>
+  
+    <select id="listDataPage" resultMap="BaseResultMap" parameterType="page" >
+    select 
+    <include refid="Base_Column_List" />,c.id as client_id
+    from export_package_instructions epi
+    INNER JOIN export_package_instructions_element epie
+	on(epie.EXPORT_PACKAGE_INSTRUCTIONS_ID=epi.id)
+	INNER JOIN  v_storage vs ON (epie.IMPORT_PACKAGE_ELEMENT_ID = vs.id)
+	INNER JOIN client c ON (c. CODE = epi. CODE)
+    	<if test="userId != null">
+	INNER JOIN authority_relation ar on (ar.CLIENT_ID=c.ID)
+	</if>
+  				
+  				 <where>
+  					 epie.EXPORT_PACKAGE_STATUS=0
+  				 </where>
+  				  <if test="where!=null">
+  				  and ${where}
+				</if>
+				GROUP BY epi.id  	
+				
+				<if test="orderby != null">
+					${orderby}
+				</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from export_package_instructions
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ExportPackageInstructions" >
+   <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+    insert into export_package_instructions (ID, EXPORT_PACKAGE_INSTRUCTIONS_NUMBER, 
+      REMARK, CREAT_DATE,CODE)
+    values (#{id,jdbcType=INTEGER}, #{exportPackageInstructionsNumber,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creatDate,jdbcType=TIMESTAMP},#{code,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ExportPackageInstructions" >
+    insert into export_package_instructions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="exportPackageInstructionsNumber != null" >
+        EXPORT_PACKAGE_INSTRUCTIONS_NUMBER,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="creatDate != null" >
+        CREAT_DATE,
+      </if>
+       <if test="code != null" >
+        CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="exportPackageInstructionsNumber != null" >
+        #{exportPackageInstructionsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null" >
+        #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+       <if test="code != null" >
+        #{CODE,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ExportPackageInstructions" >
+    update export_package_instructions
+    <set >
+      <if test="exportPackageInstructionsNumber != null" >
+        EXPORT_PACKAGE_INSTRUCTIONS_NUMBER = #{exportPackageInstructionsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null" >
+        CREAT_DATE = #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+        <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ExportPackageInstructions" >
+    update export_package_instructions
+    set EXPORT_PACKAGE_INSTRUCTIONS_NUMBER = #{exportPackageInstructionsNumber,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREAT_DATE = #{creatDate,jdbcType=TIMESTAMP}
+      CODE = #{code,jdbcType=VARCHAR},
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByNumber" parameterType="String" resultMap="BaseResultMap">
+  		SELECT * FROM export_package_instructions epi where epi.EXPORT_PACKAGE_INSTRUCTIONS_NUMBER = #{number}
+  </select>
+  
+</mapper>

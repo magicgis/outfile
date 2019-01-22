@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ArPricePartMappingDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ArPricePartMapping" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="AR_PRICE" property="arPrice" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ArPricePartMappingVoMap" type="com.naswork.module.storage.controller.assetpackage.ArPricePartMappingVo">
+    <id column="ID" property="id" jdbcType="INTEGER"></id>
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR"></result>
+    <result column="AR_PRICE" property="arPrice" jdbcType="VARCHAR"></result>
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP"></result>
+    <result column="USERNAME" property="username" jdbcType="VARCHAR"></result>
+    <result column="AR_SALE_PRICE" property="arSalePrice" jdbcType="VARCHAR"></result>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PART_NUMBER, AR_PRICE, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ar_price_part_mapping
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ar_price_part_mapping
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ArPricePartMapping" >
+    insert into ar_price_part_mapping (ID, PART_NUMBER, AR_PRICE, 
+      UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{partNumber,jdbcType=VARCHAR}, #{arPrice,jdbcType=DOUBLE}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ArPricePartMapping" >
+    insert into ar_price_part_mapping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="partNumber != null" >
+        PART_NUMBER,
+      </if>
+      <if test="arPrice != null" >
+        AR_PRICE,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="arSalePrice != null">
+        AR_SALE_PRICE,
+      </if>
+      <if test="dom != null">
+        DOM,
+      </if>
+      <if test="description">
+        DESCRIPTION
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partNumber != null" >
+        #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="arPrice != null" >
+        #{arPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="arSalePrice != null">
+        #{arSalePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="dom != null">
+        #{dom,jdbcType=VARCHAR},
+      </if>
+      <if test="description">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ArPricePartMapping" >
+    update ar_price_part_mapping
+    <set >
+      <if test="partNumber != null" >
+        PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="arPrice != null" >
+        AR_PRICE = #{arPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ArPricePartMapping" >
+    update ar_price_part_mapping
+    set PART_NUMBER = #{partNumber,jdbcType=VARCHAR},
+      AR_PRICE = #{arPrice,jdbcType=DOUBLE},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByPartNumber" parameterType="String" resultMap="BaseResultMap">
+  	SELECT appm.ID, appm.PART_NUMBER, appm.AR_PRICE, appm.UPDATE_TIMESTAMP FROM ar_price_part_mapping appm WHERE appm.PART_NUMBER = #{partNumber} ORDER BY appm.UPDATE_TIMESTAMP DESC LIMIT 0,1
+  </select>
+
+  <select id="getARPriceDataPage" resultMap="ArPricePartMappingVoMap" parameterType="page">
+    SELECT *,u.login_name as username
+    FROM ar_price_part_mapping a,t_user u
+    WHERE
+--     UPDATE_TIMESTAMP IN(
+--     SELECT SUBSTRING_INDEX(GROUP_CONCAT(UPDATE_TIMESTAMP ORDER BY UPDATE_TIMESTAMP DESC),',',1) AS UPDATE_TIMESTAMP
+--     FROM ar_price_part_mapping
+--     GROUP BY PART_NUMBER
+--     )
+--     AND
+    a.CREATE_USER_ID = u.user_id
+    <if test="where != null">
+      and ${where}
+    </if>
+    <if test="orderby != null">
+     ${orderby}
+    </if>
+  </select>
+
+  <select id="getArPriceListById" resultMap="BaseResultMap">
+      SELECT AR_PRICE,UPDATE_TIMESTAMP
+      FROM ar_price_part_mapping
+      WHERE PART_NUMBER IN(
+        SELECT PART_NUMBER FROM ar_price_part_mapping WHERE id=#{id}
+      )
+  </select>
+
+  <select id="getNewArPriceByPartNumber" parameterType="String" resultMap="BaseResultMap">
+      SELECT *
+      FROM ar_price_part_mapping
+      WHERE PART_NUMBER = #{partNumber}
+      ORDER BY UPDATE_TIMESTAMP DESC
+      LIMIT 0,1;
+  </select>
+</mapper>
+
+
+

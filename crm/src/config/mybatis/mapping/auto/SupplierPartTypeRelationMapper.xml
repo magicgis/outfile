@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierPartTypeRelationDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierPartTypeRelationKey" >
+    <id column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <id column="PART_TYPE_SUBSET_ID" property="partTypeSubsetId" jdbcType="INTEGER" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.SupplierPartTypeRelationKey" >
+    delete from supplier_part_type_relation
+    where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and PART_TYPE_SUBSET_ID = #{partTypeSubsetId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierPartTypeRelationKey" >
+    insert into supplier_part_type_relation (SUPPLIER_ID, PART_TYPE_SUBSET_ID)
+    values (#{supplierId,jdbcType=INTEGER}, #{partTypeSubsetId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierPartTypeRelationKey" >
+    insert into supplier_part_type_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="partTypeSubsetId != null" >
+        PART_TYPE_SUBSET_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="partTypeSubsetId != null" >
+        #{partTypeSubsetId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectByPartPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			sptr.SUPPLIER_ID,
+			sptr.PART_TYPE_SUBSET_ID,
+			s.id,
+			s. CODE,
+			s. NAME
+		FROM
+			supplier_part_type_relation sptr
+		INNER JOIN supplier s ON (sptr.SUPPLIER_ID = s.id)
+		WHERE
+			sptr.PART_TYPE_SUBSET_ID = #{partTypeSubsetId}
+  </select>
+  
+  <select id="selectBySupplierIdAndAirId" parameterType="com.naswork.model.SupplierPartTypeRelationKey" resultMap="BaseResultMap">
+  		SELECT
+			sptr.SUPPLIER_ID,
+			sptr.PART_TYPE_SUBSET_ID
+		FROM
+			supplier_part_type_relation sptr
+		WHERE
+			sptr.SUPPLIER_ID = #{supplierId}
+		AND sptr.PART_TYPE_SUBSET_ID = #{partTypeSubsetId}
+  </select>
+  
+</mapper>

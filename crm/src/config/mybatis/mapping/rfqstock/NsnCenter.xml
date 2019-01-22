@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.rfqstock.NsnCenterDao">
+	<resultMap id="cageInfoVo" type="com.naswork.model.rfqstock.nsncenter.CageInfo">
+		<id column="CAGE_ID" property="cageId" jdbcType="CHAR"/>
+		<id column="CAGE_NAME" property="cageName" jdbcType="VARCHAR"/>
+		<id column="ADDITIONAL_INFO" property="additionalInfo" jdbcType="VARCHAR"/>		
+	</resultMap>
+	<resultMap id="stockInfoVo" type="com.naswork.model.rfqstock.nsncenter.StockInfo">
+		<id column="CAGE_ID" property="cageId" jdbcType="CHAR"/>
+		<id column="CAGE_NAME" property="cageName" jdbcType="VARCHAR"/>
+		<id column="NSN_ID" property="nsnId" jdbcType="VARCHAR"/>
+		<id column="NSN_NAME" property="nsnName" jdbcType="VARCHAR"/>
+		<id column="PART_NUM" property="partNum" jdbcType="VARCHAR"/>
+		<id column="FSG_ID" property="fsgId" jdbcType="VARCHAR"/>
+		<id column="FSC_ID" property="fscId" jdbcType="VARCHAR"/>
+	</resultMap>
+	<select id="searchPageByCage" parameterType="page" resultMap="cageInfoVo">
+		select cage_id, cage_name, additional_info from rfqstock.t_cage_info
+		where 1=1 AND
+			  <if test="cageId !=null">
+			  	cage_id like concat(#{cageId,jdbcType=CHAR},'%') 
+			  </if>
+		 	  <if test="orderby!=null">
+					${orderby}
+			  </if>
+	</select>
+	<select id="searchPageByNsnPart" parameterType="page" resultMap="stockInfoVo">
+		select a.cage_id as cage_id, b.cage_name as cage_name,
+		 fsg_id, fsc_id, nsn_id, part_num, nsn_name from
+		rfqstock.r_cage_nsn_part as a
+		left join rfqstock.t_cage_info as b on (a.cage_id=b.cage_id)
+		where 1=1 
+			  <if test="cageId!=null and cageId!=''">
+			  	<choose>
+			  	<when test="fuzzySearchForCage!=null">
+			  		AND a.cage_id like concat(#{cageId,jdbcType=CHAR},'%')
+			  	</when>
+			  	<otherwise >
+			  		AND a.cage_id =#{cageId,jdbcType=CHAR}
+			  	</otherwise>
+			  	</choose>
+			  	 
+			  </if>
+			  <if test="nsnId!=null and nsnId!=''">
+			  	AND nsn_id like concat(#{nsnId,jdbcType=CHAR},'%')
+			  </if>
+			  <if test="partNum!=null and partNum!=''">
+			  	AND part_num like concat(#{partNum,jdbcType=CHAR},'%')
+			  </if>
+	 	  <if test="orderby!=null">
+				${orderby}
+		  </if>
+		
+	</select>
+	<select id="findReplaceNsn" parameterType="pd" resultType="hashmap">
+		select cage_id, nsn_id, part_num, replacedby_nsn_id from rfqstock.r_nsn_replace
+		where 1=0 
+		${where}
+	</select>
+</mapper>
+

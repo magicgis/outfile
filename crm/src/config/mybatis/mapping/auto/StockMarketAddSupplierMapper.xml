@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.StockMarketAddSupplierDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.StockMarketAddSupplier" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUPPLIER_COMMISSION_SALE_ELEMENT_ID" property="supplierCommissionSaleElementId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SUPPLIER_COMMISSION_SALE_ELEMENT_ID, SUPPLIER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock_market_add_supplier
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stock_market_add_supplier
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.StockMarketAddSupplier" >
+    insert into stock_market_add_supplier (ID, SUPPLIER_COMMISSION_SALE_ELEMENT_ID, 
+      SUPPLIER_ID)
+    values (#{id,jdbcType=INTEGER}, #{supplierCommissionSaleElementId,jdbcType=INTEGER}, 
+      #{supplierId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.StockMarketAddSupplier" >
+    insert into stock_market_add_supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierCommissionSaleElementId != null" >
+        SUPPLIER_COMMISSION_SALE_ELEMENT_ID,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="supplierCommissionSaleElementId != null" >
+        #{supplierCommissionSaleElementId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.StockMarketAddSupplier" >
+    update stock_market_add_supplier
+    <set >
+      <if test="supplierCommissionSaleElementId != null" >
+        SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{supplierCommissionSaleElementId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.StockMarketAddSupplier" >
+    update stock_market_add_supplier
+    set SUPPLIER_COMMISSION_SALE_ELEMENT_ID = #{supplierCommissionSaleElementId,jdbcType=INTEGER},
+      SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

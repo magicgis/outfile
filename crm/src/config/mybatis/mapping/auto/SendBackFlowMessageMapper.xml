@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SendBackFlowMessageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SendBackFlowMessage" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ORDER_APPROVAL_ID" property="orderApprovalId" jdbcType="INTEGER" />
+    <result column="READ_STATUS" property="read" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ORDER_APPROVAL_ID, READ_STATUS, UPDATE_TIMESTAMP, USER_ID, DESCRIPTION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from send_back_flow_message
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from send_back_flow_message
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SendBackFlowMessage" >
+    insert into send_back_flow_message (ID, ORDER_APPROVAL_ID, READ_STATUS, 
+      UPDATE_TIMESTAMP, USER_ID, DESCRIPTION
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderApprovalId,jdbcType=INTEGER}, #{read,jdbcType=INTEGER}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SendBackFlowMessage" >
+    insert into send_back_flow_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orderApprovalId != null" >
+        ORDER_APPROVAL_ID,
+      </if>
+      <if test="read != null" >
+        READ_STATUS,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderApprovalId != null" >
+        #{orderApprovalId,jdbcType=INTEGER},
+      </if>
+      <if test="read != null" >
+        #{read,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SendBackFlowMessage" >
+    update send_back_flow_message
+    <set >
+      <if test="orderApprovalId != null" >
+        ORDER_APPROVAL_ID = #{orderApprovalId,jdbcType=INTEGER},
+      </if>
+      <if test="read != null" >
+        READ_STATUS = #{read,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SendBackFlowMessage" >
+    update send_back_flow_message
+    set ORDER_APPROVAL_ID = #{orderApprovalId,jdbcType=INTEGER},
+      READ_STATUS = #{read,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      DESCRIPTION = #{description,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getSendBackListPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+		sbfm.ID,
+		sbfm.ORDER_APPROVAL_ID,
+		sbfm.DESCRIPTION,
+		sbfm.UPDATE_TIMESTAMP,
+		cie.PART_NUMBER,
+		cwo.ORDER_NUMBER
+	FROM
+		send_back_flow_message sbfm
+	LEFT JOIN order_approval oa ON oa.ID = sbfm.ORDER_APPROVAL_ID
+	LEFT JOIN client_weather_order_element cwoe ON cwoe.ID = oa.CLIENT_ORDER_ELEMENT_ID
+	LEFT JOIN client_weather_order cwo ON cwo.ID = cwoe.CLIENT_WEATHER_ORDER_ID
+	LEFT JOIN client_quote_element cqe ON cqe.ID = cwoe.CLIENT_QUOTE_ELEMENT_ID
+	LEFT JOIN client_inquiry_element cie ON cie.ID = cqe.CLIENT_INQUIRY_ELEMENT_ID
+	WHERE
+		sbfm.READ_STATUS = 0 
+		<if test="userId != null">
+			AND sbfm.USER_ID = #{userId}
+		</if>
+		<if test="where != null">
+			AND ${where}
+		</if>
+		<if test="orderBy != null">
+			${orderBy}
+		</if>
+  </select>
+  
+</mapper>

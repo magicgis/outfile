@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.TManufactoryDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.TManufactory" >
+    <id column="MSN" property="msn" jdbcType="VARCHAR" />
+    <result column="CAGE_CODE" property="cageCode" jdbcType="CHAR" />
+    <result column="MAN_NAME" property="manName" jdbcType="VARCHAR" />
+    <result column="CAP_MAN" property="capMan" jdbcType="CHAR" />
+    <result column="CAP_INSPECTION" property="capInspection" jdbcType="CHAR" />
+    <result column="CAP_REPAIR" property="capRepair" jdbcType="CHAR" />
+    <result column="CAP_MODIFICATION" property="capModification" jdbcType="CHAR" />
+    <result column="CAP_OVERHAUL" property="capOverhaul" jdbcType="CHAR" />
+    <result column="SRC_NSN" property="srcNsn" jdbcType="VARCHAR" />
+    <result column="SRC_SAT" property="srcSat" jdbcType="VARCHAR" />
+    <result column="SRC_AVI" property="srcAvi" jdbcType="VARCHAR" />
+    <result column="SRC_CAAC" property="srcCaac" jdbcType="VARCHAR" />
+    <result column="SRC_BETTERAIR" property="srcBetterair" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MSN, CAGE_CODE, MAN_NAME, CAP_MAN, CAP_INSPECTION, CAP_REPAIR, CAP_MODIFICATION, 
+    CAP_OVERHAUL, SRC_NSN, SRC_SAT, SRC_AVI, SRC_CAAC, SRC_BETTERAIR
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from crmstock.t_manufactory
+    where MSN = #{msn,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByCageCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from crmstock.t_manufactory
+    where CAGE_CODE = #{cageCode,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_manufactory
+    where MSN = #{msn,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.TManufactory" >
+    insert into t_manufactory (MSN, CAGE_CODE, MAN_NAME, 
+      CAP_MAN, CAP_INSPECTION, CAP_REPAIR, 
+      CAP_MODIFICATION, CAP_OVERHAUL, SRC_NSN, 
+      SRC_SAT, SRC_AVI, SRC_CAAC, 
+      SRC_BETTERAIR)
+    values (#{msn,jdbcType=VARCHAR}, #{cageCode,jdbcType=CHAR}, #{manName,jdbcType=VARCHAR}, 
+      #{capMan,jdbcType=CHAR}, #{capInspection,jdbcType=CHAR}, #{capRepair,jdbcType=CHAR}, 
+      #{capModification,jdbcType=CHAR}, #{capOverhaul,jdbcType=CHAR}, #{srcNsn,jdbcType=VARCHAR}, 
+      #{srcSat,jdbcType=VARCHAR}, #{srcAvi,jdbcType=VARCHAR}, #{srcCaac,jdbcType=VARCHAR}, 
+      #{srcBetterair,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.TManufactory" >
+    insert into crmstock.t_manufactory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msn != null" >
+        MSN,
+      </if>
+      <if test="cageCode != null" >
+        CAGE_CODE,
+      </if>
+      <if test="manName != null" >
+        MAN_NAME,
+      </if>
+      <if test="capMan != null" >
+        CAP_MAN,
+      </if>
+      <if test="capInspection != null" >
+        CAP_INSPECTION,
+      </if>
+      <if test="capRepair != null" >
+        CAP_REPAIR,
+      </if>
+      <if test="capModification != null" >
+        CAP_MODIFICATION,
+      </if>
+      <if test="capOverhaul != null" >
+        CAP_OVERHAUL,
+      </if>
+      <if test="srcNsn != null" >
+        SRC_NSN,
+      </if>
+      <if test="srcSat != null" >
+        SRC_SAT,
+      </if>
+      <if test="srcAvi != null" >
+        SRC_AVI,
+      </if>
+      <if test="srcCaac != null" >
+        SRC_CAAC,
+      </if>
+      <if test="srcBetterair != null" >
+        SRC_BETTERAIR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msn != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="cageCode != null" >
+        #{cageCode,jdbcType=CHAR},
+      </if>
+      <if test="manName != null" >
+        #{manName,jdbcType=VARCHAR},
+      </if>
+      <if test="capMan != null" >
+        #{capMan,jdbcType=CHAR},
+      </if>
+      <if test="capInspection != null" >
+        #{capInspection,jdbcType=CHAR},
+      </if>
+      <if test="capRepair != null" >
+        #{capRepair,jdbcType=CHAR},
+      </if>
+      <if test="capModification != null" >
+        #{capModification,jdbcType=CHAR},
+      </if>
+      <if test="capOverhaul != null" >
+        #{capOverhaul,jdbcType=CHAR},
+      </if>
+      <if test="srcNsn != null" >
+        #{srcNsn,jdbcType=VARCHAR},
+      </if>
+      <if test="srcSat != null" >
+        #{srcSat,jdbcType=VARCHAR},
+      </if>
+      <if test="srcAvi != null" >
+        #{srcAvi,jdbcType=VARCHAR},
+      </if>
+      <if test="srcCaac != null" >
+        #{srcCaac,jdbcType=VARCHAR},
+      </if>
+      <if test="srcBetterair != null" >
+        #{srcBetterair,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.TManufactory" >
+    update crmstock.t_manufactory
+    <set >
+      <if test="cageCode != null" >
+        CAGE_CODE = #{cageCode,jdbcType=CHAR},
+      </if>
+      <if test="manName != null" >
+        MAN_NAME = #{manName,jdbcType=VARCHAR},
+      </if>
+      <if test="capMan != null" >
+        CAP_MAN = #{capMan,jdbcType=CHAR},
+      </if>
+      <if test="capInspection != null" >
+        CAP_INSPECTION = #{capInspection,jdbcType=CHAR},
+      </if>
+      <if test="capRepair != null" >
+        CAP_REPAIR = #{capRepair,jdbcType=CHAR},
+      </if>
+      <if test="capModification != null" >
+        CAP_MODIFICATION = #{capModification,jdbcType=CHAR},
+      </if>
+      <if test="capOverhaul != null" >
+        CAP_OVERHAUL = #{capOverhaul,jdbcType=CHAR},
+      </if>
+      <if test="srcNsn != null" >
+        SRC_NSN = #{srcNsn,jdbcType=VARCHAR},
+      </if>
+      <if test="srcSat != null" >
+        SRC_SAT = #{srcSat,jdbcType=VARCHAR},
+      </if>
+      <if test="srcAvi != null" >
+        SRC_AVI = #{srcAvi,jdbcType=VARCHAR},
+      </if>
+      <if test="srcCaac != null" >
+        SRC_CAAC = #{srcCaac,jdbcType=VARCHAR},
+      </if>
+      <if test="srcBetterair != null" >
+        SRC_BETTERAIR = #{srcBetterair,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MSN = #{msn,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.TManufactory" >
+    update t_manufactory
+    set CAGE_CODE = #{cageCode,jdbcType=CHAR},
+      MAN_NAME = #{manName,jdbcType=VARCHAR},
+      CAP_MAN = #{capMan,jdbcType=CHAR},
+      CAP_INSPECTION = #{capInspection,jdbcType=CHAR},
+      CAP_REPAIR = #{capRepair,jdbcType=CHAR},
+      CAP_MODIFICATION = #{capModification,jdbcType=CHAR},
+      CAP_OVERHAUL = #{capOverhaul,jdbcType=CHAR},
+      SRC_NSN = #{srcNsn,jdbcType=VARCHAR},
+      SRC_SAT = #{srcSat,jdbcType=VARCHAR},
+      SRC_AVI = #{srcAvi,jdbcType=VARCHAR},
+      SRC_CAAC = #{srcCaac,jdbcType=VARCHAR},
+      SRC_BETTERAIR = #{srcBetterair,jdbcType=VARCHAR}
+    where MSN = #{msn,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="getMsnByCageCode" parameterType="String" resultMap="BaseResultMap">
+  		select * from crmstock.t_manufactory tm where tm.cage_code = #{cageCode}
+  </select>
+  
+  <select id="selectByMsn" parameterType="String" resultMap="BaseResultMap">
+  		SELECT
+			MSN,
+			CAGE_CODE,
+			MAN_NAME,
+			CAP_MAN,
+			CAP_INSPECTION,
+			CAP_REPAIR,
+			CAP_MODIFICATION,
+			CAP_OVERHAUL,
+			SRC_NSN,
+			SRC_SAT,
+			SRC_AVI,
+			SRC_CAAC,
+			SRC_BETTERAIR
+		FROM
+			crmstock.t_manufactory
+		WHERE
+			MSN = #{msn}
+  </select>
+  
+</mapper>

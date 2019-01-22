@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SendBackMessageDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SendBackMessage" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="EXPORT_PACKAGE_ELEMENT_ID" property="exportPackageElementId" jdbcType="INTEGER" />
+    <result column="MANAGE_STATUS" property="manageStatus" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="EXPORT_NUMBER" property="exportNumber" jdbcType="VARCHAR" />
+    <result column="IMPORT_NUMBER" property="importNumber" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_ORDER_NUMBER" property="supplierOrderNumber" jdbcType="VARCHAR" />
+    <result column="CLIENT_ORDER_NUMBER" property="clientOrderNumber" jdbcType="VARCHAR" />
+    <result column="MANAGE_STATUS_VALUE" property="manageStatusValue" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_CODE" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="CLIENT_CODE" property="clientCode" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, EXPORT_PACKAGE_ELEMENT_ID, MANAGE_STATUS, AMOUNT, REMARK, UPDATE_TIMESTAMP,SERIAL_NUMBER,LOCATION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from send_back_message
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from send_back_message
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SendBackMessage" >
+    insert into send_back_message (ID, EXPORT_PACKAGE_ELEMENT_ID, MANAGE_STATUS, 
+      AMOUNT, REMARK, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{exportPackageElementId,jdbcType=INTEGER}, #{manageStatus,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SendBackMessage" >
+    insert into send_back_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="exportPackageElementId != null" >
+        EXPORT_PACKAGE_ELEMENT_ID,
+      </if>
+      <if test="manageStatus != null" >
+        MANAGE_STATUS,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="exportPackageElementId != null" >
+        #{exportPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="manageStatus != null" >
+        #{manageStatus,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.SendBackMessage" >
+    update send_back_message
+    <set >
+      <if test="exportPackageElementId != null" >
+        EXPORT_PACKAGE_ELEMENT_ID = #{exportPackageElementId,jdbcType=INTEGER},
+      </if>
+      <if test="manageStatus != null" >
+        MANAGE_STATUS = #{manageStatus,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.SendBackMessage" >
+    update send_back_message
+    set EXPORT_PACKAGE_ELEMENT_ID = #{exportPackageElementId,jdbcType=INTEGER},
+      MANAGE_STATUS = #{manageStatus,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+		sbm.ID,
+		ipe.PART_NUMBER,
+		ipe.DESCRIPTION,
+		ep.EXPORT_NUMBER,
+		ip.IMPORT_NUMBER,
+		so.ORDER_NUMBER AS SUPPLIER_ORDER_NUMBER,
+		co.ORDER_NUMBER AS CLIENT_ORDER_NUMBER,
+		sc.`VALUE` AS MANAGE_STATUS_VALUE,
+		s.`CODE` AS supplier_code,
+		c.`CODE` AS client_code,
+		sbm.AMOUNT,
+		sbm.REMARK,
+		sbm.SERIAL_NUMBER,
+		sbm.UPDATE_TIMESTAMP,
+		sbm.location
+	FROM
+		send_back_message sbm
+	LEFT JOIN system_code sc ON sc.ID = sbm.MANAGE_STATUS
+	LEFT JOIN export_package_element epe ON epe.ID = sbm.EXPORT_PACKAGE_ELEMENT_ID
+	LEFT JOIN export_package ep ON ep.ID = epe.EXPORT_PACKAGE_ID
+	LEFT JOIN import_package_element ipe ON ipe.ID = epe.IMPORT_PACKAGE_ELEMENT_ID
+	LEFT JOIN import_package ip ON ip.ID = ipe.IMPORT_PACKAGE_ID
+	LEFT JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+	LEFT JOIN supplier_order_element soe ON soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+	LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+	LEFT JOIN supplier s ON s.ID = so.SUPPLIER_ID
+	LEFT JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+	LEFT JOIN client_order co ON co.ID = coe.CLIENT_ORDER_ID
+	LEFT JOIN client_quote cq ON cq.ID = co.CLIENT_QUOTE_ID
+	LEFT JOIN client_inquiry ci ON ci.ID = cq.CLIENT_INQUIRY_ID
+	LEFT JOIN client c ON c.ID = ci.CLIENT_ID
+	<if test="marketUserId != null">
+		LEFT JOIN authority_relation ar ON ar.CLIENT_ID = c.ID
+	</if>
+	<if test="purchaseUserId != null">
+		LEFT JOIN authority_relation ar ON ar.SUPPLIER_ID = s.ID
+	</if>
+	where 1=1
+	<if test="where != null">
+		AND ${where}
+	</if>
+	<if test="marketUserId != null">
+		AND ar.user_id = #{marketUserId}
+	</if>
+	<if test="purchaseUserId != null">
+		AND ar.user_id = #{purchaseUserId}
+	</if>
+	<if test="orderby != null">
+		${orderby}
+	</if>
+  </select>
+  
+  <select id="getAddListPage" parameterType="page" resultMap="BaseResultMap">
+  	SELECT
+		epe.ID,
+		ipe.PART_NUMBER,
+		ipe.DESCRIPTION,
+		ipe.SERIAL_NUMBER,
+		co.ORDER_NUMBER AS CLIENT_ORDER_NUMBER,	
+		so.ORDER_NUMBER AS SUPPLIER_ORDER_NUMBER,
+		c.`CODE` AS CLIENT_CODE,
+		s.`CODE` AS SUPPLIER_CODE,
+		epe.AMOUNT,
+		ep.EXPORT_NUMBER,
+		ip.IMPORT_NUMBER
+	FROM
+		export_package_element epe
+	LEFT JOIN export_package ep ON ep.ID = epe.EXPORT_PACKAGE_ID
+	LEFT JOIN import_package_element ipe ON ipe.ID = epe.IMPORT_PACKAGE_ELEMENT_ID
+	LEFT JOIN import_package ip ON ip.ID = ipe.IMPORT_PACKAGE_ID
+	LEFT JOIN supplier_import_element sie ON sie.IMPORT_PACKAGE_ELEMENT_ID = ipe.ID
+	LEFT JOIN supplier_order_element soe ON soe.ID = sie.SUPPLIER_ORDER_ELEMENT_ID
+	LEFT JOIN supplier_order so ON so.ID = soe.SUPPLIER_ORDER_ID
+	LEFT JOIN supplier s ON s.ID = so.SUPPLIER_ID
+	LEFT JOIN client_order_element coe ON coe.ID = soe.CLIENT_ORDER_ELEMENT_ID
+	LEFT JOIN client_order co ON co.ID = coe.CLIENT_ORDER_ID
+	LEFT JOIN client_quote cq ON cq.ID = co.CLIENT_QUOTE_ID
+	LEFT JOIN client_inquiry ci ON ci.ID = cq.CLIENT_INQUIRY_ID
+	LEFT JOIN client c ON c.ID = ci.CLIENT_ID
+	<where>
+		${where}
+	</where>
+	<if test="orderby != null">
+		${orderby}
+	</if>
+  </select>
+  
+</mapper>

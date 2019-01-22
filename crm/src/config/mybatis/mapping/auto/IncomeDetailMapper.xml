@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.IncomeDetailDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.IncomeDetail" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="INCOME_ID" property="incomeId" jdbcType="INTEGER" />
+    <result column="CLIENT_ORDER_ELEMENT_ID" property="clientOrderElementId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="PERCENTAGE" property="percentage" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="TOTAL" property="total" jdbcType="DOUBLE" />
+    <result column="PART_NUMBER" property="partNumber" jdbcType="VARCHAR" />
+    <result column="RECEIVE_DATE" property="receiveDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, INCOME_ID, CLIENT_ORDER_ELEMENT_ID, AMOUNT, PRICE, PERCENTAGE, REMARK, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from income_detail
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from income_detail
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.IncomeDetail" >
+    insert into income_detail (ID, INCOME_ID, CLIENT_ORDER_ELEMENT_ID, 
+      AMOUNT, PRICE, PERCENTAGE, 
+      REMARK, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{incomeId,jdbcType=INTEGER}, #{clientOrderElementId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, #{percentage,jdbcType=DOUBLE}, 
+      #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.IncomeDetail" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+    insert into income_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="incomeId != null" >
+        INCOME_ID,
+      </if>
+      <if test="clientOrderElementId != null" >
+        CLIENT_ORDER_ELEMENT_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="percentage != null" >
+        PERCENTAGE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+       <if test="total != null" >
+        TOTAL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="incomeId != null" >
+        #{incomeId,jdbcType=INTEGER},
+      </if>
+      <if test="clientOrderElementId != null" >
+        #{clientOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="percentage != null" >
+        #{percentage,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+       <if test="total != null" >
+        #{total,jdbcType=DOUBLE}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.IncomeDetail" >
+    update income_detail
+    <set >
+      <if test="incomeId != null" >
+        INCOME_ID = #{incomeId,jdbcType=INTEGER},
+      </if>
+      <if test="clientOrderElementId != null" >
+        CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="percentage != null" >
+        PERCENTAGE = #{percentage,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="total != null" >
+        TOTAL = #{total,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.IncomeDetail" >
+    update income_detail
+    set INCOME_ID = #{incomeId,jdbcType=INTEGER},
+      CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      PRICE = #{price,jdbcType=DOUBLE},
+      PERCENTAGE = #{percentage,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getByIncomeIdPage" parameterType="page" resultMap="BaseResultMap">
+  		select cie.PART_NUMBER,coe.PRICE,id.ID,id.AMOUNT,id.REMARK,id.TOTAL, 
+			id.CLIENT_ORDER_ELEMENT_ID from income_detail id 
+			LEFT JOIN client_order_element coe ON 
+			(coe.ID = id.CLIENT_ORDER_ELEMENT_ID)
+			LEFT JOIN client_quote_element cqe ON 
+			(cqe.ID = coe.CLIENT_QUOTE_ELEMENT_ID)
+			LEFT JOIN client_inquiry_element cie ON
+			(cie.id = cqe.CLIENT_INQUIRY_ELEMENT_ID)
+			 where id.INCOME_ID = #{incomeId}
+  </select>
+  
+  <select id="getTerms" parameterType="Integer" resultType="Integer">
+  		select DISTINCT cie.TERMS from income_detail id 
+			LEFT JOIN income i ON (i.ID = id.INCOME_ID)
+			LEFT JOIN client_invoice ci ON (ci.id = i.CLIENT_INVOICE_ID)
+			LEFT JOIN client_invoice_element cie ON (cie.CLIENT_INVOICE_ID = ci.id)
+			where cie.CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId}
+  </select>
+  
+  <select id="getTotalIncome" parameterType="Integer" resultType="Double">
+  		SELECT sum(vib.TOTAL) FROM client_order co 
+			LEFT JOIN client_invoice ci on ci.CLIENT_ORDER_ID = co.ID
+			LEFT JOIN v_income_bill vib on vib.CLIENT_INVOICE_ID = ci.ID
+			where co.ID = #{clientOrderId} and ci.INVOICE_TYPE != 0 GROUP BY co.ID
+  </select>
+  
+  <select id="getOrderTotal" parameterType="Integer" resultType="Double">
+  		SELECT SUM(coe.AMOUNT*coe.PRICE) FROM client_order_element coe 
+			WHERE coe.CLIENT_ORDER_ID = #{clientOrderId} GROUP BY coe.CLIENT_ORDER_ID 
+  </select>
+  
+  <select id="getTotalByClientOrderElementId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT id.CLIENT_ORDER_ELEMENT_ID,MAX(i.RECEIVE_DATE) AS RECEIVE_DATE,IFNULL(SUM(id.TOTAL),0) as TOTAL FROM income_detail id 
+			LEFT JOIN income i on i.ID = id.INCOME_ID
+			WHERE id.CLIENT_ORDER_ELEMENT_ID = #{clientOrderElementId}
+			GROUP BY id.CLIENT_ORDER_ELEMENT_ID
+  </select>
+</mapper>

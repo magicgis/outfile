@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.QuoteBankChargesdDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.QuoteBankCharges" >
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+    <result column="BANK_CHARGES" property="bankCharges" jdbcType="DOUBLE" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.naswork.model.QuoteBankCharges" >
+    insert into quote_bank_charges (CLIENT_ID, BANK_CHARGES)
+    values (#{clientId,jdbcType=INTEGER}, #{bankCharges,jdbcType=DOUBLE})
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.naswork.model.QuoteBankCharges" >
+    update quote_bank_charges
+    set 
+        BANK_CHARGES= #{bankCharges}
+    where CLIENT_ID = #{clientId}
+  </update>
+  
+  <insert id="insertSelective" parameterType="com.naswork.model.QuoteBankCharges" >
+    insert into quote_bank_charges
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clientId != null" >
+        CLIENT_ID,
+      </if>
+      <if test="bankCharges != null" >
+        BANK_CHARGES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="bankCharges != null" >
+        #{bankCharges,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="quoteBankChargesPage" parameterType="page" resultMap="BaseResultMap">
+  		select c.id CLIENT_ID,c.code,bc.BANK_CHARGES from quote_bank_charges bc
+  		inner join client  c on bc.client_id=c.id
+  </select>
+  
+  <select id="findByClientId" parameterType="INTEGER" resultMap="BaseResultMap">
+  		select * from quote_bank_charges where client_id=#{clientId}
+  </select>
+  
+</mapper>

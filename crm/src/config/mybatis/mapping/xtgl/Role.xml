@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.RoleDao">
+	<resultMap id="roleVo" type="roleVo">
+		<id column="ROLE_ID" property="roleId" jdbcType="VARCHAR"/>
+		<id column="ROLE_NAME" property="roleName" jdbcType="VARCHAR"/>
+		<id column="ROLE_COMMENT" property="roleComment" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap type="com.naswork.model.RoleMenu" id="roleMenuVo">
+		<result property="menuId" column="MENU_ID" />
+		<result property="parentMenuId" column="PARENT_MENU_ID" />
+		<result property="menuName" column="MENU_NAME" />
+		<result property="menuUrl" column="MENU_URL" />
+		<result property="isLeaf" column="IS_LEAF" />
+		<result property="yxbz" column="YXBZ"/>
+		<result property="menuOrder" column="MENU_ORDER" />
+		<result property="rootMenuId" column="ROOT_MENU_ID" />
+		<result property="checked" column="CHECKED" />
+	</resultMap>
+	
+	<resultMap id="userVo" type="com.naswork.vo.UserVo">  
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>  
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+        <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR"/>
+        <result column="INFORMATION" property="information" jdbcType="VARCHAR"/>
+        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <result column="FAX" property="fax" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+    </resultMap>
+
+<insert id="insertRole" parameterType="com.naswork.model.Role">
+		INSERT INTO T_ROLE (ROLE_ID,ROLE_NAME, ROLE_COMMENT) VALUES (#{roleId},#{roleName}, #{roleComment})
+	</insert>
+
+	<select id="findAllRoles" parameterType="pd" resultMap="roleVo">
+	SELECT ROLE_ID, ROLE_NAME, ROLE_COMMENT FROM T_ROLE
+	</select>
+	<select id="findRolesPage" parameterType="pd" resultMap="roleVo">
+	SELECT ROLE_ID, ROLE_NAME, ROLE_COMMENT FROM T_ROLE
+	</select>
+	<select id="findFullMenuByRole" parameterType="page" resultMap="roleMenuVo">
+		(SELECT 
+			T_MENU.MENU_ID AS MENU_ID,
+			T_MENU.PARENT_MENU_ID AS PARENT_MENU_ID,
+			T_MENU.MENU_NAME AS MENU_NAME,
+			T_MENU.MENU_URL AS MENU_URL,
+			T_MENU.IS_LEAF AS IS_LEAF,
+			T_MENU.YXBZ AS YXBZ,
+			T_MENU.MENU_ORDER AS MENU_ORDER,
+			T_MENU.ROOT_MENU_ID AS ROOT_MENU_ID,
+			"Y" AS CHECKED
+		FROM T_MENU, R_ROLE_MENU
+		WHERE T_MENU.MENU_ID = R_ROLE_MENU.MENU_ID AND R_ROLE_MENU.ROLE_ID=#{roleId}
+		)
+		UNION
+		(
+		SELECT 
+			T_MENU.MENU_ID AS MENU_ID,
+			T_MENU.PARENT_MENU_ID AS PARENT_MENU_ID,
+			T_MENU.MENU_NAME AS MENU_NAME,
+			T_MENU.MENU_URL AS MENU_URL,
+			T_MENU.IS_LEAF AS IS_LEAF,
+			T_MENU.YXBZ AS YXBZ,
+			T_MENU.MENU_ORDER AS MENU_ORDER,
+			T_MENU.ROOT_MENU_ID AS ROOT_MENU_ID,
+			"N" AS CHECKED
+		FROM T_MENU
+		WHERE T_MENU.MENU_ID NOT IN
+		(
+			SELECT MENU_ID FROM R_ROLE_MENU WHERE R_ROLE_MENU.ROLE_ID=#{roleId}
+		)
+		
+		)
+			 
+	</select>
+	<delete id="deleteRoleMenuByRoleId" parameterType="String">
+		DELETE FROM R_ROLE_MENU WHERE ROLE_ID=#{roleId}
+	</delete>
+	<insert id="insertRoleMenu" parameterType="pd">
+		INSERT INTO R_ROLE_MENU (ROLE_ID, MENU_ID) VALUES (#{roleId}, #{menuId})
+	</insert>
+	
+	<select id="getPeoplePage" parameterType="page" resultMap="userVo">
+		select tu.*,rru.role_id from r_role_user rru
+			LEFT JOIN t_user tu ON (rru.USER_ID = tu.user_id)
+			where rru.ROLE_ID = #{id}
+	</select>
+	
+	<select id="selectByRoleId" parameterType="Integer" resultMap="roleVo">
+		SELECT
+			ROLE_ID,
+			ROLE_NAME,
+			ROLE_COMMENT
+		FROM
+			t_role
+		WHERE
+			role_id = #{roleId};
+	</select>
+	
+	<select id="selectMaxRoleId"  resultType="INTEGER">
+		SELECT
+			max(ROLE_ID) ROLE_ID
+		FROM
+			t_role
+		
+	</select>
+	
+	<select id="getRoleIdByUserId" parameterType="Integer" resultType="Integer">
+			SELECT rru.ROLE_ID FROM r_role_user rru WHERE rru.USER_ID = #{userId};
+	</select>
+	
+</mapper>

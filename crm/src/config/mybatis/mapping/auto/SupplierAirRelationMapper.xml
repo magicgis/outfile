@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.SupplierAirRelationDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.SupplierAirRelationKey" >
+    <id column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <id column="AIR_ID" property="airId" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+     <result column="code" property="code" jdbcType="VARCHAR" />
+      <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <select id="selectBySupplierIdPage" resultMap="BaseResultMap" parameterType="page" >
+    select 
+   sar.SUPPLIER_ID,sar.AIR_ID,ct.value,ct.id
+    from supplier_air_relation sar
+    INNER JOIN system_code ct ON (sar.AIR_ID=ct.id)
+    where sar.SUPPLIER_ID = ${supplierId}
+  </select>
+  
+    <select id="selectByAirIdPage" resultMap="BaseResultMap" parameterType="page" >
+    select 
+   sar.SUPPLIER_ID,sar.AIR_ID,s.id,s.code,s.name
+    from supplier_air_relation sar
+    INNER JOIN supplier s ON (sar.SUPPLIER_ID=s.id)
+    where sar.AIR_ID = ${airId}
+  </select>
+  
+   <select id="selectBySupplierIdAndAirId" resultMap="BaseResultMap" parameterType="com.naswork.model.SupplierAirRelationKey" >
+    select 
+   sar.SUPPLIER_ID,sar.AIR_ID
+    from supplier_air_relation sar
+    where sar.SUPPLIER_ID = ${supplierId}  and  AIR_ID = ${airId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.naswork.model.SupplierAirRelationKey" >
+    delete from supplier_air_relation
+    where SUPPLIER_ID = #{supplierId,jdbcType=INTEGER}
+      and AIR_ID = #{airId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.SupplierAirRelationKey" >
+    insert into supplier_air_relation (SUPPLIER_ID, AIR_ID)
+    values (#{supplierId,jdbcType=INTEGER}, #{airId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.SupplierAirRelationKey" >
+    insert into supplier_air_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="airId != null" >
+        AIR_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="airId != null" >
+        #{airId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectByClientInuqiryId" parameterType="Integer" resultMap="BaseResultMap">
+  	select DISTINCT sar.SUPPLIER_ID from supplier_air_relation sar
+		LEFT JOIN system_code air on air.ID =sar.AIR_ID
+		LEFT JOIN client_inquiry_element cie ON cie.TYPE_CODE = air.`CODE`
+		where cie.CLIENT_INQUIRY_ID = #{clientInquiryId} and air.`CODE` in (42, 44, 72, 73, 74, 50)
+  </select>
+  
+  <select id="selectByClientInuqiryIdForFree" parameterType="Integer" resultMap="BaseResultMap">
+  	select DISTINCT sar.SUPPLIER_ID from supplier_air_relation sar
+		LEFT JOIN system_code air on air.ID =sar.AIR_ID
+		LEFT JOIN client_inquiry_element cie ON cie.TYPE_CODE = air.`CODE`
+		where cie.CLIENT_INQUIRY_ID = #{clientInquiryId} and air.`CODE` in (42,43,44,74,72,73)
+  </select>
+  
+  <select id="getSupplierByIds" parameterType="String" resultMap="BaseResultMap">
+  	select DISTINCT sar.SUPPLIER_ID from supplier_air_relation sar
+		LEFT JOIN system_code air on air.ID =sar.AIR_ID
+		LEFT JOIN client_inquiry_element cie ON cie.TYPE_CODE = air.`CODE`
+		where cie.ID = (#{ids}) and air.`CODE` in (42, 44, 72, 73, 74, 50)
+  </select>
+</mapper>

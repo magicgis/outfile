@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.ClientReceiptDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.ClientReceipt" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="EXPORT_PACKAGE_ID" property="exportPackageId" jdbcType="INTEGER" />
+    <result column="RECEIVE_DATE" property="receiveDate" jdbcType="DATE" />
+    <result column="RECEIVE_SUM" property="receiveSum" jdbcType="DOUBLE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.naswork.module.finance.controller.clientreceipt.ClientReceiptVo" id="clientReceiptVo">
+  	<result column="id" property="id" jdbcType="INTEGER" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="export_number" property="exportNumber" jdbcType="VARCHAR" />
+    <result column="export_date" property="exportDate" jdbcType="DATE" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="receive_date" property="receiveDate" jdbcType="DATE" />
+    <result column="receive_sum" property="receiveSum" jdbcType="DOUBLE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="update_timestamp" property="updateTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, EXPORT_PACKAGE_ID, RECEIVE_DATE, RECEIVE_SUM, REMARK, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_receipt
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client_receipt
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.ClientReceipt" >
+    insert into client_receipt (ID, EXPORT_PACKAGE_ID, RECEIVE_DATE, 
+      RECEIVE_SUM, REMARK, UPDATE_TIMESTAMP
+      )
+    values (#{id,jdbcType=INTEGER}, #{exportPackageId,jdbcType=INTEGER}, #{receiveDate,jdbcType=DATE}, 
+      #{receiveSum,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, #{updateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.ClientReceipt" >
+    insert into client_receipt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="exportPackageId != null" >
+        EXPORT_PACKAGE_ID,
+      </if>
+      <if test="receiveDate != null" >
+        RECEIVE_DATE,
+      </if>
+      <if test="receiveSum != null" >
+        RECEIVE_SUM,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="exportPackageId != null" >
+        #{exportPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveDate != null" >
+        #{receiveDate,jdbcType=DATE},
+      </if>
+      <if test="receiveSum != null" >
+        #{receiveSum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.ClientReceipt" >
+    update client_receipt
+    <set >
+      <if test="exportPackageId != null" >
+        EXPORT_PACKAGE_ID = #{exportPackageId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveDate != null" >
+        RECEIVE_DATE = #{receiveDate,jdbcType=DATE},
+      </if>
+      <if test="receiveSum != null" >
+        RECEIVE_SUM = #{receiveSum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.ClientReceipt" >
+    update client_receipt
+    set EXPORT_PACKAGE_ID = #{exportPackageId,jdbcType=INTEGER},
+      RECEIVE_DATE = #{receiveDate,jdbcType=DATE},
+      RECEIVE_SUM = #{receiveSum,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listPage" parameterType="page" resultMap="clientReceiptVo">
+  	SELECT
+		cr.id,
+		ep.export_number,
+		ep.export_date,
+		ep.exchange_rate,
+		c.id AS client_id,
+		c. CODE AS client_code,
+		c. NAME AS client_name,
+		cu.id AS currency_id,
+		cu. CODE AS currency_code,
+		cu.
+	VALUE
+		AS currency_value,
+		cr.receive_date,
+		cr.receive_sum,
+		cr.receive_sum * ep.exchange_rate AS base_receive_sum,
+		cr.remark,
+		cr.update_timestamp
+	FROM
+		client_receipt cr
+	INNER JOIN export_package ep ON (cr.export_package_id = ep.id)
+	INNER JOIN client c ON (ep.client_id = c.id)
+	INNER JOIN system_code cu ON (ep.currency_id = cu.id)
+	<where>
+		${where}
+	</where>
+	<if test="orderby != null">
+		${orderby}
+	</if>
+  </select>
+  
+  <select id="findById" parameterType="Integer" resultMap="clientReceiptVo">
+  	SELECT
+		cr.id,
+		ep.export_number,
+		ep.export_date,
+		ep.exchange_rate,
+		c.id AS client_id,
+		c. CODE AS client_code,
+		c. NAME AS client_name,
+		cu.id AS currency_id,
+		cu. CODE AS currency_code,
+		cu.
+	VALUE
+		AS currency_value,
+		cr.receive_date,
+		cr.receive_sum,
+		cr.receive_sum * ep.exchange_rate AS base_receive_sum,
+		cr.remark,
+		cr.update_timestamp
+	FROM
+		client_receipt cr
+	INNER JOIN export_package ep ON (cr.export_package_id = ep.id)
+	INNER JOIN client c ON (ep.client_id = c.id)
+	INNER JOIN system_code cu ON (ep.currency_id = cu.id)
+	where cr.id = #{id}
+  </select>
+  
+</mapper>

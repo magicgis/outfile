@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.HistoricalOrderPriceDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.HistoricalOrderPrice" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BSN" property="bsn" jdbcType="VARCHAR" />
+    <result column="CLIENT_ID" property="clientId" jdbcType="INTEGER" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DOUBLE" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+    <result column="YEAR" property="year" jdbcType="INTEGER" />
+    <result column="UPDATE_TIMESTAMP" property="updateTimestamp" jdbcType="TIMESTAMP" />
+    <result column="part_num" property="partNum" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="currency_value" property="currencyValue" jdbcType="VARCHAR" />
+    <result column="client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="CURRENCY_ID" property="currencyId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BSN, CLIENT_ID, SUPPLIER_ID, AMOUNT, PRICE, YEAR, UPDATE_TIMESTAMP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from historical_order_price
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from historical_order_price
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.HistoricalOrderPrice" >
+    insert into historical_order_price (ID, BSN, CLIENT_ID, 
+      SUPPLIER_ID, AMOUNT, PRICE, 
+      YEAR, UPDATE_TIMESTAMP)
+    values (#{id,jdbcType=INTEGER}, #{bsn,jdbcType=VARCHAR}, #{clientId,jdbcType=INTEGER}, 
+      #{supplierId,jdbcType=INTEGER}, #{amount,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, 
+      #{year,jdbcType=INTEGER}, #{updateTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.HistoricalOrderPrice" >
+    insert into historical_order_price
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="bsn != null" >
+        BSN,
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID,
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="year != null" >
+        YEAR,
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bsn != null" >
+        #{bsn,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.HistoricalOrderPrice" >
+    update historical_order_price
+    <set >
+      <if test="bsn != null" >
+        BSN = #{bsn,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        CLIENT_ID = #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null" >
+        SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="year != null" >
+        YEAR = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="updateTimestamp != null" >
+        UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.HistoricalOrderPrice" >
+    update historical_order_price
+    set BSN = #{bsn,jdbcType=VARCHAR},
+      CLIENT_ID = #{clientId,jdbcType=INTEGER},
+      SUPPLIER_ID = #{supplierId,jdbcType=INTEGER},
+      AMOUNT = #{amount,jdbcType=DOUBLE},
+      PRICE = #{price,jdbcType=DOUBLE},
+      YEAR = #{year,jdbcType=INTEGER},
+      UPDATE_TIMESTAMP = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="clientPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			hop.BSN,
+			tp.PART_NUM,
+			tp.part_name,
+			hop.AMOUNT,
+			hop.PRICE,
+			hop.`YEAR`,
+			hop.UPDATE_TIMESTAMP,
+			c.`CODE`
+		FROM
+			historical_order_price hop
+		LEFT JOIN client c ON c.ID = hop.CLIENT_ID
+		LEFT JOIN crmstock.t_part tp ON tp.BSN = hop.BSN
+		<if test="userId != null">
+			LEFT JOIN authority_relation ar on ar.CLIENT_ID = c.ID
+		</if>
+		where 1=1 
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+  
+  
+  <select id="supplierPage" parameterType="page" resultMap="BaseResultMap">
+  		SELECT
+			hop.BSN,
+			tp.PART_NUM,
+			tp.part_name,
+			hop.AMOUNT,
+			hop.PRICE,
+			hop.`YEAR`,
+			hop.UPDATE_TIMESTAMP,
+			s.`CODE`
+		FROM
+			historical_order_price hop
+		LEFT JOIN supplier s ON s.ID = hop.SUPPLIER_ID
+		LEFT JOIN crmstock.t_part tp ON tp.BSN = hop.BSN
+		<if test="userId != null">
+			LEFT JOIN authority_relation ar on ar.SUPPLIER_ID = s.ID
+		</if>
+		where 1=1 
+		<if test="where != null">
+			and ${where}
+		</if>
+		<if test="userId != null">
+			and ar.USER_ID = #{userId}
+		</if>
+		<if test="orderby != null">
+			${orderby}
+		</if>
+  </select>
+  
+  <select id="selectByCLientInquiryId" parameterType="Integer" resultMap="BaseResultMap">
+  		SELECT
+			DISTINCT hop.`YEAR`
+		FROM
+			historical_order_price hop
+		LEFT JOIN client_inquiry ci ON hop.CLIENT_ID = ci.CLIENT_ID
+		WHERE ci.ID = #{clientInquiryId}
+  		
+  </select>
+  
+  <select id="selectByBsn" parameterType="String" resultMap="BaseResultMap">
+  		SELECT
+			hop.ID,
+			hop.BSN,
+			hop.CLIENT_ID,
+			hop.SUPPLIER_ID,
+			hop.AMOUNT,
+			hop.PRICE,
+			hop.`YEAR`,
+			hop.UPDATE_TIMESTAMP,
+			sc.`VALUE` AS currency_value
+		FROM
+			historical_order_price hop
+		LEFT JOIN client c ON c.ID = hop.CLIENT_ID
+		LEFT JOIN system_code sc ON c.CURRENCY_ID = sc.ID
+		WHERE
+			hop.BSN = #{bsn}
+  </select>
+  
+  <select id="getPriceByBsn" parameterType="String" resultMap="BaseResultMap">
+  		SELECT
+			hop.ID,
+			hop.BSN,
+			hop.CLIENT_ID,
+			hop.SUPPLIER_ID,
+			hop.AMOUNT,
+			hop.PRICE,
+			hop.`YEAR`,
+			hop.UPDATE_TIMESTAMP
+		FROM
+			historical_order_price hop
+		WHERE
+			hop.BSN = #{bsn}
+		ORDER BY
+			hop.`YEAR` DESC
+		LIMIT 0,
+		 1
+  </select>
+  
+  <select id="getByClient" parameterType="String" resultMap="BaseResultMap">
+  		SELECT * FROM `historical_order_price` hop WHERE hop.CLIENT_ID = #{0} AND hop.BSN = #{1} AND hop.`YEAR` = #{2};
+  </select>
+  
+  <select id="getByPart" parameterType="String" resultMap="BaseResultMap">
+  	SELECT
+		hop.*, tp.PART_NUM,
+		tp.part_name,
+		c.`CODE` as client_code,
+		c.CURRENCY_ID
+	FROM
+		historical_order_price hop
+	LEFT JOIN crmstock.t_part tp ON tp.BSN = hop.BSN
+	LEFT JOIN client c ON c.ID = hop.CLIENT_ID
+	WHERE tp.PART_NUM = #{partNumber}
+  </select>
+  
+</mapper>

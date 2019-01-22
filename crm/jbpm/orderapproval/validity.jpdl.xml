@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process xmlns="http://jbpm.org/4.4/jpdl" key="ValidityProcess" name="validity">  
+  <start g="66,223,48,48" name="start1"> 
+    <transition g="-59,-26" name="报价不在有效期" to="采购确认"/> 
+  </start>  
+  <task g="270,220,92,52" name="采购确认" form="/task/validity/cgqr"> 
+    <transition g="-37,-31" name="报价有效" to="end1"/>  
+    <transition g="-85,-8" name="报价已过期" to="销售调整"/> 
+  </task>  
+  <end g="502,225,48,48" name="end1"/>  
+  <task g="275,394,92,52" name="销售调整" form="/task/validity/xsdz"> 
+    <transition g="-98,-54" name="不通过，此项目作废" to="exclusive1"/>  
+    <transition g="-20,30" name="重新选择供应商" to="exclusive2"/> 
+  </task>  
+  <decision g="549,395,48,48" name="exclusive1" form="/task/validity/exclusive1"> 
+    <handler class="com.naswork.module.task.controller.ask4leave.TaskHandle"/>  
+    <transition to="end1"/> 
+  </decision>  
+  <decision g="501,356,48,48" name="exclusive2" form="/task/validity/exclusive2"> 
+    <handler class="com.naswork.module.task.controller.ask4leave.TaskHandle"/>  
+    <transition to="end1"/> 
+  </decision> 
+</process>

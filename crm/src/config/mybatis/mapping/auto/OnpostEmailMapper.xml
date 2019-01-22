@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.naswork.dao.OnpostEmailDao" >
+  <resultMap id="BaseResultMap" type="com.naswork.model.OnpostEmail" >
+    <id column="post_id" property="postId" jdbcType="INTEGER" />
+    <result column="clientInquiryId" property="clientinquiryid" jdbcType="INTEGER" />
+    <result column="Email_status" property="emailStatus" jdbcType="INTEGER" />
+    <result column="record_date" property="recordDate" jdbcType="TIMESTAMP" />
+    <result column="send_date" property="sendDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    post_id, clientInquiryId, Email_status, record_date, send_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from onpost_email
+    where post_id = #{postId,jdbcType=INTEGER}
+  </select>
+  <!-- <select id="checkonpost" resultType="com.naswork.module.purchase.controller.supplierquote.OnpostVo"> -->
+  <select id="checkonpost" resultType="map">
+  	SELECT oe.post_id,ci.QUOTE_NUMBER 
+  	FROM onpost_email oe LEFT JOIN client_inquiry ci ON oe.clientInquiryId = ci.ID 
+  	WHERE oe.Email_status = 0 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from onpost_email
+    where post_id = #{postId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.naswork.model.OnpostEmail" >
+    insert into onpost_email (post_id, clientInquiryId, Email_status, 
+      record_date, send_date)
+    values (#{postId,jdbcType=INTEGER}, #{clientinquiryid,jdbcType=INTEGER}, #{emailStatus,jdbcType=INTEGER}, 
+      #{recordDate,jdbcType=TIMESTAMP}, #{sendDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.OnpostEmail" >
+    insert into onpost_email
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="postId != null" >
+        post_id,
+      </if>
+      <if test="clientinquiryid != null" >
+        clientInquiryId,
+      </if>
+      <if test="emailStatus != null" >
+        Email_status,
+      </if>
+      <if test="recordDate != null" >
+        record_date,
+      </if>
+      <if test="sendDate != null" >
+        send_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="postId != null" >
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="clientinquiryid != null" >
+        #{clientinquiryid,jdbcType=INTEGER},
+      </if>
+      <if test="emailStatus != null" >
+        #{emailStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recordDate != null" >
+        #{recordDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendDate != null" >
+        #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateById" parameterType="page">
+    UPDATE 
+	  onpost_email 
+	SET
+	  Email_status = 1,send_date = NOW() 
+	WHERE post_id IN (${setemails})
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.OnpostEmail" >
+    update onpost_email
+    set clientInquiryId = #{clientinquiryid,jdbcType=INTEGER},
+      Email_status = #{emailStatus,jdbcType=INTEGER},
+      record_date = #{recordDate,jdbcType=TIMESTAMP},
+      send_date = #{sendDate,jdbcType=TIMESTAMP}
+    where post_id = #{postId,jdbcType=INTEGER}
+  </update>
+</mapper>

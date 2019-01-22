@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process key="OrderapprovalProcess" name="orderapproval" xmlns="http://jbpm.org/4.4/jpdl">  
+  <start g="26,94,48,48" name="start1">  
+    <transition g="-46,10" name="利润低于标准" to="财务审核"/> 
+  </start>  
+  <end g="617,191,48,48" name="end1"/>  
+  <task form="/task/orderapproval/cwsh" g="228,93,92,52" name="财务审核"> 
+    <transition g="-64,-35" name="通过" to="end1"/>  
+    <transition g="-51,-14" name="不通过" to="exclusive1"/> 
+  </task>  
+  <task form="/task/orderapproval/cgxwgysnfjj" g="178,282,189,52" name="采购询问供应商能否降价"> 
+    <transition g="-64,-1" name="不能降价" to="总经理审核"/>  
+    <transition g="-92,-8" name="已降价" to="end1"/> 
+  </task>  
+  <task form="/task/orderapproval/zjlsh" g="217,401,104,52" name="总经理审核"> 
+    <transition g="-1,2" name="通过" to="end1"/>  
+    <transition g="-20,-30" name="不通过" to="exclusive2"/> 
+  </task>  
+  <decision g="614,406,48,48" name="exclusive2"> 
+    <handler class="com.naswork.module.task.controller.orderapproval.TaskHandle" />  
+    <transition g="13,14" name="此项目作废" to="end1"/> 
+  </decision>
+   <decision g="248,190,48,48" name="exclusive1">
+   <handler class="com.naswork.module.task.controller.orderapproval.TaskHandle" />  
+      <transition to="采购询问供应商能否降价" name=" " g="-5,-25"/>
+      <transition g="-71,-24" name="结束" to="end1"/>
+   </decision> 
+</process>

@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naswork.dao.Jbpm4TaskDao">
+  <resultMap id="BaseResultMap" type="com.naswork.model.Jbpm4Task">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="class_" jdbcType="CHAR" property="class_" />
+    <result column="dbversion_" jdbcType="DECIMAL" property="dbversion" />
+    <result column="name_" jdbcType="VARCHAR" property="name" />
+    <result column="descr_" jdbcType="VARCHAR" property="descr" />
+    <result column="state_" jdbcType="VARCHAR" property="state" />
+    <result column="susphiststate_" jdbcType="VARCHAR" property="susphiststate" />
+    <result column="assignee_" jdbcType="VARCHAR" property="assignee" />
+    <result column="form_" jdbcType="VARCHAR" property="form" />
+    <result column="priority_" jdbcType="DECIMAL" property="priority" />
+    <result column="create_" jdbcType="TIMESTAMP" property="create" />
+    <result column="duedate_" jdbcType="TIMESTAMP" property="duedate" />
+    <result column="progress_" jdbcType="DECIMAL" property="progress" />
+    <result column="signalling_" jdbcType="DECIMAL" property="signalling" />
+    <result column="execution_id_" jdbcType="VARCHAR" property="executionId" />
+    <result column="activity_name_" jdbcType="VARCHAR" property="activityName" />
+    <result column="hasvars_" jdbcType="DECIMAL" property="hasvars" />
+    <result column="supertask_" jdbcType="DECIMAL" property="supertask" />
+    <result column="execution_" jdbcType="DECIMAL" property="execution" />
+    <result column="procinst_" jdbcType="DECIMAL" property="procinst" />
+    <result column="swimlane_" jdbcType="DECIMAL" property="swimlane" />
+    <result column="taskdefname_" jdbcType="VARCHAR" property="taskdefname" />
+    <result column="YW_TABLE_ID" jdbcType="INTEGER" property="ywTableId" />
+    <result column="YW_TABLE_ELEMENT_ID" jdbcType="INTEGER" property="ywTableElementId" />
+     <result column="RELATION_ID" jdbcType="INTEGER" property="relationId" />
+     <result column="user_name" jdbcType="VARCHAR" property="userName" />
+     <result column="deployment_name" jdbcType="VARCHAR" property="deploymentName" />
+     <result column="task_number" jdbcType="VARCHAR" property="taskNumber" />
+        <result column="MESSAGE" jdbcType="VARCHAR" property="message" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dbid_  id, class_, dbversion_, name_, descr_, state_, susphiststate_, assignee_, form_, 
+    priority_, create_, duedate_, progress_, signalling_, execution_id_, activity_name_, 
+    hasvars_, supertask_, execution_, procinst_, swimlane_, taskdefname_, YW_TABLE_ID, 
+    YW_TABLE_ELEMENT_ID,RELATION_ID,MESSAGE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jbpm4_task
+    where dbid_ = #{dbid,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectByAssigneePage" parameterType="page" resultMap="BaseResultMap">
+    select 
+   	jt.dbid_ id,
+		jt.class_,
+		jt.dbversion_,
+		jt.name_,
+		jt.descr_,
+		jt.state_,
+		jt.susphiststate_,
+		jt.assignee_,
+		jt.form_,
+		jt.priority_,
+		jt.create_,
+		jt.duedate_,
+		jt.progress_,
+		jt.signalling_,
+		jt.execution_id_,
+		jt.activity_name_,
+		jt.hasvars_,
+		jt.supertask_,
+		jt.execution_,
+		jt.procinst_,
+		jt.swimlane_,
+		jt.taskdefname_,
+		jt.YW_TABLE_ID,
+		jt.YW_TABLE_ELEMENT_ID,
+		jt.RELATION_ID,
+		jdt.name_ deployment_name,
+		jt.message,
+		IFNULL(IFNULL(ip.IMPORT_NUMBER,ipp.PAYMENT_NUMBER),cwo.ORDER_NUMBER) task_number
+    FROM `jbpm4_task` jt
+    LEFT JOIN jbpm4_hist_procinst jhp on jhp.id_=jt.execution_id_
+	LEFT JOIN jbpm4_deployprop jd on jd.stringval_=jhp.procdefid_
+	LEFT JOIN jbpm4_deployment jdt on jdt.dbid_=jd.deployment_
+	LEFT JOIN client_weather_order cwo on (cwo.ID=jt.YW_TABLE_ID and jt.execution_id_ like 'ContractreviewProcess.ORDER_APPROVAL.ID.%')
+	LEFT JOIN import_package ip on  (ip.ID=jt.YW_TABLE_ID and jt.execution_id_ like 'AbnormalpartProcess.IMPORT_PACKAGE_ELEMENT.ID.%')
+	LEFT JOIN import_package_payment ipp on (ipp.ID=jt.YW_TABLE_ID and jt.execution_id_ like 'PaymentProcess.IMPORT_PACKAGE_PAYMENT_ELEMENT.ID.%')
+     WHERE 1=1 
+    
+      <if test="null!=parm">
+  	  and ${parm}
+     </if>
+    <if test="null!=assignee">
+   AND jt.assignee_=${assignee}
+ 	</if>
+ 	  <if test="null!=where">
+    ${where}
+ 	</if>
+ 	GROUP BY YW_TABLE_ID, descr_, activity_name_,message
+ 	ORDER BY create_ DESC
+  </select>
+  
+   <select id="selectWeatherOrder" parameterType="com.naswork.model.Jbpm4Task" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" /> from jbpm4_task jt INNER JOIN
+	order_approval oa on oa.ID=jt.RELATION_ID
+	where jt.taskdefname_ ='${taskdefname}'  and jt.YW_TABLE_ELEMENT_ID=${ywTableElementId} and oa.supplier_weather_order_element_id is null order by oa.task_id desc
+	</select>
+	
+	<select id="selectDbversion" parameterType="com.naswork.model.Jbpm4Task" resultMap="BaseResultMap">
+	select * from jbpm4_task jt INNER JOIN
+	order_approval oa on oa.ID=jt.RELATION_ID
+	INNER JOIN supplier_weather_order_element swoe on swoe.ID=oa.SUPPLIER_WEATHER_ORDER_ELEMENT_ID
+	where jt.taskdefname_  ='${taskdefname}'   and jt.YW_TABLE_ELEMENT_ID=${ywTableElementId} group by jt.YW_TABLE_ELEMENT_ID
+	</select>
+	
+	<select id="selectByTaskName" parameterType="com.naswork.model.Jbpm4Task" resultMap="BaseResultMap">
+	select    <include refid="Base_Column_List" /> from jbpm4_task jt 
+	where jt.taskdefname_  ='${taskdefname}'   and jt.YW_TABLE_ELEMENT_ID=${ywTableElementId} 
+	</select>
+	
+  <select id="selectByAssigneeAndYwId" parameterType="page" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+  <!--   FROM `jbpm4_task` jt WHERE jt.assignee_=${userCode} AND YW_TABLE_ID=${ywTableId} AND descr_='${descr}' AND activity_name_='${name}' -->
+ 	FROM `jbpm4_task` jt WHERE 
+ 	<if test="null!=where">
+ 		(
+ 	</if>
+ 	jt.assignee_=${userCode} 
+ 	<if test="null!=where">
+    	${where}
+ 	</if>
+ 	AND jt.dbid_ in (${ids}) 
+  </select>
+  
+   <select id="selectByExecutionId" parameterType="String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    FROM `jbpm4_task` jt WHERE jt.execution_id_=#{executionId}
+ 	
+  </select>
+  
+   <select id="findYwTableElementId" parameterType="com.naswork.model.Jbpm4Task" resultMap="BaseResultMap">
+  select  
+  <include refid="Base_Column_List" />
+   from jbpm4_task jt where jt.name_='${name}' and jt.descr_='${descr}'
+   <if test="null!=message">
+    and jt.message='${message}'
+   </if>
+   <if test="null==message">
+    and jt.message is null
+   </if>
+   and jt.YW_TABLE_ID=${ywTableId} and jt.assignee_=${assignee} ;
+  </select>
+  
+    <select id="findByYwTableId" parameterType="com.naswork.model.Jbpm4Task" resultMap="BaseResultMap">
+  select  
+  <include refid="Base_Column_List" />
+   from jbpm4_task jt where  jt.YW_TABLE_ID=${ywTableId};
+  </select>
+  
+   <select id="findOnlyYwTableElementId" parameterType="Integer" resultMap="BaseResultMap">
+  select  
+  <include refid="Base_Column_List" />
+   from jbpm4_task jt where jt.YW_TABLE_ELEMENT_ID=#{ywTableElementId} and jt.execution_id_ like 'ContractreviewProcess%' GROUP BY jt.taskdefname_
+   </select>
+   
+     <select id="findByYwTableElementId" parameterType="Integer" resultMap="BaseResultMap">
+  select  
+  <include refid="Base_Column_List" />
+   from jbpm4_task jt where jt.YW_TABLE_ELEMENT_ID=#{ywTableElementId} 
+   </select>
+   
+   <select id="findMessage" parameterType="String" resultType="String">
+ 	SELECT message_ FROM `jbpm4_hist_detail` where  htask_=#{htask}
+   </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from jbpm4_task
+    where dbid_ = #{dbid,jdbcType=DECIMAL}
+  </delete>
+  
+  <delete id="deleteByParticipation" parameterType="java.math.BigDecimal">
+    delete from jbpm4_participation
+    where task_ = #{dbid,jdbcType=DECIMAL}
+  </delete>
+  
+  <delete id="deleteHIStTask" parameterType="String">
+    delete from jbpm4_hist_task
+    where execution_ = #{execution,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteHistProcinst" parameterType="String">
+    delete from jbpm4_hist_procinst
+    where id_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteHistActinst" parameterType="String">
+    delete from jbpm4_hist_actinst
+    where execution_ = #{execution,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteExecution" parameterType="String">
+    delete from jbpm4_execution
+    where id_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.naswork.model.Jbpm4Task">
+    insert into jbpm4_task (dbid_, class_, dbversion_, 
+      name_, descr_, state_, 
+      susphiststate_, assignee_, form_, 
+      priority_, create_, duedate_, 
+      progress_, signalling_, execution_id_, 
+      activity_name_, hasvars_, supertask_, 
+      execution_, procinst_, swimlane_, 
+      taskdefname_, YW_TABLE_ID, YW_TABLE_ELEMENT_ID
+      )
+    values (#{dbid,jdbcType=DECIMAL}, #{class_,jdbcType=CHAR}, #{dbversion,jdbcType=DECIMAL}, 
+      #{name,jdbcType=VARCHAR}, #{descr,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{susphiststate,jdbcType=VARCHAR}, #{assignee,jdbcType=VARCHAR}, #{form,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=DECIMAL}, #{create,jdbcType=TIMESTAMP}, #{duedate,jdbcType=TIMESTAMP}, 
+      #{progress,jdbcType=DECIMAL}, #{signalling,jdbcType=DECIMAL}, #{executionId,jdbcType=VARCHAR}, 
+      #{activityName,jdbcType=VARCHAR}, #{hasvars,jdbcType=DECIMAL}, #{supertask,jdbcType=DECIMAL}, 
+      #{execution,jdbcType=DECIMAL}, #{procinst,jdbcType=DECIMAL}, #{swimlane,jdbcType=DECIMAL}, 
+      #{taskdefname,jdbcType=VARCHAR}, #{ywTableId,jdbcType=INTEGER}, #{ywTableElementId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.naswork.model.Jbpm4Task">
+    insert into jbpm4_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dbid != null">
+        dbid_,
+      </if>
+      <if test="class_ != null">
+        class_,
+      </if>
+      <if test="dbversion != null">
+        dbversion_,
+      </if>
+      <if test="name != null">
+        name_,
+      </if>
+      <if test="descr != null">
+        descr_,
+      </if>
+      <if test="state != null">
+        state_,
+      </if>
+      <if test="susphiststate != null">
+        susphiststate_,
+      </if>
+      <if test="assignee != null">
+        assignee_,
+      </if>
+      <if test="form != null">
+        form_,
+      </if>
+      <if test="priority != null">
+        priority_,
+      </if>
+      <if test="create != null">
+        create_,
+      </if>
+      <if test="duedate != null">
+        duedate_,
+      </if>
+      <if test="progress != null">
+        progress_,
+      </if>
+      <if test="signalling != null">
+        signalling_,
+      </if>
+      <if test="executionId != null">
+        execution_id_,
+      </if>
+      <if test="activityName != null">
+        activity_name_,
+      </if>
+      <if test="hasvars != null">
+        hasvars_,
+      </if>
+      <if test="supertask != null">
+        supertask_,
+      </if>
+      <if test="execution != null">
+        execution_,
+      </if>
+      <if test="procinst != null">
+        procinst_,
+      </if>
+      <if test="swimlane != null">
+        swimlane_,
+      </if>
+      <if test="taskdefname != null">
+        taskdefname_,
+      </if>
+      <if test="ywTableId != null">
+        YW_TABLE_ID,
+      </if>
+      <if test="ywTableElementId != null">
+        YW_TABLE_ELEMENT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dbid != null">
+        #{dbid,jdbcType=DECIMAL},
+      </if>
+      <if test="class_ != null">
+        #{class_,jdbcType=CHAR},
+      </if>
+      <if test="dbversion != null">
+        #{dbversion,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descr != null">
+        #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="susphiststate != null">
+        #{susphiststate,jdbcType=VARCHAR},
+      </if>
+      <if test="assignee != null">
+        #{assignee,jdbcType=VARCHAR},
+      </if>
+      <if test="form != null">
+        #{form,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=DECIMAL},
+      </if>
+      <if test="create != null">
+        #{create,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duedate != null">
+        #{duedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=DECIMAL},
+      </if>
+      <if test="signalling != null">
+        #{signalling,jdbcType=DECIMAL},
+      </if>
+      <if test="executionId != null">
+        #{executionId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityName != null">
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="hasvars != null">
+        #{hasvars,jdbcType=DECIMAL},
+      </if>
+      <if test="supertask != null">
+        #{supertask,jdbcType=DECIMAL},
+      </if>
+      <if test="execution != null">
+        #{execution,jdbcType=DECIMAL},
+      </if>
+      <if test="procinst != null">
+        #{procinst,jdbcType=DECIMAL},
+      </if>
+      <if test="swimlane != null">
+        #{swimlane,jdbcType=DECIMAL},
+      </if>
+      <if test="taskdefname != null">
+        #{taskdefname,jdbcType=VARCHAR},
+      </if>
+      <if test="ywTableId != null">
+        #{ywTableId,jdbcType=INTEGER},
+      </if>
+      <if test="ywTableElementId != null">
+        #{ywTableElementId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.naswork.model.Jbpm4Task">
+    update jbpm4_task
+    <set>
+      <if test="class_ != null">
+        class_ = #{class_,jdbcType=CHAR},
+      </if>
+      <if test="dbversion != null">
+        dbversion_ = #{dbversion,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        name_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descr != null">
+        descr_ = #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state_ = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="susphiststate != null">
+        susphiststate_ = #{susphiststate,jdbcType=VARCHAR},
+      </if>
+      <if test="assignee != null">
+        assignee_ = #{assignee,jdbcType=VARCHAR},
+      </if>
+      <if test="form != null">
+        form_ = #{form,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        priority_ = #{priority,jdbcType=DECIMAL},
+      </if>
+      <if test="create != null">
+        create_ = #{create,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duedate != null">
+        duedate_ = #{duedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progress != null">
+        progress_ = #{progress,jdbcType=DECIMAL},
+      </if>
+      <if test="signalling != null">
+        signalling_ = #{signalling,jdbcType=DECIMAL},
+      </if>
+      <if test="executionId != null">
+        execution_id_ = #{executionId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityName != null">
+        activity_name_ = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="hasvars != null">
+        hasvars_ = #{hasvars,jdbcType=DECIMAL},
+      </if>
+      <if test="supertask != null">
+        supertask_ = #{supertask,jdbcType=DECIMAL},
+      </if>
+      <if test="execution != null">
+        execution_ = #{execution,jdbcType=DECIMAL},
+      </if>
+      <if test="procinst != null">
+        procinst_ = #{procinst,jdbcType=DECIMAL},
+      </if>
+      <if test="swimlane != null">
+        swimlane_ = #{swimlane,jdbcType=DECIMAL},
+      </if>
+      <if test="taskdefname != null">
+        taskdefname_ = #{taskdefname,jdbcType=VARCHAR},
+      </if>
+      <if test="ywTableId != null">
+        YW_TABLE_ID = #{ywTableId,jdbcType=INTEGER},
+      </if>
+      <if test="ywTableElementId != null">
+        YW_TABLE_ELEMENT_ID = #{ywTableElementId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where dbid_ = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.naswork.model.Jbpm4Task">
+    update jbpm4_task
+    set class_ = #{class_,jdbcType=CHAR},
+      dbversion_ = #{dbversion,jdbcType=DECIMAL},
+      name_ = #{name,jdbcType=VARCHAR},
+      descr_ = #{descr,jdbcType=VARCHAR},
+      state_ = #{state,jdbcType=VARCHAR},
+      susphiststate_ = #{susphiststate,jdbcType=VARCHAR},
+      assignee_ = #{assignee,jdbcType=VARCHAR},
+      form_ = #{form,jdbcType=VARCHAR},
+      priority_ = #{priority,jdbcType=DECIMAL},
+      create_ = #{create,jdbcType=TIMESTAMP},
+      duedate_ = #{duedate,jdbcType=TIMESTAMP},
+      progress_ = #{progress,jdbcType=DECIMAL},
+      signalling_ = #{signalling,jdbcType=DECIMAL},
+      execution_id_ = #{executionId,jdbcType=VARCHAR},
+      activity_name_ = #{activityName,jdbcType=VARCHAR},
+      hasvars_ = #{hasvars,jdbcType=DECIMAL},
+      supertask_ = #{supertask,jdbcType=DECIMAL},
+      execution_ = #{execution,jdbcType=DECIMAL},
+      procinst_ = #{procinst,jdbcType=DECIMAL},
+      swimlane_ = #{swimlane,jdbcType=DECIMAL},
+      taskdefname_ = #{taskdefname,jdbcType=VARCHAR},
+      YW_TABLE_ID = #{ywTableId,jdbcType=INTEGER},
+      YW_TABLE_ELEMENT_ID = #{ywTableElementId,jdbcType=INTEGER}
+    where dbid_ = #{dbid,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByExecutionId" parameterType="com.naswork.model.Jbpm4Task">
+    update jbpm4_task
+    set 
+      YW_TABLE_ID = #{ywTableId,jdbcType=INTEGER},
+      YW_TABLE_ELEMENT_ID = #{ywTableElementId,jdbcType=INTEGER},
+       RELATION_ID = #{relationId,jdbcType=INTEGER}
+    where execution_id_ = #{executionId,jdbcType=VARCHAR}
+  </update>
+  
+    <update id="updateJbpm4HistActinst" parameterType="com.naswork.model.Jbpm4Task">
+    update jbpm4_hist_actinst
+    set 
+      YW_TABLE_ID = #{ywTableId,jdbcType=INTEGER},
+      YW_TABLE_ELEMENT_ID = #{ywTableElementId,jdbcType=INTEGER},
+       RELATION_ID = #{relationId,jdbcType=INTEGER}
+    where execution_ = #{executionId,jdbcType=VARCHAR}
+  </update>
+  
+    <update id="updateJbpm4HistTask" parameterType="com.naswork.model.Jbpm4Task">
+    update jbpm4_hist_task
+    set 
+      YW_TABLE_ID = #{ywTableId,jdbcType=INTEGER},
+      YW_TABLE_ELEMENT_ID = #{ywTableElementId,jdbcType=INTEGER},
+       RELATION_ID = #{relationId,jdbcType=INTEGER}
+    where execution_ = #{executionId,jdbcType=VARCHAR}
+  </update>
+  
+   <update id="updateMessage" parameterType="com.naswork.model.Jbpm4Task">
+    update jbpm4_hist_task
+    set 
+      MESSAGE = #{message,jdbcType=VARCHAR}
+    where dbid_ = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <update id="updateTaskMessage" parameterType="com.naswork.model.Jbpm4Task">
+    update jbpm4_task
+    set 
+        MESSAGE = #{message,jdbcType=VARCHAR}
+    where dbid_ = #{id,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="groupTaskData" parameterType="String" resultMap="BaseResultMap">
+  SELECT DISTINCT
+		taskimpl1_.DBID_ AS id,taskimpl1_.YW_TABLE_ID,taskimpl1_.descr_,taskimpl1_.taskdefname_,taskimpl1_.create_,taskimpl1_.execution_id_
+	FROM
+		JBPM4_PARTICIPATION participat0_
+	INNER JOIN JBPM4_TASK taskimpl1_ ON participat0_.TASK_ = taskimpl1_.DBID_
+	WHERE
+		participat0_.TYPE_ = 'candidate'
+	AND participat0_.USERID_ =#{userId}
+	AND (taskimpl1_.ASSIGNEE_ IS NULL)
+ 	GROUP BY taskimpl1_.YW_TABLE_ID
+  </select>
+  
+   <select id="groupSubTaskData" parameterType="String" resultMap="BaseResultMap">
+	  SELECT
+		taskimpl0_.YW_TABLE_ELEMENT_ID,
+		taskimpl0_.DBID_ AS id,taskimpl0_.execution_id_
+	FROM
+		JBPM4_TASK taskimpl0_
+		inner join jbpm4_participation  jp on jp.task_=taskimpl0_.dbid_
+	WHERE
+		taskimpl0_.YW_TABLE_ID=#{0} AND jp.userid_=	#{1}
+		AND taskimpl0_.assignee_ IS NULL
+	ORDER BY
+		taskimpl0_.CREATE_ ASC
+		</select>
+		
+		 <select id="myFinishedTaskDataPage" parameterType="page" resultMap="BaseResultMap">
+			 SELECT
+			jht.DBID_ AS id,jht.YW_TABLE_ID,jha.activity_name_,jdnt.name_,jht.create_,jht.execution_ execution_id_, 
+			IFNULL(IFNULL(ip.IMPORT_NUMBER,ipp.PAYMENT_NUMBER),cwo.ORDER_NUMBER) task_number,jht.message
+		FROM 
+			JBPM4_HIST_TASK jht
+		LEFT JOIN JBPM4_HIST_ACTINST jha ON jha.HTASK_ = jht.DBID_
+		LEFT JOIN JBPM4_HIST_PROCINST jhp ON jhp.dbid_ = jha.hproci_
+		LEFT JOIN JBPM4_DEPLOYPROP jdlp ON jdlp.stringval_ = jhp.procdefid_
+		LEFT JOIN JBPM4_DEPLOYMENT jdnt ON jdnt.dbid_ = jdlp.deployment_
+		LEFT JOIN client_weather_order cwo on (cwo.ID=jht.YW_TABLE_ID and jht.execution_ like 'ContractreviewProcess.ORDER_APPROVAL.ID.%')
+		LEFT JOIN import_package ip on  (ip.ID=jht.YW_TABLE_ID and jht.execution_ like 'AbnormalpartProcess.IMPORT_PACKAGE_ELEMENT.ID.%')
+		LEFT JOIN import_package_payment ipp on (ipp.ID=jht.YW_TABLE_ID and jht.execution_ like 'PaymentProcess.IMPORT_PACKAGE_PAYMENT_ELEMENT.ID.%')
+		WHERE
+			jht.ASSIGNEE_ = ${assignee}
+		AND jht.state_ = 'completed'
+		<if test="parm!=null">
+		and ${parm}
+		</if>
+		GROUP BY jht.YW_TABLE_ID,jdnt.name_,jha.activity_name_,jht.message
+		ORDER BY jht.create_ DESC
+		</select>
+		
+		 <select id="myFinishedListsUBData" parameterType="String" resultMap="BaseResultMap">
+			 SELECT
+			jht.YW_TABLE_ELEMENT_ID,
+		jht.DBID_ AS id,jht.execution_ execution_id_,IFNULL(u.user_name,'流程结束') user_name
+		FROM
+			JBPM4_HIST_TASK jht
+		LEFT JOIN JBPM4_HIST_ACTINST jha ON jha.HTASK_ = jht.DBID_
+		LEFT JOIN JBPM4_HIST_PROCINST jhp ON jhp.dbid_ = jha.hproci_
+		LEFT JOIN JBPM4_DEPLOYPROP jdlp ON jdlp.stringval_ = jhp.procdefid_
+		LEFT JOIN JBPM4_DEPLOYMENT jdnt ON jdnt.dbid_ = jdlp.deployment_
+		LEFT JOIN order_approval oa on oa.ID=jht.RELATION_ID 
+		LEFT JOIN jbpm4_task jt on jt.execution_id_=jht.execution_
+		LEFT JOIN t_user u on u.user_id=jt.assignee_
+		WHERE
+			jht.ASSIGNEE_ = #{0}
+		AND jht.state_ = 'completed'
+		AND jht.YW_TABLE_ID=#{1} AND jha.activity_name_=#{2} AND  jdnt.name_=#{3}
+		GROUP BY jht.execution_
+		</select>
+		
+  <select id="getListById" parameterType="String" resultMap="BaseResultMap">
+  	SELECT
+		jt.dbid_ id,
+		jt.class_,
+		jt.dbversion_,
+		jt.name_,
+		jt.descr_,
+		jt.state_,
+		jt.susphiststate_,
+		jt.assignee_,
+		jt.form_,
+		jt.priority_,
+		jt.create_,
+		jt.duedate_,
+		jt.progress_,
+		jt.signalling_,
+		jt.execution_id_,
+		jt.activity_name_,
+		jt.hasvars_,
+		jt.supertask_,
+		jt.execution_,
+		jt.procinst_,
+		jt.swimlane_,
+		jt.taskdefname_,
+		jt.YW_TABLE_ID,
+		jt.YW_TABLE_ELEMENT_ID,
+		jt.RELATION_ID,
+		jdt.name_ deployment_name,
+		jt.message,
+		IFNULL(
+			IFNULL(
+				ip.IMPORT_NUMBER,
+				ipp.PAYMENT_NUMBER
+			),
+			cwo.ORDER_NUMBER
+		) task_number
+	FROM
+		`jbpm4_task` jt
+	LEFT JOIN jbpm4_hist_procinst jhp ON jhp.id_ = jt.execution_id_
+	LEFT JOIN jbpm4_deployprop jd ON jd.stringval_ = jhp.procdefid_
+	LEFT JOIN jbpm4_deployment jdt ON jdt.dbid_ = jd.deployment_
+	LEFT JOIN client_weather_order cwo ON (
+		cwo.ID = jt.YW_TABLE_ID
+		AND jt.execution_id_ LIKE 'ContractreviewProcess.ORDER_APPROVAL.ID.%'
+	)
+	LEFT JOIN import_package ip ON (
+		ip.ID = jt.YW_TABLE_ID
+		AND jt.execution_id_ LIKE 'AbnormalpartProcess.IMPORT_PACKAGE_ELEMENT.ID.%'
+	)
+	LEFT JOIN import_package_payment ipp ON (
+		ipp.ID = jt.YW_TABLE_ID
+		AND jt.execution_id_ LIKE 'PaymentProcess.IMPORT_PACKAGE_PAYMENT_ELEMENT.ID.%'
+	)
+	WHERE jt.dbid_ = #{id}
+	GROUP BY
+		YW_TABLE_ID,
+		descr_,
+		activity_name_,
+		message
+	ORDER BY
+		create_ DESC
+  </select>
+  
+  <select id="getListByIdForHis" parameterType="String" resultMap="BaseResultMap">
+  	SELECT
+		jt.dbid_ id,
+		jt.class_,
+		jt.dbversion_,
+		jt.name_,
+		jt.descr_,
+		jt.state_,
+		jt.susphiststate_,
+		jt.assignee_,
+		jt.form_,
+		jt.priority_,
+		jt.create_,
+		jt.duedate_,
+		jt.progress_,
+		jt.signalling_,
+		jt.execution_id_,
+		jt.activity_name_,
+		jt.hasvars_,
+		jt.supertask_,
+		jt.execution_,
+		jt.procinst_,
+		jt.swimlane_,
+		jt.taskdefname_,
+		jt.YW_TABLE_ID,
+		jt.YW_TABLE_ELEMENT_ID,
+		jt.RELATION_ID,
+		jdt.name_ deployment_name,
+		jt.message,
+		IFNULL(
+			IFNULL(
+				ip.IMPORT_NUMBER,
+				ipp.PAYMENT_NUMBER
+			),
+			cwo.ORDER_NUMBER
+		) task_number
+	FROM
+		`jbpm4_task` jt
+	LEFT JOIN jbpm4_hist_procinst jhp ON jhp.id_ = jt.execution_id_
+	LEFT JOIN jbpm4_deployprop jd ON jd.stringval_ = jhp.procdefid_
+	LEFT JOIN jbpm4_deployment jdt ON jdt.dbid_ = jd.deployment_
+	LEFT JOIN client_weather_order cwo ON (
+		cwo.ID = jt.YW_TABLE_ID
+		AND jt.execution_id_ LIKE 'ContractreviewProcess.ORDER_APPROVAL.ID.%'
+	)
+	LEFT JOIN import_package ip ON (
+		ip.ID = jt.YW_TABLE_ID
+		AND jt.execution_id_ LIKE 'AbnormalpartProcess.IMPORT_PACKAGE_ELEMENT.ID.%'
+	)
+	LEFT JOIN import_package_payment ipp ON (
+		ipp.ID = jt.YW_TABLE_ID
+		AND jt.execution_id_ LIKE 'PaymentProcess.IMPORT_PACKAGE_PAYMENT_ELEMENT.ID.%'
+	)
+	LEFT JOIN order_approval oa ON oa.CLIENT_ORDER_ID = cwo.ID
+	WHERE oa.id = #{id}
+	GROUP BY
+		YW_TABLE_ID,
+		descr_,
+		activity_name_,
+		message
+	ORDER BY
+		create_ DESC
+  </select>
+  
+  
+  
+  </mapper>
